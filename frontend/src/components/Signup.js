@@ -19,16 +19,18 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useNavigate} from "react-router-dom";
 
 export default function SwitchListSecondary() {
+    const navigate = useNavigate();
+
     const [values, setValues] = React.useState({
         name: '',
         studentid: '',
         email: '',
         password: '',
         showPassword: false,
-        Checkpassword: '',
-        showCheckpassword: false,
+        confirmPassword: '',
     });
 
     const handleChange = (prop) => (event) => {
@@ -46,17 +48,6 @@ export default function SwitchListSecondary() {
         event.preventDefault();
     };
 
-    const handleClickShowCheckpassword = () => {
-        setValues({
-            ...values,
-            showCheckpassword: !values.showCheckpassword,
-        });
-    }
-
-    const handleMouseDownCheckpassword = (event) => {
-        event.preventDefault();
-    };
-
     return (
         <Container component="main" maxWidth="sm">
             <List
@@ -69,9 +60,6 @@ export default function SwitchListSecondary() {
                 // subheader={<ListSubheader>註冊帳號</ListSubheader>}
             >
                 <ListItem style={{ display: 'flex', flexDirection: 'row'}}>
-                    {/* <ListItemIcon>
-                        <WifiIcon />
-                    </ListItemIcon> */}
                     <ListItemText id="info-shoot" primary="epo 基本資料頁面截圖" />
                     <Button
                         variant="contained"
@@ -120,7 +108,17 @@ export default function SwitchListSecondary() {
                 </ListItem>
                 <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                     <ListItemText sx={{ gridColumn: '1/3' }} id="birthday-item" primary="生日" />
-                    <div style={{ gridColumn: '4/8', display: 'flex', justifyContent: 'space-between' }}>
+                    <TextField
+                        sx={{ gridColumn: '4/8' }}
+                        id="date"
+                        label="出生年/月/日"
+                        type="date"
+                        defaultValue="2017-05-24"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        />
+                    {/* <div style={{ gridColumn: '4/8', display: 'flex', justifyContent: 'space-between' }}>
                         <TextField
                             required
                             id="year"
@@ -142,7 +140,7 @@ export default function SwitchListSecondary() {
                             name="day"
                             autoComplete="day"
                         />
-                    </div>
+                    </div> */}
                     {/* <LocalizationProvider dateAdapter={AdapterDateFns} >
                     <DatePicker
                         disableFuture
@@ -214,10 +212,10 @@ export default function SwitchListSecondary() {
                             endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                edge="end"
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
                                 >
                                 {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
@@ -226,38 +224,25 @@ export default function SwitchListSecondary() {
                             label="Password"
                         />
                     </FormControl>
-                </ListItem>    
+                </ListItem>
                 <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                    <ListItemText sx={{ gridColumn: '1/3' }} id="check-password-item" primary="再次輸入密碼" />
-                    <FormControl sx={{ gridColumn: '4/8' }} variant="outlined">
-                        <InputLabel htmlFor="adornment-checkpassword">再次輸入密碼</InputLabel>
-                        <OutlinedInput
-                            required
-                            id="adornment-checkpassword"
-                            type={values.showCheckpassword ? 'text' : 'checkpassword'}
-                            value={values.checkpassword}
-                            onChange={handleChange('checkpassword')}
-                            endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowCheckpassword}
-                                onMouseDown={handleMouseDownCheckpassword}
-                                edge="end"
-                                >
-                                {values.showCheckpassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                            }
-                            label="Checkpassword"
-                        />
-                    </FormControl>
+                    <ListItemText sx={{ gridColumn: '1/3' }} id="confirm-item" primary="再次輸入密碼" />
+                    <TextField
+                        sx={{ gridColumn: '4/8' }}
+                        required
+                        id="confirmPassword"
+                        type={'password'}
+                        label="再次輸入密碼"
+                        name="confirmPassword"
+                        autoComplete="confirmPassword"
+                    />
                 </ListItem>
                 <Button
-                    type="submit"
+                    // type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 3 }}
+                    onClick={() => navigate('/')}
                 >
                     確認送出
                 </Button>

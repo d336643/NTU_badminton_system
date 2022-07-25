@@ -1,22 +1,13 @@
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
+
+import { List, ListItem, FormControl, ListItemText, ListSubheader,
+        Box, Button, Grid, TextField, Typography, Container, 
+        IconButton, InputAdornment, OutlinedInput, InputLabel } from '@mui/material';
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 import { Link, useNavigate} from "react-router-dom";
 
 export default function SwitchListSecondary() {
@@ -44,17 +35,6 @@ export default function SwitchListSecondary() {
     };
     
     const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const handleClickShowCheckpassword = () => {
-        setValues({
-            ...values,
-            showCheckpassword: !values.showCheckpassword,
-        });
-    }
-
-    const handleMouseDownCheckpassword = (event) => {
         event.preventDefault();
     };
 
@@ -120,43 +100,17 @@ export default function SwitchListSecondary() {
                     />
                 </ListItem>
                 <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                    <ListItemText sx={{ gridColumn: '1/3' }} id="birthday-item" primary="生日" />
-                    <div style={{ gridColumn: '4/8', display: 'flex', justifyContent: 'space-between' }}>
-                        <TextField
-                            required
-                            id="year"
-                            label="民國"
-                            name="year"
-                            autoComplete="year"
-                        />
-                        <TextField
-                            required
-                            id="month"
-                            label="月"
-                            name="month"
-                            autoComplete="month"
-                        />
-                        <TextField
-                            required
-                            id="day"
-                            label="日"
-                            name="day"
-                            autoComplete="day"
-                        />
-                    </div>
-                    {/* <LocalizationProvider dateAdapter={AdapterDateFns} >
-                    <DatePicker
-                        disableFuture
-                        // label="Responsive"
-                        openTo="year"
-                        views={['year', 'month', 'day']}
-                        value={value}
-                        onChange={(newValue) => {
-                            setValue(newValue);
+                    <ListItemText sx={{ gridColumn: '1/3' }} id="birthday-item" primary="出生年月日" />
+                    <TextField
+                        sx={{ gridColumn: '4/8' }}
+                        id="date"
+                        label="出生年/月/日"
+                        type="date"
+                        defaultValue="2017-05-24"
+                        InputLabelProps={{
+                            shrink: true,
                         }}
-                        renderInput={(params) => <TextField {...params} />}
-                        />
-                    </LocalizationProvider> */}
+                    />
                 </ListItem>
                 <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                     <ListItemText sx={{ gridColumn: '1/3' }} id="identify-item" primary="身分證字號" />
@@ -229,30 +183,16 @@ export default function SwitchListSecondary() {
                     </FormControl>
                 </ListItem>    
                 <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                    <ListItemText sx={{ gridColumn: '1/3' }} id="check-password-item" primary="再次輸入密碼" />
-                    <FormControl sx={{ gridColumn: '4/8' }} variant="outlined">
-                        <InputLabel htmlFor="adornment-checkpassword">再次輸入密碼</InputLabel>
-                        <OutlinedInput
-                            required
-                            id="adornment-checkpassword"
-                            type={values.showCheckpassword ? 'text' : 'checkpassword'}
-                            value={values.checkpassword}
-                            onChange={handleChange('checkpassword')}
-                            endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowCheckpassword}
-                                onMouseDown={handleMouseDownCheckpassword}
-                                edge="end"
-                                >
-                                {values.showCheckpassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                            }
-                            label="Checkpassword"
-                        />
-                    </FormControl>
+                    <ListItemText sx={{ gridColumn: '1/3' }} id="confirm-item" primary="再次輸入密碼" />
+                    <TextField
+                        sx={{ gridColumn: '4/8' }}
+                        required
+                        id="confirmPassword"
+                        type={'password'}
+                        label="再次輸入密碼"
+                        name="confirmPassword"
+                        autoComplete="confirmPassword"
+                    />
                 </ListItem>
                 <Grid
                     container
@@ -261,7 +201,10 @@ export default function SwitchListSecondary() {
                     sx={{ mt: 3, mb: 3 }}
                 >
                     <Grid item>
-                        <Button type="submit" variant="contained">
+                        <Button 
+                            variant="contained"
+                            onClick={() => navigate('/')}
+                        >
                             儲存
                         </Button>
                     </Grid>
