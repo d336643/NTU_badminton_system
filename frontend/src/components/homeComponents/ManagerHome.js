@@ -1,12 +1,11 @@
-import React from "react";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-const HomePage = () => {
+const Manager = ({setView, handleLogOut}) => {
     return (
         <Container component="main" maxWidth="xs">
             <Box
@@ -23,59 +22,52 @@ const HomePage = () => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    <Typography 
-                        margin= "5% 0px 5% 0px"
-                        component="h3"
-                        variant="h4"
-                    >
-                        臺大羽球比賽
-                    </Typography>
                     <Grid item xs={12}>
-                        <Button component={Link} to="/register"
+                        <Button component={Link} to="/applicantform"
                             variant="outlined"
+                            size='large'
                             fullWidth>
-                            賽程專區
+                            報名者表單、繳費
+                        </Button>
+                    </Grid>
+                    {/* <Grid item xs={12}>
+                        <Button component={Link} to="/"
+                            variant="outlined"
+                            size='large'
+                            fullWidth>
+                            排賽程
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"
+                            size='large'
                             fullWidth>
-                            個人賽事
-                        </Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button component={Link} to="/"
-                            variant="outlined"
-                            fullWidth>
-                            及時比分
+                            登入場單
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Button component={Link} to="/login"
                             variant="outlined"
+                            size='large'
                             fullWidth>
-                            報名賽事
+                            清空場次
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Button component={Link} to="/editprofile"
                             variant="outlined"
+                            size='large'
                             fullWidth>
-                            編輯個人資料
+                            裁判
                         </Button>
-                    </Grid>
+                    </Grid> 
+                    currently not open these functions*/}
                     <Grid item xs={12}>
-                        <Button component={Link} to="/login"
-                            variant="outlined"
-                            fullWidth>
-                            報名 / 繳費狀態
-                        </Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button component={Link} to="/login"
-                            variant="outlined"
-                            fullWidth>
+                        <Button variant="outlined"
+                            size='large'
+                            fullWidth
+                            onClick={handleLogOut}>
                             登出
                         </Button>
                     </Grid>
@@ -85,4 +77,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage;
+export default Manager;
