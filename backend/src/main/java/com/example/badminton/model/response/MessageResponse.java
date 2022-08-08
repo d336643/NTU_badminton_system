@@ -9,5 +9,5 @@ public class MessageResponse {
 
     private Boolean success;
 
-    private String message;
+    private String msg;
 }
