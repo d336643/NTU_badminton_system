@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  db_mysql_badminton:
+    image: mysql:8.0
+    platform: linux/amd64
+    container_name: mysql_badminton
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ntu_badminton
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/badminton:/docker-entrypoint-initdb.d
+      - ./database/mysql.cnf:/etc/mysql/conf.d/custom.cnf
