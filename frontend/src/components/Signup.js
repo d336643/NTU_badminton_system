@@ -11,7 +11,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Alert from '@mui/material/Alert';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -39,20 +38,21 @@ export default function SwitchListSecondary() {
     const [values, setValues] = useState({
         username: '',
         sid: '',
-        degreeId: 3,
-        departmentId: '7050',
-        birthday: '2002/4/16',
-        iid: 'H225621925',
-        email: 'b09705024@ntu.edu.tw',
-        phone: '0968650063',
-        address: '中壢區...',
-        password: 'asdfg12345',
+        degreeId: 0,
+        collegeId: null,
+        departmentId: null,
+        birthday: '',
+        iid: '',
+        email: '',
+        phone: '',
+        address: '',
+        password: '',
         showPassword: false,
         confirmPassword: '',
     });
     const [open, setOpen] = useState(false);
-    const [college, setCollege] = useState();
-    const [department, setDepartment] = useState();
+    const [college, setCollege] = useState([]);
+    const [department, setDepartment] = useState([]);
     const [nation, setNation] = useState(1);
     const [status, setStatus] = useState(false);
     // const [showmessage, setShowmessage] = useState(false);
@@ -61,9 +61,6 @@ export default function SwitchListSecondary() {
     // const [submit, setSubmit] = useState(false);
 
     // const [file, setFile] = useState(null); in this moment we don't need file
-    // useEffect(() => {
-	// 	console.log(file);
-	// }, [file])
 
     const getInfo = async () => {
         const config = {
@@ -78,26 +75,36 @@ export default function SwitchListSecondary() {
             if (res.data.success === true) {
                 console.log(res.data.data);
                 // console.log(res.data.colleges);
-                // setCollege(res.data.colleges);
-                // setDepartment(res.data.departments);
+                getKeysOf(res.data.data.colleges, 1);
+                getKeysOf(res.data.data.departments, 2);
             }
         } catch (error) {
             console.log(error);
         }
     }
 
+    const getKeysOf = (dict, cnt) => {
+        const key = Object.keys(dict);
+        const value = Object.values(dict);
+        const testArr = value.map(function(x, i) {
+            return {label: key[i]+value[i], id: key[i]}        
+        });
+        if (cnt === 1) setCollege(college.concat(testArr))
+        if (cnt === 2) setDepartment(department.concat(testArr))
+    }
+
     useEffect(() => {
         getInfo();
     }, [])
 
-    const onFinish = (values) => {
+    const onFinish = () => {
         console.log('Received values of form: ', values);
+        delete values.collegeId;
         delete values.showPassword;
         delete values.confirmPassword;
-    
-        let finalForm = {...values};
-        console.log(finalForm);
-        submitForm(finalForm);
+
+        console.log(values);
+        submitForm(values);
     };
     //   const submit = async (request) => {
     //     try {
@@ -120,7 +127,8 @@ export default function SwitchListSecondary() {
 		console.log(form);
 		try {
 			let res = await instance.post('/auth/signup', form, config);
-            if (res.success === 200) {
+            console.log(res);
+            if (res.status === 200) {
                 setStatus(true);
                 // setShowmessage(true);
                 setAlertmessage("將為您導回首頁，請至學校信箱驗證帳戶 !")
@@ -128,7 +136,7 @@ export default function SwitchListSecondary() {
                 // handleAlert();
                 setOpen(true);
             }
-            else if (res.success === 400) {
+            else if (res.status === 400) {
                 // setShowmessage(true);
                 setAlertmessage(res.msg);
                 // setSeverity("error");
@@ -169,8 +177,6 @@ export default function SwitchListSecondary() {
                 <Dialog
                     open={open}
                     onClose={handleClose}
-                    // aria-labelledby="alert-dialog-title"
-                    // aria-describedby="alert-dialog-description"
                 >
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
@@ -235,7 +241,7 @@ export default function SwitchListSecondary() {
                             id="fullName"
                             label="姓名"
                             autoFocus
-                            onChange={handleChange('name')}
+                            onChange={handleChange('username')}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -259,7 +265,7 @@ export default function SwitchListSecondary() {
                             // disablePortal
                             id="select-degreeId"
                             options={degreeIdEntries}
-                            getOptionLabel={(option) => option.label}
+                            getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
                             renderInput={(params) => <TextField {...params} label="請選擇年級" />}
                             onChange={(event, newValue, reason) => {
@@ -276,26 +282,30 @@ export default function SwitchListSecondary() {
                             // disablePortal
                             id="select-college"
                             options={college}
-                            getOptionLabel={(option) => option.label}
+                            getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
                             renderInput={(params) => <TextField {...params} label="請選擇學院" />}
                             onChange={(event, newValue, reason) => {
-                                setValues({...values, degreeId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
+                                setValues({...values, collegeId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
                             }}
                             // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="departmentID-item" primary="系所" />
-                        <TextField
-                            sx={{ gridColumn: '4/8' }}
+                        <Autocomplete 
                             size="small"
-                            required
-                            id="departmentID"
-                            label="系所"
-                            name="departmentID"
-                            autoComplete="departmentID"
-                            onChange={handleChange('departmentID')}
+                            sx={{ gridColumn: '4/8' }}
+                            // disablePortal
+                            id="select-college"
+                            options={values.collegeId === null ? department : department.filter(dep => Number(dep.id) > Number(values.collegeId))}
+                            getOptionLabel={(option) => option.label || ""}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="請選擇學院" />}
+                            onChange={(event, newValue, reason) => {
+                                setValues({...values, departmentId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
+                            }}
+                            // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>

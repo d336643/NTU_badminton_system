@@ -31,7 +31,7 @@ const columns = [
 
 const FormTable = () => {
     const token =  localStorage.getItem("token");
-    const { typeID } = useLocation().data;
+    const dataId = useLocation();
     const [ page, setPage ] = useState(0);
     const [ rowsPerPage, setRowsPerPage ] = useState(10);
     const [ rows, setRows ] = useState([
@@ -53,9 +53,9 @@ const FormTable = () => {
             }
         }
         try {
-            let res = await instance.get(`admin/users?typeId=${typeID}`, [typeID], config);
+            let res = await instance.get(`admin/users?typeId=${dataId.state.data}`, {typeId: [dataId.state.data]}, config);
             console.log(res.data);
-            if(res.success === true) {
+            if(res.status === 202) {
                 console.log("Success");
                 setDataSource(dataSource.concat(res.events));
             }
@@ -66,6 +66,7 @@ const FormTable = () => {
     }
 
     useEffect(() => {
+        console.log(dataId);
         fetchData();
     }, [])
 

@@ -9,7 +9,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const HomePage = () => {
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
-    const [isLogin, setIsLogin] = useState(false);
 
     const handleLogOut = () => {
         localStorage.clear();
@@ -22,9 +21,7 @@ const HomePage = () => {
         async function loginCheck() {
             let login = await checkLogin();
             if (!login) setView("guest");
-            else {
-                setView("competitor");
-            }
+            else setView("competitor");
         }
         loginCheck();
     }, [])

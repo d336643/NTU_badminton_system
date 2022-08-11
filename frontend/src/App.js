@@ -26,7 +26,7 @@ const App = () => {
                 <Route path="/recover/:token" element={<RestsetPassword />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/editprofile/:uid" element={<EditProfile />} />
+                <Route path="/editprofile/:token" element={<EditProfile />} />
                 <Route path="/competitorstatus" element={<CompetitorStatus />} />
                 <Route path="/applicantsummary" element={<ApplicantSummary />} />
                 <Route path="/showapplicant" element={<ShowApplicant />} />

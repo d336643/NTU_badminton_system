@@ -138,7 +138,11 @@ const LoginForm = () => {
                             options={entries}
                             getOptionLabel={(option) => option.label}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇項目" />}
+                            renderInput={(params) => 
+                                <TextField {...params} 
+                                    label="請選擇項目" 
+                                    error={typeID1 === typeID2 && typeID1 !== null  ? true : false}
+                                    helperText={typeID1 === typeID2 && typeID1 !== null ? "請勿重複報名" : ""}/>}
                             onChange={(event, newValue, reason) => {
                                 setTypeID1(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}
@@ -183,7 +187,11 @@ const LoginForm = () => {
                             options={entries}
                             getOptionLabel={(option) => option.label}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇項目" />}
+                            renderInput={(params) => 
+                                <TextField {...params} 
+                                    label="請選擇項目" 
+                                    error={typeID1 === typeID2 && typeID1 !== null  ? true : false}
+                                    helperText={typeID1 === typeID2 && typeID2 !== null ? "請勿重複報名" : ""}/>}
                             onChange={(event, newValue, reason) => {
                                 setTypeID2(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}

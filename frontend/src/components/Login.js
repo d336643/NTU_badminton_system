@@ -140,26 +140,6 @@ const LoginForm = () => {
         }
     }
 
-    // const getInfo = async (uid) => {
-    //     const config = {
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //           'accept':'application/json'
-    //         },
-    //     };
-    //     try {
-    //         let {data} = await instance.get("/public/departments", config);
-    //         console.log(data);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     submit(form);
-    //     getInfo();
-    // }, [])
-
     return (
         <>
             <Navbar />

@@ -66,7 +66,7 @@ const Competitor = ({setView, handleLogOut}) => {
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button component={Link} to="/editprofile"
+                        <Button component={Link} to="/editprofile/:id"
                             variant="outlined"
                             size='large'
                             fullWidth>

@@ -30,8 +30,8 @@ const Reset = () => {
     const [values, setValues] = useState({
         name: localStorage.getItem("name"),
         sid: localStorage.getItem("sid"),
-        degreeID: localStorage.getItem("degreeID"),
-        departmentID: localStorage.getItem("departmentID"),
+        degreeId: localStorage.getItem("degreeId"),
+        departmentId: localStorage.getItem("departmentId"),
     });
     // const [values, setValues] = useState({
     //     name: "rename",
@@ -165,7 +165,7 @@ const Reset = () => {
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="dgreeID-item" primary="系級" />
                         <p style={{ gridColumn: '4/6' }}>
-                            {values.departmentID}{values.degreeID}
+                            {values.departmentId}{values.degreeId}
                         </p>
                     </ListItem>
                     { events.length > 0 ?
