@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -6,7 +7,7 @@ import Button from "@mui/material/Button";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const Competitor = ({setView, handleLogOut}) => {
-    
+
     return (
         <Container component="main" maxWidth="xs">
             <Box
@@ -23,63 +24,59 @@ const Competitor = ({setView, handleLogOut}) => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    {/* <Grid item xs={12}>
-                        <Button component={Link} to="/register"
-                            variant="outlined"
-                            size='large'
-                            fullWidth>
-                            賽程專區
-                        </Button>
-                    </Grid> 
-                    currently not open these functions*/}
                     <Grid item xs={12}>
-                        <Button component={Link} to="/"
+                        <Button component={Link} to={{
+                            pathname: "/showapplicant",
+                            data: 1 // your data array of objects
+                        }}
                             variant="outlined"
                             size='large'
                             fullWidth>
-                            個人賽事
-                        </Button>
-                    </Grid>
-                    {/* <Grid item xs={12}>
-                        <Button component={Link} to="/"
-                            variant="outlined"
-                            size='large'
-                            fullWidth>
-                            及時比分
-                        </Button>
-                    </Grid> 
-                    currently not open these functions*/}
-                    <Grid item xs={12}>
-                        <Button component={Link} to="/register"
-                            variant="outlined"
-                            size='large'
-                            fullWidth>
-                            報名賽事
+                            男單
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button component={Link} to="/competitorstatus"
+                        <Button component={Link} to={{
+                                pathname: "/showapplicant",
+                                data: 2 // your data array of objects
+                            }}
                             variant="outlined"
                             size='large'
                             fullWidth>
-                            報名 / 繳費狀態
+                            女單
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button component={Link} to="/editprofile"
+                        <Button component={Link} to={{
+                                pathname: "/showapplicant",
+                                data: 3 // your data array of objects
+                            }}
                             variant="outlined"
                             size='large'
                             fullWidth>
-                            編輯個人資料
+                            男雙
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button
+                        <Button component={Link} to={{
+                                pathname: "/showapplicant",
+                                data: 4 // your data array of objects
+                            }}
                             variant="outlined"
                             size='large'
-                            fullWidth
-                            onClick={handleLogOut}>
-                            登出
+                            fullWidth>
+                            女雙
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button component={Link} to={{
+                                pathname: "/showapplicant",
+                                data: 5 // your data array of objects
+                            }}
+                            variant="outlined"
+                            size='large'
+                            fullWidth>
+                            混雙
                         </Button>
                     </Grid>
                 </Grid>

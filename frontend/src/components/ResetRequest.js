@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Navbar from '../navbarComponents/Navbar';
+import instance from '../instance';
 import { useNavigate } from "react-router-dom";
 
 const Reset = () => {
@@ -81,7 +81,7 @@ const Reset = () => {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

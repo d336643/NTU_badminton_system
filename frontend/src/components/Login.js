@@ -15,8 +15,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Login, Streetview } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
-import Navbar from './navbarComponents/Navbar'
-
+import Navbar from './Navbar'
+import delay from '../utilities/delay';
 import instance from "../instance";
 
 function Copyright(props) {
@@ -42,6 +42,17 @@ const LoginForm = () => {
     const [alertmessage, setAlertmessage] = useState('Alert message');
     const [severity, setSeverity] = useState('error');
 
+    async function closeAlert(){
+        await delay(3);
+        setShowmessage(false);
+    }
+
+    async function handleAlert(){
+        await delay(1);
+        setShowmessage(false);
+        navigate('/');
+    }
+
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
@@ -54,76 +65,100 @@ const LoginForm = () => {
             sid: data.get('sid'),
             password: data.get('password'),
         }
+        submit(form);
         console.log(form);
-        // submit(form);
-        
-        setAlertmessage('帳號或密碼錯誤，請重新嘗試');
-        setSeverity('warning')
-        setShowmessage(true);
-
-        setTimeout(() => {
-            setShowmessage(false);
-        }, 3000)
-        // wait(3000);
-        // navigate("/");
     };
 
+    // const form = {
+    //     sid: "B09705024",
+    //     password: "asdfg12345",
+    // }
+
     const submit = async (form) => {
-        // const config = {
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //       'accept':'application/json'
-        //     },
-        // };
+        const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              'accept':'application/json'
+            },
+        };
         try {
-            let { data } = await instance.post('/users/login', form);
-            if (data.status === 200) {
+            const res = await instance.post('/auth/signin', form, config);
+            console.log(res.data);
+            if (res.data.success === true) {
                 // setView("competitor")
-                localStorage.setItem("token", data.token);
-                console.log("userId", data.uid);
-                localStorage.setItem("uid", data.uid);
-                await getInfo(data.uid);
-            }
-            else if (data.status === 403) {
-                setAlertmessage('帳號或密碼錯誤，請重新嘗試');
-                setSeverity('warning')
+                console.log(res);
+                localStorage.setItem("token", res.data.token);
+                console.log("userId", res.data.uid);
+                localStorage.setItem("uid", res.data.uid);
+                
+                await getInfo(res.data.uid, res.data.token);
+
+                setAlertmessage('登入成功');
+                setSeverity('success');
                 setShowmessage(true);
+                handleAlert();
+            }
+            // else {
+            //     setAlertmessage('帳號或密碼錯誤，請重新嘗試');
+            //     setSeverity('warning');
+            //     setShowmessage(true);
+            //     closeAlert();
+            // }
+        } catch (error) {
+            setAlertmessage('帳號或密碼錯誤，請重新嘗試');
+            setSeverity('warning');
+            setShowmessage(true);
+            closeAlert();
+        }
+    }
 
-                setTimeout(() => {
-                    setShowmessage(false);
-                }, 3000)
-                // window.location.reload()
+    const getInfo = async (uid, token) => {
+        const config = {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'accept': 'application/json'
+            },
+        };
+        try {
+            const res = await instance.get(`/users/${uid}`, config)
+            console.log(res);
+            if (res.status === 200) {
+                console.log(res.data.data.username);
+                localStorage.setItem("name", res.data.data.username);
+                localStorage.setItem("sid", res.data.data.sid);
+                localStorage.setItem("degreeID", res.data.data.degreeID);
+                localStorage.setItem("departmentID", res.data.data.departmentID);
+                localStorage.setItem("birthday", res.data.data.birthday);
+                localStorage.setItem("iid", res.data.data.iid);
+                localStorage.setItem("email", res.data.data.email);
+                localStorage.setItem("phone", res.data.data.phone);
+                localStorage.setItem("accountStatus", res.data.data.accountStatus);
+                localStorage.setItem("file", res.data.data.file);
             }
         } catch (error) {
             console.log(error);
         }
     }
 
-    const getInfo = async (uid) => {
-        try {
-            let {data} = await instance.get(`/users/${uid}`)
-            localStorage.setItem("name", data.name);
-            localStorage.setItem("sid", data.sid);
-            localStorage.setItem("degreeID", data.degreeID);
-            localStorage.setItem("departmentID", data.departmentID);
-            localStorage.setItem("birthday", data.birthday);
-            localStorage.setItem("iid", data.iid);
-            localStorage.setItem("email", data.email);
-            localStorage.setItem("phone", data.phone);
-            localStorage.setItem("accountStatus", data.accountStatus);
-            localStorage.setItem("file", data.file);
-            
-            setAlertmessage('登入成功');
-            setSeverity('success')
-            setShowmessage(true);
+    // const getInfo = async (uid) => {
+    //     const config = {
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //           'accept':'application/json'
+    //         },
+    //     };
+    //     try {
+    //         let {data} = await instance.get("/public/departments", config);
+    //         console.log(data);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
-            setTimeout(() => {
-                setShowmessage(false);
-            }, 3000)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // useEffect(() => {
+    //     submit(form);
+    //     getInfo();
+    // }, [])
 
     return (
         <>

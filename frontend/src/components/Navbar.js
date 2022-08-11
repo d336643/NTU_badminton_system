@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Home from '@mui/icons-material/Home';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
-import checkLogin from '../../utilities/checkLogin';
+import checkLogin from '../utilities/checkLogin';
 import { Link } from 'react-router-dom';
 
 const guestPages = ['首頁', '及時比分'];
@@ -23,10 +23,10 @@ const managerPages = ['首頁', '賽程專區', '及時比分'];
 const settings = ['個人賽事', '編輯個人資料', '登出'];
 const settingsroute = ['', 'editprofile', ''];
 
-const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
+const ResponsiveAppBar = ({setView, handleLogOut}) => {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
-    // const [barView, setBarView] = useState("competitor"); // 3 views. guest, competitor, and manager
+    const [barView, setBarView] = useState("guest"); // 3 views. guest, competitor, and manager
 
     // useEffect(async() => {
     //     let login = await checkLogin();
@@ -36,22 +36,18 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
     //     }
     // }, [])
 
-    // useEffect(() => {
-    //     async function loginCheck() {
-    //         const login = await checkLogin();
-    //         setIsLogin(login);
-            
-    //         // if (!login) setView("guest");
-    //         // else {
-    //         //     setView("competitor");
-    //         // }
-    //         setView("competitor");
-    //         setBarView("competitor")
-    //     }
-    //     loginCheck();
-    // }, [])
+    useEffect(() => {
+        async function loginCheck() {
+            let login = await checkLogin();
+            console.log("Is login?", login);
+            if (!login) setBarView("guest");
+            else setBarView("competitor");
+        }
+        loginCheck();
+    }, [setBarView])
 
     const navbarLogout = () => {
+        setBarView("guest");
         handleLogOut();
         handleCloseUserMenu();
     }
@@ -93,7 +89,7 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
                 >
                     台大羽球比賽
                 </Typography>
-                { view === "manager"? 
+                { barView === "manager"? 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                         size="large"
@@ -146,47 +142,98 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
                         </Menu>
                     </Box>
                     :
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleOpenNavMenu}
-                        color="inherit"
-                        >
-                        <MenuIcon />
-                        </IconButton>
-                        <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorElNav}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                        open={Boolean(anchorElNav)}
-                        onClose={handleCloseNavMenu}
-                        sx={{
-                            display: { xs: 'block', md: 'none' },
-                        }}
-                        >
-                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
-                                <Typography textAlign="center">首頁</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
-                                <Typography textAlign="center">賽程專區</Typography>
-                            </MenuItem>
-                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
-                                <Typography textAlign="center">及時比分</Typography>
-                            </MenuItem> 
-                            currently not open these functions*/}
-                        </Menu>
-                    </Box>
+                    barView === "guest" ?
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                            >
+                            <MenuIcon />
+                            </IconButton>
+                            <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{
+                                display: { xs: 'block', md: 'none' },
+                            }}
+                            >
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
+                                    <Typography textAlign="center">首頁</Typography>
+                                </MenuItem>
+                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                                    <Typography textAlign="center">賽程專區</Typography>
+                                </MenuItem> 
+                                currently not open these functions*/}
+                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
+                                    <Typography textAlign="center">及時比分</Typography>
+                                </MenuItem> 
+                                currently not open these functions*/}
+                            </Menu>
+                        </Box>
+                        :
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                            >
+                            <MenuIcon />
+                            </IconButton>
+                            <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{
+                                display: { xs: 'block', md: 'none' },
+                            }}
+                            >
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
+                                    <Typography textAlign="center">首頁</Typography>
+                                </MenuItem>
+                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
+                                    <Typography textAlign="center">賽程專區</Typography>
+                                </MenuItem> 
+                                currently not open these functions*/}
+                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
+                                    <Typography textAlign="center">及時比分</Typography>
+                                </MenuItem> 
+                                currently not open these functions*/}
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                                    <Typography textAlign="center">報名賽事</Typography>
+                                </MenuItem>
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
+                                    <Typography textAlign="center">報名 / 繳費狀態</Typography>
+                                </MenuItem>
+                            </Menu>
+                        </Box>
                 }
                 {/* <Home sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
                 <Typography
@@ -207,7 +254,7 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
                 >
                     台大羽球比賽
                 </Typography>
-                { view === "manager" ?
+                { barView === "manager" ?
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
                             // key={page}
@@ -265,7 +312,7 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
                         </Button> 
                         currently not open these functions*/}
                     </Box>
-                    :
+                    : barView === "guest" ?
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
                             // key={page}
@@ -276,7 +323,7 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
                         >
                             首頁
                         </Button>
-                        <Button
+                        {/* <Button
                             // key={page}
                             component={Link}
                             to='/register'
@@ -284,7 +331,8 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             賽程專區
-                        </Button>
+                        </Button> 
+                        currently not open these functions*/}
                         {/* <Button
                             // key={page}
                             component={Link}
@@ -296,8 +344,58 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
                         </Button> 
                         currently not open these functions*/}
                     </Box>
+                    :
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Button
+                            // key={page}
+                            component={Link}
+                            to='/'
+                            onClick={handleCloseNavMenu}
+                            sx={{ ml: 4, my: 2, color: 'white', display: 'block' }}
+                        >
+                            首頁
+                        </Button>
+                        {/* <Button
+                            // key={page}
+                            component={Link}
+                            to='/register'
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            賽程專區
+                        </Button> 
+                        currently not open these functions*/}
+                        {/* <Button
+                            // key={page}
+                            component={Link}
+                            to='/'
+                            onClick={handleCloseNavMenu}
+                            sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                        >
+                            及時比分
+                        </Button> 
+                        currently not open these functions*/}
+                        <Button
+                            // key={page}
+                            component={Link}
+                            to='/register'
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            報名賽事
+                        </Button> 
+                        <Button
+                            // key={page}
+                            component={Link}
+                            to='/competitorstatus'
+                            onClick={handleCloseNavMenu}
+                            sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                        >
+                            報名 / 繳費狀態
+                        </Button>
+                    </Box>
                 }
-                {view === "competitor" ?
+                {barView === "competitor" ?
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton 
@@ -336,7 +434,7 @@ const ResponsiveAppBar = ({view, setView, setIsLogin, handleLogOut}) => {
                             </MenuItem>
                         </Menu>
                     </Box>
-                    : view === "manager" ?
+                    : barView === "manager" ?
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton 

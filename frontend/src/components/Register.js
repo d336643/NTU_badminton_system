@@ -17,67 +17,103 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Autocomplete from '@mui/material/Autocomplete';
+import Navbar from "./Navbar";
 import instance from "../instance";
-import Navbar from './navbarComponents/Navbar'
+// import checkAvailable from "../utilities/checkAvailableCompetitor";
 import { useParams, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-    const { myUid } = useParams();
+    const myUid = Number(localStorage.getItem('uid'));
+    const token = localStorage.getItem('token');
+    const [applier, setApplier] = useState(myUid);
     const [typeID1, setTypeID1] = useState(null);
     const [typeID2, setTypeID2] = useState(null);
     // 1: Man Single, 2: Woman Single, 3: Men Double, 4: Women Double, 5: Mixed Double
     const [competitors1, setCompetitors1] = useState(null);
     const [competitors2, setCompetitors2] = useState(null);
-    const [applier, setApplier] = useState(myUid);
     const [events, setEvents] = useState([]);
+    const [currentStudent, setCurrentStudent] = useState();
+
+    useEffect(() => {
+        async function fetchData() {
+            const config = {
+                headers:{
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            }
+            try {
+                const res = await instance.get(`/users`, config);
+                console.log(res);
+                if (res.data.success === true){
+                    console.log(res.data.data);
+                    const users = res.data.data;
+                    setCurrentStudent(users);
+                    // setSuccess(true);
+                }
+            } catch (error) {
+                console.log(error);
+                // setBtnDisable(false);
+            }
+        }
+        fetchData();
+    }, [])
+
+    // useEffect(() => {
+    //     console.log(currentStudent);
+    // }, [currentStudent])
 
     const handleSubmit = () => {
-        if (typeID1 === null && typeID2 === null) {
+        if (typeID1 === null && typeID2 === null) 
             console.log("Please select at least one game.")
-        }
         else {
             console.log(typeID1);
             console.log(typeID2);
             console.log(competitors1);
             console.log(competitors2);
+            let regEvent = [];
             if (typeID1 !== null) {
-                if (typeID1 === 1 || typeID1 === 2) {
-                    setEvents([...events, {typeID: typeID1, competitors: [myUid]}]);
-                }
-                else {
-                    setEvents([...events, {typeID: typeID1, competitors: [myUid, competitors1]}]);
-                } 
+                if (typeID1 === 1 || typeID1 === 2)
+                    regEvent = regEvent.concat({typeId: typeID1, competitors: [myUid]});
+                else
+                    regEvent = regEvent.concat({typeId: typeID1, competitors: [myUid, competitors1]});
             }
             if (typeID2 !== null) {
-                if (typeID2 === 1 || typeID2 === 2) {
-                    setEvents([...events, {typeID: typeID2, competitors: [myUid]}]);
-                }
-                else {
-                    setEvents([...events, {typeID: typeID2, competitors: [myUid, competitors2]}]);
-                } 
+                if (typeID2 === 1 || typeID2 === 2) 
+                    regEvent = regEvent.concat({typeId: typeID2, competitors: [myUid]});
+                else
+                    regEvent = regEvent.concat({typeId: typeID2, competitors: [myUid, competitors2]});
             }
-            let form = {
-                applier: applier,
-                events: events,
-            }
-            console.log(form);
+            submit(regEvent);
         }
-            
-            // if (typeID2 != null) {
-            //     formData.append("event", {typeID: typeID2, competitors: [myUid, competitors1]});
-            // }
-            // if (typeID3 != null) {
-            //     formData.append("event", {typeID: typeID3, competitors: [myUid, competitors2]});
-            // }
-            // formData.append("event", register);
-            // console.log(form);
-    };
+    }
 
+    const submit = async(events) => {
+        let form = {
+            applier: applier,
+            events: events,
+        }
+        const config = {
+            headers:{
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await instance.post(`/events`, form, config);
+            console.log(res);
+            if (res.data.success === true){
+                console.log("報名成功");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
     const entries = [
         { label: '男單', id: 1 }, { label: '女單', id: 2 },
         { label: '男雙', id: 3 }, { label: '女雙', id: 4 }, { label: '混雙', id: 5 },
     ]
-    const currentStudent = [{label: 'R10725032', uid: 1}, { label: 'B09705024', uid: 2 },]
 
     return (
         <>
@@ -121,10 +157,11 @@ const LoginForm = () => {
                                 // disablePortal
                                 id="select-sid-1"
                                 options={currentStudent}
-                                getOptionLabel={(option) => option.label}
-                                isOptionEqualToValue={(option, value) => option.label === value.label}
+                                getOptionLabel={(option) => option.sid}
+                                isOptionEqualToValue={(option, value) => option.sid === value.sid}
                                 onChange={(event, newValue, reason) => {
                                     setCompetitors1(reason === "clear" || reason === "removeOption" ? null : newValue.uid);
+                                    
                                 }}
                                 renderInput={(params) => 
                                     <TextField {...params} 
@@ -165,8 +202,8 @@ const LoginForm = () => {
                                 // disablePortal
                                 id="select-sid-2"
                                 options={currentStudent}
-                                getOptionLabel={(option) => option.label}
-                                isOptionEqualToValue={(option, value) => option.label === value.label}
+                                getOptionLabel={(option) => option.sid}
+                                isOptionEqualToValue={(option, value) => option.sid === value.sid}
                                 onChange={(event, newValue, reason) => {
                                     setCompetitors2(reason === "clear" || reason === "removeOption" ? null : newValue.uid);
                                 }}

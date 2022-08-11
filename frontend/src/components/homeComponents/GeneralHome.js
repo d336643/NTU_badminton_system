@@ -29,14 +29,15 @@ const General = () => {
                     >
                         臺大羽球比賽
                     </Typography> */}
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button component={Link} to="/register"
                             variant="outlined"
                             size='large'
                             fullWidth>
                             賽程專區
                         </Button>
-                    </Grid>
+                    </Grid> 
+                    currently not open these functions*/}
                     {/* <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"
