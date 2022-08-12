@@ -3,15 +3,18 @@ import { createTheme } from "@mui/material/styles";
 
 export const DrawerWidth = 250;
 
+// https://mui.com/material-ui/customization/color/
 export const Colors = {
-  primary: "#5f2c3e",
-  secondary: "#d1adcc",
-  success: "#4CAF50",
+  primary: "#00838f",
+//   "#5f2c3e",
+  secondary: "#b39ddb",
+//   "#d1adcc",
+  success: "#51d657",
   info: "#00a2ff",
-  danger: "#FF5722",
+  danger: "#ff2222",
   warning: "#FFC107",
-  dark: "#0e1b20",
-  light: "#aaa",
+  dark: "#008ba2",
+  light: "#62eeff",
   muted: "#abafb3",
   border: "#DDDFE1",
   inverse: "#2F3D4A",
@@ -31,14 +34,14 @@ export const Colors = {
 };
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: Colors.primary,
+    palette: {
+        primary: {
+        main: Colors.primary,
+        },
+        secondary: {
+        main: Colors.secondary,
+        },
     },
-    secondary: {
-      main: Colors.secondary,
-    },
-  },
 
 //   components: {
 //     MuiButton: {
