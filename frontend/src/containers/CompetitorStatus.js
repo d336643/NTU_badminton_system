@@ -27,7 +27,7 @@ const Reset = () => {
     const navigate = useNavigate();
     const uid = localStorage.getItem('uid');
     const token = localStorage.getItem('token');
-    const name = useState(localStorage.getItem("name"));
+    const name = localStorage.getItem("name");
     const sid = localStorage.getItem("sid");
     const degreeId = localStorage.getItem("degreeId");
     const departmentId = localStorage.getItem("departmentId");
@@ -35,6 +35,7 @@ const Reset = () => {
     const [eventsToPay, setEventsToPay] = useState([])
     const [toPayInfo, setToPayInfo] = useState([])
     const [events, setEvents] = useState([]);
+    const [status, setStatus] = useState(false);
 
     const eventStatus = ["未繳費(已報名)", "審核中", "審核通過，已繳費"]
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
@@ -63,6 +64,12 @@ const Reset = () => {
         }
         fetchData();
     }, [])
+
+    useEffect(() => {
+        events.map((event) => {
+            if (event.account === null) setStatus(true);
+        })
+    }, [events])
 
     const handleAccountSet = (evalue, eventId) => {
         console.log(`event id: ${eventId}, update`);
@@ -115,30 +122,40 @@ const Reset = () => {
                 <CssBaseline />
                 <List
                     sx={{
-                        marginTop: '10%',
+                        marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                     // subheader={<ListSubheader>編輯個人資料</ListSubheader>}
                 >
+                    <h3 style={{ marginBottom: '5%' }}>報名 / 繳費狀態</h3>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
-                        <p style={{ gridColumn: '4/6' }}>
-                            {name}
-                        </p>
+                        <TextField
+                            sx={{ gridColumn: '3/5' }}
+                            size="small"
+                            value={name}
+                            readOnly={true}
+                        />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="學號" />
-                        <p style={{ gridColumn: '4/6' }}>
-                            {sid}
-                        </p>
+                        <TextField
+                            sx={{ gridColumn: '3/5' }}
+                            size="small"
+                            value={sid}
+                            readOnly={true}
+                        />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="dgreeID-item" primary="系級" />
-                        <p style={{ gridColumn: '4/6' }}>
-                            {departmentId}{DEGREEE[degreeId-1]}
-                        </p>
+                        <TextField
+                            sx={{ gridColumn: '3/5' }}
+                            size="small"
+                            value={departmentId+DEGREEE[degreeId-1]}
+                            readOnly={true}
+                        />
                     </ListItem>
                     { events.length > 0 ?
                         events.map((event) => {
@@ -146,21 +163,27 @@ const Reset = () => {
                                 <>
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名及繳費狀態" />
-                                        <p style={{ gridColumn: '4/6' }}>
-                                            {eventStatus[event.status-1]}
-                                        </p>
+                                        <TextField
+                                            sx={{ gridColumn: '3/5' }}
+                                            size="small"
+                                            value={eventStatus[event.status-1]}
+                                            readOnly={true}
+                                        />
                                     </ListItem>
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名項目" />
-                                        <p style={{ gridColumn: '4/6' }}>
-                                            {eventEntry[event.typeId-1]}
-                                        </p>
+                                        <TextField
+                                            sx={{ gridColumn: '3/5' }}
+                                            size="small"
+                                            value={eventEntry[event.typeId-1]}
+                                            readOnly={true}
+                                        />
                                     </ListItem>
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="匯款後五碼" />
                                         {event.account === null ? 
                                             <TextField
-                                                sx={{ gridColumn: '4/6' }}
+                                                sx={{ gridColumn: '3/5' }}
                                                 size="small"
                                                 id="account"
                                                 label="輸入匯款後五碼"
@@ -168,9 +191,12 @@ const Reset = () => {
                                                 onChange={e => handleAccountSet(e.target.value, event.eventId)}
                                             />
                                             :
-                                            <p style={{ gridColumn: '4/6' }}>
-                                                {event.account}
-                                            </p>
+                                            <TextField
+                                                sx={{ gridColumn: '3/5' }}
+                                                size="small"
+                                                value={event.account}
+                                                readOnly={true}
+                                            />
                                         }
                                     </ListItem>
                                 </>
@@ -185,7 +211,7 @@ const Reset = () => {
                         spacing={2}
                         sx={{mt: '2%'}}
                     >
-                        { events.length > 0 ?
+                        { status ?
                             <Grid item>
                                 <Button 
                                     variant="contained"

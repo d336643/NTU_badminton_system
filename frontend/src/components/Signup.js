@@ -3,14 +3,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+import FormHelperText from '@mui/material/FormHelperText';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -20,8 +15,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Navbar from './Navbar';
+import InfoDialog from "./InfoDialog";
 import instance from "../instance";
+import { checkPassword, verifyTWid, verifyLiveid } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY }  from '../utilities/entry'
 import { useNavigate } from "react-router-dom";
 
@@ -31,7 +27,6 @@ export default function SwitchListSecondary() {
         username: '',
         sid: '',
         degreeId: 0,
-        collegeId: null,
         departmentId: null,
         birthday: '',
         iid: '',
@@ -42,15 +37,13 @@ export default function SwitchListSecondary() {
         showPassword: false,
         confirmPassword: '',
     });
+    const [collegeId, setCollegeId] = useState(null);
     const [open, setOpen] = useState(false);
     const [college, setCollege] = useState([]);
     const [department, setDepartment] = useState([]);
     const [nation, setNation] = useState(1);
     const [status, setStatus] = useState(false);
-    // const [showmessage, setShowmessage] = useState(false);
     const [alertmessage, setAlertmessage] = useState('Alert message');
-    // const [severity, setSeverity] = useState('error');
-    // const [submit, setSubmit] = useState(false);
 
     // const [file, setFile] = useState(null); in this moment we don't need file
 
@@ -91,22 +84,23 @@ export default function SwitchListSecondary() {
 
     const onFinish = () => {
         console.log('Received values of form: ', values);
-        delete values.collegeId;
-        delete values.showPassword;
-        delete values.confirmPassword;
-
-        console.log(values);
-        submitForm(values);
+        if (!checkPassword(values.password)) {
+            setAlertmessage("密碼需由至少8位英文及數字混和組成");
+            setOpen(true);
+        }
+        else {
+            if (values.iid.length !== 10) {
+                setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
+                setOpen(true);
+            }
+            else {
+                delete values.showPassword;
+                delete values.confirmPassword;
+                console.log(values);
+                submitForm(values);
+            }
+        }
     };
-    //   const submit = async (request) => {
-    //     try {
-    //       let res = await instance.post('/auth/users/', request);
-    //       console.log(res.data);
-    //       setIsModalVisible(true);
-    //     } catch (error) {
-    //       console.log(error.response.data);
-    //     }
-    //   }
 
 	const submitForm = async(form) => {
 		const config = {
@@ -122,30 +116,18 @@ export default function SwitchListSecondary() {
             console.log(res);
             if (res.status === 200) {
                 setStatus(true);
-                // setShowmessage(true);
                 setAlertmessage("將為您導回首頁，請至學校信箱驗證帳戶 !")
-                // setSeverity("success");
-                // handleAlert();
                 setOpen(true);
             }
-            else if (res.status === 400) {
-                // setShowmessage(true);
-                setAlertmessage(res.msg);
-                // setSeverity("error");
-                // handleAlert();
+            else {
+                setAlertmessage(res.data.msg);
                 setOpen(true);
             }
 		} catch (error) {
-			console.log(error);
-            // if(error.response.status === 413) message.warn("圖片檔過大，請重新挑選圖片!", 1.5);
-			// setBtnDisable(false);
+			setAlertmessage("輸入資料錯誤");
+            setOpen(true);
 		}
 	}
-
-    const handleClose = () => {
-        setOpen(false);
-        if (status) navigate('/');
-    };
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -171,39 +153,17 @@ export default function SwitchListSecondary() {
 
     return (
         <>
-            {/* <Navbar /> */}
             <Container component="main" maxWidth="sm">
-                <Dialog
-                    open={open}
-                    onClose={handleClose}
-                >
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            {alertmessage}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose} autoFocus>
-                            OK
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                <InfoDialog open={open} setOpen={setOpen} turnBack={status} alertmessage={alertmessage} />
                 <form
                     style={{
-                        marginTop: '10%',
+                        marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                    // subheader={<ListSubheader>註冊帳號</ListSubheader>}
                 >
-                    {/* {showmessage && (
-                        <Alert sx={{ position: 'fixed', top: '10%'}}
-                                severity={severity}
-                                variant="filled">
-                            {alertmessage}
-                        </Alert>
-                    )} */}
+                    <h3 style={{ marginBottom: '5%' }}>註冊新帳號</h3>
                     {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                         <Button 
@@ -270,7 +230,6 @@ export default function SwitchListSecondary() {
                             onChange={(event, newValue, reason) => {
                                 setValues({...values, degreeId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
                             }}
-                            // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -278,16 +237,14 @@ export default function SwitchListSecondary() {
                         <Autocomplete 
                             size="small"
                             sx={{ gridColumn: '4/8' }}
-                            // disablePortal
                             id="select-college"
                             options={college}
                             getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
                             renderInput={(params) => <TextField {...params} label="請選擇學院" />}
                             onChange={(event, newValue, reason) => {
-                                setValues({...values, collegeId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
+                                setCollegeId(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}
-                            // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -296,8 +253,8 @@ export default function SwitchListSecondary() {
                             size="small"
                             sx={{ gridColumn: '4/8' }}
                             // disablePortal
-                            id="select-college"
-                            options={values.collegeId === null ? department : filterArr(department, values.collegeId[0])}
+                            id="select-department"
+                            options={collegeId === null ? department : filterArr(department, collegeId[0])}
                             getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
                             renderInput={(params) => <TextField {...params} label="請選擇系所" />}
@@ -336,7 +293,6 @@ export default function SwitchListSecondary() {
                             onChange={(event, newValue, reason) => {
                                 setNation(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}
-                            // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
                     { nation === 1 ?
@@ -351,6 +307,7 @@ export default function SwitchListSecondary() {
                                 name="iid"
                                 autoComplete="iid"
                                 onChange={handleChange('iid')}
+                                helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : ""}
                             />
                         </ListItem>
                         :
@@ -365,6 +322,7 @@ export default function SwitchListSecondary() {
                             name="altIid"
                             autoComplete="altIid"
                             onChange={handleChange('iid')}
+                            helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
                         />
                     </ListItem>
                     }
@@ -409,7 +367,7 @@ export default function SwitchListSecondary() {
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="密碼" />
-                        <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">
+                        <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined" helperText={checkPassword(values.password) ? "" : "密碼需由至少8位英文及數字混和組成"}>
                             <InputLabel htmlFor="adornment-password">密碼</InputLabel>
                             <OutlinedInput
                                 required
@@ -417,8 +375,7 @@ export default function SwitchListSecondary() {
                                 type={values.showPassword ? 'text' : 'password'}
                                 value={values.password}
                                 onChange={handleChange('password')}
-                                error={values.password.length < 8}
-                                helperText="密碼須為8位英文及數字混和組成"
+                                error={values.password.length < 8 || !checkPassword(values.password)}
                                 endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -433,6 +390,9 @@ export default function SwitchListSecondary() {
                                 }
                                 label="Password"
                             />
+                            <FormHelperText error>
+                                {checkPassword(values.password) ? "" : "密碼需由至少8位英文及數字混和組成"}
+                            </FormHelperText>
                         </FormControl>
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -447,7 +407,8 @@ export default function SwitchListSecondary() {
                             name="confirmPassword"
                             autoComplete="confirmPassword"
                             onChange={handleChange('confirmPassword')}
-                            // error={values.password === ""}
+                            error={values.confirmPassword !== "" && values.confirmPassword !== values.password}
+                            errorText={values.confirmPassword !== "" && values.confirmPassword !== values.password}
                             helperText={values.confirmPassword !== "" && values.confirmPassword !== values.password ? '輸入與密碼不一致' : ''}
                         />
                     </ListItem>

@@ -17,6 +17,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Autocomplete from '@mui/material/Autocomplete';
+
+import InfoDialog from "./InfoDialog";
 import instance from "../instance";
 // import checkAvailable from "../utilities/checkAvailableCompetitor";
 import { useParams, useNavigate } from "react-router-dom";
@@ -32,6 +34,9 @@ const LoginForm = () => {
     const [competitors2, setCompetitors2] = useState(null);
     const [events, setEvents] = useState([]);
     const [currentStudent, setCurrentStudent] = useState();
+    const [success, setSuccess] = useState(false);
+    const [alertmessage, setAlertmessage] = useState('Alert message');
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -101,11 +106,16 @@ const LoginForm = () => {
         try {
             const res = await instance.post(`/events`, form, config);
             console.log(res);
-            if (res.data.success === true){
-                console.log("報名成功");
+            if (res.status === 200){
+                setAlertmessage("報名成功，即將為您導回首頁 !");
+                setSuccess(true);
+				setOpen(true);
+
             }
         } catch (error) {
-            console.log(error);
+            setAlertmessage("一人最多只能報名兩項比賽 !");
+            setSuccess(true);
+            setOpen(true);
         }
     }
     
@@ -118,19 +128,22 @@ const LoginForm = () => {
         <>
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
+                <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
                     sx={{
-                        marginTop: '10%',
+                        marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
+                    <h3 style={{ marginBottom: '2%' }}>報名賽事</h3>
+                    <p style={{ marginBottom: '5%' }}>報名賽事前，請確認已詳細閱讀<b>競賽章程</b></p>
                     <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/2' }} id="entry-1" primary="項目一" />
                         <Autocomplete 
                             size="small"
-                            sx={{ gridColumn: '3/6' }}
+                            sx={{ gridColumn: '2/4' }}
                             // disablePortal
                             id="select-entry-1"
                             options={entries}
@@ -154,7 +167,7 @@ const LoginForm = () => {
                             <ListItemText sx={{ gridColumn: '1/2' }} id="sid-1" primary="" />
                             <Autocomplete 
                                 size="small"
-                                sx={{ gridColumn: '3/6' }}
+                                sx={{ gridColumn: '2/4' }}
                                 id="select-sid-1"
                                 options={currentStudent}
                                 getOptionLabel={(option) => option.sid}
@@ -177,7 +190,7 @@ const LoginForm = () => {
                         <ListItemText sx={{ gridColumn: '1/2' }} id="entry-2" primary="項目二" />
                         <Autocomplete 
                             size="small"
-                            sx={{ gridColumn: '3/6' }}
+                            sx={{ gridColumn: '2/4' }}
                             // disablePortal
                             id="select-entry-2"
                             options={entries}
@@ -201,7 +214,7 @@ const LoginForm = () => {
                             <ListItemText sx={{ gridColumn: '1/2' }} id="sid-2" primary="" />
                             <Autocomplete 
                                 size="small"
-                                sx={{ gridColumn: '3/6' }}
+                                sx={{ gridColumn: '2/4' }}
                                 // disablePortal
                                 id="select-sid-2"
                                 options={currentStudent}
@@ -221,7 +234,7 @@ const LoginForm = () => {
                         </ListItem>
                     }
                     <Button
-                        fullWidth
+                        // fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 3 }}
                         onClick={handleSubmit}

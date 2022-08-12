@@ -7,34 +7,26 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Container from '@mui/material/Container';
 import Autocomplete from '@mui/material/Autocomplete';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import Navbar from './Navbar';
+import Typography from "@mui/material/Typography";
+import Footer from '../components/Footer';
+import InfoDialog from "./InfoDialog";
 import instance from "../instance";
+import { verifyTWid, verifyLiveid } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY, STATUS }  from '../utilities/entry'
 import { useParams, useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
 
-export default function SwitchListSecondary() {
-    const navigate = useNavigate();
+const EditForm = () => {
     const token = localStorage.getItem('token');
     const [values, setValues] = useState({
         id: localStorage.getItem('uid'),
         username: localStorage.getItem("name"),
         sid: localStorage.getItem("sid"),
         degreeId: Number(localStorage.getItem("degreeId")),
-        collegeId: "7000",
-        // localStorage.getItem("collegeId"),
         departmentId: localStorage.getItem("departmentId"),
         birthday: '2002-04-16',
-        // localStorage.getItem("birthday"),
-        // nation: localStorage.getItem("nation"),
         iid: localStorage.getItem("iid"),
         email: localStorage.getItem("email"),
         phone: localStorage.getItem("phone"),
@@ -43,7 +35,6 @@ export default function SwitchListSecondary() {
         status: 1,
     });
     const [open, setOpen] = useState(false);
-    const [college, setCollege] = useState([]);
     const [department, setDepartment] = useState([]);
     const [nation, setNation] = useState(1);
     const [success, setSuccess] = useState(false);
@@ -63,23 +54,21 @@ export default function SwitchListSecondary() {
             console.log(res.data);
             if (res.data.success === true) {
                 console.log(res.data.data);
-                // console.log(res.data.colleges);
-                getKeysOf(res.data.data.colleges, 1);
-                getKeysOf(res.data.data.departments, 2);
+                // getKeysOf(res.data.data.colleges, 1);
+                getKeysOf(res.data.data.departments);
             }
         } catch (error) {
             console.log(error);
         }
     }
 
-    const getKeysOf = (dict, cnt) => {
+    const getKeysOf = (dict) => {
         const key = Object.keys(dict);
         const value = Object.values(dict);
         const testArr = value.map(function(x, i) {
             return {label: key[i]+value[i], id: key[i]}        
         });
-        if (cnt === 1) setCollege(college.concat(testArr))
-        if (cnt === 2) setDepartment(department.concat(testArr))
+        setDepartment(department.concat(testArr))
     }
 
     useEffect(() => {
@@ -90,14 +79,8 @@ export default function SwitchListSecondary() {
         // delete values.collegeId;
         delete values.changed;
         delete values.status;
-
         console.log(values);
         submitForm(values);
-    };
-    
-    const handleClose = () => {
-        setOpen(false);
-        if (success) navigate('/');
     };
 
 	const submitForm = async(form) => {
@@ -148,24 +131,8 @@ export default function SwitchListSecondary() {
     return (
         <>
             {/* <Navbar /> */}
-            <Container component="main" maxWidth="sm" alignItems='center'>
-                <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            {alertmessage}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose} autoFocus>
-                            知道了
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+            <Container component="main" maxWidth="sm" alignItems='center' minHeight='100vh'>
+                <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
                     sx={{
                         marginTop: '5%',
@@ -175,14 +142,8 @@ export default function SwitchListSecondary() {
                     }}
                     // subheader={<ListSubheader>編輯個人資料</ListSubheader>}
                 >
-                    <Typography
-                        variant="h5"
-                        sx={{
-                            marginBottom: '3%',
-                        }}
-                    >
-                        <AccountBoxIcon fontSize="large" color="secondary" sx={{mt: 0.5}}/>編輯個人資料
-                    </Typography>
+                    {/* <AccountBoxIcon fontSize="large" color="secondary"/> */}
+                    <h3 style={{ marginBottom: '5%' }}>編輯個人資料</h3>
                     {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                         <Button 
@@ -254,7 +215,7 @@ export default function SwitchListSecondary() {
                             // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
-                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                    {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="college-item" primary="學院" />
                         <Autocomplete 
                             size="small"
@@ -270,15 +231,15 @@ export default function SwitchListSecondary() {
                             }}
                             value={values.changed ? college.find(v => v.id === values.collegeId) : findLastOne(college)}
                         />
-                    </ListItem>
+                    </ListItem> */}
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="departmentID-item" primary="系所" />
                         <Autocomplete 
                             size="small"
                             sx={{ gridColumn: '4/8' }}
                             // disablePortal
-                            id="select-college"
-                            options={values.collegeId === null ? department : filterArr(department, values.collegeId.charAt(0))}
+                            id="select-department"
+                            options={department}
                             getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
                             renderInput={(params) => <TextField {...params} label="請選擇系所" />}
@@ -335,6 +296,7 @@ export default function SwitchListSecondary() {
                                 autoFocus
                                 value={values.iid}
                                 onChange={handleChange('iid')}
+                                helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : ""}
                             />
                         </ListItem>
                         :
@@ -346,10 +308,11 @@ export default function SwitchListSecondary() {
                                 autoComplete="altIid"
                                 name="altIid"
                                 id="altIid"
-                                label="身分證字號"
+                                label="居留證號"
                                 autoFocus
                                 value={values.iid}
                                 onChange={handleChange('iid')}
+                                helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
                             />
                     </ListItem>
                     }
@@ -414,3 +377,5 @@ export default function SwitchListSecondary() {
         
     );
 }
+
+export default EditForm;
