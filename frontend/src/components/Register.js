@@ -17,7 +17,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Autocomplete from '@mui/material/Autocomplete';
-import Navbar from "./Navbar";
 import instance from "../instance";
 // import checkAvailable from "../utilities/checkAvailableCompetitor";
 import { useParams, useNavigate } from "react-router-dom";
@@ -117,7 +116,6 @@ const LoginForm = () => {
 
     return (
         <>
-            <Navbar />
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <List
@@ -146,7 +144,6 @@ const LoginForm = () => {
                             onChange={(event, newValue, reason) => {
                                 setTypeID1(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}
-                            // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
                     {
@@ -158,7 +155,6 @@ const LoginForm = () => {
                             <Autocomplete 
                                 size="small"
                                 sx={{ gridColumn: '3/6' }}
-                                // disablePortal
                                 id="select-sid-1"
                                 options={currentStudent}
                                 getOptionLabel={(option) => option.sid}
@@ -195,7 +191,6 @@ const LoginForm = () => {
                             onChange={(event, newValue, reason) => {
                                 setTypeID2(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}
-                            // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
                     {
