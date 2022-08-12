@@ -7,19 +7,21 @@ import Navbar from '../components/Navbar'
 import checkLogin from '../utilities/checkLogin';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-const HomePage = () => {
-    const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
+const HomePage = ({view, setView, isLogin, setIsLogin}) => {
 
     const handleLogOut = () => {
         localStorage.clear();
         console.log("local storage has been cleared.")
+        // setIsLogin(false);
         setView("guest");
-        window.location.reload();
+        setIsLogin(false);
     }
 
     useEffect(() => {
         async function loginCheck() {
             let login = await checkLogin();
+            setIsLogin(login);
+
             if (!login) setView("guest");
             else setView("competitor");
         }
@@ -28,10 +30,14 @@ const HomePage = () => {
 
     return (
         <>
-            <Navbar handleLogOut={handleLogOut} />
+            {/* <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin}/> */}
             <Container component="main" maxWidth="sm">
-                {view === "guest" ? <General /> :
-                    view === "competitor" ? <Competitor setView={setView} handleLogOut={handleLogOut} /> : <Manager setView={setView} handleLogOut={handleLogOut}/>}
+                { isLogin ?
+                    view === "manager" ?
+                        <Manager setView={setView} handleLogOut={handleLogOut}/> 
+                        : <Competitor setView={setView} handleLogOut={handleLogOut} />
+                    : <General />
+                }
             </Container>
         </>
     )

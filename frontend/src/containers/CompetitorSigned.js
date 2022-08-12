@@ -37,7 +37,7 @@ const Reset = () => {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
