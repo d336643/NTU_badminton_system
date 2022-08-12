@@ -16,7 +16,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InfoIcon from '@mui/icons-material/Info';
 import instance from "../instance";
-import Navbar from '../components/Navbar';
+import { DEGREEE } from '../utilities/entry';
 import { useParams, useNavigate } from "react-router-dom";
 
 const createData = (eventId, account) => {
@@ -27,46 +27,14 @@ const Reset = () => {
     const navigate = useNavigate();
     const uid = localStorage.getItem('uid');
     const token = localStorage.getItem('token');
-    const [values, setValues] = useState({
-        name: localStorage.getItem("name"),
-        sid: localStorage.getItem("sid"),
-        degreeId: localStorage.getItem("degreeId"),
-        departmentId: localStorage.getItem("departmentId"),
-    });
-    // const [values, setValues] = useState({
-    //     name: "rename",
-    //     sid: "R00000000",
-    //     degreeID: "大三",
-    //     departmentID: "醫學系",
-    // });
-    const [eventsToPay, setEventsToPay] = useState([10, 11])
-    const [toPayInfo, setToPayInfo] = useState([
-        createData(10, null),
-        createData(11, null),
-    ])
-    const [events, setEvents] = useState([
-        {
-            "eventId": 10,
-            "typeId": 1,
-            "competitors": [
-                {"uid": 7, "username": "rename", "sid": "R00000000"}
-            ],
-            "status": 1,
-            "payer": null, //未付款
-            "account": null //未付款
-        },
-        {
-            "eventId": 11,
-            "typeId": 5,
-            "competitors": [
-                {"uid": 7, "username": "rename", "sid": "R00000000"},
-                {"uid": 2, "username": "Euni", "sid": "R11111111"}
-            ],
-            "status": 1,
-            "payer": null,
-            "account": null
-        }
-    ]);
+    const name = useState(localStorage.getItem("name"));
+    const sid = localStorage.getItem("sid");
+    const degreeId = localStorage.getItem("degreeId");
+    const departmentId = localStorage.getItem("departmentId");
+
+    const [eventsToPay, setEventsToPay] = useState([])
+    const [toPayInfo, setToPayInfo] = useState([])
+    const [events, setEvents] = useState([]);
 
     const eventStatus = ["未繳費(已報名)", "審核中", "審核通過，已繳費"]
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
@@ -80,19 +48,25 @@ const Reset = () => {
                 }
             }
             try {
-                const res = await instance.get(`events/status?uid=${uid}`, {uid: uid}, config);
-                console.log("status", res.data.success);
-                setEvents([...events, res.data.events]);
+                const res = await instance.get(`events/status?uid=${uid}`, config);
+                console.log(res);
+                if (res.data.success) {
+                    setEvents(events.concat(res.data.events));
+                    const newState = res.data.events.map((event) => {
+                        return createData(event.eventId, event.account);
+                    })
+                    setEventsToPay(eventsToPay.concat(newState));
+                }
             } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
-    }, [events, uid])
+    }, [])
 
     const handleAccountSet = (evalue, eventId) => {
         console.log(`event id: ${eventId}, update`);
-        const newState = toPayInfo.map(obj => {
+        const newState = eventsToPay.map(obj => {
             if (obj.eventId === eventId) {
                 return { ...obj, account: evalue };
             }
@@ -105,40 +79,39 @@ const Reset = () => {
     const handleStore = (event) => {
         console.log('Received values for update account.');
         event.preventDefault();
-        toPayInfo.map((info => {
+        toPayInfo.map(((info) => {
             let finalForm = {
                 "payer":uid,
                 "eventsToPay": [info.eventId],
                 "account": info.account,
             }
-            console.log(finalForm);
+            submitForm(finalForm);
         }))
-        // submitForm(finalForm)
         // navigate("/");
     };
 
-    // const submitForm = async(form) => {
-	// 	const config = {
-	// 		headers:{
-	// 			Authorization: 'Bearer ' + token
-	// 		}
-	// 	}
-	// 	console.log(form);
-	// 	try {
-	// 		let res = await instance.post('/users/bankAccount', form, config);
-	// 		console.log(res.data);
-	// 		if(res.status === 200) {
-	// 			// setBtnDisable(true);
-	// 			// setSuccess(true);
-	// 		}
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// }
+    const submitForm = async(form) => {
+		const config = {
+			headers:{
+				'Authorization': 'Bearer ' + token,
+                'accept': 'application/json'
+			}
+		}
+		console.log(form);
+		try {
+			let res = await instance.post('/users/bankAccount', form, config);
+			console.log(res);
+			if(res.status === 200) {
+                console.log("Success");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <List
@@ -153,19 +126,19 @@ const Reset = () => {
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
                         <p style={{ gridColumn: '4/6' }}>
-                            {values.name}
+                            {name}
                         </p>
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="學號" />
                         <p style={{ gridColumn: '4/6' }}>
-                            {values.sid}
+                            {sid}
                         </p>
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="dgreeID-item" primary="系級" />
                         <p style={{ gridColumn: '4/6' }}>
-                            {values.departmentId}{values.degreeId}
+                            {departmentId}{DEGREEE[degreeId-1]}
                         </p>
                     </ListItem>
                     { events.length > 0 ?
