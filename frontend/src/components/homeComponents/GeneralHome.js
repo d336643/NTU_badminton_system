@@ -49,10 +49,18 @@ const General = () => {
                     currently not open these functions*/}
                     <Grid item xs={12}>
                         <Button component={Link} to="/login"
-                            variant="outlined"
+                            variant="contained"
                             size='large'
                             fullWidth>
                             登入
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button component={Link} to="/signup"
+                            variant="outlined"
+                            size='large'
+                            fullWidth>
+                            註冊
                         </Button>
                     </Grid>
                 </Grid>
