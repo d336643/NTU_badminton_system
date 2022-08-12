@@ -110,7 +110,7 @@ const FormTable = () => {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <Paper sx={{ width: '100%', overflow: 'hidden', mt: '5%' }}>

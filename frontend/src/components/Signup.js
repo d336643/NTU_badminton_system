@@ -22,16 +22,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Navbar from './Navbar';
 import instance from "../instance";
+import { DEGREEENTRY, NATIONENTRY }  from '../utilities/entry'
 import { useNavigate } from "react-router-dom";
-
-const degreeIdEntries = [
-    { label: '大一', id : 1 }, { label: '大二', id : 2 }, { label: '大三', id : 3 },
-    { label: '大四', id : 4 }, { label: '大五以上', id : 5 }, { label: '碩一', id : 6 },
-    { label: '碩二', id : 7 }, { label: '碩三以上', id : 8 }, { label: '博一', id : 9 },
-    { label: '博二', id : 10 }, { label: '博三以上', id : 11 }, { label: '交換生', id : 12 },
-]
-
-const nationEntries = [ { label: '台灣', id: 1 }, { label: '非台灣', id: 2 }]
 
 export default function SwitchListSecondary() {
     const navigate = useNavigate();
@@ -170,9 +162,16 @@ export default function SwitchListSecondary() {
         event.preventDefault();
     };
 
+    const filterArr = (array, letter) => {
+        var filtered = array.filter(function(word) {
+         return word.id[0] === letter;
+        });
+        return filtered 
+    }
+
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Container component="main" maxWidth="sm">
                 <Dialog
                     open={open}
@@ -264,7 +263,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             // disablePortal
                             id="select-degreeId"
-                            options={degreeIdEntries}
+                            options={DEGREEENTRY}
                             getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
                             renderInput={(params) => <TextField {...params} label="請選擇年級" />}
@@ -298,10 +297,10 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             // disablePortal
                             id="select-college"
-                            options={values.collegeId === null ? department : department.filter(dep => Number(dep.id) > Number(values.collegeId))}
+                            options={values.collegeId === null ? department : filterArr(department, values.collegeId[0])}
                             getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇學院" />}
+                            renderInput={(params) => <TextField {...params} label="請選擇系所" />}
                             onChange={(event, newValue, reason) => {
                                 setValues({...values, departmentId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
                             }}
@@ -330,7 +329,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             // disablePortal
                             id="select-nation"
-                            options={nationEntries}
+                            options={NATIONENTRY}
                             getOptionLabel={(option) => option.label}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
                             renderInput={(params) => <TextField {...params} label="請選擇國籍" />}

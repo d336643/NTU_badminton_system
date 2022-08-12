@@ -111,7 +111,6 @@ const Reset = () => {
 
     return (
         <>
-            {/* <Navbar /> */}
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <List

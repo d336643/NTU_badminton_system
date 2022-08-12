@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import EditIcon from '@mui/icons-material/Edit';
+import InputAdornment from '@mui/material/InputAdornment';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Button from '@mui/material/Button';
@@ -12,112 +13,151 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+import Autocomplete from '@mui/material/Autocomplete';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Navbar from './Navbar';
 import instance from "../instance";
+import { DEGREEENTRY, NATIONENTRY, STATUS }  from '../utilities/entry'
 import { useParams, useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 export default function SwitchListSecondary() {
     const navigate = useNavigate();
-    const param = useParams();
-    const uid = localStorage.getItem('uid');
+    const token = localStorage.getItem('token');
     const [values, setValues] = useState({
-        name: localStorage.getItem("name"),
+        id: localStorage.getItem('uid'),
+        username: localStorage.getItem("name"),
         sid: localStorage.getItem("sid"),
-        degreeId: localStorage.getItem("degreeId"),
+        degreeId: Number(localStorage.getItem("degreeId")),
+        collegeId: "7000",
+        // localStorage.getItem("collegeId"),
         departmentId: localStorage.getItem("departmentId"),
-        birthday: localStorage.getItem("birthday"),
+        birthday: '2002-04-16',
+        // localStorage.getItem("birthday"),
+        // nation: localStorage.getItem("nation"),
         iid: localStorage.getItem("iid"),
         email: localStorage.getItem("email"),
         phone: localStorage.getItem("phone"),
         address: localStorage.getItem("address"),
+        changed: false,
         status: 1,
     });
-    // const [editable1, setEditable1] = useState(false)
-    // const [editable2, setEditable2] = useState(false)
-    // const [editable3, setEditable3] = useState(false)
-    // const [editable4, setEditable4] = useState(false)
-    // const [editable5, setEditable5] = useState(false)
-    // const [editable6, setEditable6] = useState(false)
-    // const [editable7, setEditable7] = useState(false)
-    // const [editable8, setEditable8] = useState(false)
-    // const [editable9, setEditable9] = useState(false)
-    // const [file, setFile] = useState(null);
     const [open, setOpen] = useState(false);
-    // const [submit, setSubmit] = useState(false);
+    const [college, setCollege] = useState([]);
+    const [department, setDepartment] = useState([]);
+    const [nation, setNation] = useState(1);
+    const [success, setSuccess] = useState(false);
+    const [alertmessage, setAlertmessage] = useState('Alert message');
+    
+    // const [file, setFile] = useState(null); in this moment we don't need file
+
+    const getInfo = async () => {
+        const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              'accept':'application/json'
+            },
+        };
+        try {
+            const res = await instance.get("/public/departments", config);
+            console.log(res.data);
+            if (res.data.success === true) {
+                console.log(res.data.data);
+                // console.log(res.data.colleges);
+                getKeysOf(res.data.data.colleges, 1);
+                getKeysOf(res.data.data.departments, 2);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getKeysOf = (dict, cnt) => {
+        const key = Object.keys(dict);
+        const value = Object.values(dict);
+        const testArr = value.map(function(x, i) {
+            return {label: key[i]+value[i], id: key[i]}        
+        });
+        if (cnt === 1) setCollege(college.concat(testArr))
+        if (cnt === 2) setDepartment(department.concat(testArr))
+    }
 
     useEffect(() => {
-        console.log(values);
-	}, [])
-
-    const onFinish = (values) => {
-        delete values.showPassword;
-        delete values.confirmPassword;
+        getInfo();
+    }, [])
     
-        let finalForm = {...values};
-        console.log(finalForm);
-        // submitForm(finalForm);
-        
-        setOpen(true);
+    const onFinish = () => {
+        // delete values.collegeId;
+        delete values.changed;
+        delete values.status;
+
+        console.log(values);
+        submitForm(values);
     };
     
     const handleClose = () => {
         setOpen(false);
-        navigate('/');
+        if (success) navigate('/');
     };
-    //   const submit = async (request) => {
-    //     try {
-    //       let res = await instance.post('/auth/users/', request);
-    //       console.log(res.data);
-    //       setIsModalVisible(true);
-    //     } catch (error) {
-    //       console.log(error.response.data);
-    //     }
-    //   }
 
-	// const submitForm = async(form) => {
-	// 	const config = {
-	// 		headers:{
-	// 			'Content-Type': 'multipart/form-data'
-	// 		}
-	// 	}
-	// 	console.log(form);
-	// 	try {
-	// 		let res = await instance.post('/users/register', form, config);
-	// 		console.log(res.data);
-	// 		if(res.status === 200) {
-	// 			// setBtnDisable(true);
-	// 			// setSuccess(true);
-	// 		}
-	// 	} catch (error) {
-	// 		console.log(error);
-    //         if(error.response.status === 413) message.warn("圖片檔過大，請重新挑選圖片!", 1.5);
-	// 		// setBtnDisable(false);
-	// 	}
-	// }
+	const submitForm = async(form) => {
+		const config = {
+			headers:{
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json',
+                'accept': 'application/json'
+			}
+		}
+		try {
+			let res = await instance.put(`/users/${values.id}`, form, config)
+			console.log(res);
+			if(res.status === 200) {
+                setAlertmessage("編輯成功，即將為您導回首頁 !");
+                setSuccess(true);
+				setOpen(true);
+			}
+            else {
+                setAlertmessage(res.data.msg);
+                setOpen(true);
+            }
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+    const findLastOne = (array) => {
+        const reversed = [];
+        for (let i = array.length - 1; i >= 0; i--) {
+            reversed.push(array[i]);
+        };
+        console.log(reversed);
+        return reversed.find(v => Number(v.id) <= Number(values.departmentId)) || null
+    }
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
+    const filterArr = (array, letter) => {
+        var filtered = array.filter(function(word) {
+         return word.id.charAt(0) === letter;
+        });
+        return filtered 
+    }
+
     return (
         <>
-            <Navbar />
-            <Container component="main" maxWidth="sm">
+            {/* <Navbar /> */}
+            <Container component="main" maxWidth="sm" alignItems='center'>
                 <Dialog
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle>編輯成功</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            即將為您導回首頁 !
+                            {alertmessage}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
@@ -128,13 +168,21 @@ export default function SwitchListSecondary() {
                 </Dialog>
                 <List
                     sx={{
-                        marginTop: '10%',
+                        marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                    subheader={<ListSubheader>編輯個人資料</ListSubheader>}
+                    // subheader={<ListSubheader>編輯個人資料</ListSubheader>}
                 >
+                    <Typography
+                        variant="h5"
+                        sx={{
+                            marginBottom: '3%',
+                        }}
+                    >
+                        <AccountBoxIcon fontSize="large" color="secondary" sx={{mt: 0.5}}/>編輯個人資料
+                    </Typography>
                     {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                         <Button 
@@ -161,19 +209,17 @@ export default function SwitchListSecondary() {
                         </div>
                     </ListItem> */}
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="username-item" primary="姓名" />
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            autoComplete="name"
-                            name="name"
-                            id="name"
+                            autoComplete="username"
+                            name="username"
+                            id="username"
                             label="姓名"
                             autoFocus
-                            value={values.name}
-                            // disabled={editable1 ? false : true}
-                            // onClick={setEditable1(true)}
-                            onChange={handleChange('name')}
+                            value={values.username}
+                            onChange={handleChange('username')}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -181,47 +227,65 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
+                            autoComplete="sid"
+                            name="sid"
                             id="sid"
                             label="學號"
-                            name="sid"
-                            autoComplete="sid"
+                            autoFocus
                             value={values.sid}
-                            // disabled={editable2 ? false : true}
-                            // onClick={setEditable2(true)}
                             onChange={handleChange('sid')}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/3' }} id="dgreeID-item" primary="學院" />
-                        <TextField
-                            sx={{ gridColumn: '4/8' }}
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="dgreeID-item" primary="年級" />
+                        <Autocomplete 
                             size="small"
-                            required
-                            id="dgreeID"
-                            label="學院"
-                            name="dgreeID"
-                            autoComplete="dgreeID"
-                            value={values.degreeId}
-                            // disabled={editable3 ? false : true}
-                            // onClick={setEditable3(true)}
-                            onChange={handleChange('dgreeId')}
+                            sx={{ gridColumn: '4/8' }}
+                            id="select-degreeId"
+                            options={DEGREEENTRY}
+                            getOptionLabel={(option) => option.label || ""}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => 
+                                <TextField {...params} label="請選擇年級" />}
+                            onChange={(event, newValue, reason) => {
+                                setValues({...values, degreeId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
+                            }}
+                            value={DEGREEENTRY.find(v => v.id === Number(values.degreeId)) || null}
+                            // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
+                        />
+                    </ListItem>
+                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="college-item" primary="學院" />
+                        <Autocomplete 
+                            size="small"
+                            sx={{ gridColumn: '4/8' }}
+                            // disablePortal
+                            id="select-college"
+                            options={college}
+                            getOptionLabel={(option) => option.label || ""}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="請選擇學院" />}
+                            onChange={(event, newValue, reason) => {
+                                setValues({...values, collegeId: reason === "clear" || reason === "removeOption" ? null : newValue.id, changed: !values.changed});
+                            }}
+                            value={values.changed ? college.find(v => v.id === values.collegeId) : findLastOne(college)}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="departmentID-item" primary="系所" />
-                        <TextField
-                            sx={{ gridColumn: '4/8' }}
+                        <Autocomplete 
                             size="small"
-                            required
-                            id="departmentID"
-                            label="系所"
-                            name="departmentID"
-                            autoComplete="departmentID"
-                            value={values.departmentId}
-                            // disabled={editable4 ? false : true}
-                            // onClick={setEditable4(true)}
-                            onChange={handleChange('departmentId')}
+                            sx={{ gridColumn: '4/8' }}
+                            // disablePortal
+                            id="select-college"
+                            options={values.collegeId === null ? department : filterArr(department, values.collegeId.charAt(0))}
+                            getOptionLabel={(option) => option.label || ""}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="請選擇系所" />}
+                            onChange={(event, newValue, reason) => {
+                                setValues({...values, departmentId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
+                            }}
+                            value={department.find(v => v.id === values.departmentId) || null}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -242,20 +306,53 @@ export default function SwitchListSecondary() {
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/3' }} id="iid-item" primary="身分證字號" />
-                        <TextField
-                            sx={{ gridColumn: '4/8' }}
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="nation-item" primary="國籍" />
+                        <Autocomplete 
                             size="small"
-                            id="iid"
-                            label="身分證字號"
-                            name="iid"
-                            autoComplete="iid"
-                            value={values.iid}
-                            // disabled={editable6 ? false : true}
-                            // onClick={setEditable6(true)}
-                            onChange={handleChange('iid')}
+                            sx={{ gridColumn: '4/8' }}
+                            // disablePortal
+                            id="select-nation"
+                            options={NATIONENTRY}
+                            getOptionLabel={(option) => option.label}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="請選擇國籍" />}
+                            onChange={(event, newValue, reason) => {
+                                setNation(reason === "clear" || reason === "removeOption" ? null : newValue.id);
+                            }}
+                            value={NATIONENTRY.find(v => v.id === nation) || null}
                         />
                     </ListItem>
+                    { nation === 1 ?
+                        <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                            <ListItemText sx={{ gridColumn: '1/3' }} id="iid-item" primary="身分證字號" />
+                            <TextField
+                                sx={{ gridColumn: '4/8' }}
+                                size="small"
+                                autoComplete="iid"
+                                name="iid"
+                                id="iid"
+                                label="身分證字號"
+                                autoFocus
+                                value={values.iid}
+                                onChange={handleChange('iid')}
+                            />
+                        </ListItem>
+                        :
+                        <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                            <ListItemText sx={{ gridColumn: '1/3' }} id="alt-iid-item" primary="居留證號" />
+                            <TextField
+                                sx={{ gridColumn: '4/8' }}
+                                size="small"
+                                autoComplete="altIid"
+                                name="altIid"
+                                id="altIid"
+                                label="身分證字號"
+                                autoFocus
+                                value={values.iid}
+                                onChange={handleChange('iid')}
+                            />
+                    </ListItem>
+                    }
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="email-item" primary="電子郵件" />
                         <TextField
@@ -266,8 +363,6 @@ export default function SwitchListSecondary() {
                             name="email"
                             autoComplete="email"
                             value={values.email}
-                            // disabled={editable7 ? false : true}
-                            // onClick={setEditable7(true)}
                             onChange={handleChange('email')}
                         />
                     </ListItem>
@@ -281,30 +376,27 @@ export default function SwitchListSecondary() {
                             name="phone"
                             autoComplete="phone"
                             value={values.phone}
-                            // disabled={editable8 ? false : true}
-                            // onClick={setEditable8(true)}
                             onChange={handleChange('phone')}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="address-item" primary="地址" />
                         <TextField
-                            sx={{ gridColumn: '4/8' }}
-                            size="small"
-                            id="address"
-                            label="地址"
-                            name="address"
-                            autoComplete="address"
-                            value={values.address}
-                            // disabled={editable9 ? false : true}
-                            // onClick={setEditable9(true)}
-                            onChange={handleChange('address')}
-                        />
+                                sx={{ gridColumn: '4/8' }}
+                                size="small"
+                                autoComplete="address"
+                                name="address"
+                                id="address"
+                                label="地址"
+                                autoFocus
+                                value={values.address}
+                                onChange={handleChange('address')}
+                            />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="status-item" primary="帳號狀態" />
                         <p style={{ gridColumn: '4/8' }}>
-                        {values.status}
+                        {STATUS[values.status-1]}
                         </p>
                     </ListItem>
                     <Button

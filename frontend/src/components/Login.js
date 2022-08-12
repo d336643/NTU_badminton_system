@@ -12,25 +12,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Login, Streetview } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
-import Navbar from './Navbar'
 import delay from '../utilities/delay';
 import instance from "../instance";
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -123,17 +107,17 @@ const LoginForm = () => {
             const res = await instance.get(`/users/${uid}`, config)
             console.log(res);
             if (res.status === 200) {
-                console.log(res.data.data.username);
+                console.log(res.data.data);
                 localStorage.setItem("name", res.data.data.username);
                 localStorage.setItem("sid", res.data.data.sid);
-                localStorage.setItem("degreeID", res.data.data.degreeID);
-                localStorage.setItem("departmentID", res.data.data.departmentID);
+                localStorage.setItem("degreeId", res.data.data.degreeId);
+                localStorage.setItem("departmentId", res.data.data.departmentId);
                 localStorage.setItem("birthday", res.data.data.birthday);
                 localStorage.setItem("iid", res.data.data.iid);
                 localStorage.setItem("email", res.data.data.email);
                 localStorage.setItem("phone", res.data.data.phone);
                 localStorage.setItem("accountStatus", res.data.data.accountStatus);
-                localStorage.setItem("file", res.data.data.file);
+                localStorage.setItem("address", res.data.data.address);
             }
         } catch (error) {
             console.log(error);
@@ -142,7 +126,6 @@ const LoginForm = () => {
 
     return (
         <>
-            <Navbar />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
