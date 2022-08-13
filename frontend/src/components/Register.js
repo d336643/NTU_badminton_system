@@ -1,38 +1,26 @@
 import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import InfoDialog from "./InfoDialog";
 import instance from "../instance";
-// import checkAvailable from "../utilities/checkAvailableCompetitor";
-import { useParams, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const myUid = Number(localStorage.getItem('uid'));
     const token = localStorage.getItem('token');
-    const [applier, setApplier] = useState(myUid);
+    const applier = myUid;
     const [typeID1, setTypeID1] = useState(null);
     const [typeID2, setTypeID2] = useState(null);
     // 1: Man Single, 2: Woman Single, 3: Men Double, 4: Women Double, 5: Mixed Double
     const [competitors1, setCompetitors1] = useState(null);
     const [competitors2, setCompetitors2] = useState(null);
-    const [events, setEvents] = useState([]);
+    // const [events, setEvents] = useState([]);
     const [currentStudent, setCurrentStudent] = useState();
     const [success, setSuccess] = useState(false);
     const [alertmessage, setAlertmessage] = useState('Alert message');
@@ -53,11 +41,9 @@ const LoginForm = () => {
                     console.log(res.data.data);
                     const users = res.data.data;
                     setCurrentStudent(users);
-                    // setSuccess(true);
                 }
             } catch (error) {
                 console.log(error);
-                // setBtnDisable(false);
             }
         }
         fetchData();
@@ -126,7 +112,7 @@ const LoginForm = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="sm">
+            <Container component="main" maxWidth="sm" sx={{height: "75vh"}}>
                 <CssBaseline />
                 <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
