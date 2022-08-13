@@ -1,7 +1,15 @@
 // unfinish
 export function checkPassword(inputtxt) { 
-    const result = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(inputtxt);
-    return result;
+    if (inputtxt.length < 8) return false
+    else {
+        var hasNumber = /\d/;   
+        var hasLetter = /[A-Za-z]/;   
+        if ( !hasNumber.test(inputtxt))  console.log("X 0")
+        if ( !hasLetter.test(inputtxt))  console.log("X A")
+        const result = hasNumber.test(inputtxt) && hasLetter.test(inputtxt)
+        console.log(result)
+        return result
+    }
 }
 
 export function verifyTWid(idstr) {
@@ -30,4 +38,10 @@ export function verifyTWid(idstr) {
 export function verifyLiveid(idstr) {  
     const result = /^[a-zA-Z]{1}[a-dA-D8-9]{1}[0-9]{8}$/.test(idstr);
     return result;
+}
+
+export function verifyEmail(email){
+    const pos = email.indexOf("@ntu.edu.tw")
+    if (pos !== -1) return true;
+    return false
 }

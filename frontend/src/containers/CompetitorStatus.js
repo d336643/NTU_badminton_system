@@ -15,6 +15,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InfoIcon from '@mui/icons-material/Info';
+import InfoDialog from "../components/InfoDialog";
 import instance from "../instance";
 import { DEGREEE } from '../utilities/entry';
 import { useParams, useNavigate } from "react-router-dom";
@@ -30,15 +31,53 @@ const Reset = () => {
     const name = localStorage.getItem("name");
     const sid = localStorage.getItem("sid");
     const degreeId = localStorage.getItem("degreeId");
-    const departmentId = localStorage.getItem("departmentId");
-
+    const departmentId = Number(localStorage.getItem("departmentId"));
     const [eventsToPay, setEventsToPay] = useState([])
     const [toPayInfo, setToPayInfo] = useState([])
     const [events, setEvents] = useState([]);
     const [status, setStatus] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [stored, setStored] = useState(false);
+    const [alertmessage, setAlertmessage] = useState('Alert message');
+    const [department, setDepartment] = useState([]);
 
     const eventStatus = ["未繳費(已報名)", "審核中", "審核通過，已繳費"]
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
+
+    const findDepart = (dict, key) => {
+        return dict.key;
+    }
+    const getInfo = async () => {
+        const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              'accept':'application/json'
+            },
+        };
+        try {
+            const res = await instance.get("/public/departments", config);
+            console.log(res.data);
+            if (res.data.success === true) {
+                console.log(res.data.data);
+                getKeysOf(res.data.data.departments);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getKeysOf = (dict) => {
+        const key = Object.keys(dict);
+        const value = Object.values(dict);
+        const testArr = value.map(function(x, i) {
+            return {label: key[i]+value[i], id: key[i]}        
+        });
+        setDepartment(department.concat(testArr))
+    }
+
+    useEffect(() => {
+        getInfo();
+    }, [])
 
     useEffect(() => {
         async function fetchData() {
@@ -110,15 +149,21 @@ const Reset = () => {
 			console.log(res);
 			if(res.status === 200) {
                 console.log("Success");
+                setStatus(true);
+                setAlertmessage("資料更新成功，將為您導回首頁 !")
+                setOpen(true);
 			}
 		} catch (error) {
 			console.log(error);
+            setAlertmessage("資料更新失敗")
+            setOpen(true);
 		}
 	}
 
     return (
         <>
             <Container component="main" maxWidth="sm">
+                <InfoDialog open={open} setOpen={setOpen} turnBack={stored} alertmessage={alertmessage} />
                 <CssBaseline />
                 <List
                     sx={{
@@ -203,7 +248,7 @@ const Reset = () => {
                             )
                         })
                         :
-                        <></>
+                        <p style={{ marginTop: '3%' }}>目前尚無報名項目</p>
                     }
                     <Grid
                         container

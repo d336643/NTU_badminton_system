@@ -166,7 +166,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             </MenuItem> 
                             currently not open these functions*/}
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
-                                <Typography textAlign="center">報名賽事</Typography>
+                                <Typography textAlign="center">競賽章程</Typography>
                             </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                 <Typography textAlign="center">報名賽事</Typography>

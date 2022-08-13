@@ -17,7 +17,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InfoDialog from "./InfoDialog";
 import instance from "../instance";
-import { checkPassword, verifyTWid, verifyLiveid } from "../utilities/checkString";
+import { checkPassword, verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY }  from '../utilities/entry'
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +28,7 @@ export default function SwitchListSecondary() {
         sid: '',
         degreeId: 0,
         departmentId: null,
-        birthday: '',
+        birthday: '2017-05-24',
         iid: '',
         email: '',
         phone: '',
@@ -84,20 +84,30 @@ export default function SwitchListSecondary() {
 
     const onFinish = () => {
         console.log('Received values of form: ', values);
-        if (!checkPassword(values.password)) {
-            setAlertmessage("密碼需由至少8位英文及數字混和組成");
+        if (values.iid.length !== 10) {
+            setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
+            setOpen(true);
+        }
+        else if (!verifyTWid(values.iid) || !verifyLiveid(values.iid)) {
+            setAlertmessage(nation === 1 ? "身分證格式錯誤" : "居留證格式錯誤");
             setOpen(true);
         }
         else {
-            if (values.iid.length !== 10) {
-                setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
+            if (!verifyEmail(values.email)) {
+                setAlertmessage("請輸入台大信箱");
                 setOpen(true);
             }
             else {
-                delete values.showPassword;
-                delete values.confirmPassword;
-                console.log(values);
-                submitForm(values);
+                if (!checkPassword(values.password)) {
+                    setAlertmessage("密碼需由至少8位英文及數字混和組成");
+                    setOpen(true);
+                }
+                else {
+                    delete values.showPassword;
+                    delete values.confirmPassword;
+                    console.log(values);
+                    submitForm(values);
+                }
             }
         }
     };
@@ -116,7 +126,7 @@ export default function SwitchListSecondary() {
             console.log(res);
             if (res.status === 200) {
                 setStatus(true);
-                setAlertmessage("將為您導回首頁，請至學校信箱驗證帳戶 !")
+                setAlertmessage("註冊成功，將為您導回首頁 !")
                 setOpen(true);
             }
             else {
@@ -196,7 +206,6 @@ export default function SwitchListSecondary() {
                             size="small"
                             autoComplete="name"
                             name="fullName"
-                            required
                             id="fullName"
                             label="姓名"
                             autoFocus
@@ -208,7 +217,6 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="sid"
                             label="學號"
                             name="sid"
@@ -221,7 +229,6 @@ export default function SwitchListSecondary() {
                         <Autocomplete 
                             size="small"
                             sx={{ gridColumn: '4/8' }}
-                            // disablePortal
                             id="select-degreeId"
                             options={DEGREEENTRY}
                             getOptionLabel={(option) => option.label || ""}
@@ -252,7 +259,6 @@ export default function SwitchListSecondary() {
                         <Autocomplete 
                             size="small"
                             sx={{ gridColumn: '4/8' }}
-                            // disablePortal
                             id="select-department"
                             options={collegeId === null ? department : filterArr(department, collegeId[0])}
                             getOptionLabel={(option) => option.label || ""}
@@ -284,7 +290,6 @@ export default function SwitchListSecondary() {
                         <Autocomplete 
                             size="small"
                             sx={{ gridColumn: '4/8' }}
-                            // disablePortal
                             id="select-nation"
                             options={NATIONENTRY}
                             getOptionLabel={(option) => option.label}
@@ -301,13 +306,14 @@ export default function SwitchListSecondary() {
                             <TextField
                                 sx={{ gridColumn: '4/8' }}
                                 size="small"
-                                required
                                 id="iid"
                                 label="身分證字號"
                                 name="iid"
                                 autoComplete="iid"
                                 onChange={handleChange('iid')}
-                                helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : ""}
+                                error={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
+                                errorText={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : false}
+                                helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : values.iid.length > 0 ? "身分證格式錯誤" : ""}
                             />
                         </ListItem>
                         :
@@ -316,13 +322,14 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="altIid"
                             label="居留證號"
                             name="altIid"
                             autoComplete="altIid"
                             onChange={handleChange('iid')}
-                            helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
+                            error={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
+                            errorText={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : false}
+                            helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : values.iid.length > 0 ? "身分證格式錯誤" : ""}
                         />
                     </ListItem>
                     }
@@ -331,12 +338,14 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="email"
-                            label="電子郵件"
+                            label="電子郵件 (請輸入台大信箱)"
                             name="email"
                             autoComplete="email"
                             onChange={handleChange('email')}
+                            error={verifyEmail(values.email) ? false : values.email.length > 0 ? true : false}
+                            errorText={verifyEmail(values.email) ? false : values.email.length > 0 ? true : false}
+                            helperText={verifyEmail(values.email) ? "" : "請輸入台大信箱"}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -344,7 +353,6 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="phone"
                             label="手機號碼"
                             name="phone"
@@ -357,7 +365,6 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="address"
                             label="地址"
                             name="address"
@@ -370,12 +377,11 @@ export default function SwitchListSecondary() {
                         <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined" helperText={checkPassword(values.password) ? "" : "密碼需由至少8位英文及數字混和組成"}>
                             <InputLabel htmlFor="adornment-password">密碼</InputLabel>
                             <OutlinedInput
-                                required
                                 id="adornment-password"
                                 type={values.showPassword ? 'text' : 'password'}
                                 value={values.password}
                                 onChange={handleChange('password')}
-                                error={values.password.length < 8 || !checkPassword(values.password)}
+                                error={values.password.length !== 0 ? checkPassword(values.password) ? false : true : false}
                                 endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -391,7 +397,7 @@ export default function SwitchListSecondary() {
                                 label="Password"
                             />
                             <FormHelperText error>
-                                {checkPassword(values.password) ? "" : "密碼需由至少8位英文及數字混和組成"}
+                                {values.password.length !== 0 ? checkPassword(values.password) ? "" : "密碼需由至少8位英文及數字混和組成" : ""}
                             </FormHelperText>
                         </FormControl>
                     </ListItem>
@@ -400,7 +406,6 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="confirmPassword"
                             type={'password'}
                             label="再次輸入密碼"

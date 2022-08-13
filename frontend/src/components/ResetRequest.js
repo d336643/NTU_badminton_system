@@ -92,7 +92,15 @@ const Reset = () => {
                         alignItems: 'center',
                     }}
                 >
-                    {showmessage && (
+                    <p>忘記密碼請聯絡粉專</p>
+                    <Button 
+                        variant="outlined"
+                        onClick={() => navigate('/')}
+                        sx={{mt:3}}
+                    >
+                        返回主頁面
+                    </Button>
+                    {/* {showmessage && (
                         <Alert sx={{ position: 'fixed', top: '10%' }}
                                 severity={severity}>
                             {alertmessage}
@@ -126,7 +134,7 @@ const Reset = () => {
                         >
                             回到登入
                         </Button>
-                    </Box>
+                    </Box> */}
                 </Box>
             </Container>
         </>

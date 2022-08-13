@@ -26,6 +26,10 @@ const LoginForm = () => {
     const [alertmessage, setAlertmessage] = useState('Alert message');
     const [open, setOpen] = useState(false);
 
+    const checkSame = (opt) => {
+        return Number(opt.uid) !== myUid;
+    }
+
     useEffect(() => {
         async function fetchData() {
             const config = {
@@ -117,7 +121,7 @@ const LoginForm = () => {
             const res = await instance.post(`/events`, form, config);
             console.log(res);
             if (res.status === 200){
-                setAlertmessage("報名成功，即將為您導回首頁 !");
+                setAlertmessage("報名完成，請至 \"報名 / 繳費狀態\" 頁確認是否報名成功");
                 setSuccess(true);
 				setOpen(true);
 
@@ -179,8 +183,8 @@ const LoginForm = () => {
                                 size="small"
                                 sx={{ gridColumn: '2/4' }}
                                 id="select-sid-1"
-                                options={currentStudent}
-                                getOptionLabel={(option) => option.sid}
+                                options={currentStudent.filter(checkSame)}
+                                getOptionLabel={(option) => `${option.sid}`+' '+`${option.username}`}
                                 isOptionEqualToValue={(option, value) => option.sid === value.sid}
                                 onChange={(event, newValue, reason) => {
                                     setCompetitors1(reason === "clear" || reason === "removeOption" ? null : newValue.uid);
@@ -188,7 +192,7 @@ const LoginForm = () => {
                                 }}
                                 renderInput={(params) => 
                                     <TextField {...params} 
-                                        error={competitors1 === null ? true : false}
+                                        // error={competitors1 === null ? true : false}
                                         helperText={competitors1 === null ? "請確認隊友已擁有帳號" : ""}
                                         label="隊友學號" 
                                     />
@@ -227,15 +231,15 @@ const LoginForm = () => {
                                 sx={{ gridColumn: '2/4' }}
                                 // disablePortal
                                 id="select-sid-2"
-                                options={currentStudent}
-                                getOptionLabel={(option) => option.sid}
+                                options={currentStudent.filter(checkSame)}
+                                getOptionLabel={(option) => `${option.sid}`+' '+`${option.username}`}
                                 isOptionEqualToValue={(option, value) => option.sid === value.sid}
                                 onChange={(event, newValue, reason) => {
                                     setCompetitors2(reason === "clear" || reason === "removeOption" ? null : newValue.uid);
                                 }}
                                 renderInput={(params) => 
                                     <TextField {...params} 
-                                        error={competitors2 === null ? true : false}
+                                        // error={competitors2 === null ? true : false}
                                         helperText={competitors2 === null ? "請確認隊友已擁有帳號" : ""}
                                         label="隊友學號" 
                                     />

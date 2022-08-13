@@ -9,11 +9,12 @@ import Container from '@mui/material/Container';
 import Autocomplete from '@mui/material/Autocomplete';
 import InfoDialog from "./InfoDialog";
 import instance from "../instance";
-import { verifyTWid, verifyLiveid } from "../utilities/checkString";
+import { verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY, STATUS }  from '../utilities/entry'
 // import { useParams, useNavigate } from "react-router-dom";
 
 const EditForm = () => {
+    const date = localStorage.getItem("birthday")
     const token = localStorage.getItem('token');
     const [values, setValues] = useState({
         id: localStorage.getItem('uid'),
@@ -21,7 +22,7 @@ const EditForm = () => {
         sid: localStorage.getItem("sid"),
         degreeId: Number(localStorage.getItem("degreeId")),
         departmentId: localStorage.getItem("departmentId"),
-        birthday: '2002-04-16',
+        birthday: date.replace("/", "-",),
         iid: localStorage.getItem("iid"),
         email: localStorage.getItem("email"),
         phone: localStorage.getItem("phone"),
@@ -71,11 +72,26 @@ const EditForm = () => {
     }, [])
     
     const onFinish = () => {
-        // delete values.collegeId;
-        delete values.changed;
-        delete values.status;
-        console.log(values);
-        submitForm(values);
+        if (values.iid.length !== 10) {
+            setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
+            setOpen(true);
+        }
+        else if (!verifyTWid(values.iid) && !verifyLiveid(values.iid)) {
+            setAlertmessage(nation === 1 ? "身分證格式錯誤" : "居留證格式錯誤");
+            setOpen(true);
+        }
+        else {
+            if (!verifyEmail(values.email)) {
+                setAlertmessage("請輸入台大信箱");
+                setOpen(true);
+            }
+            else {
+                delete values.changed;
+                delete values.status;
+                console.log(values);
+                submitForm(values);
+            }
+        }
     };
 
 	const submitForm = async(form) => {
@@ -90,6 +106,16 @@ const EditForm = () => {
 			let res = await instance.put(`/users/${values.id}`, form, config)
 			console.log(res);
 			if(res.status === 200) {
+                localStorage.setItem("name", values.username);
+                localStorage.setItem("sid", values.sid);
+                localStorage.setItem("degreeId", values.degreeId);
+                localStorage.setItem("departmentId", values.departmentId);
+                localStorage.setItem("birthday", values.birthday);
+                localStorage.setItem("iid", values.iid);
+                localStorage.setItem("email", values.email);
+                localStorage.setItem("phone", values.phone);
+                localStorage.setItem("accountStatus", values.accountStatus);
+                localStorage.setItem("address", values.address);
                 setAlertmessage("編輯成功，即將為您導回首頁 !");
                 setSuccess(true);
 				setOpen(true);
@@ -291,6 +317,8 @@ const EditForm = () => {
                                 autoFocus
                                 value={values.iid}
                                 onChange={handleChange('iid')}
+                                error={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
+                                errorText={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : false}
                                 helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : ""}
                             />
                         </ListItem>
@@ -307,6 +335,8 @@ const EditForm = () => {
                                 autoFocus
                                 value={values.iid}
                                 onChange={handleChange('iid')}
+                                error={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
+                                errorText={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : false}
                                 helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
                             />
                     </ListItem>
@@ -317,11 +347,14 @@ const EditForm = () => {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="email"
-                            label="電子郵件"
+                            label="電子郵件 (請輸入台大信箱)"
                             name="email"
                             autoComplete="email"
                             value={values.email}
                             onChange={handleChange('email')}
+                            error={verifyEmail(values.email) ? false : values.email.length > 0 ? true : false}
+                            errorText={verifyEmail(values.email) ? false : values.email.length > 0 ? true : false}
+                            helperText={verifyEmail(values.email) ? false : true ? "" : "請輸入台大信箱"}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
