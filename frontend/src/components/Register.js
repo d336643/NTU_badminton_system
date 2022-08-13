@@ -99,7 +99,7 @@ const LoginForm = () => {
                         setOpen(true);
                         return;
                     }
-                    else regEvent = regEvent.concat({typeId: typeID1, competitors: [myUid, competitors2]});
+                    else regEvent = regEvent.concat({typeId: typeID2, competitors: [myUid, competitors2]});
                 }
             }
             submit(regEvent);
