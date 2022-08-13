@@ -23,22 +23,24 @@ const Competitor = ({setView, handleLogOut}) => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Button component={Link} to="/register"
                             variant="outlined"
                             size='large'
                             fullWidth>
                             賽程專區
                         </Button>
-                    </Grid>
-                    <Grid item xs={12}>
+                    </Grid> 
+                    currently not open these functions*/}
+                    {/* <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"
                             size='large'
                             fullWidth>
                             個人賽事
                         </Button>
-                    </Grid>
+                    </Grid> 
+                    currently not open these functions*/}
                     {/* <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"
@@ -48,6 +50,14 @@ const Competitor = ({setView, handleLogOut}) => {
                         </Button>
                     </Grid> 
                     currently not open these functions*/}
+                    <Grid item xs={12}>
+                        <Button component={Link} to="/competitionrule"
+                            variant="outlined"
+                            size='large'
+                            fullWidth>
+                            競賽章程
+                        </Button>
+                    </Grid>
                     <Grid item xs={12}>
                         <Button component={Link} to="/register"
                             variant="outlined"
@@ -65,7 +75,7 @@ const Competitor = ({setView, handleLogOut}) => {
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button component={Link} to="/editprofile"
+                        <Button component={Link} to="/editprofile/:id"
                             variant="outlined"
                             size='large'
                             fullWidth>

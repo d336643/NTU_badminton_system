@@ -3,34 +3,32 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+import FormHelperText from '@mui/material/FormHelperText';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
+import Autocomplete from '@mui/material/Autocomplete';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Navbar from './navbarComponents/Navbar'
+import InfoDialog from "./InfoDialog";
+import instance from "../instance";
+import { checkPassword, verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
+import { DEGREEENTRY, NATIONENTRY }  from '../utilities/entry'
 import { useNavigate } from "react-router-dom";
 
 export default function SwitchListSecondary() {
     const navigate = useNavigate();
-
     const [values, setValues] = useState({
-        name: '',
+        username: '',
         sid: '',
-        degreeID: 0,
-        departmentID: '',
-        birthday: '',
+        degreeId: 0,
+        departmentId: null,
+        birthday: '2017-05-24',
         iid: '',
         email: '',
         phone: '',
@@ -38,66 +36,108 @@ export default function SwitchListSecondary() {
         password: '',
         showPassword: false,
         confirmPassword: '',
-        
     });
-    const [file, setFile] = useState(null);
+    const [collegeId, setCollegeId] = useState(null);
     const [open, setOpen] = useState(false);
-    // const [submit, setSubmit] = useState(false);
+    const [college, setCollege] = useState([]);
+    const [department, setDepartment] = useState([]);
+    const [nation, setNation] = useState(1);
+    const [status, setStatus] = useState(false);
+    const [alertmessage, setAlertmessage] = useState('Alert message');
+
+    // const [file, setFile] = useState(null); in this moment we don't need file
+
+    const getInfo = async () => {
+        const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              'accept':'application/json'
+            },
+        };
+        try {
+            const res = await instance.get("/public/departments", config);
+            console.log(res.data);
+            if (res.data.success === true) {
+                console.log(res.data.data);
+                // console.log(res.data.colleges);
+                getKeysOf(res.data.data.colleges, 1);
+                getKeysOf(res.data.data.departments, 2);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getKeysOf = (dict, cnt) => {
+        const key = Object.keys(dict);
+        const value = Object.values(dict);
+        const testArr = value.map(function(x, i) {
+            return {label: key[i]+value[i], id: key[i]}        
+        });
+        if (cnt === 1) setCollege(college.concat(testArr))
+        if (cnt === 2) setDepartment(department.concat(testArr))
+    }
 
     useEffect(() => {
-		console.log(file);
-	}, [file])
+        getInfo();
+    }, [])
 
-    const onFinish = (values) => {
-        // console.log('Received values of form: ', values);
-        // let year = values.year;
-        // let {checkedMonth, checkedDay} = monthDayCheck(values.month, values.day);
-        // let date = `${year}-${checkedMonth}-${checkedDay}`;
-        // delete values.year;
-        delete values.showPassword;
-        delete values.confirmPassword;
-    
-        let finalForm = {...values, ...{file: file}};
-        console.log(finalForm);
-        // submitForm(finalForm);
-        
-        setOpen(true);
+    const onFinish = () => {
+        console.log('Received values of form: ', values);
+        if (values.iid.length !== 10) {
+            setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
+            setOpen(true);
+        }
+        else if (!verifyTWid(values.iid) || !verifyLiveid(values.iid)) {
+            setAlertmessage(nation === 1 ? "身分證格式錯誤" : "居留證格式錯誤");
+            setOpen(true);
+        }
+        else {
+            if (!verifyEmail(values.email)) {
+                setAlertmessage("請輸入台大信箱");
+                setOpen(true);
+            }
+            else {
+                if (!checkPassword(values.password)) {
+                    setAlertmessage("密碼需由至少8位英文及數字混和組成");
+                    setOpen(true);
+                }
+                else {
+                    delete values.showPassword;
+                    delete values.confirmPassword;
+                    console.log(values);
+                    submitForm(values);
+                }
+            }
+        }
     };
-    
-    const handleClose = () => {
-        setOpen(false);
-        navigate('/');
-    };
-    //   const submit = async (request) => {
-    //     try {
-    //       let res = await instance.post('/auth/users/', request);
-    //       console.log(res.data);
-    //       setIsModalVisible(true);
-    //     } catch (error) {
-    //       console.log(error.response.data);
-    //     }
-    //   }
 
-	// const submitForm = async(form) => {
-	// 	const config = {
-	// 		headers:{
-	// 			'Content-Type': 'multipart/form-data'
-	// 		}
-	// 	}
-	// 	console.log(form);
-	// 	try {
-	// 		let res = await instance.post('/users/register', form, config);
-	// 		console.log(res.data);
-	// 		if(res.status === 200) {
-	// 			// setBtnDisable(true);
-	// 			// setSuccess(true);
-	// 		}
-	// 	} catch (error) {
-	// 		console.log(error);
-    //         if(error.response.status === 413) message.warn("圖片檔過大，請重新挑選圖片!", 1.5);
-	// 		// setBtnDisable(false);
-	// 	}
-	// }
+	const submitForm = async(form) => {
+		const config = {
+			headers:{
+				// 'Content-Type': 'multipart/form-data', not use file in this moment
+                'Content-Type': 'application/json',
+                'accept':'application/json'
+			}
+		}
+		console.log(form);
+		try {
+			let res = await instance.post('/auth/signup', form, config);
+            console.log(res);
+            if (res.status === 200) {
+                setStatus(true);
+                setAlertmessage("註冊成功，將為您導回首頁 !")
+                setOpen(true);
+            }
+            else {
+                setAlertmessage(res.data.msg);
+                setOpen(true);
+            }
+		} catch (error) {
+			setAlertmessage("輸入資料錯誤");
+            setOpen(true);
+		}
+	}
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -114,38 +154,27 @@ export default function SwitchListSecondary() {
         event.preventDefault();
     };
 
+    const filterArr = (array, letter) => {
+        var filtered = array.filter(function(word) {
+         return word.id[0] === letter;
+        });
+        return filtered 
+    }
+
     return (
         <>
-            <Navbar />
             <Container component="main" maxWidth="sm">
-                <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    // aria-labelledby="alert-dialog-title"
-                    // aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle>成功送出</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            將為您導回首頁，請至學校信箱驗證帳戶 !
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose} autoFocus>
-                            知道了
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-                <List
-                    sx={{
-                        marginTop: '10%',
+                <InfoDialog open={open} setOpen={setOpen} turnBack={status} alertmessage={alertmessage} />
+                <form
+                    style={{
+                        marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                    subheader={<ListSubheader>註冊帳號</ListSubheader>}
                 >
-                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                    <h3 style={{ marginBottom: '5%' }}>註冊新帳號</h3>
+                    {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                         <Button 
                             sx={{ gridColumn: '4/8' }}
@@ -169,7 +198,7 @@ export default function SwitchListSecondary() {
                                 loading="lazy"
                             />
                         </div>
-                    </ListItem>
+                    </ListItem> */}
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
                         <TextField
@@ -177,11 +206,10 @@ export default function SwitchListSecondary() {
                             size="small"
                             autoComplete="name"
                             name="fullName"
-                            required
                             id="fullName"
                             label="姓名"
                             autoFocus
-                            onChange={handleChange('name')}
+                            onChange={handleChange('username')}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -189,7 +217,6 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="sid"
                             label="學號"
                             name="sid"
@@ -198,29 +225,49 @@ export default function SwitchListSecondary() {
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/3' }} id="dgreeID-item" primary="學院" />
-                        <TextField
-                            sx={{ gridColumn: '4/8' }}
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="dgreeID-item" primary="年級" />
+                        <Autocomplete 
                             size="small"
-                            required
-                            id="dgreeID"
-                            label="學院"
-                            name="dgreeID"
-                            autoComplete="dgreeID"
-                            onChange={handleChange('dgreeID')}
+                            sx={{ gridColumn: '4/8' }}
+                            id="select-degreeId"
+                            options={DEGREEENTRY}
+                            getOptionLabel={(option) => option.label || ""}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="請選擇年級" />}
+                            onChange={(event, newValue, reason) => {
+                                setValues({...values, degreeId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
+                            }}
+                        />
+                    </ListItem>
+                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="college-item" primary="學院" />
+                        <Autocomplete 
+                            size="small"
+                            sx={{ gridColumn: '4/8' }}
+                            id="select-college"
+                            options={college}
+                            getOptionLabel={(option) => option.label || ""}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="請選擇學院" />}
+                            onChange={(event, newValue, reason) => {
+                                setCollegeId(reason === "clear" || reason === "removeOption" ? null : newValue.id);
+                            }}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="departmentID-item" primary="系所" />
-                        <TextField
-                            sx={{ gridColumn: '4/8' }}
+                        <Autocomplete 
                             size="small"
-                            required
-                            id="departmentID"
-                            label="系所"
-                            name="departmentID"
-                            autoComplete="departmentID"
-                            onChange={handleChange('departmentID')}
+                            sx={{ gridColumn: '4/8' }}
+                            id="select-department"
+                            options={collegeId === null ? department : filterArr(department, collegeId[0])}
+                            getOptionLabel={(option) => option.label || ""}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="請選擇系所" />}
+                            onChange={(event, newValue, reason) => {
+                                setValues({...values, departmentId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
+                            }}
+                            // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -239,29 +286,66 @@ export default function SwitchListSecondary() {
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/3' }} id="iid-item" primary="身分證字號" />
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="nation-item" primary="國籍" />
+                        <Autocomplete 
+                            size="small"
+                            sx={{ gridColumn: '4/8' }}
+                            id="select-nation"
+                            options={NATIONENTRY}
+                            getOptionLabel={(option) => option.label}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="請選擇國籍" />}
+                            onChange={(event, newValue, reason) => {
+                                setNation(reason === "clear" || reason === "removeOption" ? null : newValue.id);
+                            }}
+                        />
+                    </ListItem>
+                    { nation === 1 ?
+                        <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                            <ListItemText sx={{ gridColumn: '1/3' }} id="iid-item" primary="身分證字號" />
+                            <TextField
+                                sx={{ gridColumn: '4/8' }}
+                                size="small"
+                                id="iid"
+                                label="身分證字號"
+                                name="iid"
+                                autoComplete="iid"
+                                onChange={handleChange('iid')}
+                                error={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
+                                errorText={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : false}
+                                helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : values.iid.length > 0 ? "身分證格式錯誤" : ""}
+                            />
+                        </ListItem>
+                        :
+                        <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="alt-iid-item" primary="居留證號" />
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
-                            id="iid"
-                            label="身分證字號"
-                            name="iid"
-                            autoComplete="iid"
+                            id="altIid"
+                            label="居留證號"
+                            name="altIid"
+                            autoComplete="altIid"
                             onChange={handleChange('iid')}
+                            error={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
+                            errorText={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : false}
+                            helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : values.iid.length > 0 ? "身分證格式錯誤" : ""}
                         />
                     </ListItem>
+                    }
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="email-item" primary="電子郵件" />
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="email"
-                            label="電子郵件"
+                            label="電子郵件 (請輸入台大信箱)"
                             name="email"
                             autoComplete="email"
                             onChange={handleChange('email')}
+                            error={verifyEmail(values.email) ? false : values.email.length > 0 ? true : false}
+                            errorText={verifyEmail(values.email) ? false : values.email.length > 0 ? true : false}
+                            helperText={verifyEmail(values.email) ? "" : "請輸入台大信箱"}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -269,7 +353,6 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="phone"
                             label="手機號碼"
                             name="phone"
@@ -282,7 +365,6 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="address"
                             label="地址"
                             name="address"
@@ -292,16 +374,14 @@ export default function SwitchListSecondary() {
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="密碼" />
-                        <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">
+                        <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined" helperText={checkPassword(values.password) ? "" : "密碼需由至少8位英文及數字混和組成"}>
                             <InputLabel htmlFor="adornment-password">密碼</InputLabel>
                             <OutlinedInput
-                                required
                                 id="adornment-password"
                                 type={values.showPassword ? 'text' : 'password'}
                                 value={values.password}
                                 onChange={handleChange('password')}
-                                error={values.password.length < 8}
-                                helperText="密碼須為8位英文及數字混和組成"
+                                error={values.password.length !== 0 ? checkPassword(values.password) ? false : true : false}
                                 endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -316,6 +396,9 @@ export default function SwitchListSecondary() {
                                 }
                                 label="Password"
                             />
+                            <FormHelperText error>
+                                {values.password.length !== 0 ? checkPassword(values.password) ? "" : "密碼需由至少8位英文及數字混和組成" : ""}
+                            </FormHelperText>
                         </FormControl>
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -323,14 +406,14 @@ export default function SwitchListSecondary() {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
                             id="confirmPassword"
                             type={'password'}
                             label="再次輸入密碼"
                             name="confirmPassword"
                             autoComplete="confirmPassword"
                             onChange={handleChange('confirmPassword')}
-                            // error={values.password === ""}
+                            error={values.confirmPassword !== "" && values.confirmPassword !== values.password}
+                            errorText={values.confirmPassword !== "" && values.confirmPassword !== values.password}
                             helperText={values.confirmPassword !== "" && values.confirmPassword !== values.password ? '輸入與密碼不一致' : ''}
                         />
                     </ListItem>
@@ -350,7 +433,7 @@ export default function SwitchListSecondary() {
                     >
                         登入
                     </Button>
-                </List>
+                </form>
             </Container>
         </>
     );

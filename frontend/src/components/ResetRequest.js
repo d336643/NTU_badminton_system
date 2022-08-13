@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Navbar from '../navbarComponents/Navbar';
+import instance from '../instance';
 import { useNavigate } from "react-router-dom";
 
 const Reset = () => {
@@ -81,24 +81,32 @@ const Reset = () => {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: '20%',
+                        marginTop: '10%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    {showmessage && (
+                    <p>忘記密碼請聯絡粉專</p>
+                    <Button 
+                        variant="outlined"
+                        onClick={() => navigate('/')}
+                        sx={{mt:3}}
+                    >
+                        返回主頁面
+                    </Button>
+                    {/* {showmessage && (
                         <Alert sx={{ position: 'fixed', top: '10%' }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>
                     )}
-                    <h3>請輸入電子郵件以重設密碼</h3>
+                    <h3 style={{ marginBottom: '3%' }}>請輸入電子郵件以重設密碼</h3>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
@@ -126,7 +134,7 @@ const Reset = () => {
                         >
                             回到登入
                         </Button>
-                    </Box>
+                    </Box> */}
                 </Box>
             </Container>
         </>
