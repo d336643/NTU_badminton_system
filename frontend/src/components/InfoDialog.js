@@ -3,6 +3,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import InfoIcon from '@mui/icons-material/Info';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 import { useNavigate } from "react-router-dom";
 
 export default function InfoDialog({open, setOpen, turnBack, alertmessage}) {
@@ -16,17 +20,14 @@ export default function InfoDialog({open, setOpen, turnBack, alertmessage}) {
         <Dialog
             open={open}
             onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
         >
+            <DialogTitle style={{placeItems: 'center'}}>{<InfoIcon />}</DialogTitle>
             <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    {alertmessage}
-                </DialogContentText>
+                {alertmessage}
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} autoFocus>
-                    知道了
+                    確定
                 </Button>
             </DialogActions>
         </Dialog>
