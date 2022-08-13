@@ -77,17 +77,11 @@ const LoginForm = () => {
                 
                 await getInfo(res.data.uid, res.data.token);
 
-                setAlertmessage('登入成功');
-                setSeverity('success');
-                setShowmessage(true);
-                handleAlert();
+                // setAlertmessage('登入成功');
+                // setSeverity('success');
+                // setShowmessage(true);
+                // handleAlert();
             }
-            // else {
-            //     setAlertmessage('帳號或密碼錯誤，請重新嘗試');
-            //     setSeverity('warning');
-            //     setShowmessage(true);
-            //     closeAlert();
-            // }
         } catch (error) {
             setAlertmessage('帳號或密碼錯誤，請重新嘗試');
             setSeverity('warning');
