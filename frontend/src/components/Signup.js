@@ -88,8 +88,12 @@ export default function SwitchListSecondary() {
             setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
             setOpen(true);
         }
-        else if (!verifyTWid(values.iid) || !verifyLiveid(values.iid)) {
-            setAlertmessage(nation === 1 ? "身分證格式錯誤" : "居留證格式錯誤");
+        else if (nation === 1 && !verifyTWid(values.iid)) {
+            setAlertmessage("身分證格式錯誤");
+            setOpen(true);
+        }
+        else if (nation !== 1 && !verifyLiveid(values.iid)) {
+            setAlertmessage("身分證格式錯誤");
             setOpen(true);
         }
         else {
