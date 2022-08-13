@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import EditIcon from '@mui/icons-material/Edit';
-import InputAdornment from '@mui/material/InputAdornment';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Autocomplete from '@mui/material/Autocomplete';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import Typography from "@mui/material/Typography";
-import Footer from '../components/Footer';
 import InfoDialog from "./InfoDialog";
 import instance from "../instance";
 import { verifyTWid, verifyLiveid } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY, STATUS }  from '../utilities/entry'
-import { useParams, useNavigate } from "react-router-dom";
+// import { useParams, useNavigate } from "react-router-dom";
 
 const EditForm = () => {
     const token = localStorage.getItem('token');
@@ -108,25 +103,25 @@ const EditForm = () => {
 		}
 	}
 
-    const findLastOne = (array) => {
-        const reversed = [];
-        for (let i = array.length - 1; i >= 0; i--) {
-            reversed.push(array[i]);
-        };
-        console.log(reversed);
-        return reversed.find(v => Number(v.id) <= Number(values.departmentId)) || null
-    }
+    // const findLastOne = (array) => {
+    //     const reversed = [];
+    //     for (let i = array.length - 1; i >= 0; i--) {
+    //         reversed.push(array[i]);
+    //     };
+    //     console.log(reversed);
+    //     return reversed.find(v => Number(v.id) <= Number(values.departmentId)) || null
+    // }
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
-    const filterArr = (array, letter) => {
-        var filtered = array.filter(function(word) {
-         return word.id.charAt(0) === letter;
-        });
-        return filtered 
-    }
+    // const filterArr = (array, letter) => {
+    //     var filtered = array.filter(function(word) {
+    //      return word.id.charAt(0) === letter;
+    //     });
+    //     return filtered 
+    // }
 
     return (
         <>
