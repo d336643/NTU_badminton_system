@@ -35,10 +35,8 @@ const Competitor = ({setView, handleLogOut}) => {
                             </Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button component={Link} to={{
-                                    pathname: "/showapplicant",
-                                    data: 2 // your data array of objects
-                                }}
+                            <Button 
+                                onClick={() => navigate('/showapplicant',{state:{data: 2}})}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
@@ -46,10 +44,8 @@ const Competitor = ({setView, handleLogOut}) => {
                             </Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button component={Link} to={{
-                                    pathname: "/showapplicant",
-                                    data: 3 // your data array of objects
-                                }}
+                            <Button 
+                                onClick={() => navigate('/showapplicant',{state:{data: 3}})}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
@@ -57,10 +53,8 @@ const Competitor = ({setView, handleLogOut}) => {
                             </Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button component={Link} to={{
-                                    pathname: "/showapplicant",
-                                    data: 4 // your data array of objects
-                                }}
+                            <Button 
+                                onClick={() => navigate('/showapplicant',{state:{data: 4}})}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
@@ -68,10 +62,8 @@ const Competitor = ({setView, handleLogOut}) => {
                             </Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button component={Link} to={{
-                                    pathname: "/showapplicant",
-                                    data: 5 // your data array of objects
-                                }}
+                            <Button 
+                                onClick={() => navigate('/showapplicant',{state:{data: 5}})}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>

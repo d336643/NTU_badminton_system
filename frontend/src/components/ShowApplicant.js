@@ -10,12 +10,15 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
-import Navbar from './Navbar'
+import Button from '@mui/material/Button';
 
 import instance from '../instance';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 let counter = 0;
+
+const Entries = ['男單', '女單', '男雙', '女雙', '混雙']
 const createData = (eventId, uid, name, sid, account, status) => {
     counter += 1;
     return { id: counter, eventId: eventId, uid: uid, name: name, 
@@ -30,6 +33,7 @@ const columns = [
 ];
 
 const FormTable = () => {
+    const navigate = useNavigate();
     const token =  localStorage.getItem("token");
     const dataId = useLocation();
     const [ page, setPage ] = useState(0);
@@ -53,7 +57,7 @@ const FormTable = () => {
             }
         }
         try {
-            let res = await instance.get(`admin/users?typeId=${dataId.state.data}`, {typeId: [dataId.state.data]}, config);
+            let res = await instance.get(`admin/users?typeId=${dataId.state.data}`, config);
             console.log(res.data);
             if(res.status === 202) {
                 console.log("Success");
@@ -111,64 +115,80 @@ const FormTable = () => {
     return (
         <>
             {/* <Navbar /> */}
-            <Container component="main" maxWidth="sm">
+            <Container component="main" maxWidth="sm" sx={{ alignItems: 'center' }}>
                 <CssBaseline />
-                <Paper sx={{ width: '100%', overflow: 'hidden', mt: '5%' }}>
-                    <TableContainer sx={{ maxHeight: 550 }}>
-                        <Table stickyHeader aria-label="sticky table">
-                            <TableHead>
-                                <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => {
-                                    return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                return (
-                                                    column.id !== "status" ?
-                                                    <TableCell key={column.id} align={column.align}>
-                                                        {column.format && typeof value === 'number'
-                                                            ? column.format(value) : value}
-                                                    </TableCell>
-                                                    :
-                                                    <Checkbox
-                                                        disable={value === 1 ? true : false}
-                                                        checked={row.checked}
-                                                        onChange={event => handleCheckboxClick(event, row.id, row.eventId, row.status)}
-                                                        inputProps={{ 'aria-label': 'controlled' }}
-                                                        color="success"
-                                                    /> 
-                                                );
-                                            })}
-                                        </TableRow>
-                                    );
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={rows.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Paper>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <h3 style={{ marginTop: '5%' }}><b>{Entries[Number(dataId.state.data)-1]}</b>{"報名、繳費狀態"}</h3>
+                    <Paper sx={{ width: '100%', overflow: 'hidden', mt: '5%' }}>
+                        <TableContainer sx={{ maxHeight: 550 }}>
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                    {columns.map((column) => (
+                                        <TableCell
+                                            key={column.id}
+                                            align={column.align}
+                                            style={{ minWidth: column.minWidth }}
+                                        >
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {rows
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row) => {
+                                        return (
+                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                                {columns.map((column) => {
+                                                    const value = row[column.id];
+                                                    return (
+                                                        column.id !== "status" ?
+                                                        <TableCell key={column.id} align={column.align}>
+                                                            {column.format && typeof value === 'number'
+                                                                ? column.format(value) : value}
+                                                        </TableCell>
+                                                        :
+                                                        <Checkbox
+                                                            disable={value === 1 ? true : false}
+                                                            checked={row.checked}
+                                                            onChange={event => handleCheckboxClick(event, row.id, row.eventId, row.status)}
+                                                            inputProps={{ 'aria-label': 'controlled' }}
+                                                            color="success"
+                                                        /> 
+                                                    );
+                                                })}
+                                            </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25]}
+                            component="div"
+                            count={rows.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </Paper>
+                    <Button
+                        variant="outlined"
+                        sx={{ mt: 3, mb: 3 }}
+                        onClick={() => navigate('/applicantsummary')}
+                    >
+                        回到項目總覽
+                    </Button>
+                </Box>
             </Container>
         </>
     );
