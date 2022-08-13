@@ -11,14 +11,16 @@ import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
-
+import Grid from '@mui/material/Grid';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import instance from '../instance';
+import delay from '../utilities/delay';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Box } from '@mui/material';
-
-let counter = 0;
 
 const Entries = ['男單', '女單', '男雙', '女雙', '混雙']
+
+let counter = 0;
 const createData = (eventId, uid, name, sid, account, status) => {
     counter += 1;
     return { id: counter, eventId: eventId, uid: uid, name: name, 
@@ -34,21 +36,27 @@ const columns = [
 
 const FormTable = () => {
     const navigate = useNavigate();
+    const uid =  localStorage.getItem("uid");
     const token =  localStorage.getItem("token");
     const dataId = useLocation();
     const [ page, setPage ] = useState(0);
     const [ rowsPerPage, setRowsPerPage ] = useState(10);
-    const [ rows, setRows ] = useState([
-        createData(13, 1, "鄭亦辰", "R10725032", "12345", 3),
-        createData(21, 2, "劉智心", "B09705024", "52496", 2),
-        createData(10, 3, "王大明", "B09705003", "78415", 2),
-        createData(1, 4, "王帥哥", "B10456333", "85668", 2),
-        createData(2, 5, "王美女", "R10725001", "", 1),
-        createData(3, 6, "GG", "R10725002", "", 1),
-    ]);
-    
-    const [ dataSource, setDataSource ] = useState([]);
-    // const [ rows, setRows ] = useState([]);
+    const [ rows, setRows ] = useState([]);
+    const [ eventsToPay, setEventsToPay ] = useState([]);
+    const [showmessage, setShowmessage] = useState(false);
+    const [alertmessage, setAlertmessage] = useState('Alert message');
+    const [severity, setSeverity] = useState('error');
+
+    async function closeAlert(){
+        await delay(3);
+        setShowmessage(false);
+    }
+
+    async function handleAlert(){
+        await delay(1);
+        setShowmessage(false);
+        navigate('/');
+    }
 
     const fetchData = async() => {
         const config = {
@@ -59,9 +67,22 @@ const FormTable = () => {
         try {
             let res = await instance.get(`admin/users?typeId=${dataId.state.data}`, config);
             console.log(res.data);
-            if(res.status === 202) {
+            if(res.status === 200) {
                 console.log("Success");
-                setDataSource(dataSource.concat(res.events));
+                const newState = res.data.events.map((obj) => {
+                        if (obj.competitors.length === 1) {
+                            let comInfo = obj.competitors[0];
+                            console.log(obj.eventId, comInfo.username)
+                            return createData(obj.eventId, comInfo.uid, comInfo.username, comInfo.sid, obj.account, obj.status);
+                        }
+                        else {
+                            let comInfo1 = obj.competitors[0];
+                            let comInfo2 = obj.competitors[1];
+                            console.log(obj.eventId, comInfo1.username, comInfo2.username)
+                            return createData(obj.eventId, `${comInfo1.uid},\n`+comInfo2.uid, `${comInfo1.username},\n`+comInfo2.username, `${comInfo1.sid},\n`+comInfo2.sid, obj.account, obj.status);
+                        }
+                });
+                setRows(rows.concat(newState));
             }
         } catch (error) {
             console.log(error);
@@ -73,20 +94,7 @@ const FormTable = () => {
         console.log(dataId);
         fetchData();
     }, [])
-
-    // useEffect(() => {
-    //     if(dataSource.length > 0) {
-    //         let filterData = dataSource.map((event) =>{
-    //             return {
-    //                 competitors: event.competitors,
-    //                 status: event.status,
-    //                 account: event.account,
-    //             }
-    //         });
-    //         setRows(filterData);
-    //     }
-        
-    // }, [dataSource])
+    
     const handleCheckboxClick = (event, id, eventId , status) => {
         event.stopPropagation();
         console.log(`event id: ${eventId}, checkbox select, status: ${status}`);
@@ -101,7 +109,39 @@ const FormTable = () => {
             console.log(`Changed status: ${event.target.checked}`);
         }
         else console.log('Cannot change status.');
+        if (event.target.checked) {
+            const result = eventsToPay.findIndex((element) => element === eventId);
+            if (result === -1) setEventsToPay(eventsToPay.concat(eventId));
+        }
     };
+
+    const handleStore = async() => {
+        const config = {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'accept':'application/json'
+            },
+        };
+        try {
+            const res = await instance.post('/admin/pay', 
+                {
+                    verifier: uid,
+                    eventsToPay: eventsToPay
+                }, config);
+            console.log(res);
+            if (res.status === 200) {
+                setAlertmessage('儲存成功');
+                setSeverity('success');
+                setShowmessage(true);
+                closeAlert();
+            }
+        } catch (error) {
+            setAlertmessage('無法儲存，請確認是否有變更繳費狀態');
+            setSeverity('error');
+            setShowmessage(true);
+            closeAlert();
+        }
+    }
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -111,6 +151,7 @@ const FormTable = () => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
 
     return (
         <>
@@ -124,6 +165,12 @@ const FormTable = () => {
                         alignItems: 'center',
                     }}
                 >
+                    {showmessage && (
+                        <Alert sx={{ position: 'fixed', top: '10%' }}
+                                severity={severity}>
+                            {alertmessage}
+                        </Alert>
+                    )}
                     <h3 style={{ marginTop: '5%' }}><b>{Entries[Number(dataId.state.data)-1]}</b>{"報名、繳費狀態"}</h3>
                     <Paper sx={{ width: '100%', overflow: 'hidden', mt: '5%' }}>
                         <TableContainer sx={{ maxHeight: 550 }}>
@@ -157,7 +204,7 @@ const FormTable = () => {
                                                         </TableCell>
                                                         :
                                                         <Checkbox
-                                                            disable={value === 1 ? true : false}
+                                                            disable={value === 2 ? false : true}
                                                             checked={row.checked}
                                                             onChange={event => handleCheckboxClick(event, row.id, row.eventId, row.status)}
                                                             inputProps={{ 'aria-label': 'controlled' }}
@@ -181,13 +228,30 @@ const FormTable = () => {
                             onRowsPerPageChange={handleChangeRowsPerPage}
                         />
                     </Paper>
-                    <Button
-                        variant="outlined"
-                        sx={{ mt: 3, mb: 3 }}
-                        onClick={() => navigate('/applicantsummary')}
+                    <Grid
+                        container
+                        justifyContent="center"
+                        spacing={2}
+                        sx={{mt: '2%'}}
                     >
-                        回到項目總覽
-                    </Button>
+                        <Grid item>
+                            <Button 
+                                variant="contained"
+                                onClick={handleStore}
+                            >
+                                儲存
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="outlined"
+                                onClick={() => navigate('/applicantsummary')}
+                            >
+                                回到項目總覽
+                            </Button>
+                        </Grid> 
+                    </Grid>
+                    
                 </Box>
             </Container>
         </>

@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Home from '@mui/icons-material/Home';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import checkLogin from '../utilities/checkLogin';
+import checkIdentity from '../utilities/checkIdentity';
 import { Link } from 'react-router-dom';
 
 const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
@@ -21,22 +21,14 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
     const [anchorElUser, setAnchorElUser] = useState(null);
 
     useEffect(() => {
-        async function loginCheck() {
-            let login = await checkLogin();
-            console.log("Is login?", login);
-
-            if (!login) {
-                // setBarView("guest");
-                setView("guest");
-                setIsLogin(false);
-            }
-            else {
-                // setBarView("competitor");
-                setView("competitor");
-                setIsLogin(true);
-            }
+        async function identityCheck() {
+            let login = await checkIdentity();
+            console.log("login identity:", login);
+            setView(login);
+            if ( login === "guest") setIsLogin(false);
+            else setIsLogin(true);
         }
-        loginCheck();
+        identityCheck();
     }, [])
 
     const navbarLogout = () => {
@@ -116,7 +108,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             display: { xs: 'block', md: 'none' },
                         }}
                         >
-                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/applicantsummary">
                                 <Typography textAlign="center">報名者表單、繳費</Typography>
                             </MenuItem>
                             
@@ -173,6 +165,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                                 <Typography textAlign="center">及時比分</Typography>
                             </MenuItem> 
                             currently not open these functions*/}
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
+                                <Typography textAlign="center">報名賽事</Typography>
+                            </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                 <Typography textAlign="center">報名賽事</Typography>
                             </MenuItem>
@@ -247,9 +242,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                         <Button
                             // key={page}
                             component={Link}
-                            to='/register'
+                            to='/applicantsummary'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
                         >
                             報名者表單、繳費
                         </Button>
@@ -316,6 +311,15 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                         <Button
                             // key={page}
                             component={Link}
+                            to='/competitionrule'
+                            onClick={handleCloseNavMenu}
+                            sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                        >
+                            競賽章程
+                        </Button> 
+                        <Button
+                            // key={page}
+                            component={Link}
                             to='/register'
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
@@ -327,7 +331,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             component={Link}
                             to='/competitorstatus'
                             onClick={handleCloseNavMenu}
-                            sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             報名 / 繳費狀態
                         </Button>

@@ -76,10 +76,7 @@ const LoginForm = () => {
                 
                 await getInfo(res.data.uid, res.data.token);
 
-                // setAlertmessage('登入成功');
-                // setSeverity('success');
-                // setShowmessage(true);
-                // handleAlert();
+                navigate('/');
             }
         } catch (error) {
             setAlertmessage('帳號或密碼錯誤，請重新嘗試');
@@ -119,7 +116,7 @@ const LoginForm = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" sx={{height: "75vh"}}>
                 <CssBaseline />
                 <Box
                     sx={{

@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Container from '@mui/material/Container';
 import General from '../components/homeComponents/GeneralHome';
 import Competitor from '../components/homeComponents/CompetitorHome';
 import Manager from '../components/homeComponents/ManagerHome'
-import Navbar from '../components/Navbar'
 // import Footer from '../components/Footer';
-import checkLogin from '../utilities/checkLogin';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import checkIdentity from '../utilities/checkIdentity';
 
 const HomePage = ({view, setView, isLogin, setIsLogin}) => {
 
@@ -19,20 +17,18 @@ const HomePage = ({view, setView, isLogin, setIsLogin}) => {
     }
 
     useEffect(() => {
-        async function loginCheck() {
-            let login = await checkLogin();
-            setIsLogin(login);
-
-            if (!login) setView("guest");
-            else setView("competitor");
+        async function identityCheck() {
+            let login = await checkIdentity();
+            setView(login);
+            if ( login === "guest") setIsLogin(false);
+            else setIsLogin(true);
         }
-        loginCheck();
+        identityCheck();
     }, [])
 
     return (
         <>
-            {/* <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin}/> */}
-            <Container component="main" maxWidth="sm">
+            <Container component="main" maxWidth="sm" sx={{height: "70vh"}}>
                 { isLogin ?
                     view === "manager" ?
                         <Manager setView={setView} handleLogOut={handleLogOut}/> 

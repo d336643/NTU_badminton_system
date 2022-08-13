@@ -25,7 +25,7 @@ const App = () => {
         <Router>
             <ThemeProvider theme={theme}>
                 <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin}/>
-                <Routes>
+                <Routes style={{height: "100vh"}}>
                     <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/resetpass" element={<ResetRequest />} />
@@ -40,7 +40,7 @@ const App = () => {
                     {/* <Route path="/profile/:username" element={<Profile />} /> */}
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
-                {/* <Footer /> */}
+                <Footer />
             </ThemeProvider>
         </Router>
     );

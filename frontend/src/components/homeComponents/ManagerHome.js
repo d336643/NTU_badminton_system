@@ -23,7 +23,7 @@ const Manager = ({setView, handleLogOut}) => {
                     spacing={2}
                 >
                     <Grid item xs={12}>
-                        <Button component={Link} to="/applicantform"
+                        <Button component={Link} to="/applicantsummary"
                             variant="outlined"
                             size='large'
                             fullWidth>

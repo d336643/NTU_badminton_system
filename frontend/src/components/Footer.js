@@ -1,19 +1,13 @@
 import React from 'react';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material//Typography';
 
 const footerStyle = {
-    minHeight: '10vh',
     marginTop: '5vh',
-    backgroundColor: '#433a7a',
+    minHeight: '10vh',
+    backgroundColor: 'secondary',
     display: 'grid',
     gridTemplateColumns: '1fr 2fr 1fr',
     placeItems: 'center',
-    position:'fixed',
-    left:0,
-    bottom:0,
-    right:0,
-    zIndex: 0,
+    minWidth: '100%'
 }
 const BottomFooter = () => {
     return (

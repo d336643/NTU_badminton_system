@@ -22,7 +22,7 @@ const LoginForm = () => {
     const [competitors2, setCompetitors2] = useState(null);
     // const [events, setEvents] = useState([]);
     const [currentStudent, setCurrentStudent] = useState();
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState(true);
     const [alertmessage, setAlertmessage] = useState('Alert message');
     const [open, setOpen] = useState(false);
 
@@ -54,8 +54,18 @@ const LoginForm = () => {
     // }, [currentStudent])
 
     const handleSubmit = () => {
-        if (typeID1 === null && typeID2 === null) 
-            console.log("Please select at least one game.")
+        if (typeID1 === null && typeID2 === null) {
+            setAlertmessage("請至少選擇一場比賽");
+            setSuccess(false);
+            setOpen(true);
+            return;
+        }
+        else if (typeID1 ===  typeID2) {
+            setAlertmessage("請勿重複報名");
+            setSuccess(false);
+            setOpen(true);
+            return;
+        }
         else {
             console.log(typeID1);
             console.log(typeID2);
@@ -65,14 +75,28 @@ const LoginForm = () => {
             if (typeID1 !== null) {
                 if (typeID1 === 1 || typeID1 === 2)
                     regEvent = regEvent.concat({typeId: typeID1, competitors: [myUid]});
-                else
-                    regEvent = regEvent.concat({typeId: typeID1, competitors: [myUid, competitors1]});
+                else {
+                    if (competitors1 === null) {
+                        setAlertmessage("未選擇隊友");
+                        setSuccess(false);
+                        setOpen(true);
+                        return;
+                    }
+                    else regEvent = regEvent.concat({typeId: typeID1, competitors: [myUid, competitors1]});
+                }
             }
             if (typeID2 !== null) {
                 if (typeID2 === 1 || typeID2 === 2) 
                     regEvent = regEvent.concat({typeId: typeID2, competitors: [myUid]});
-                else
-                    regEvent = regEvent.concat({typeId: typeID2, competitors: [myUid, competitors2]});
+                else {
+                    if (competitors2 === null) {
+                        setAlertmessage("未選擇隊友");
+                        setSuccess(false);
+                        setOpen(true);
+                        return;
+                    }
+                    else regEvent = regEvent.concat({typeId: typeID1, competitors: [myUid, competitors2]});
+                }
             }
             submit(regEvent);
         }

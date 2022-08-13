@@ -20,8 +20,10 @@ export default function InfoDialog({open, setOpen, turnBack, alertmessage}) {
         <Dialog
             open={open}
             onClose={handleClose}
+            fullWidth
+            minWidth="xs"
         >
-            <DialogTitle style={{placeItems: 'center'}}>{<InfoIcon />}</DialogTitle>
+            {/* <DialogTitle >{<InfoIcon />}</DialogTitle> */}
             <DialogContent>
                 {alertmessage}
             </DialogContent>
