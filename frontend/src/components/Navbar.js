@@ -19,16 +19,6 @@ import { Link } from 'react-router-dom';
 const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
-    // const [barView, setBarView] = useState(""); // 3 views. guest, competitor, and manager
-    // const [isLogin, setIsLogin] = useState(true);
-
-    // useEffect(async() => {
-    //     let login = await checkLogin();
-    //     if (!login) setView("guest");
-    //     else {
-    //         setView("competitor");
-    //     }
-    // }, [])
 
     useEffect(() => {
         async function loginCheck() {
@@ -401,7 +391,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             <MenuItem onClick={handleCloseUserMenu} component={Link} to='/editprofile/:token'>
                                 <Typography textAlign="center">編輯個人資料</Typography>
                             </MenuItem>
-                            <MenuItem onClick={navbarLogout} component={Link} to='/'>
+                            <MenuItem onClick={navbarLogout} component="a" href="/">
                                 <Typography textAlign="center">登出</Typography>
                             </MenuItem>
                         </Menu>
@@ -434,7 +424,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem onClick={navbarLogout} component={Link} to='/'>
+                            <MenuItem onClick={navbarLogout} component="a" href="/">
                                 <Typography textAlign="center">登出</Typography>
                             </MenuItem>
                         </Menu>

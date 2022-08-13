@@ -4,6 +4,7 @@ import General from '../components/homeComponents/GeneralHome';
 import Competitor from '../components/homeComponents/CompetitorHome';
 import Manager from '../components/homeComponents/ManagerHome'
 import Navbar from '../components/Navbar'
+// import Footer from '../components/Footer';
 import checkLogin from '../utilities/checkLogin';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -39,6 +40,7 @@ const HomePage = ({view, setView, isLogin, setIsLogin}) => {
                     : <General />
                 }
             </Container>
+            {/* <Footer /> */}
         </>
     )
 }

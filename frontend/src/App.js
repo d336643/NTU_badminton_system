@@ -14,6 +14,7 @@ import ApplicantSummary from "./containers/ApplicantSummary";
 import CompetitorStatus from "./containers/CompetitorStatus";
 import ShowApplicant from "./components/ShowApplicant";
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './style/theme';
 
@@ -39,7 +40,7 @@ const App = () => {
                     {/* <Route path="/profile/:username" element={<Profile />} /> */}
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
-                <div> Foooter </div>
+                {/* <Footer /> */}
             </ThemeProvider>
         </Router>
     );
