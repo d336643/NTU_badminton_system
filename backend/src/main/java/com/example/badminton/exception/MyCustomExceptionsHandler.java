@@ -75,6 +75,8 @@ public class MyCustomExceptionsHandler {
     public ResponseEntity<Object> handleOtherExceptions(Exception ex, WebRequest request) {
 //        String requestUri = ((ServletWebRequest)request).getRequest().getRequestURI().toString();
         System.out.println("----------handleOtherExceptions--------------\n" + ex.toString());
+        ex.printStackTrace();
+        System.out.println(ex.getStackTrace());
         return ResponseEntity.internalServerError().body(new MessageResponse(false, ex.getMessage()));
     }
 

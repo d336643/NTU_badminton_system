@@ -48,6 +48,13 @@
 <!--      <artifactId>mysql-connector-java</artifactId>-->
 <!--      <scope>runtime</scope>-->
 <!--    </dependency>-->
+
+    <!-- Email -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
+
     <!-- JWT -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

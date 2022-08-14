@@ -13,6 +13,7 @@ import com.example.badminton.model.entity.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findBySid(String sid);
     Optional<User> findById(Long id);
+    Optional<User> findByEmail(String email);
     Boolean existsBySid(String sid);
     Boolean existsByEmail(String email);
 }
