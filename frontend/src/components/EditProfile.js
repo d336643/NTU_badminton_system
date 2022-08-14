@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -72,25 +72,15 @@ const EditForm = () => {
     }, [])
     
     const onFinish = () => {
-        if (values.iid.length !== 10) {
-            setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
-            setOpen(true);
-        }
-        else if (!verifyTWid(values.iid) && !verifyLiveid(values.iid)) {
-            setAlertmessage(nation === 1 ? "身分證格式錯誤" : "居留證格式錯誤");
+        if (!verifyEmail(values.email)) {
+            setAlertmessage("請輸入台大信箱");
             setOpen(true);
         }
         else {
-            if (!verifyEmail(values.email)) {
-                setAlertmessage("請輸入台大信箱");
-                setOpen(true);
-            }
-            else {
-                delete values.changed;
-                delete values.status;
-                console.log(values);
-                submitForm(values);
-            }
+            delete values.changed;
+            delete values.status;
+            console.log(values);
+            submitForm(values);
         }
     };
 
@@ -287,7 +277,7 @@ const EditForm = () => {
                             onChange={handleChange('birthday')}
                         />
                     </ListItem>
-                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                    {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="nation-item" primary="國籍" />
                         <Autocomplete 
                             size="small"
@@ -303,26 +293,22 @@ const EditForm = () => {
                             }}
                             value={NATIONENTRY.find(v => v.id === nation) || null}
                         />
+                    </ListItem> */}
+                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                        <ListItemText sx={{ gridColumn: '1/3' }} id="iid-item" primary="身分證字號 / 居留證號" />
+                        <TextField
+                            sx={{ gridColumn: '4/8' }}
+                            size="small"
+                            autoComplete="iid"
+                            name="iid"
+                            id="iid"
+                            label="身分證字號 / 居留證號"
+                            readOnly={true}
+                            value={values.iid}
+                            helperText={'如需更改此欄位請私訊粉專'}
+                        />
                     </ListItem>
-                    { nation === 1 ?
-                        <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                            <ListItemText sx={{ gridColumn: '1/3' }} id="iid-item" primary="身分證字號" />
-                            <TextField
-                                sx={{ gridColumn: '4/8' }}
-                                size="small"
-                                autoComplete="iid"
-                                name="iid"
-                                id="iid"
-                                label="身分證字號"
-                                autoFocus
-                                value={values.iid}
-                                onChange={handleChange('iid')}
-                                error={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
-                                errorText={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : false}
-                                helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : ""}
-                            />
-                        </ListItem>
-                        :
+                        {/* :
                         <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                             <ListItemText sx={{ gridColumn: '1/3' }} id="alt-iid-item" primary="居留證號" />
                             <TextField
@@ -335,12 +321,12 @@ const EditForm = () => {
                                 autoFocus
                                 value={values.iid}
                                 onChange={handleChange('iid')}
-                                error={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
-                                errorText={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : false}
-                                helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
+                                error={values.iid.length > 0 ? verifyLiveid(values.iid) ? false : true : false}
+                                errorText={values.iid.length > 0 ? verifyLiveid(values.iid) ? false : true : false}
+                                helperText={values.iid.length > 0 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
                             />
                     </ListItem>
-                    }
+                    } */}
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="email-item" primary="電子郵件" />
                         <TextField

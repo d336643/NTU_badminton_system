@@ -1,28 +1,17 @@
-// Unfinish, reference "https://levelup.gitconnected.com/displaying-pdf-in-react-app-6e9d1fffa1a9"
-import React, { useState } from "react";
-import { Document, Page } from "react-pdf";
-import PDF from '../file/test.pdf';
+import React, {useState} from 'react'
+import { Container } from '@mui/material';
 
-const AllPages = () => {
-    const [numPages, setNumPages] = useState(null);
+function ShowPdf() {
 
-    function onDocumentLoadSuccess({ numPages }) {
-        setNumPages(numPages);
-    }
-
-    const { pdf } = PDF;
-
-    return (
-        <Document
-            file={pdf}
-            options={{ workerSrc: "/pdf.worker.js" }}
-            onLoadSuccess={onDocumentLoadSuccess}
-        >
-        {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-        ))}
-        </Document>
-    );
+  return (
+    <Container component="main" maxWidth="md" sx={{display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    minHeight: '80vh'}}>
+        <h3 style={{ marginBottom: '4%', marginTop: "7%" }}>競賽章程</h3>
+        <iframe src="https://drive.google.com/file/d/1S456OCXR7Uj0vBenoBU_8cGxA4Dh1Uim/preview" width="100%" height="520" allow="autoplay"></iframe>
+    </Container>
+  );
 }
 
-export default AllPages;
+export default ShowPdf;

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Container from '@mui/material/Container';
 import General from '../components/homeComponents/GeneralHome';
 import Competitor from '../components/homeComponents/CompetitorHome';
