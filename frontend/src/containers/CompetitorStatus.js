@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -125,14 +125,20 @@ const Reset = () => {
     const handleStore = (event) => {
         console.log('Received values for update account.');
         event.preventDefault();
-        toPayInfo.map(((info) => {
-            let finalForm = {
-                "payer":uid,
-                "eventsToPay": [info.eventId],
-                "account": info.account,
-            }
-            submitForm(finalForm);
-        }))
+        if (toPayInfo.length === 0) {
+            setAlertmessage("請先更新匯款資料再儲存")
+            setOpen(true);
+        }
+        else {
+            toPayInfo.map(((info) => {
+                let finalForm = {
+                    "payer":uid,
+                    "eventsToPay": [info.eventId],
+                    "account": info.account,
+                }
+                submitForm(finalForm);
+            }))
+        }
         // navigate("/");
     };
 

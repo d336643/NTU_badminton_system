@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -76,8 +76,12 @@ const EditForm = () => {
             setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
             setOpen(true);
         }
-        else if (!verifyTWid(values.iid) && !verifyLiveid(values.iid)) {
-            setAlertmessage(nation === 1 ? "身分證格式錯誤" : "居留證格式錯誤");
+        else if (nation === 1 && !verifyTWid(values.iid)) {
+            setAlertmessage("身分證格式錯誤");
+            setOpen(true);
+        }
+        else if (nation !== 1 && !verifyLiveid(values.iid)) {
+            setAlertmessage("身分證格式錯誤");
             setOpen(true);
         }
         else {
@@ -317,9 +321,9 @@ const EditForm = () => {
                                 autoFocus
                                 value={values.iid}
                                 onChange={handleChange('iid')}
-                                error={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
-                                errorText={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : false}
-                                helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : ""}
+                                error={values.iid.length > 0 ? verifyTWid(values.iid) ? false : true : false}
+                                errorText={values.iid.length > 0 ? verifyTWid(values.iid) ? false : true : false}
+                                helperText={values.iid.length > 0 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : ""}
                             />
                         </ListItem>
                         :
@@ -335,9 +339,9 @@ const EditForm = () => {
                                 autoFocus
                                 value={values.iid}
                                 onChange={handleChange('iid')}
-                                error={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
-                                errorText={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : false}
-                                helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
+                                error={values.iid.length > 0 ? verifyLiveid(values.iid) ? false : true : false}
+                                errorText={values.iid.length > 0 ? verifyLiveid(values.iid) ? false : true : false}
+                                helperText={values.iid.length > 0 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
                             />
                     </ListItem>
                     }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -315,9 +315,9 @@ export default function SwitchListSecondary() {
                                 name="iid"
                                 autoComplete="iid"
                                 onChange={handleChange('iid')}
-                                error={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
-                                errorText={values.iid.length === 10 ? verifyTWid(values.iid) ? false : true : false}
-                                helperText={values.iid.length === 10 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : values.iid.length > 0 ? "身分證格式錯誤" : ""}
+                                error={values.iid.length > 0 ? verifyTWid(values.iid) ? false : true : false}
+                                errorText={values.iid.length  > 0 ? verifyTWid(values.iid) ? false : true : false}
+                                helperText={values.iid.length > 0 ? verifyTWid(values.iid) ? "" : "身分證格式錯誤" : ""}
                             />
                         </ListItem>
                         :
@@ -331,9 +331,9 @@ export default function SwitchListSecondary() {
                             name="altIid"
                             autoComplete="altIid"
                             onChange={handleChange('iid')}
-                            error={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : values.iid.length > 0 ? true : false}
-                            errorText={values.iid.length === 10 ? verifyLiveid(values.iid) ? false : true : false}
-                            helperText={values.iid.length === 10 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : values.iid.length > 0 ? "身分證格式錯誤" : ""}
+                            error={values.iid.length > 0 ? verifyLiveid(values.iid) ? false : true : false}
+                            errorText={values.iid.length > 0 ? verifyLiveid(values.iid) ? false : true : false}
+                            helperText={values.iid.length > 0 ? verifyLiveid(values.iid) ? "" : "居留證格式錯誤" : ""}
                         />
                     </ListItem>
                     }
