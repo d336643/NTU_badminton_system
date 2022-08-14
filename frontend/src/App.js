@@ -1,9 +1,5 @@
 import "./App.css";
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
-import { useState, useEffect } from "react";
->>>>>>> e7712cccb9973bc14d91132db610fe0120690fba
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./containers/Home";
 import Login from "./components/Login";
