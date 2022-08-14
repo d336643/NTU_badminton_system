@@ -1,5 +1,9 @@
 import "./App.css";
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import { useState, useEffect } from "react";
+>>>>>>> e7712cccb9973bc14d91132db610fe0120690fba
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./containers/Home";
 import Login from "./components/Login";
@@ -21,6 +25,10 @@ import theme from './style/theme';
 const App = () => {
     const [view, setView] = useState(""); // 3 views. guest, competitor, and manager
     const [isLogin, setIsLogin] = useState(true);
+    //browser bar title
+    useEffect(() => {
+    document.title = "2022台大羽球新生盃"
+    }, [])
     return (
         <Router>
             <ThemeProvider theme={theme}>
