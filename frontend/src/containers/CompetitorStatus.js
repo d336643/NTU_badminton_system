@@ -214,15 +214,6 @@ const Reset = () => {
                         events.map((event, i) => {
                             return (
                                 <>
-                                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                                        <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名及繳費狀態" />
-                                        <TextField
-                                            sx={{ gridColumn: '3/5' }}
-                                            size="small"
-                                            value={eventStatus[event.status-1]}
-                                            readOnly={true}
-                                        />
-                                    </ListItem>
                                     <Divider color='secondary' style={{marginTop: '2%', marginBottom: '2%', width:'100%'}}><Chip color='secondary' variant='outlined' label={`項目${text[i]}`} /></Divider>
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名項目" />
@@ -230,6 +221,15 @@ const Reset = () => {
                                             sx={{ gridColumn: '3/5' }}
                                             size="small"
                                             value={eventEntry[event.typeId-1]}
+                                            readOnly={true}
+                                        />
+                                    </ListItem>
+                                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                                        <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名及繳費狀態" />
+                                        <TextField
+                                            sx={{ gridColumn: '3/5' }}
+                                            size="small"
+                                            value={eventStatus[event.status-1]}
                                             readOnly={true}
                                         />
                                     </ListItem>
@@ -257,7 +257,7 @@ const Reset = () => {
                             )
                         })
                         :
-                        <p style={{ marginTop: '3%' }}>目前尚無報名項目</p>
+                        <p style={{ marginTop: '3%' }}>木賢無報名任何賽事，請至報名賽事頁面報名</p>
                     }
                     <Grid
                         container
