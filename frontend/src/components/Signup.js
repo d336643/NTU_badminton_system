@@ -138,7 +138,8 @@ export default function SwitchListSecondary() {
                 setOpen(true);
             }
 		} catch (error) {
-			setAlertmessage("輸入資料錯誤");
+            console.log((error));
+			setAlertmessage(String(error));
             setOpen(true);
 		}
 	}

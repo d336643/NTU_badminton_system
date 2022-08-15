@@ -42,7 +42,10 @@ const theme = createTheme({
         main: Colors.secondary,
         },
     },
-
+    // divider: {
+    //     // Theme Color, or use css color in quote.
+    //     background: Colors.secondary. divider,
+    // }
 //   components: {
 //     MuiButton: {
 //       defaultProps: {

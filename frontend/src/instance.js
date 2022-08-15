@@ -4,6 +4,12 @@ const instance = axios.create({
     baseURL: 'http://34.80.55.161:8080/api/v1',
     // baseURL: process.env.REACT_APP_BACKEND_URL,
 });
+instance.interceptors.response.use(
+    res => res,
+    err =>  {
+        throw new Error(err.response.data.msg);
+    }
+)
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // instance.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded';
 
