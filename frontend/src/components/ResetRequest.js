@@ -11,11 +11,10 @@ import instance from '../instance';
 import { useNavigate, useParams } from "react-router-dom";
 
 const Reset = () => {
-    const { recoveryToken } = useParams();
     const navigate = useNavigate();
-    const [showmessage, setShowmessage] = useState(false);
+    // const [showmessage, setShowmessage] = useState(false);
     const [alertmessage, setAlertmessage] = useState('Alert message');
-    const [severity, setSeverity] = useState('error');
+    // const [severity, setSeverity] = useState('error');
     const [open, setOpen] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -58,15 +57,10 @@ const Reset = () => {
                 // }, 3000)
             }
         } catch (error) {
-            console.log((error));
 			setAlertmessage(String(error).replace('Error: ', ''));
             setOpen(true);
         }
     }
-
-    useEffect(() => {
-        console.log(recoveryToken);
-    })
 
     return (
         <>
@@ -82,12 +76,12 @@ const Reset = () => {
                         alignItems: 'center',
                     }}
                 >
-                    {showmessage && (
+                    {/* {showmessage && (
                         <Alert sx={{ position: 'fixed', top: '10%' }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>
-                    )}
+                    )} */}
                     <h3 style={{ marginBottom: '3%' }}>請輸入電子郵件以重設密碼</h3>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
