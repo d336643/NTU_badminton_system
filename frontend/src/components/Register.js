@@ -128,7 +128,7 @@ const LoginForm = () => {
             }
         } catch (error) {
             console.log((error));
-			setAlertmessage(String(error));
+			setAlertmessage(String(error).replace('Error: ', ''));
             setOpen(true);
         }
     }

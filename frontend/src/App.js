@@ -41,7 +41,6 @@ const App = () => {
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
                     <Route path="/applicantsummary" element={<ApplicantSummary />} />
                     <Route path="/showapplicant" element={<ShowApplicant />} />
-                    {/* <Route path="/profile/:username" element={<Profile />} /> */}
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
                 <Footer />
