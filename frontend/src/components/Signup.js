@@ -84,7 +84,21 @@ export default function SwitchListSecondary() {
 
     const onFinish = () => {
         console.log('Received values of form: ', values);
-        if (values.iid.length !== 10) {
+        let blank = '';
+        const key = Object.keys(values);
+        const value = Object.values(values);
+        value.map(function(x, i) {
+            if (value[i] === null || value[i] === '') {
+                blank = blank+key[i]+', ';
+                console.log(blank)
+            }
+        });
+        if (blank !== '') {
+            console.log(blank)
+            setAlertmessage(blank+' 不得為空白');
+            setOpen(true);
+        }
+        else if (values.iid.length !== 10) {
             setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
             setOpen(true);
         }
@@ -139,7 +153,7 @@ export default function SwitchListSecondary() {
             }
 		} catch (error) {
             console.log((error));
-			setAlertmessage(String(error));
+			setAlertmessage(String(error).replace('Error: ', ''));
             setOpen(true);
 		}
 	}
@@ -212,7 +226,7 @@ export default function SwitchListSecondary() {
                             autoComplete="name"
                             name="fullName"
                             id="fullName"
-                            label="姓名"
+                            label="姓名 (必填)"
                             autoFocus
                             onChange={handleChange('username')}
                         />
@@ -223,7 +237,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="sid"
-                            label="學號"
+                            label="學號 (必填)"
                             name="sid"
                             autoComplete="sid"
                             onChange={handleChange('sid')}
@@ -238,7 +252,7 @@ export default function SwitchListSecondary() {
                             options={DEGREEENTRY}
                             getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇年級" />}
+                            renderInput={(params) => <TextField {...params} label="請選擇年級 (必填)" />}
                             onChange={(event, newValue, reason) => {
                                 setValues({...values, degreeId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
                             }}
@@ -253,7 +267,7 @@ export default function SwitchListSecondary() {
                             options={college}
                             getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇學院" />}
+                            renderInput={(params) => <TextField {...params} label="請選擇學院 (必填)" />}
                             onChange={(event, newValue, reason) => {
                                 setCollegeId(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}
@@ -268,7 +282,7 @@ export default function SwitchListSecondary() {
                             options={collegeId === null ? department : filterArr(department, collegeId[0])}
                             getOptionLabel={(option) => option.label || ""}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇系所" />}
+                            renderInput={(params) => <TextField {...params} label="請選擇系所 (必填)" />}
                             onChange={(event, newValue, reason) => {
                                 setValues({...values, departmentId: reason === "clear" || reason === "removeOption" ? null : newValue.id});
                             }}
@@ -281,7 +295,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="date"
-                            label="出生年/月/日"
+                            label="出生年/月/日 (必填)"
                             type="date"
                             defaultValue="2017-05-24"
                             InputLabelProps={{
@@ -299,7 +313,7 @@ export default function SwitchListSecondary() {
                             options={NATIONENTRY}
                             getOptionLabel={(option) => option.label}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇國籍" />}
+                            renderInput={(params) => <TextField {...params} label="請選擇國籍 (必填)" />}
                             onChange={(event, newValue, reason) => {
                                 setNation(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}
@@ -312,7 +326,7 @@ export default function SwitchListSecondary() {
                                 sx={{ gridColumn: '4/8' }}
                                 size="small"
                                 id="iid"
-                                label="身分證字號"
+                                label="身分證字號 (必填)"
                                 name="iid"
                                 autoComplete="iid"
                                 onChange={handleChange('iid')}
@@ -328,7 +342,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="altIid"
-                            label="居留證號"
+                            label="居留證號 (必填)"
                             name="altIid"
                             autoComplete="altIid"
                             onChange={handleChange('iid')}
@@ -344,7 +358,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="email"
-                            label="電子郵件 (請輸入台大信箱)"
+                            label="電子郵件 (請輸入台大信箱) (必填)"
                             name="email"
                             autoComplete="email"
                             onChange={handleChange('email')}
@@ -359,7 +373,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="phone"
-                            label="手機號碼"
+                            label="手機號碼 (必填)"
                             name="phone"
                             autoComplete="phone"
                             onChange={handleChange('phone')}
@@ -371,7 +385,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="address"
-                            label="地址"
+                            label="地址 (必填)"
                             name="address"
                             autoComplete="address"
                             onChange={handleChange('address')}
@@ -380,7 +394,7 @@ export default function SwitchListSecondary() {
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="密碼" />
                         <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined" helperText={checkPassword(values.password) ? "" : "密碼需由至少8位英文及數字混和組成"}>
-                            <InputLabel htmlFor="adornment-password">密碼</InputLabel>
+                            <InputLabel htmlFor="adornment-password">密碼 (必填)</InputLabel>
                             <OutlinedInput
                                 id="adornment-password"
                                 type={values.showPassword ? 'text' : 'password'}
@@ -413,7 +427,7 @@ export default function SwitchListSecondary() {
                             size="small"
                             id="confirmPassword"
                             type={'password'}
-                            label="再次輸入密碼"
+                            label="再次輸入密碼 (必填)"
                             name="confirmPassword"
                             autoComplete="confirmPassword"
                             onChange={handleChange('confirmPassword')}

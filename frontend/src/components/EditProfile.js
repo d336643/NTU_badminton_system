@@ -110,12 +110,10 @@ const EditForm = () => {
                 setSuccess(true);
 				setOpen(true);
 			}
-            else {
-                setAlertmessage(res.data.msg);
-                setOpen(true);
-            }
 		} catch (error) {
-			console.log(error);
+			console.log((error));
+			setAlertmessage(String(error).replace('Error: ', ''));
+            setOpen(true);
 		}
 	}
 

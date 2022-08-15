@@ -15,18 +15,19 @@ import ListSubheader from '@mui/material/ListSubheader';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InfoDialog from "../components/InfoDialog";
 import instance from '../instance';
 import { useNavigate, useParams } from "react-router-dom";
 
 const Reset = () => {
     const navigate = useNavigate();
-    const {token} = useParams();
-    const [showmessage, setShowmessage] = useState(false);
-    const [alertmessage, setAlertmessage] = useState('Alert message');
-    const [severity, setSeverity] = useState('error');
+    const { recoveryToken } = useParams();
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [alertmessage, setAlertmessage] = useState('Alert message');
+    const [open, setOpen] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -38,7 +39,7 @@ const Reset = () => {
 
     const handleSubmit = (event) => {
         let finalForm = {
-            token: token,
+            token: recoveryToken,
             password: password,
             confirmPassword: confirmPassword,
         };
@@ -58,51 +59,36 @@ const Reset = () => {
             let { data } = await instance.post('/users/password/reset', form, config);
             if (data.status === 200) {
                 // Already sent reset password email.
+                setSuccess(true);
                 setAlertmessage('重設密碼成功 !');
-                setSeverity('success')
-                setShowmessage(true);
+                setOpen(true);
 
-                setTimeout(() => {
-                    setShowmessage(false);
-                }, 3000)
-            }
-            else if (data.status === 400) {
-                // Wrong name or sid or email.
-                setAlertmessage('輸入之密碼與確認密碼不同');
-                setSeverity('error')
-                setShowmessage(true);
-
-                setTimeout(() => {
-                    setShowmessage(false);
-                }, 3000)
-                // window.location.reload()
-            }
-            else if (data.status === 409) {
-                // Reset password too frequently.
-                setAlertmessage('失效');
-                setSeverity('error')
-                setShowmessage(true);
-
-                setTimeout(() => {
-                    setShowmessage(false);
-                }, 3000)
+                // setTimeout(() => {
+                //     setShowmessage(false);
+                // }, 3000)
             }
         } catch (error) {
-            console.log(error);
+			setAlertmessage(String(error).replace('Error: ', ''));
+            setOpen(true);
         }
     }
+
+    useEffect(() => {
+        console.log(recoveryToken);
+    })
 
     return (
         <>
             {/* <Navbar /> */}
             <Container component="main" maxWidth="xs">
+                <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
-                {showmessage && (
+                {/* {showmessage && (
                     <Alert sx={{ position: 'fixed', top: '10%' }}
                             severity={severity}>
                         {alertmessage}
                     </Alert>
-                )}
+                )} */}
                 <List
                     sx={{
                         marginTop: '10%',

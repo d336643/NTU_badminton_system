@@ -6,27 +6,28 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import InfoDialog from "../components/InfoDialog";
 import instance from '../instance';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Reset = () => {
     const navigate = useNavigate();
-    const [showmessage, setShowmessage] = useState(false);
+    // const [showmessage, setShowmessage] = useState(false);
     const [alertmessage, setAlertmessage] = useState('Alert message');
-    const [severity, setSeverity] = useState('error');
+    // const [severity, setSeverity] = useState('error');
+    const [open, setOpen] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    const [values, setValues] = useState({
-        name: localStorage.getItem("name"),
-        sid: localStorage.getItem("sid"),
-    });
+    // const [values, setValues] = useState({
+    //     name: localStorage.getItem("name"),
+    //     sid: localStorage.getItem("sid"),
+    // });
 
     const handleSubmit = (event) => {
         console.log('Received values for reset password: ', event);
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         let finalForm = {
-            name: localStorage.getItem("name"),
-            sid: localStorage.getItem("sid"),
             email: data.get('email')
         };
         console.log(finalForm);
@@ -42,40 +43,22 @@ const Reset = () => {
             },
         };
         try {
-            let { data } = await instance.post('/users/login', form, config);
-            if (data.status === 200) {
+            let res = await instance.post('/auth/password/reset/validate', form, config);
+            console.log(res);
+            if (res.status === 200) {
                 // Already sent reset password email.
+                setSuccess(true);
                 setAlertmessage('重設密碼連結已寄送至電子郵件信箱');
-                setSeverity('success')
-                setShowmessage(true);
-
-                setTimeout(() => {
-                    setShowmessage(false);
-                }, 3000)
-            }
-            else if (data.status === 403) {
-                // Wrong name or sid or email.
-                setAlertmessage('輸入之電子郵件錯誤');
-                setSeverity('error')
-                setShowmessage(true);
-
-                setTimeout(() => {
-                    setShowmessage(false);
-                }, 3000)
-                // window.location.reload()
-            }
-            else if (data.status === 429) {
-                // Reset password too frequently.
-                setAlertmessage('每日重置申請次數不得超過 2 次, 每次申請間隔不得低於 15 分鐘');
-                setSeverity('error')
-                setShowmessage(true);
-
-                setTimeout(() => {
-                    setShowmessage(false);
-                }, 3000)
+                setOpen(true);
+                // setSeverity('success')
+                // setShowmessage(true);
+                // setTimeout(() => {
+                //     setShowmessage(false);
+                // }, 3000)
             }
         } catch (error) {
-            console.log(error);
+			setAlertmessage(String(error).replace('Error: ', ''));
+            setOpen(true);
         }
     }
 
@@ -83,6 +66,7 @@ const Reset = () => {
         <>
             {/* <Navbar /> */}
             <Container component="main" maxWidth="xs">
+                <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
                 <Box
                     sx={{
@@ -92,20 +76,12 @@ const Reset = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <p>忘記密碼請聯絡粉專</p>
-                    <Button 
-                        variant="outlined"
-                        onClick={() => navigate('/')}
-                        sx={{mt:3}}
-                    >
-                        返回主頁面
-                    </Button>
                     {/* {showmessage && (
                         <Alert sx={{ position: 'fixed', top: '10%' }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>
-                    )}
+                    )} */}
                     <h3 style={{ marginBottom: '3%' }}>請輸入電子郵件以重設密碼</h3>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
@@ -130,11 +106,11 @@ const Reset = () => {
                         <Button 
                             fullWidth
                             variant="outlined"
-                            onClick={() => navigate('/login')}
+                            onClick={handleSubmit}
                         >
                             回到登入
                         </Button>
-                    </Box> */}
+                    </Box>
                 </Box>
             </Container>
         </>
