@@ -33,7 +33,7 @@ const Reset = () => {
     const name = localStorage.getItem("name");
     const sid = localStorage.getItem("sid");
     const degreeId = localStorage.getItem("degreeId");
-    const departmentId = Number(localStorage.getItem("departmentId"));
+    const departmentId = localStorage.getItem("departmentId");
     const [eventsToPay, setEventsToPay] = useState([])
     const [toPayInfo, setToPayInfo] = useState([])
     const [events, setEvents] = useState([]);
@@ -47,8 +47,18 @@ const Reset = () => {
     const eventStatus = ["未繳費(已報名)", "審核中", "審核通過，已繳費"]
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
 
-    const findDepart = (dict, key) => {
-        return dict.key;
+    const findDepart = (departmentId,) => {
+        console.log(departmentId)
+        console.log(department)
+        let target = '';
+        department.map((d) => {
+            console.log(d.indexOf(departmentId))
+            if (d.indexOf(departmentId) === 0) {
+                let newd = d.replace(departmentId, '')
+                target =  newd;
+            }
+        })
+        return target;
     }
     const getInfo = async () => {
         const config = {
@@ -73,7 +83,7 @@ const Reset = () => {
         const key = Object.keys(dict);
         const value = Object.values(dict);
         const testArr = value.map(function(x, i) {
-            return {label: key[i]+value[i], id: key[i]}        
+            return key[i]+value[i]
         });
         setDepartment(department.concat(testArr))
     }
@@ -215,7 +225,7 @@ const Reset = () => {
                         <TextField
                             sx={{ gridColumn: '3/5' }}
                             size="small"
-                            value={departmentId+DEGREEE[degreeId-1]}
+                            value={findDepart(departmentId)+DEGREEE[degreeId-1]}
                             readOnly={true}
                         />
                     </ListItem>
