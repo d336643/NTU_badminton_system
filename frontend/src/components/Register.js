@@ -127,8 +127,8 @@ const LoginForm = () => {
 
             }
         } catch (error) {
-            setAlertmessage("一人最多只能報名兩項比賽 !");
-            setSuccess(true);
+            console.log((error));
+			setAlertmessage(String(error));
             setOpen(true);
         }
     }

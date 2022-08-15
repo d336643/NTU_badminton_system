@@ -42,6 +42,7 @@ const Reset = () => {
     const [stored, setStored] = useState(false);
     const [alertmessage, setAlertmessage] = useState('Alert message');
     const [department, setDepartment] = useState([]);
+    const [submit, setSubmit] = useState(false);
 
     const eventStatus = ["未繳費(已報名)", "審核中", "審核通過，已繳費"]
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
@@ -120,7 +121,7 @@ const Reset = () => {
             }
             return obj;
         });
-        setToPayInfo(newState);
+        setToPayInfo(toPayInfo.concat(newState));
         console.log(`Changed account: ${evalue}`);
     };
 
@@ -133,13 +134,21 @@ const Reset = () => {
         }
         else {
             toPayInfo.map(((info) => {
-                let finalForm = {
-                    "payer":uid,
-                    "eventsToPay": [info.eventId],
-                    "account": info.account,
+                if (info.account !== null) {
+                    setSubmit(true);
+                    let finalForm = {
+                        "payer":uid,
+                        "eventsToPay": [info.eventId],
+                        "account": info.account,
+                    }
+                    submitForm(finalForm);
                 }
-                submitForm(finalForm);
             }))
+        }
+
+        if (!submit) {
+            setAlertmessage("請先更新匯款資料再儲存")
+            setOpen(true);
         }
         // navigate("/");
     };
@@ -257,7 +266,7 @@ const Reset = () => {
                             )
                         })
                         :
-                        <p style={{ marginTop: '3%' }}>木賢無報名任何賽事，請至報名賽事頁面報名</p>
+                        <p style={{ marginTop: '3%' }}>目前無報名任何賽事，請至報名賽事頁面報名</p>
                     }
                     <Grid
                         container
