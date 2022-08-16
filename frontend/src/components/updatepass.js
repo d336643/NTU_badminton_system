@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Alert from '@mui/material/Alert';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -11,24 +10,18 @@ import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
-import ListSubheader from '@mui/material/ListSubheader';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InfoDialog from "./InfoDialog";
+import FormHelperText from '@mui/material/TextField';
 import instance from '../instance';
-import { useNavigate, useParams } from "react-router-dom";
+import { checkPassword } from "../utilities/checkString";
+import { useSearchParams, useParams } from "react-router-dom";
 
-const Reset = () => {
-    // this.props.match.match.params.studyNo // STY20171011124209535
-
-    // // 获取 success
-    // const query = this.props.match.location.search // '?s=1&f=7'
-    // const arr = query.split('&') // ['?s=', 'f=7']
-    // const successCount = arr[0].substr(3) // '1'
-    // const failedCount = arr[1].substr(2) // '7'
-
-    const navigate = useNavigate();
+const Reset = ({}) => {
+    const [searchParams, setSearchParams] = useSearchParams({});
+    const recoverytoken = searchParams.get('token');
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -46,7 +39,7 @@ const Reset = () => {
 
     const handleSubmit = (event) => {
         const finalForm = {
-            token: this.props.match.params.id,
+            token: recoverytoken,
             password: password,
             confirmPassword: confirmPassword,
         };
@@ -80,9 +73,9 @@ const Reset = () => {
         }
     }
 
-    // useEffect(() => {
-    //     console.log(token);
-    // })
+    useEffect(() => {
+        console.log(recoverytoken);
+    })
 
     return (
         <>
@@ -104,7 +97,7 @@ const Reset = () => {
                         alignItems: 'center',
                     }}
                 >   
-                    <h3 style={{ marginTop: "5%" }}>重設密碼</h3>
+                    <h3 style={{ marginBottom: "5%" }}>重設密碼</h3>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="新密碼" />
                         <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">
@@ -114,8 +107,7 @@ const Reset = () => {
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                error={password.length < 8}
-                                helperText="密碼須為8位英文及數字混和組成"
+                                error={password.length !== 0 ? checkPassword(password) ? false : true : false}
                                 endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -130,6 +122,9 @@ const Reset = () => {
                                 }
                                 label="Password"
                             />
+                            {/* <FormHelperText error>
+                                {password.length !== 0 ? checkPassword(password) ? "" : "密碼需由至少8位英文及數字混和組成" : ""}
+                            </FormHelperText> */}
                         </FormControl>
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>

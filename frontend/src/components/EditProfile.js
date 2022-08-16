@@ -22,7 +22,7 @@ const EditForm = () => {
         sid: localStorage.getItem("sid"),
         degreeId: Number(localStorage.getItem("degreeId")),
         departmentId: localStorage.getItem("departmentId"),
-        birthday: date.replace("/", "-",),
+        birthday: date === null ? '2017-11-25' : date.replace("/", "-",),
         iid: localStorage.getItem("iid"),
         email: localStorage.getItem("email"),
         phone: localStorage.getItem("phone"),
@@ -118,29 +118,12 @@ const EditForm = () => {
 		}
 	}
 
-    // const findLastOne = (array) => {
-    //     const reversed = [];
-    //     for (let i = array.length - 1; i >= 0; i--) {
-    //         reversed.push(array[i]);
-    //     };
-    //     console.log(reversed);
-    //     return reversed.find(v => Number(v.id) <= Number(values.departmentId)) || null
-    // }
-
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
-    // const filterArr = (array, letter) => {
-    //     var filtered = array.filter(function(word) {
-    //      return word.id.charAt(0) === letter;
-    //     });
-    //     return filtered 
-    // }
-
     return (
         <>
-            {/* <Navbar /> */}
             <Container component="main" maxWidth="sm" alignItems='center' minHeight='100vh'>
                 <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
@@ -337,8 +320,8 @@ const EditForm = () => {
                             autoComplete="email"
                             value={values.email}
                             onChange={handleChange('email')}
-                            error={verifyEmail(values.email) ? false : values.email.length > 0 ? true : false}
-                            errorText={verifyEmail(values.email) ? false : values.email.length > 0 ? true : false}
+                            error={verifyEmail(values.email) ? false : values.email === null ? true : values.email.length > 0 ? true : false}
+                            errorText={verifyEmail(values.email) ? false : values.email === null ? true : values.email.length > 0 ? true : false}
                             helperText={verifyEmail(values.email) ? false : true ? "" : "請輸入台大信箱"}
                         />
                     </ListItem>

@@ -44,6 +44,7 @@ export function verifyLiveid(idstr) {
 }
 
 export function verifyEmail(email){
+    if (email === null) return false;
     const pos = email.indexOf("@ntu.edu.tw")
     if (pos !== -1) return true;
     return false
