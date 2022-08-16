@@ -11,11 +11,11 @@ import InfoDialog from "./InfoDialog";
 import instance from "../instance";
 import { verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY, STATUS }  from '../utilities/entry'
-// import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EditForm = () => {
     const date = localStorage.getItem("birthday")
-    const token = localStorage.getItem('token');
+    const { token } = useParams();
     const [values, setValues] = useState({
         id: localStorage.getItem('uid'),
         username: localStorage.getItem("name"),
@@ -68,6 +68,7 @@ const EditForm = () => {
     }
 
     useEffect(() => {
+        console.log(token)
         getInfo();
     }, [])
     

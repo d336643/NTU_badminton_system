@@ -17,6 +17,7 @@ import checkIdentity from '../utilities/checkIdentity';
 import { Link } from 'react-router-dom';
 
 const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
+    const token = localStorage.getItem('token');
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -392,7 +393,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             {/* <MenuItem onClick={handleCloseUserMenu} component={Link} to='/'>
                                 <Typography textAlign="center">個人賽事</Typography>
                             </MenuItem> */}
-                            <MenuItem onClick={handleCloseUserMenu} component={Link} to='/editprofile/:token'>
+                            <MenuItem onClick={handleCloseUserMenu} component={Link} to={`/editprofile/${token}`}>
                                 <Typography textAlign="center">編輯個人資料</Typography>
                             </MenuItem>
                             <MenuItem onClick={navbarLogout} component="a" href="/">
