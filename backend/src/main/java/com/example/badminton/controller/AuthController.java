@@ -197,7 +197,8 @@ public class AuthController {
         String suject = "台大新生盃重設密碼信件";
         String url = "http://ntubadminton.site:3000/updatepass?token=" + myToken.getToken();
         String context = String.format("%s 你好：\n 點此連結重設系統密碼：%s", user.getUsername(), url);
-        mailService.prepareAndSend(req.getEmail(), suject, context);
+//        mailService.prepareAndSend(req.getEmail(), suject, context);
+        mailService.prepareAndSend(req.getBackEmail(), suject, context);
         return ResponseEntity.ok(new MessageResponse(true, "Already sent reset password email."));
     }
 
