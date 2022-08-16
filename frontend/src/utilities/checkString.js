@@ -37,7 +37,10 @@ export function verifyTWid(idstr) {
 
 export function verifyLiveid(idstr) {  
     const result = /^[a-zA-Z]{1}[a-dA-D8-9]{1}[0-9]{8}$/.test(idstr);
-    return result;
+    if (!result) {
+        return verifyTWid(idstr);
+    }
+    else return true;
 }
 
 export function verifyEmail(email){
