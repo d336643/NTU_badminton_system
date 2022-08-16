@@ -15,13 +15,20 @@ import ListSubheader from '@mui/material/ListSubheader';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import InfoDialog from "../components/InfoDialog";
+import InfoDialog from "./InfoDialog";
 import instance from '../instance';
 import { useNavigate, useParams } from "react-router-dom";
 
 const Reset = () => {
+    // this.props.match.match.params.studyNo // STY20171011124209535
+
+    // // 获取 success
+    // const query = this.props.match.location.search // '?s=1&f=7'
+    // const arr = query.split('&') // ['?s=', 'f=7']
+    // const successCount = arr[0].substr(3) // '1'
+    // const failedCount = arr[1].substr(2) // '7'
+
     const navigate = useNavigate();
-    const { recoveryToken } = useParams();
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -38,8 +45,8 @@ const Reset = () => {
     };
 
     const handleSubmit = (event) => {
-        let finalForm = {
-            token: recoveryToken,
+        const finalForm = {
+            token: this.props.match.params.id,
             password: password,
             confirmPassword: confirmPassword,
         };
@@ -56,7 +63,7 @@ const Reset = () => {
             },
         };
         try {
-            let { data } = await instance.post('/users/password/reset', form, config);
+            let { data } = await instance.post('/auth/password/reset', form, config);
             if (data.status === 200) {
                 // Already sent reset password email.
                 setSuccess(true);
@@ -73,14 +80,14 @@ const Reset = () => {
         }
     }
 
-    useEffect(() => {
-        console.log(recoveryToken);
-    })
+    // useEffect(() => {
+    //     console.log(token);
+    // })
 
     return (
         <>
             {/* <Navbar /> */}
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="sm">
                 <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
                 {/* {showmessage && (
@@ -91,13 +98,13 @@ const Reset = () => {
                 )} */}
                 <List
                     sx={{
-                        marginTop: '10%',
+                        marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                    subheader={<ListSubheader>重設密碼</ListSubheader>}
                 >   
+                    <h3 style={{ marginTop: "5%" }}>重設密碼</h3>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="新密碼" />
                         <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">

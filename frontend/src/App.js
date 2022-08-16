@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./containers/Home";
 import Login from "./components/Login";
 import ResetRequest from "./components/ResetRequest";
-import RestsetPassword from "./components/RestsetPassword";
+import Updatepass from "./components/updatepass";
 import Signup from "./components/Signup";
 import EditProfile from "./components/EditProfile";
 import ErrorPage from "./components/ErrorPage";
@@ -36,11 +36,11 @@ const App = () => {
                     <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/resetpass" element={<ResetRequest />} />
-                    <Route path="/updatepass?token=:token" element={<RestsetPassword />} />
+                    <Route path="/updatepass?token=:id" element={<Updatepass />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/competitionrule" element={<CompetitionRule />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/editprofile/:token" element={<EditProfile profile={profile}/>} />
+                    <Route path="/editprofile/:id" element={<EditProfile profile={profile}/>} />
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
                     <Route path="/applicantsummary" element={<ApplicantSummary />} />
                     <Route path="/showapplicant" element={<ShowApplicant />} />

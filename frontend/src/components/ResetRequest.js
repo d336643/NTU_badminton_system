@@ -28,7 +28,8 @@ const Reset = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         let finalForm = {
-            email: data.get('email')
+            email: data.get('email'),
+            backEmail: data.get('backEmail')
         };
         console.log(finalForm);
         submit(finalForm);
@@ -47,6 +48,7 @@ const Reset = () => {
             console.log(res);
             if (res.status === 200) {
                 // Already sent reset password email.
+                // getRecoveryToken();
                 setSuccess(true);
                 setAlertmessage('重設密碼連結已寄送至電子郵件信箱');
                 setOpen(true);
@@ -90,9 +92,20 @@ const Reset = () => {
                             required
                             fullWidth
                             id="email"
-                            label="電子郵件(請輸入學校信箱)"
+                            label="請輸入台大信箱以驗證身分"
                             name="email"
                             autoComplete="email"
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            size="small"
+                            required
+                            fullWidth
+                            id="backEmail"
+                            label="請輸入非台大信箱之電子郵件收取重設密碼連結"
+                            name="backEmail"
+                            autoComplete="backEmail"
                             autoFocus
                         />
                         <Button
