@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const Competitor = ({setView, handleLogOut}) => {
+    const token = localStorage.getItem('token');
     
     return (
         <Container component="main" maxWidth="xs">
@@ -76,7 +77,7 @@ const Competitor = ({setView, handleLogOut}) => {
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button component={Link} to="/editprofile/:id"
+                        <Button component={Link} to={`/editprofile/${token}`}
                             variant="outlined"
                             size='large'
                             fullWidth>

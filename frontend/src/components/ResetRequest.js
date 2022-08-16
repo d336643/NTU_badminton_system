@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import InfoDialog from "../components/InfoDialog";
 import instance from '../instance';
 import { useNavigate, useParams } from "react-router-dom";
+import List from "@mui/material/List";
 
 const Reset = () => {
     const navigate = useNavigate();
@@ -18,21 +19,18 @@ const Reset = () => {
     const [open, setOpen] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    // const [values, setValues] = useState({
-    //     name: localStorage.getItem("name"),
-    //     sid: localStorage.getItem("sid"),
-    // });
+    const [values, setValues] = useState({
+        email: '',
+        backEmail: '',
+    });
 
-    const handleSubmit = (event) => {
-        console.log('Received values for reset password: ', event);
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        let finalForm = {
-            email: data.get('email')
-        };
-        console.log(finalForm);
-        submit(finalForm);
-        // navigate("/");
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
+
+    const handleSubmit = () => {
+        console.log(values);
+        submit(values);
     };
 
     const submit = async (form) => {
@@ -47,6 +45,7 @@ const Reset = () => {
             console.log(res);
             if (res.status === 200) {
                 // Already sent reset password email.
+                // getRecoveryToken();
                 setSuccess(true);
                 setAlertmessage('重設密碼連結已寄送至電子郵件信箱');
                 setOpen(true);
@@ -68,9 +67,9 @@ const Reset = () => {
             <Container component="main" maxWidth="xs">
                 <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
-                <Box
+                <List
                     sx={{
-                        marginTop: '10%',
+                        marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -83,35 +82,50 @@ const Reset = () => {
                         </Alert>
                     )} */}
                     <h3 style={{ marginBottom: '3%' }}>請輸入電子郵件以重設密碼</h3>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             size="small"
                             required
                             fullWidth
                             id="email"
-                            label="電子郵件(請輸入學校信箱)"
+                            label="請輸入台大信箱以驗證身分"
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            value={values.email}
+                            onChange={handleChange('email')}
+                        />
+                        <TextField
+                            margin="normal"
+                            size="small"
+                            fullWidth
+                            id="backEmail"
+                            label="請輸入非台大信箱之電子郵件收取重設密碼連結"
+                            name="backEmail"
+                            autoComplete="backEmail"
+                            autoFocus
+                            value={values.backEmail}
+                            onChange={handleChange('backEmail')}
                         />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 4, mb: 3 }}
+                            onClick={handleSubmit}
                         >
                             重設密碼
                         </Button>
                         <Button 
                             fullWidth
                             variant="outlined"
-                            onClick={handleSubmit}
+                            onClick={() => navigate('/login')}
                         >
                             回到登入
                         </Button>
                     </Box>
-                </Box>
+                </List>
             </Container>
         </>
     );

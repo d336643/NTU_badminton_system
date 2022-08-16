@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Alert from '@mui/material/Alert';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -11,17 +10,18 @@ import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
-import ListSubheader from '@mui/material/ListSubheader';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import InfoDialog from "../components/InfoDialog";
+import InfoDialog from "./InfoDialog";
+import FormHelperText from '@mui/material/TextField';
 import instance from '../instance';
-import { useNavigate, useParams } from "react-router-dom";
+import { checkPassword } from "../utilities/checkString";
+import { useSearchParams, useParams } from "react-router-dom";
 
-const Reset = () => {
-    const navigate = useNavigate();
-    const { recoveryToken } = useParams();
+const Reset = ({}) => {
+    const [searchParams, setSearchParams] = useSearchParams({});
+    const recoverytoken = searchParams.get('token');
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -37,9 +37,9 @@ const Reset = () => {
         event.preventDefault();
     };
 
-    const handleSubmit = (event) => {
-        let finalForm = {
-            token: recoveryToken,
+    const handleSubmit = () => {
+        const finalForm = {
+            token: recoverytoken,
             password: password,
             confirmPassword: confirmPassword,
         };
@@ -56,7 +56,7 @@ const Reset = () => {
             },
         };
         try {
-            let { data } = await instance.post('/users/password/reset', form, config);
+            let { data } = await instance.post('/auth/password/reset', form, config);
             if (data.status === 200) {
                 // Already sent reset password email.
                 setSuccess(true);
@@ -74,30 +74,24 @@ const Reset = () => {
     }
 
     useEffect(() => {
-        console.log(recoveryToken);
+        console.log(recoverytoken);
     })
 
     return (
         <>
             {/* <Navbar /> */}
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="sm">
                 <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
-                {/* {showmessage && (
-                    <Alert sx={{ position: 'fixed', top: '10%' }}
-                            severity={severity}>
-                        {alertmessage}
-                    </Alert>
-                )} */}
                 <List
                     sx={{
-                        marginTop: '10%',
+                        marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                    subheader={<ListSubheader>重設密碼</ListSubheader>}
                 >   
+                    <h3 style={{ marginBottom: "4%" }}>重設密碼</h3>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="新密碼" />
                         <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">
@@ -107,8 +101,7 @@ const Reset = () => {
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                error={password.length < 8}
-                                helperText="密碼須為8位英文及數字混和組成"
+                                error={password.length !== 0 ? checkPassword(password) ? false : true : false}
                                 endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -123,6 +116,9 @@ const Reset = () => {
                                 }
                                 label="Password"
                             />
+                            {/* <FormHelperText error>
+                                {password.length !== 0 ? checkPassword(password) ? "" : "密碼需由至少8位英文及數字混和組成" : ""}
+                            </FormHelperText> */}
                         </FormControl>
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
