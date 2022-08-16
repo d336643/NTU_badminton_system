@@ -83,12 +83,6 @@ const Reset = ({}) => {
             <Container component="main" maxWidth="sm">
                 <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
-                {/* {showmessage && (
-                    <Alert sx={{ position: 'fixed', top: '10%' }}
-                            severity={severity}>
-                        {alertmessage}
-                    </Alert>
-                )} */}
                 <List
                     sx={{
                         marginTop: '5%',
