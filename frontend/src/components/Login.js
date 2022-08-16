@@ -43,13 +43,8 @@ const LoginForm = () => {
     const handleSubmit = (event) => {
         console.log('Received values for log in: ', event);
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        let form = {
-            sid: data.get('sid'),
-            password: data.get('password'),
-        }
-        submit(form);
-        console.log(form);
+        submit(values);
+        console.log(values);
     };
 
     // const form = {
@@ -120,22 +115,22 @@ const LoginForm = () => {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: '20%',
+                        marginTop: '10%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    {showmessage && (
+                    {/* {showmessage && (
                         <Alert sx={{ position: 'fixed', top: '10%' }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>
-                    )}
+                    )} */}
                     <Avatar sx={{ mb: 2, bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             size="small"
@@ -168,6 +163,7 @@ const LoginForm = () => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 3 }}
+                            onClick={handleSubmit}
                         >
                             登入
                         </Button>
