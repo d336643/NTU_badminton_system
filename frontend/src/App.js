@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./containers/Home";
 import Login from "./components/Login";
 import ResetRequest from "./components/ResetRequest";
-import Updatepass from "./components/Updatepass";
+import Updatepass from "./components/ResetPass";
 import Signup from "./components/Signup";
 import EditProfile from "./components/EditProfile";
 import ErrorPage from "./components/ErrorPage";
