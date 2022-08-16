@@ -37,7 +37,7 @@ const Reset = ({}) => {
         event.preventDefault();
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = () => {
         const finalForm = {
             token: recoverytoken,
             password: password,
@@ -97,7 +97,7 @@ const Reset = ({}) => {
                         alignItems: 'center',
                     }}
                 >   
-                    <h3 style={{ marginBottom: "5%" }}>重設密碼</h3>
+                    <h3 style={{ marginBottom: "4%" }}>重設密碼</h3>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="新密碼" />
                         <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">
