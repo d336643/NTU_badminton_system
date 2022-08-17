@@ -14,9 +14,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Home from '@mui/icons-material/Home';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import checkIdentity from '../utilities/checkIdentity';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
+    const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -39,6 +40,12 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
         setView("guest");
         setIsLogin(false);
         handleCloseUserMenu();
+        navigate('/');
+    }
+
+    const changeView = (changeV) => {
+        setView(changeV);
+        navigate('/');
     }
 
     const handleOpenNavMenu = (event) => {
@@ -396,8 +403,11 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             <MenuItem onClick={handleCloseUserMenu} component={Link} to={`/editprofile/${token}`}>
                                 <Typography textAlign="center">編輯個人資料</Typography>
                             </MenuItem>
-                            <MenuItem onClick={navbarLogout} component="a" href="/">
+                            <MenuItem onClick={navbarLogout}>
                                 <Typography textAlign="center">登出</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={() => changeView("manager")}>
+                                <Typography textAlign="center">轉換至管理員</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>
@@ -429,8 +439,14 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem onClick={navbarLogout} component="a" href="/">
+                            <MenuItem onClick={handleCloseUserMenu} component={Link} to={`/editprofile/${token}`}>
+                                <Typography textAlign="center">編輯個人資料</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={navbarLogout}>
                                 <Typography textAlign="center">登出</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={() => changeView("competitor")}>
+                                <Typography textAlign="center">轉換至參賽者</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>
