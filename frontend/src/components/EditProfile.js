@@ -14,8 +14,9 @@ import { DEGREEENTRY, NATIONENTRY, STATUS }  from '../utilities/entry'
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditForm = () => {
+    const tokenId = localStorage.getItem('token')
     const date = localStorage.getItem("birthday")
-    const { token } = useParams();
+    const { token } = useParams()
     const [values, setValues] = useState({
         id: localStorage.getItem('uid'),
         username: localStorage.getItem("name"),
@@ -68,7 +69,7 @@ const EditForm = () => {
     }
 
     useEffect(() => {
-        console.log(token)
+        console.log(tokenId)
         getInfo();
     }, [])
     
@@ -88,7 +89,7 @@ const EditForm = () => {
 	const submitForm = async(form) => {
 		const config = {
 			headers:{
-                'Authorization': 'Bearer ' + token,
+                'Authorization': 'Bearer ' + tokenId,
                 'Content-Type': 'application/json',
                 'accept': 'application/json'
 			}
