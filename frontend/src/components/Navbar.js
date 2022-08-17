@@ -21,12 +21,14 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
     const token = localStorage.getItem('token');
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+    const [identity, setIdentity] = useState("competitor");
 
     useEffect(() => {
         async function identityCheck() {
             let login = await checkIdentity();
             console.log("login identity:", login);
             setView(login);
+            setIdentity(login);
             if ( login === "guest") setIsLogin(false);
             else setIsLogin(true);
         }
@@ -405,9 +407,12 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                             <MenuItem onClick={navbarLogout}>
                                 <Typography textAlign="center">登出</Typography>
                             </MenuItem>
-                            <MenuItem onClick={() => changeView("manager")}>
-                                <Typography textAlign="center">轉換至管理員</Typography>
-                            </MenuItem>
+                            {identity === "manager" ? 
+                                <MenuItem onClick={() => changeView("manager")}>
+                                    <Typography textAlign="center">轉換至管理員</Typography>
+                                </MenuItem>
+                                : <></>    
+                            }
                         </Menu>
                     </Box>
                     :
