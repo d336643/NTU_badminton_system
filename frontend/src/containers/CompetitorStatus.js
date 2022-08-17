@@ -131,7 +131,7 @@ const Reset = () => {
         events.map((event) => {
             if (event.account === null) setStatus(true);
         })
-    }, [])
+    }, [events])
 
     const handleAccountSet = (evalue, eventId) => {
         console.log(`event id: ${eventId}, update`);
