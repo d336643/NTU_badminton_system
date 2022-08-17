@@ -89,8 +89,9 @@ export default function SwitchListSecondary() {
         const value = Object.values(values);
         value.map(function(x, i) {
             if (value[i] === null || value[i] === '') {
-                blank = blank+key[i]+', ';
-                console.log(blank)
+                if (key[i] !== 'address') {
+                    blank = blank+key[i]+', ';
+                }
             }
         });
         if (blank !== '') {
@@ -192,7 +193,8 @@ export default function SwitchListSecondary() {
                         alignItems: 'center',
                     }}
                 >
-                    <h3 style={{ marginBottom: '5%' }}>註冊新帳號</h3>
+                    <h3 style={{ marginBottom: '2%' }}>註冊新帳號</h3>
+                    <p style={{ marginBottom: '3%' }}>資料僅供參賽資格認證及保險用途</p>
                     {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                         <Button 
@@ -385,7 +387,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="address"
-                            label="地址 (必填)"
+                            label="地址"
                             name="address"
                             autoComplete="address"
                             onChange={handleChange('address')}
