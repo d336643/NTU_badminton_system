@@ -6,7 +6,7 @@ import Manager from '../components/homeComponents/ManagerHome'
 // import Footer from '../components/Footer';
 import checkIdentity from '../utilities/checkIdentity';
 
-const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
+const HomePage = ({view, setView, isLogin, setIsLogin, setIdentity}) => {
 
     const handleLogOut = () => {
         localStorage.clear();
