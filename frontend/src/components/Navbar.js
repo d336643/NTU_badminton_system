@@ -71,8 +71,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
                 <Typography
                     variant="h6"
                     noWrap
-                    component="a"
-                    href="/"
+                    onClick={() => navigate('/')}
                     sx={{
                     mr: 2,
                     display: { xs: 'none', md: 'flex' },

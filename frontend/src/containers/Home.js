@@ -17,13 +17,15 @@ const HomePage = ({view, setView, isLogin, setIsLogin}) => {
     }
 
     useEffect(() => {
-        async function identityCheck() {
-            let login = await checkIdentity();
-            setView(login);
-            if ( login === "guest") setIsLogin(false);
-            else setIsLogin(true);
+        async function identityCheck(isLogin) {
+            if (!isLogin) {
+                let login = await checkIdentity();
+                setView(login);
+                if ( login === "guest") setIsLogin(false);
+                else setIsLogin(true);
+            }
         }
-        identityCheck();
+        identityCheck(isLogin);
     }, [])
 
     return (
