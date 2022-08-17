@@ -76,16 +76,17 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                     noWrap
                     onClick={() => navigate('/')}
                     sx={{
-                    mr: 2,
-                    display: { xs: 'none', md: 'flex' },
-                    fontFamily: 'monospace',
-                    fontWeight: 600,
-                    letterSpacing: '.3rem',
-                    color: 'white',
-                    textDecoration: 'none',
+                        mr: 2,
+                        display: { xs: 'none', md: 'flex' },
+                        fontFamily: 'monospace',
+                        fontWeight: 600,
+                        letterSpacing: '.3rem',
+                        color: 'white',
+                        textDecoration: 'none',
+                        cursor: 'pointer',
                     }}
                 >
-                    <Home sx={{mr: 2, mt: 0.3}}/>台大羽球比賽
+                    <Home sx={{mr: 2, mt: 0.3, cursor: 'pointer'}}/>台大羽球比賽
                 </Typography>
                 { isLogin ?
                     view === "manager"? 
@@ -216,6 +217,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
+                                <Typography textAlign="center">競賽章程</Typography>
+                            </MenuItem>
                             {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                 <Typography textAlign="center">賽程專區</Typography>
                             </MenuItem> 
@@ -231,20 +235,20 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                 <Typography
                     variant="h5"
                     noWrap
-                    component="a"
-                    href="/"
+                    onClick={() => navigate('/')}
                     sx={{
-                    mr: 2,
-                    display: { xs: 'flex', md: 'none' },
-                    flexGrow: 1,
-                    fontFamily: 'monospace',
-                    fontWeight: 600,
-                    letterSpacing: '.3rem',
-                    color: 'white',
-                    textDecoration: 'none',
+                        mr: 2,
+                        display: { xs: 'flex', md: 'none' },
+                        flexGrow: 1,
+                        fontFamily: 'monospace',
+                        fontWeight: 600,
+                        letterSpacing: '.3rem',
+                        color: 'white',
+                        textDecoration: 'none',
+                        cursor: 'pointer',
                     }}
                 >
-                    <Home sx={{mr: 2, mt: 0.5}}/>台大羽球比賽
+                    <Home sx={{mr: 2, mt: 0.5, cursor: 'pointer'}}/>台大羽球比賽
                 </Typography>
                 { isLogin ?
                     view === "manager" ?
@@ -348,6 +352,14 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                     </Box>
                     :
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Button
+                            component={Link}
+                            to='/competitionrule'
+                            onClick={handleCloseNavMenu}
+                            sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                        >
+                            競賽章程
+                        </Button> 
                         {/* <Button
                             // key={page}
                             component={Link}
