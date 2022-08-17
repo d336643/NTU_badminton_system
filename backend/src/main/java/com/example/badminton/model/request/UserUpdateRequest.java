@@ -52,7 +52,6 @@ public class UserUpdateRequest {
     @Size(max = 10)
     private String phone;
 
-    @NotBlank
     @Size(max = 50)
     private String address;
 }
