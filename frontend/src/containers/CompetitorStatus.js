@@ -37,6 +37,7 @@ const Reset = () => {
     const [eventsToPay, setEventsToPay] = useState([])
     const [toPayInfo, setToPayInfo] = useState([])
     const [events, setEvents] = useState([]);
+    const [partners, setPartners] = useState([]);
     const [status, setStatus] = useState(false);
     const [open, setOpen] = useState(false);
     const [stored, setStored] = useState(false);
@@ -106,6 +107,15 @@ const Reset = () => {
                 if (res.data.success) {
                     setEvents(events.concat(res.data.events));
                     const newState = res.data.events.map((event) => {
+                        if (event.typeId > 2) {
+                            event.competitors.map(obj => {
+                                if (obj.uid !== Number(uid)) {
+                                    let partner = obj.username
+                                    let sid = obj.sid
+                                    setPartners(partners.concat({typeId: event.typeId, partner: partner, sid: sid}))
+                                }
+                            })
+                        }
                         return createData(event.eventId, event.account);
                     })
                     setEventsToPay(eventsToPay.concat(newState));
@@ -121,7 +131,7 @@ const Reset = () => {
         events.map((event) => {
             if (event.account === null) setStatus(true);
         })
-    }, [events])
+    }, [])
 
     const handleAccountSet = (evalue, eventId) => {
         console.log(`event id: ${eventId}, update`);
@@ -187,6 +197,16 @@ const Reset = () => {
 		}
 	}
 
+    const getPartners = (tid) => {
+        let name = partners.map(p => {
+            if (tid == p.typeId) {
+                return `${p.sid} ${p.partner}`
+            }
+        })
+        console.log(name)
+        return name[0]
+    }
+
     return (
         <>
             <Container component="main" maxWidth="sm">
@@ -244,6 +264,19 @@ const Reset = () => {
                                             readOnly={true}
                                         />
                                     </ListItem>
+                                    {
+                                        event.typeId > 2 ? 
+                                        <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                                            <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="隊友" />
+                                            <TextField
+                                                sx={{ gridColumn: '3/5' }}
+                                                size="small"
+                                                value={getPartners(event.typeId)}
+                                                readOnly={true}
+                                            />
+                                        </ListItem>
+                                        : <></>
+                                    }
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名及繳費狀態" />
                                         <TextField
