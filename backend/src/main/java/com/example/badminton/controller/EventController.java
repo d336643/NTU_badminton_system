@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.badminton.model.EventData;
 import com.example.badminton.model.EventRegistrationData;
-import com.example.badminton.model.RoleEnum;
 import com.example.badminton.model.UserSimpleData;
 import com.example.badminton.model.entity.Registration;
-import com.example.badminton.model.entity.Role;
 import com.example.badminton.model.entity.User;
 import com.example.badminton.model.request.EventsRegistrationRequest;
 import com.example.badminton.model.response.EventRegistrationResponse;
@@ -75,6 +73,16 @@ public class EventController {
                 return ResponseEntity.badRequest().body(
                         new MessageResponse(false, "Cannot register for others."));
             }
+            //檢查是否報名同樣項目
+            for(Long uid : e.getCompetitors()) {
+                User user = userRepository.findById(uid).get();
+                for(Registration r: user.getRegistrations()) {
+                    if ( e.getTypeId() == r.getEvent().getId().longValue()) {
+                        return ResponseEntity.badRequest().body(
+                                new MessageResponse(false, String.format("User %s already register %s.", user.getUsername(), r.getEvent().getName())));
+                    }
+                }
+            }
         }
         //typeID:1,2 => competitor cnt=1
         //typeID:3,4, 5 => competitor cnt=2
@@ -91,20 +99,20 @@ public class EventController {
         // user 報名數至多報名兩個
         for(Long uid : uids){
             User user = userRepository.findById(uid).get();
-            //applier
+            //applier: 自己曾報名場數+被別人報名場數+這次報名場數
             if(uid == req.getApplier()) {
                 if ((user.getRegistrations().size() + registrationRepository.findAllByPartnerUid(uid).size()
                      + req.getEvents().size()) > 2) {
                     return ResponseEntity.badRequest().body(
-                            new MessageResponse(false, "One user can at most register 2 events."));
+                            new MessageResponse(false, String.format("One user(%s) can at most register 2 events.", user.getUsername())));
                 }
             }
-            //partner
+            //partner: 自己曾報名場數+被別人報名場數+這次被報名場數（一定是1）
             else {
                 if ((user.getRegistrations().size() + registrationRepository.findAllByPartnerUid(uid).size()
                      + 1) > 2) {
                     return ResponseEntity.badRequest().body(
-                            new MessageResponse(false, "One user can at most register 2 events."));
+                            new MessageResponse(false, String.format("One user(%s) can at most register 2 events.", user.getUsername())));
                 }
             }
         }
@@ -176,4 +184,5 @@ public class EventController {
         }
         return data;
     }
+
 }
