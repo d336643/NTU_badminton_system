@@ -16,23 +16,23 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import checkIdentity from '../utilities/checkIdentity';
 import { Link, useNavigate } from 'react-router-dom';
 
-const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
+const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const [identity, setIdentity] = useState("competitor");
 
     useEffect(() => {
-        async function identityCheck() {
-            let login = await checkIdentity();
-            console.log("login identity:", login);
-            setView(login);
-            setIdentity(login);
-            if ( login === "guest") setIsLogin(false);
-            else setIsLogin(true);
+        async function identityCheck(isLogin) {
+            if (!isLogin) {
+                let login = await checkIdentity();
+                console.log("login identity:", login);
+                setView(login);
+                if ( login === "guest") setIsLogin(false);
+                else setIsLogin(true);
+            }
         }
-        identityCheck();
+        identityCheck(isLogin);
     }, [])
 
     const navbarLogout = () => {
@@ -40,6 +40,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
         console.log("local storage has been cleared.");
         // setBarView("guest");
         setView("guest");
+        setIdentity("guest");
         setIsLogin(false);
         handleCloseUserMenu();
         navigate('/');

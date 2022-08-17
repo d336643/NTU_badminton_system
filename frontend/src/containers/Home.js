@@ -6,7 +6,7 @@ import Manager from '../components/homeComponents/ManagerHome'
 // import Footer from '../components/Footer';
 import checkIdentity from '../utilities/checkIdentity';
 
-const HomePage = ({view, setView, isLogin, setIsLogin}) => {
+const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
 
     const handleLogOut = () => {
         localStorage.clear();
@@ -21,6 +21,7 @@ const HomePage = ({view, setView, isLogin, setIsLogin}) => {
             if (!isLogin) {
                 let login = await checkIdentity();
                 setView(login);
+                setIdentity(login);
                 if ( login === "guest") setIsLogin(false);
                 else setIsLogin(true);
             }
