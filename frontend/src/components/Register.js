@@ -7,6 +7,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Autocomplete from '@mui/material/Autocomplete';
+import Alert from '@mui/material/Alert';
 
 import InfoDialog from "./InfoDialog";
 import instance from "../instance";
@@ -152,8 +153,10 @@ const LoginForm = () => {
                     }}
                 >
                     <h3 style={{ marginBottom: '2%' }}>報名賽事</h3>
-                    <p>報名賽事前，請確認已詳細閱讀<b>競賽章程</b></p>
-                    <p style={{ marginBottom: '4%', color: 'red' }}><b>報名後不能修改，請確認後再報名</b></p>
+                    <Alert severity="info" style={{ marginBottom: '3%' }}>
+                        <p style={{ marginBottom: '1%'}}>報名賽事前，請詳細閱讀<a href="/competitionrule">競賽章程</a></p>
+                        <p><b>報名後不能修改，請確認後再報名</b></p>
+                    </Alert>
                     <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/2' }} id="entry-1" primary="項目一" />
                         <Autocomplete 

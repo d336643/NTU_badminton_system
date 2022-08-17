@@ -14,11 +14,11 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InfoIcon from '@mui/icons-material/Info';
+import Alert from '@mui/material/Alert';
 import InfoDialog from "../components/InfoDialog";
 import instance from "../instance";
 import { DEGREEE } from '../utilities/entry';
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { bgcolor } from "@mui/system";
 
 const createData = (eventId, account) => {
@@ -222,7 +222,9 @@ const Reset = () => {
                     // subheader={<ListSubheader>編輯個人資料</ListSubheader>}
                 >
                     <h3 style={{ marginBottom: '2%' }}>報名 / 繳費狀態</h3>
-                    <p style={{ marginBottom: '3%' }}>匯款帳戶：00515010011874 戶名：謝宗翰</p>
+                    <Alert severity="info" style={{ marginBottom: '2%' }}>
+                        匯款帳戶：00515010011874 戶名：謝宗翰
+                    </Alert>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
                         <TextField

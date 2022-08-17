@@ -36,7 +36,7 @@ const App = () => {
                     <Route path="/resetpass" element={<ResetRequest />} />
                     <Route path="/updatepass" element={<Updatepass />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/competitionrule" element={<CompetitionRule />} />
+                    <Route path="/competitionrule" element={<CompetitionRule isLogin={isLogin}/>} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/editprofile/:id" element={<EditProfile/>} />
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
