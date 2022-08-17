@@ -24,6 +24,8 @@ const LoginForm = () => {
     const [showmessage, setShowmessage] = useState(false);
     const [alertmessage, setAlertmessage] = useState('Alert message');
     const [severity, setSeverity] = useState('error');
+    // const [open, setOpen] = useState(false);
+    // const [success, setSuccess] = useState(false);
 
     async function closeAlert(){
         await delay(3);
@@ -73,8 +75,14 @@ const LoginForm = () => {
 
                 navigate('/');
             }
+            else {
+                setAlertmessage('帳號或密碼錯誤');
+                setSeverity('warning');
+                setShowmessage(true);
+                closeAlert();
+            }
         } catch (error) {
-            setAlertmessage('帳號或密碼錯誤，請重新嘗試');
+            setAlertmessage('帳號或密碼錯誤');
             setSeverity('warning');
             setShowmessage(true);
             closeAlert();
@@ -105,13 +113,14 @@ const LoginForm = () => {
                 localStorage.setItem("address", res.data.data.address);
             }
         } catch (error) {
-            console.log(error);
+            console.log((error));
         }
     }
 
     return (
         <>
             <Container component="main" maxWidth="xs" sx={{height: "75vh"}}>
+            {/* <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} /> */}
                 <CssBaseline />
                 <Box
                     sx={{
@@ -121,12 +130,12 @@ const LoginForm = () => {
                         alignItems: 'center',
                     }}
                 >
-                    {/* {showmessage && (
-                        <Alert sx={{ position: 'fixed', top: '10%' }}
+                    {showmessage && (
+                        <Alert sx={{ position: 'fixed', top: '8%' }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>
-                    )} */}
+                    )}
                     <Avatar sx={{ mb: 2, bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
