@@ -21,6 +21,7 @@ import theme from './style/theme';
 const App = () => {
     const [view, setView] = useState(""); // 3 views. guest, competitor, and manager
     const [isLogin, setIsLogin] = useState(true);
+    const [identity, setIdentity] = useState("competitor");
     //browser bar title
     useEffect(() => {
     document.title = "2022台大羽球新生盃"
@@ -28,9 +29,9 @@ const App = () => {
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin}/>
+                <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>
                 <Routes style={{height: "100vh"}}>
-                    <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+                    <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/resetpass" element={<ResetRequest />} />
                     <Route path="/updatepass" element={<Updatepass />} />
