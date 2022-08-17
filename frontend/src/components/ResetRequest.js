@@ -63,7 +63,6 @@ const Reset = () => {
 
     return (
         <>
-            {/* <Navbar /> */}
             <Container component="main" maxWidth="xs">
                 <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FormHelperText from '@mui/material/FormHelperText';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -194,7 +194,9 @@ export default function SwitchListSecondary() {
                     }}
                 >
                     <h3 style={{ marginBottom: '2%' }}>註冊新帳號</h3>
-                    <p style={{ marginBottom: '3%' }}>資料僅供參賽資格認證及保險用途</p>
+                    <Alert severity="info" style={{ marginBottom: '2%' }}>
+                        資料僅供參賽資格認證及保險用途
+                    </Alert>
                     {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                         <Button 
