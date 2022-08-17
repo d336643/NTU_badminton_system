@@ -152,7 +152,8 @@ const LoginForm = () => {
                     }}
                 >
                     <h3 style={{ marginBottom: '2%' }}>報名賽事</h3>
-                    <p style={{ marginBottom: '5%' }}>報名賽事前，請確認已詳細閱讀<b>競賽章程</b></p>
+                    <p>報名賽事前，請確認已詳細閱讀<b>競賽章程</b></p>
+                    <p style={{ marginBottom: '4%', color: 'red' }}><b>報名後不能修改，請確認後再報名</b></p>
                     <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/2' }} id="entry-1" primary="項目一" />
                         <Autocomplete 
