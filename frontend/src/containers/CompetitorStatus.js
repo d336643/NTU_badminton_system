@@ -201,7 +201,8 @@ const Reset = () => {
                     }}
                     // subheader={<ListSubheader>編輯個人資料</ListSubheader>}
                 >
-                    <h3 style={{ marginBottom: '5%' }}>報名 / 繳費狀態</h3>
+                    <h3 style={{ marginBottom: '2%' }}>報名 / 繳費狀態</h3>
+                    <p style={{ marginBottom: '3%' }}>匯款帳戶：00515010011874 戶名：謝宗翰</p>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
                         <TextField
