@@ -22,7 +22,6 @@ public class PayStatusToPaidRequest {
     private Long verifier;
 
     @NotEmpty
-    @Size(min=1, max=2)
     private List<Long> eventsToPay;
 
 }
