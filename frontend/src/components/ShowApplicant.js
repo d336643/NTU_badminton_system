@@ -43,6 +43,7 @@ const FormTable = () => {
     const [ rowsPerPage, setRowsPerPage ] = useState(10);
     const [ rows, setRows ] = useState([]);
     const [ eventsToPay, setEventsToPay ] = useState([]);
+    const [ eventsToUnpay, setEventsToUnpay ] = useState([]);
     const [showmessage, setShowmessage] = useState(false);
     const [alertmessage, setAlertmessage] = useState('Alert message');
     const [severity, setSeverity] = useState('error');
@@ -113,6 +114,10 @@ const FormTable = () => {
             const result = eventsToPay.findIndex((element) => element === eventId);
             if (result === -1) setEventsToPay(eventsToPay.concat(eventId));
         }
+        else {
+            const result = eventsToUnpay.findIndex((element) => element === eventId);
+            if (result === -1) setEventsToUnpay(eventsToUnpay.concat(eventId));
+        }
     };
 
     const handleStore = async() => {
@@ -126,7 +131,8 @@ const FormTable = () => {
             const res = await instance.post('/admin/pay', 
                 {
                     verifier: uid,
-                    eventsToPay: eventsToPay
+                    eventsToPay: eventsToPay,
+                    eventsToUnpay: eventsToUnpay
                 }, config);
             console.log(res);
             if (res.status === 200) {
@@ -205,7 +211,7 @@ const FormTable = () => {
                                                         </TableCell>
                                                         :
                                                         <Checkbox
-                                                            disable={value === 2 ? false : true}
+                                                            disable={value === 1 ? false : true}
                                                             checked={row.checked}
                                                             onChange={event => handleCheckboxClick(event, row.id, row.eventId, row.status)}
                                                             inputProps={{ 'aria-label': 'controlled' }}
