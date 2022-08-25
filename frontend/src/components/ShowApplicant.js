@@ -67,19 +67,15 @@ const FormTable = () => {
         }
         try {
             let res = await instance.get(`admin/users?typeId=${dataId.state.data}`, config);
-            console.log(res.data);
             if(res.status === 200) {
-                console.log("Success");
                 const newState = res.data.events.map((obj) => {
                         if (obj.competitors.length === 1) {
                             let comInfo = obj.competitors[0];
-                            console.log(obj.eventId, comInfo.username)
                             return createData(obj.eventId, comInfo.uid, comInfo.username, comInfo.sid, obj.account, obj.status);
                         }
                         else {
                             let comInfo1 = obj.competitors[0];
                             let comInfo2 = obj.competitors[1];
-                            console.log(obj.eventId, comInfo1.username, comInfo2.username)
                             return createData(obj.eventId, `${comInfo1.uid},\n`+comInfo2.uid, `${comInfo1.username},\n`+comInfo2.username, `${comInfo1.sid},\n`+comInfo2.sid, obj.account, obj.status);
                         }
                 });
@@ -92,13 +88,12 @@ const FormTable = () => {
     }
 
     useEffect(() => {
-        console.log(dataId);
         fetchData();
     }, [])
     
     const handleCheckboxClick = (event, id, eventId , status) => {
         event.stopPropagation();
-        console.log(`event id: ${eventId}, checkbox select, status: ${status}`);
+        // console.log(`event id: ${eventId}, checkbox select, status: ${status}`);
         if (status === 2 || status === 3) {
             const newState = rows.map(obj => {
                 if (obj.id === id) {
@@ -107,9 +102,9 @@ const FormTable = () => {
                 return obj;
             });
             setRows(newState);
-            console.log(`Changed status: ${event.target.checked}`);
+            // console.log(`Changed status: ${event.target.checked}`);
         }
-        else console.log('Cannot change status.');
+        // else console.log('Cannot change status.');
         if (event.target.checked) {
             const result = eventsToPay.findIndex((element) => element === eventId);
             if (result === -1) setEventsToPay(eventsToPay.concat(eventId));
@@ -134,7 +129,6 @@ const FormTable = () => {
                     eventsToPay: eventsToPay,
                     eventsToUnpay: eventsToUnpay
                 }, config);
-            console.log(res);
             if (res.status === 200) {
                 setAlertmessage('儲存成功');
                 setSeverity('success');

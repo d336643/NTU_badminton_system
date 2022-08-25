@@ -43,7 +43,7 @@ const Reset = ({}) => {
             password: password,
             confirmPassword: confirmPassword,
         };
-        console.log(finalForm);
+        // console.log(finalForm);
         submit(finalForm);
         // navigate("/");
     };
@@ -72,10 +72,6 @@ const Reset = ({}) => {
             setOpen(true);
         }
     }
-
-    useEffect(() => {
-        console.log(recoverytoken);
-    })
 
     return (
         <>

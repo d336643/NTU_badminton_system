@@ -56,15 +56,13 @@ export default function SwitchListSecondary() {
         };
         try {
             const res = await instance.get("/public/departments", config);
-            console.log(res.data);
             if (res.data.success === true) {
-                console.log(res.data.data);
                 // console.log(res.data.colleges);
                 getKeysOf(res.data.data.colleges, 1);
                 getKeysOf(res.data.data.departments, 2);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -83,7 +81,7 @@ export default function SwitchListSecondary() {
     }, [])
 
     const onFinish = () => {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
         let blank = '';
         const key = Object.keys(values);
         const value = Object.values(values);
@@ -95,7 +93,6 @@ export default function SwitchListSecondary() {
             }
         });
         if (blank !== '') {
-            console.log(blank)
             setAlertmessage(blank+' 不得為空白');
             setOpen(true);
         }
@@ -124,7 +121,7 @@ export default function SwitchListSecondary() {
                 else {
                     delete values.showPassword;
                     delete values.confirmPassword;
-                    console.log(values);
+                    // console.log(values);
                     submitForm(values);
                 }
             }
@@ -139,10 +136,9 @@ export default function SwitchListSecondary() {
                 'accept':'application/json'
 			}
 		}
-		console.log(form);
+		// console.log(form);
 		try {
 			let res = await instance.post('/auth/signup', form, config);
-            console.log(res);
             if (res.status === 200) {
                 setStatus(true);
                 setAlertmessage("註冊成功，將為您導回首頁 !")
@@ -153,7 +149,7 @@ export default function SwitchListSecondary() {
                 setOpen(true);
             }
 		} catch (error) {
-            console.log((error));
+            // console.log((error));
 			setAlertmessage(String(error).replace('Error: ', ''));
             setOpen(true);
 		}

@@ -48,14 +48,11 @@ const EditForm = () => {
         };
         try {
             const res = await instance.get("/public/departments", config);
-            console.log(res.data);
             if (res.data.success === true) {
-                console.log(res.data.data);
-                // getKeysOf(res.data.data.colleges, 1);
                 getKeysOf(res.data.data.departments);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -69,7 +66,6 @@ const EditForm = () => {
     }
 
     useEffect(() => {
-        console.log(tokenId)
         getInfo();
     }, [])
     
@@ -81,7 +77,6 @@ const EditForm = () => {
         else {
             delete values.changed;
             delete values.status;
-            console.log(values);
             submitForm(values);
         }
     };
@@ -96,7 +91,6 @@ const EditForm = () => {
 		}
 		try {
 			let res = await instance.put(`/users/${values.id}`, form, config)
-			console.log(res);
 			if(res.status === 200) {
                 localStorage.setItem("name", values.username);
                 localStorage.setItem("sid", values.sid);
@@ -113,7 +107,6 @@ const EditForm = () => {
 				setOpen(true);
 			}
 		} catch (error) {
-			console.log((error));
 			setAlertmessage(String(error).replace('Error: ', ''));
             setOpen(true);
 		}

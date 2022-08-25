@@ -4,7 +4,6 @@ const checkAvailable = async (uid) => {
     try {
         let res = await instance.get(`events/status?uid=${uid}`);
         let avaiable = 2;
-        console.log(res.status);
         if (res.status === 200) {
             switch(res.events.length) {
                 case 0:
@@ -21,10 +20,10 @@ const checkAvailable = async (uid) => {
                     break;
             }
         }
-        else if (res.status === 401) console.log("unauthorized");
+        // else if (res.status === 401) console.log("unauthorized");
         return avaiable;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return 999;
     }
 }

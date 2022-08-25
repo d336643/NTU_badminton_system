@@ -43,10 +43,8 @@ const LoginForm = () => {
     };
 
     const handleSubmit = (event) => {
-        console.log('Received values for log in: ', event);
         event.preventDefault();
         submit(values);
-        console.log(values);
     };
 
     // const form = {
@@ -63,12 +61,10 @@ const LoginForm = () => {
         };
         try {
             const res = await instance.post('/auth/signin', form, config);
-            console.log(res.data);
             if (res.data.success === true) {
                 // setView("competitor")
-                console.log(res);
                 localStorage.setItem("token", res.data.token);
-                console.log("userId", res.data.uid);
+                // console.log("userId", res.data.uid);
                 localStorage.setItem("uid", res.data.uid);
                 
                 await getInfo(res.data.uid, res.data.token);
@@ -98,9 +94,7 @@ const LoginForm = () => {
         };
         try {
             const res = await instance.get(`/users/${uid}`, config)
-            console.log(res);
             if (res.status === 200) {
-                console.log(res.data.data);
                 localStorage.setItem("name", res.data.data.username);
                 localStorage.setItem("sid", res.data.data.sid);
                 localStorage.setItem("degreeId", res.data.data.degreeId);
@@ -113,7 +107,7 @@ const LoginForm = () => {
                 localStorage.setItem("address", res.data.data.address);
             }
         } catch (error) {
-            console.log((error));
+            // console.log((error));
         }
     }
 

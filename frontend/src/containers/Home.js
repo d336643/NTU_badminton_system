@@ -10,7 +10,7 @@ const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) =
 
     const handleLogOut = () => {
         localStorage.clear();
-        console.log("local storage has been cleared.")
+        // console.log("local storage has been cleared.")
         // setIsLogin(false);
         setView("guest");
         setIsLogin(false);

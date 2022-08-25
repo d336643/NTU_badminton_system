@@ -26,7 +26,6 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
         async function identityCheck(isLogin) {
             if (!isLogin) {
                 let login = await checkIdentity();
-                console.log("login identity:", login);
                 setView(login);
                 if ( login === "guest") setIsLogin(false);
                 else setIsLogin(true);
@@ -37,7 +36,6 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
 
     const navbarLogout = () => {
         localStorage.clear();
-        console.log("local storage has been cleared.");
         // setBarView("guest");
         setView("guest");
         setIdentity("guest");

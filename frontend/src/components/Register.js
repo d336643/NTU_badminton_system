@@ -41,14 +41,12 @@ const LoginForm = () => {
             }
             try {
                 const res = await instance.get(`/users`, config);
-                console.log(res);
                 if (res.data.success === true){
-                    console.log(res.data.data);
                     const users = res.data.data;
                     setCurrentStudent(users);
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         }
         fetchData();
@@ -72,10 +70,6 @@ const LoginForm = () => {
             return;
         }
         else {
-            console.log(typeID1);
-            console.log(typeID2);
-            console.log(competitors1);
-            console.log(competitors2);
             let regEvent = [];
             if (typeID1 !== null) {
                 if (typeID1 === 1 || typeID1 === 2)
@@ -120,7 +114,6 @@ const LoginForm = () => {
         }
         try {
             const res = await instance.post(`/events`, form, config);
-            console.log(res);
             if (res.status === 200){
                 setAlertmessage("報名完成，請至 \"報名 / 繳費狀態\" 頁確認是否報名成功");
                 setSuccess(true);
@@ -128,7 +121,7 @@ const LoginForm = () => {
 
             }
         } catch (error) {
-            console.log((error));
+            // console.log((error));
 			setAlertmessage(String(error).replace('Error: ', ''));
             setOpen(true);
         }

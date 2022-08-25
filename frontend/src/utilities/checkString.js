@@ -4,10 +4,9 @@ export function checkPassword(inputtxt) {
     else {
         var hasNumber = /\d/;   
         var hasLetter = /[A-Za-z]/;   
-        if ( !hasNumber.test(inputtxt))  console.log("X 0")
-        if ( !hasLetter.test(inputtxt))  console.log("X A")
+        // if ( !hasNumber.test(inputtxt))  console.log("X 0")
+        // if ( !hasLetter.test(inputtxt))  console.log("X A")
         const result = hasNumber.test(inputtxt) && hasLetter.test(inputtxt)
-        console.log(result)
         return result
     }
 }

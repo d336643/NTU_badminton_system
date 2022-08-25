@@ -29,7 +29,7 @@ const Reset = () => {
     };
 
     const handleSubmit = () => {
-        console.log(values);
+        // console.log(values);
         submit(values);
     };
 
@@ -42,7 +42,6 @@ const Reset = () => {
         };
         try {
             let res = await instance.post('/auth/password/reset/validate', form, config);
-            console.log(res);
             if (res.status === 200) {
                 // Already sent reset password email.
                 // getRecoveryToken();

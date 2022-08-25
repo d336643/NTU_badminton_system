@@ -49,11 +49,8 @@ const Reset = () => {
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
 
     const findDepart = (departmentId,) => {
-        console.log(departmentId)
-        console.log(department)
         let target = '';
         department.map((d) => {
-            console.log(d.indexOf(departmentId))
             if (d.indexOf(departmentId) === 0) {
                 let newd = d.replace(departmentId, '')
                 target =  newd;
@@ -70,13 +67,11 @@ const Reset = () => {
         };
         try {
             const res = await instance.get("/public/departments", config);
-            console.log(res.data);
             if (res.data.success === true) {
-                console.log(res.data.data);
                 getKeysOf(res.data.data.departments);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -103,7 +98,6 @@ const Reset = () => {
             }
             try {
                 const res = await instance.get(`events/status?uid=${uid}`, config);
-                console.log(res);
                 if (res.data.success) {
                     setEvents(events.concat(res.data.events));
                     const newState = res.data.events.map((event) => {
@@ -121,7 +115,7 @@ const Reset = () => {
                     setEventsToPay(eventsToPay.concat(newState));
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         }
         fetchData();
@@ -134,7 +128,6 @@ const Reset = () => {
     }, [events])
 
     const handleAccountSet = (evalue, eventId) => {
-        console.log(`event id: ${eventId}, update`);
         const newState = eventsToPay.map(obj => {
             if (obj.eventId === eventId) {
                 return { ...obj, account: evalue };
@@ -142,11 +135,9 @@ const Reset = () => {
             return obj;
         });
         setToPayInfo(toPayInfo.concat(newState));
-        console.log(`Changed account: ${evalue}`);
     };
 
     const handleStore = (event) => {
-        console.log('Received values for update account.');
         event.preventDefault();
         if (toPayInfo.length === 0) {
             setAlertmessage("請先更新匯款資料再儲存")
@@ -180,18 +171,16 @@ const Reset = () => {
                 'accept': 'application/json'
 			}
 		}
-		console.log(form);
+		// console.log(form);
 		try {
 			let res = await instance.post('/users/bankAccount', form, config);
-			console.log(res);
 			if(res.status === 200) {
-                console.log("Success");
                 setStatus(true);
                 setAlertmessage("資料更新成功，將為您導回首頁 !")
                 setOpen(true);
 			}
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
             setAlertmessage("資料更新失敗")
             setOpen(true);
 		}
@@ -203,7 +192,6 @@ const Reset = () => {
                 return `${p.sid} ${p.partner}`
             }
         })
-        console.log(name)
         return name[0]
     }
 

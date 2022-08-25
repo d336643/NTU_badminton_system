@@ -13,8 +13,8 @@ const checkLogin = async () => {
             const res = await instance.get(`/users/${uid}`, config)
             if (res.status === 200) return true;
         } catch (error) {
-            console.log(error);
-            localStorage.removeItem('token');
+            // console.log(error);
+            // localStorage.removeItem('token');
             return false;
         }
     }
