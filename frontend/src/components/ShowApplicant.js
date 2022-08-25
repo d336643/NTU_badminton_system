@@ -211,7 +211,7 @@ const FormTable = () => {
                                                         </TableCell>
                                                         :
                                                         <Checkbox
-                                                            disable={value === 2 ? false : true}
+                                                            disable={value === 1 ? false : true}
                                                             checked={row.checked}
                                                             onChange={event => handleCheckboxClick(event, row.id, row.eventId, row.status)}
                                                             inputProps={{ 'aria-label': 'controlled' }}

@@ -6,7 +6,7 @@ import Manager from '../components/homeComponents/ManagerHome'
 // import Footer from '../components/Footer';
 import checkIdentity from '../utilities/checkIdentity';
 
-const HomePage = ({view, setView, isLogin, setIsLogin, setIdentity}) => {
+const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
 
     const handleLogOut = () => {
         localStorage.clear();
@@ -34,7 +34,7 @@ const HomePage = ({view, setView, isLogin, setIsLogin, setIdentity}) => {
             <Container component="main" maxWidth="sm" sx={{height: "70vh"}}>
                 { isLogin ?
                     view === "manager" ?
-                        <Manager setView={setView} handleLogOut={handleLogOut}/> 
+                        <Manager setView={setView} handleLogOut={handleLogOut} identity={identity} /> 
                         : <Competitor setView={setView} handleLogOut={handleLogOut} />
                     : <General />
                 }
