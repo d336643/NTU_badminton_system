@@ -178,7 +178,7 @@ const FormTable = () => {
                             {alertmessage}
                         </Alert>
                     )}
-                    <h3 style={{ marginBottom: '5%' }}><b>{Entries[Number(dataId.state.data)-1]}</b>{"報名、繳費狀態"}</h3>
+                    <h3><b>{Entries[Number(dataId.state.data)-1]}</b>{"報名、繳費狀態"}</h3>
                     <Paper sx={{ width: '100%', overflow: 'hidden', mt: '5%' }}>
                         <TableContainer sx={{ maxHeight: 550 }}>
                             <Table stickyHeader aria-label="sticky table">
