@@ -1,8 +1,11 @@
 package com.example.badminton.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
 
@@ -81,6 +84,21 @@ public class AdminController {
                     new MessageResponse(false, "The verifier's role is not ADMIN."));
         }
 
+        // Either eventsToPay or eventsToUnpay should be not empty
+        if (req.getEventsToPay().isEmpty() && req.getEventsToUnpay().isEmpty()) {
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse(false, "Either eventsToPay or eventsToUnpay should not be empty."));
+        }
+
+
+        // Check duplicate eid in eventsToPay and eventsToUnpay
+        for (Long eid : req.getEventsToPay()) {
+            if (req.getEventsToUnpay().contains(eid)) {
+                return ResponseEntity.badRequest().body(
+                        new MessageResponse(false, String.format("Duplicate eid: %d.", eid)));
+            }
+        }
+
         // check non-existed eventId
         for (Long rid : req.getEventsToPay()) {
             if (!registrationRepository.existsById(rid)) {
@@ -88,16 +106,42 @@ public class AdminController {
                         new MessageResponse(false, "There's non-existed eventId in EventsToPay."));
             }
         }
+        for (Long rid : req.getEventsToUnpay()) {
+            if (!registrationRepository.existsById(rid)) {
+                return ResponseEntity.badRequest().body(
+                        new MessageResponse(false, "There's non-existed eventId in EventsToUnpay."));
+            }
+        }
 
-        List<Registration> registrations = registrationRepository.findAllById(req.getEventsToPay());
-        for (Registration r : registrations) {
+        // update EventsToPay
+        List<Registration> registrationsToPay = registrationRepository.findAllById(req.getEventsToPay());
+        for (Registration r : registrationsToPay) {
+            if (r.getStatus() != 2) {
+                return ResponseEntity.badRequest().body(
+                        new MessageResponse(false, String.format("Since the event(eid=%d) status is not 'verifying', it cannot be set to 'paid'.", r.getEvent().getId())));
+            }
             r.setStatus(3);
             r.setVerifierUid(req.getVerifier());
             registrationRepository.save(r);
         }
+
+        // update EventsToUnpay
+        List<Registration> registrationsToUnpay = registrationRepository.findAllById(req.getEventsToUnpay());
+        for (Registration r : registrationsToUnpay) {
+            if (r.getStatus() != 3) {
+                return ResponseEntity.badRequest().body(
+                        new MessageResponse(false, String.format("Since the event(eid=%d) status is not 'paid', it cannot be set to 'verifying'.", r.getEvent().getId())));
+            }
+            r.setStatus(2);
+            r.setVerifierUid(req.getVerifier());
+            registrationRepository.save(r);
+        }
+
+        // return updated registration
         return ResponseEntity.ok(new EventRegistrationResponse(true,
                                                                registrationsConvertToEventRegistrationData(
-                                                                       registrations)));
+                                                                       Stream.concat(registrationsToPay.stream(), registrationsToUnpay.stream())
+                                                                             .collect(Collectors.toList()))));
     }
 
     private List<EventRegistrationData> registrationsConvertToEventRegistrationData (Iterable<Registration> registrations) {

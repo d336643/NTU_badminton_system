@@ -21,7 +21,10 @@ public class PayStatusToPaidRequest {
     @NotNull
     private Long verifier;
 
-    @NotEmpty
+    @NotNull
     private List<Long> eventsToPay;
+
+    @NotNull
+    private List<Long> eventsToUnpay;
 
 }
