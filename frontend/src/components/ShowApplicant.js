@@ -161,7 +161,6 @@ const FormTable = () => {
 
     return (
         <>
-            {/* <Navbar /> */}
             <Container component="main" maxWidth="sm" sx={{ alignItems: 'center' }}>
                 <CssBaseline />
                 <Box
@@ -211,7 +210,7 @@ const FormTable = () => {
                                                         </TableCell>
                                                         :
                                                         <Checkbox
-                                                            disable={value === 1 ? false : true}
+                                                            disable={value === 1 ? true : false}
                                                             checked={row.checked}
                                                             onChange={event => handleCheckboxClick(event, row.id, row.eventId, row.status)}
                                                             inputProps={{ 'aria-label': 'controlled' }}

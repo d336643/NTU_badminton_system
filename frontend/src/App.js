@@ -30,7 +30,8 @@ const App = () => {
         <Router>
             <ThemeProvider theme={theme}>
                 <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>
-                <Routes style={{height: "100vh"}}>
+                {/* <Routes style={{height: "100vh"}}> */}
+                <Routes>
                     <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/resetpass" element={<ResetRequest />} />

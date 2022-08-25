@@ -141,7 +141,7 @@ const LoginForm = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="sm" sx={{height: "75vh"}}>
+            <Container component="main" maxWidth="sm"> {/*sx={{height: "75vh"}}*/}
                 <CssBaseline />
                 <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
