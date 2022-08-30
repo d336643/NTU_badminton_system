@@ -19,7 +19,7 @@ import instance from '../instance';
 import { checkPassword } from "../utilities/checkString";
 import { useSearchParams, useParams } from "react-router-dom";
 
-const Reset = ({}) => {
+const Reset = () => {
     const [searchParams, setSearchParams] = useSearchParams({});
     const recoverytoken = searchParams.get('token');
     const [password, setPassword] = useState("");
@@ -56,8 +56,9 @@ const Reset = ({}) => {
             },
         };
         try {
-            let { data } = await instance.post('/auth/password/reset', form, config);
-            if (data.status === 200) {
+            let res = await instance.post('/auth/password/reset', form, config);
+            console.log(res)
+            if (res.status === 200) {
                 // Already sent reset password email.
                 setSuccess(true);
                 setAlertmessage('重設密碼成功 !');
@@ -122,13 +123,13 @@ const Reset = ({}) => {
                         <TextField
                             sx={{ gridColumn: '4/8' }}
                             size="small"
-                            required
+                            // required
                             id="confirmPassword"
                             type={'password'}
                             label="再次輸入新密碼"
                             name="confirmPassword"
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            // error={values.password === ""}
+                            error={confirmPassword !== "" && confirmPassword !== password ? true : false}
                             helperText={confirmPassword !== "" && confirmPassword !== password ? '輸入與密碼不一致' : ''}
                         />
                     </ListItem>
