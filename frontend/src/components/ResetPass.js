@@ -57,7 +57,7 @@ const Reset = () => {
         };
         try {
             let res = await instance.post('/auth/password/reset', form, config);
-            console.log(res)
+            // console.log(res)
             if (res.status === 200) {
                 // Already sent reset password email.
                 setSuccess(true);
