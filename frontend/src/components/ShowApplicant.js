@@ -14,9 +14,19 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 import instance from '../instance';
 import delay from '../utilities/delay';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { type } from '@testing-library/user-event/dist/type';
 
 const Entries = ['男單', '女單', '男雙', '女雙', '混雙']
 
@@ -42,11 +52,34 @@ const FormTable = () => {
     const [ page, setPage ] = useState(0);
     const [ rowsPerPage, setRowsPerPage ] = useState(10);
     const [ rows, setRows ] = useState([]);
+    const [ showrows, setShowrows ] = useState([]);
     const [ eventsToPay, setEventsToPay ] = useState([]);
     const [ eventsToUnpay, setEventsToUnpay ] = useState([]);
-    const [showmessage, setShowmessage] = useState(false);
-    const [alertmessage, setAlertmessage] = useState('Alert message');
-    const [severity, setSeverity] = useState('error');
+    const [ showmessage, setShowmessage ] = useState(false);
+    const [ alertmessage, setAlertmessage ] = useState('Alert message');
+    const [ severity, setSeverity ] = useState('error');
+    const [ searched, setSearched ] = useState("");
+
+    function handleChange(e) {
+        setSearched(e.target.value);
+        requestSearch(e.target.value);
+    }
+
+    const requestSearch = (searchedVal) => {
+        setSearched(searchedVal);
+        const filteredRows = rows.filter((row) => {
+            let competitorName = row.name;
+            console.log(typeof(competitorName));
+            if (competitorName.includes(searchedVal))
+                return row;
+        });
+        setShowrows(filteredRows);
+    };
+
+    const cancelSearch = async() => {
+        setSearched("");
+        requestSearch("");
+    };
 
     async function closeAlert(){
         await delay(3);
@@ -60,6 +93,7 @@ const FormTable = () => {
     }
 
     const fetchData = async() => {
+        console.log(dataId.state.data)
         const config = {
             headers:{
                 'Authorization': 'Bearer ' + token
@@ -80,6 +114,7 @@ const FormTable = () => {
                         }
                 });
                 setRows(rows.concat(newState));
+                setShowrows(showrows.concat(newState));
             }
         } catch (error) {
             console.log(error);
@@ -172,7 +207,26 @@ const FormTable = () => {
                         </Alert>
                     )}
                     <h3><b>{Entries[Number(dataId.state.data)-1]}</b>{"報名、繳費狀態"}</h3>
-                    <Paper sx={{ width: '100%', overflow: 'hidden', mt: '5%' }}>
+                    <FormControl fullWidth sx={{ mt: '5%' }}>
+                            {/* <InputLabel>搜尋參賽者姓名</InputLabel> */}
+                            <OutlinedInput
+                                id="outlined-adornment-amount"
+                                value={searched}
+                                onChange={(v) => handleChange(v)}
+                                startAdornment={
+                                    <InputAdornment position="start"><SearchIcon /></InputAdornment>
+                                }
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton>
+                                            <ClearIcon onClick={cancelSearch}/>
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                placeholder="搜尋參賽者姓名"
+                            />
+                        </FormControl>
+                    <Paper sx={{ width: '100%', overflow: 'hidden'}}>
                         <TableContainer sx={{ maxHeight: 550 }}>
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
@@ -189,7 +243,7 @@ const FormTable = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows
+                                    {showrows
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
                                         return (
