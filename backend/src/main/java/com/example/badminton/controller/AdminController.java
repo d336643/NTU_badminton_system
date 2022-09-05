@@ -136,7 +136,7 @@ public class AdminController {
                 return ResponseEntity.badRequest().body(
                         new MessageResponse(false, String.format("Since the event(eid=%d) status is not 'paid', it cannot be set to 'verifying' or 'unpaid'.", r.getEvent().getId())));
             }
-            if(r.getPayAccount().isEmpty()){
+            if(r.getPayAccount() == null){
                 r.setStatus(1);
             } else {
                 r.setStatus(2);
