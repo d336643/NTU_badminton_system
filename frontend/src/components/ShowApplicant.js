@@ -27,6 +27,7 @@ import instance from '../instance';
 import delay from '../utilities/delay';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { type } from '@testing-library/user-event/dist/type';
+import { set } from 'date-fns';
 
 const Entries = ['男單', '女單', '男雙', '女雙', '混雙']
 
@@ -129,22 +130,26 @@ const FormTable = () => {
     const handleCheckboxClick = (event, id, eventId , status) => {
         event.stopPropagation();
         // console.log(`event id: ${eventId}, checkbox select, status: ${status}`);
-        if (status === 2 || status === 3) {
-            const newState = rows.map(obj => {
-                if (obj.id === id) {
-                    return { ...obj, checked: event.target.checked };
-                }
-                return obj;
-            });
-            setRows(newState);
-            // console.log(`Changed status: ${event.target.checked}`);
-        }
+        const newState = rows.map(obj => {
+            if (obj.id === id) {
+                return { ...obj, checked: event.target.checked };
+            }
+            return obj;
+        });
+        setRows(newState);
+        setShowrows(newState);
         // else console.log('Cannot change status.');
-        if (event.target.checked) {
+        if (event.target.checked === true) {
+            const duplicat = eventsToUnpay.findIndex((element) => element === eventId);
+            if (duplicat !== -1) setEventsToUnpay(eventsToUnpay.filter((_, i) => i !== duplicat))
+
             const result = eventsToPay.findIndex((element) => element === eventId);
             if (result === -1) setEventsToPay(eventsToPay.concat(eventId));
         }
         else {
+            const duplicat = eventsToPay.findIndex((element) => element === eventId);
+            if (duplicat !== -1) setEventsToPay(eventsToPay.filter((_, i) => i !== duplicat))
+
             const result = eventsToUnpay.findIndex((element) => element === eventId);
             if (result === -1) setEventsToUnpay(eventsToUnpay.concat(eventId));
         }
@@ -164,14 +169,17 @@ const FormTable = () => {
                     eventsToPay: eventsToPay,
                     eventsToUnpay: eventsToUnpay
                 }, config);
+            console.log(res)
             if (res.status === 200) {
+                setEventsToPay(eventsToPay.slice(0,0));
+                setEventsToUnpay(eventsToUnpay.slice(0,0));
                 setAlertmessage('儲存成功');
                 setSeverity('success');
                 setShowmessage(true);
                 closeAlert();
             }
         } catch (error) {
-            setAlertmessage('無法儲存，請確認是否有變更繳費狀態');
+            setAlertmessage(String(error).replace('Error: ', ''));
             setSeverity('error');
             setShowmessage(true);
             closeAlert();
@@ -258,7 +266,7 @@ const FormTable = () => {
                                                         </TableCell>
                                                         :
                                                         <Checkbox
-                                                            disable={value === 1 ? true : false}
+                                                            // disable={value === 1 ? true : false}
                                                             checked={row.checked}
                                                             onChange={event => handleCheckboxClick(event, row.id, row.eventId, row.status)}
                                                             inputProps={{ 'aria-label': 'controlled' }}
