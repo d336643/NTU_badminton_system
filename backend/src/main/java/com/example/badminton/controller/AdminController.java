@@ -116,9 +116,13 @@ public class AdminController {
         // update EventsToPay
         List<Registration> registrationsToPay = registrationRepository.findAllById(req.getEventsToPay());
         for (Registration r : registrationsToPay) {
-            if (r.getStatus() != 2) {
+//            if (r.getStatus() != 2) {
+//                return ResponseEntity.badRequest().body(
+//                        new MessageResponse(false, String.format("Since the event(eid=%d) status is not 'verifying', it cannot be set to 'paid'.", r.getEvent().getId())));
+//            }
+            if (r.getStatus() == 3) {
                 return ResponseEntity.badRequest().body(
-                        new MessageResponse(false, String.format("Since the event(eid=%d) status is not 'verifying', it cannot be set to 'paid'.", r.getEvent().getId())));
+                        new MessageResponse(false, String.format("The event(eid=%d) is already paid.", r.getEvent().getId())));
             }
             r.setStatus(3);
             r.setVerifierUid(req.getVerifier());
@@ -130,9 +134,13 @@ public class AdminController {
         for (Registration r : registrationsToUnpay) {
             if (r.getStatus() != 3) {
                 return ResponseEntity.badRequest().body(
-                        new MessageResponse(false, String.format("Since the event(eid=%d) status is not 'paid', it cannot be set to 'verifying'.", r.getEvent().getId())));
+                        new MessageResponse(false, String.format("Since the event(eid=%d) status is not 'paid', it cannot be set to 'verifying' or 'unpaid'.", r.getEvent().getId())));
             }
-            r.setStatus(2);
+            if(r.getPayAccount() == null){
+                r.setStatus(1);
+            } else {
+                r.setStatus(2);
+            }
             r.setVerifierUid(req.getVerifier());
             registrationRepository.save(r);
         }
