@@ -13,3 +13,9 @@ export const STATUS = [
 export const DEGREEE = [
     '大一', '大二', '大三', '大四', '大五以上', '碩一', '碩二', '碩三以上', '博一', '博二', '博三以上', '交換生'
 ]
+
+export const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+     'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+]
+
+export const EVENTENTRY = ['男單', '女單', '男雙', '女雙', '混雙']
