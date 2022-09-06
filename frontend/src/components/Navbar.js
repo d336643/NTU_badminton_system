@@ -118,22 +118,23 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                             >
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                                    <Typography textAlign="center">進入賽程系統</Typography>
+                                </MenuItem>
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/refereesys">
+                                    <Typography textAlign="center">進入裁判系統</Typography>
+                                </MenuItem> 
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/applicantsummary">
                                     <Typography textAlign="center">報名者表單、繳費</Typography>
                                 </MenuItem>
                                 
-                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
-                                    <Typography textAlign="center">排賽程</Typography>
-                                </MenuItem>
+                                {/* 
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
                                     <Typography textAlign="center">登入場單</Typography>
                                 </MenuItem>
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
                                     <Typography textAlign="center">清空場次</Typography>
                                 </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
-                                    <Typography textAlign="center">裁判</Typography>
-                                </MenuItem> 
                                 currently not open these functions */}
                             </Menu>
                         </Box>
@@ -303,23 +304,31 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                         identity == "manager" ?
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             <Button
+                                component={Link}
+                                to='/schedulehome'
+                                onClick={handleCloseNavMenu}
+                                sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                            >
+                                賽程系統
+                            </Button>
+                            <Button
+                                component={Link}
+                                to='/refereesys'
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                裁判系統
+                            </Button> 
+                            <Button
                                 // key={page}
                                 component={Link}
                                 to='/applicantsummary'
                                 onClick={handleCloseNavMenu}
-                                sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 報名者表單、繳費
                             </Button>
-                            {/* <Button
-                                // key={page}
-                                component={Link}
-                                to='/'
-                                onClick={handleCloseNavMenu}
-                                sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
-                            >
-                                排賽程
-                            </Button>
+                            {/* 
                             <Button
                                 // key={page}
                                 component={Link}
@@ -338,15 +347,6 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             >
                                 清空場次
                             </Button>
-                            <Button
-                                // key={page}
-                                component={Link}
-                                to='/'
-                                onClick={handleCloseNavMenu}
-                                sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
-                            >
-                                裁判
-                            </Button> 
                             currently not open these functions*/}
                         </Box>
                         :

@@ -4,10 +4,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 const Manager = ({setView, handleLogOut, identity}) => {
     const token = localStorage.getItem('token');
+    const navigate = useNavigate();
     
     return (
         <Container component="main" maxWidth="xs">
@@ -27,48 +28,35 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         spacing={2}
                     >
                         <Grid item xs={12}>
-                            <Button component={Link} to="/applicantsummary"
+                            <Button 
+                                onClick={() => navigate("/schedulehome")}
+                                variant="outlined"
+                                size='large'
+                                fullWidth>
+                                進入賽程系統
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button 
+                                onClick={() => navigate("/refereesys")}
+                                variant="outlined"
+                                size='large'
+                                fullWidth>
+                                進入裁判系統
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button 
+                                onClick={() => navigate("/applicantsummary")}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
                                 報名者表單、繳費
                             </Button>
                         </Grid>
-                        {/* <Grid item xs={12}>
-                            <Button component={Link} to="/"
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                排賽程
-                            </Button>
-                        </Grid>
                         <Grid item xs={12}>
-                            <Button component={Link} to="/"
+                            <Button 
                                 variant="outlined"
-                                size='large'
-                                fullWidth>
-                                登入場單
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button component={Link} to="/login"
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                清空場次
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button component={Link} to="/editprofile"
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                裁判
-                            </Button>
-                        </Grid> 
-                        currently not open these functions*/}
-                        <Grid item xs={12}>
-                            <Button variant="outlined"
                                 size='large'
                                 fullWidth
                                 onClick={handleLogOut}>

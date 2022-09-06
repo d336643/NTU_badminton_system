@@ -9,10 +9,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 const TYPE = ['MS', 'WS', 'MD', 'WD', 'XD']
 const Competitor = () => {
     const navigate = useNavigate();
-    const dataId = useLocation();
 
     const directPage = (dataType) => {
-        navigate(`/showapplicant/${TYPE[dataType-1]}`,{state:{data: dataType}});
+        navigate(`/schedulesys/${TYPE[dataType-1]}`,{state:{data: dataType}});
     }
 
     return (

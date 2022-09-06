@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 function ShowPdf({isLogin}) {
     const navigate = useNavigate();
     return (
-        <Container component="main" maxWidth="md" sx={{display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+        <Container component="main" maxWidth="md" 
+            sx={{display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
             }} 
         >{/*minHeight: '80vh'*/}
             <h3 style={{ marginBottom: '5%', marginTop: "5%" }}>競賽章程</h3>
