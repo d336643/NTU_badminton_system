@@ -25,11 +25,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import instance from '../instance';
 import delay from '../utilities/delay';
+import { EVENTENTRY } from '../utilities/entry'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { type } from '@testing-library/user-event/dist/type';
 import { set } from 'date-fns';
-
-const Entries = ['男單', '女單', '男雙', '女雙', '混雙']
 
 let counter = 0;
 const createData = (eventId, uid, name, sid, account, status) => {
@@ -39,7 +38,7 @@ const createData = (eventId, uid, name, sid, account, status) => {
 }
 
 const columns = [
-    { id: 'name', label: '姓名', minWidth: 100 },
+    { id: 'name', label: '姓名', minWidth: 140 },
     { id: 'sid', label: '學號', minWidth: 120 },
     { id: 'account', label: '匯款後五碼', minWidth: 150 },
     { id: 'status', label: '繳費狀態', minWidth: 60 },
@@ -69,9 +68,9 @@ const FormTable = () => {
     const requestSearch = (searchedVal) => {
         setSearched(searchedVal);
         const filteredRows = rows.filter((row) => {
-            let competitorName = row.name;
-            console.log(typeof(competitorName));
-            if (competitorName.includes(searchedVal))
+            let competitorSid = row.sid;
+            let search = searchedVal.toLowerCase();
+            if (competitorSid.toLowerCase().includes(search))
                 return row;
         });
         setShowrows(filteredRows);
@@ -214,7 +213,7 @@ const FormTable = () => {
                             {alertmessage}
                         </Alert>
                     )}
-                    <h3><b>{Entries[Number(dataId.state.data)-1]}</b>{"報名、繳費狀態"}</h3>
+                    <h3><b>{EVENTENTRY[Number(dataId.state.data)-1]}</b>{"報名、繳費狀態"}</h3>
                     <FormControl fullWidth sx={{ mt: '5%' }}>
                             {/* <InputLabel>搜尋參賽者姓名</InputLabel> */}
                             <OutlinedInput
@@ -231,7 +230,7 @@ const FormTable = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                placeholder="搜尋參賽者姓名"
+                                placeholder="搜尋參賽者學號"
                             />
                         </FormControl>
                     <Paper sx={{ width: '100%', overflow: 'hidden'}}>
