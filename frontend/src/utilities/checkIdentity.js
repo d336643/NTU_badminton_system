@@ -6,6 +6,7 @@ const checkIdentity = async () => {
     else {
         if (localStorage.getItem("name") === "ntu_badminton") return "manager";
         else if (localStorage.getItem("sid").indexOf("_admin") !== -1) return "manager";
+        else if (localStorage.getItem("name").indexOf("_admin") !== -1) return "manager";
         else return "competitor";
     }
 }
