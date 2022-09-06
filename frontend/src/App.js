@@ -11,8 +11,12 @@ import ErrorPage from "./components/ErrorPage";
 import CompetitionRule from './containers/CompetitionRule';
 import Register from "./components/Register";
 import ApplicantSummary from "./containers/ApplicantSummary";
+import ScheduleSummary from "./containers/ScheduleSummary";
 import CompetitorStatus from "./containers/CompetitorStatus";
 import ShowApplicant from "./components/ShowApplicant";
+import ScheduleHome from "./containers/homePages/ScheduleHome";
+import ScheduleSys from "./components/ScheduleSys";
+import RefereeSys from "./components/RefereeSys";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
@@ -42,10 +46,14 @@ const App = () => {
                     <Route path="/editprofile/:id" element={<EditProfile/>} />
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
                     <Route path="/applicantsummary" element={<ApplicantSummary />} />
-                    <Route path="/showapplicant" element={<ShowApplicant />} />
+                    <Route path="/schedulesummary" element={<ScheduleSummary />} />
+                    <Route path="/showapplicant/:dataType" element={<ShowApplicant />} />
+                    <Route path="/schedulehome" element={<ScheduleHome />} />
+                    <Route path="/schedulesys/:dataType" element={<ScheduleSys />} />
+                    <Route path="/refereesys" element={<RefereeSys />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
-                <Footer />
+                {/* <Footer /> */}
             </ThemeProvider>
         </Router>
     );
