@@ -216,7 +216,7 @@ const Reset = () => {
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
                         <TextField
-                            sx={{ gridColumn: '3/5' }}
+                            sx={{ gridColumn: '4/8' }}
                             size="small"
                             value={name}
                             readOnly={true}
@@ -225,7 +225,7 @@ const Reset = () => {
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="學號" />
                         <TextField
-                            sx={{ gridColumn: '3/5' }}
+                            sx={{ gridColumn: '4/8' }}
                             size="small"
                             value={sid}
                             readOnly={true}
@@ -234,7 +234,7 @@ const Reset = () => {
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="dgreeID-item" primary="系級" />
                         <TextField
-                            sx={{ gridColumn: '3/5' }}
+                            sx={{ gridColumn: '4/8' }}
                             size="small"
                             value={findDepart(departmentId)+DEGREEE[degreeId-1]}
                             readOnly={true}
@@ -248,7 +248,7 @@ const Reset = () => {
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名項目" />
                                         <TextField
-                                            sx={{ gridColumn: '3/5' }}
+                                            sx={{ gridColumn: '4/8' }}
                                             size="small"
                                             value={eventEntry[event.typeId-1]}
                                             readOnly={true}
@@ -259,7 +259,7 @@ const Reset = () => {
                                         <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                             <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="隊友" />
                                             <TextField
-                                                sx={{ gridColumn: '3/5' }}
+                                                sx={{ gridColumn: '4/8' }}
                                                 size="small"
                                                 value={getPartners(event.typeId)}
                                                 readOnly={true}
@@ -270,7 +270,7 @@ const Reset = () => {
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名及繳費狀態" />
                                         <TextField
-                                            sx={{ gridColumn: '3/5' }}
+                                            sx={{ gridColumn: '4/8' }}
                                             size="small"
                                             value={eventStatus[event.status-1]}
                                             readOnly={true}
@@ -280,7 +280,7 @@ const Reset = () => {
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="匯款後五碼" />
                                         {event.account === null ? 
                                             <TextField
-                                                sx={{ gridColumn: '3/5' }}
+                                                sx={{ gridColumn: '4/8' }}
                                                 size="small"
                                                 id="account"
                                                 label="輸入匯款後五碼"
@@ -289,7 +289,7 @@ const Reset = () => {
                                             />
                                             :
                                             <TextField
-                                                sx={{ gridColumn: '3/5' }}
+                                                sx={{ gridColumn: '4/8' }}
                                                 size="small"
                                                 value={event.account}
                                                 readOnly={true}
