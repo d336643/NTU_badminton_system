@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Container from '@mui/material/Container';
-import General from '../components/homeComponents/GeneralHome';
-import Competitor from '../components/homeComponents/CompetitorHome';
-import Manager from '../components/homeComponents/ManagerHome'
+import General from './homePages/GeneralHome';
+import Competitor from './homePages/CompetitorHome';
+import Manager from './homePages/ManagerHome'
 // import Footer from '../components/Footer';
 import checkIdentity from '../utilities/checkIdentity';
 
@@ -31,7 +31,8 @@ const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) =
 
     return (
         <>
-            <Container component="main" maxWidth="sm" sx={{height: "70vh"}}>
+            <Container component="main" maxWidth="sm">
+                {/*sx={{height: "70vh"}}*/}
                 { isLogin ?
                     view === "manager" ?
                         <Manager setView={setView} handleLogOut={handleLogOut} identity={identity} /> 
