@@ -32,4 +32,6 @@ public class UserBasicData {
 
     private String address;
 
+    private Long role;
+
 }

@@ -17,5 +17,7 @@ public class LoginResponse implements ResponseModel  {
 
     private Long uid;
 
+    private Long role;
+
     private String msg;
 }

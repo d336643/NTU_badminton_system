@@ -98,14 +98,15 @@ public class AuthController {
         LoginResponseBuilder loginResponse = LoginResponse.builder();
         loginResponse.success(true);
         loginResponse.token(jwt);
-        loginResponse.uid(userRepository.findBySid(loginRequest.getSid()).get().getId());
+        loginResponse.uid(user.getId());
+        loginResponse.role(user.getRoles().iterator().next().getId());
         loginResponse.msg("Login Success.");
 
         return ResponseEntity.ok(loginResponse.build());
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest)   {
         if (userRepository.existsBySid(signUpRequest.getSid())) {
             return ResponseEntity
                     .badRequest()

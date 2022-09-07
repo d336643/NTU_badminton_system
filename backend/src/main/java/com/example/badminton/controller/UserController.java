@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.badminton.converter.RegistrationConverter;
 import com.example.badminton.model.EventRegistrationData;
 import com.example.badminton.model.RoleEnum;
 import com.example.badminton.model.UserBasicData;
@@ -65,6 +64,7 @@ public class UserController {
                                               .email(opt.get().getEmail())
                                               .phone(opt.get().getPhone())
                                               .address(opt.get().getAddress())
+                                              .role(opt.get().getRoles().iterator().next().getId())
                                               .build();
             return ResponseEntity.ok(new SuccessDataResponse(true, data));
         } else {
@@ -87,7 +87,7 @@ public class UserController {
                     continue;
                 }
             }
-            if (isAdmin){ continue;}
+            if (isAdmin) {continue;}
             data.add(UserSimpleData.builder()
                                    .uid(user.getId())
                                    .username(user.getUsername())
@@ -153,23 +153,24 @@ public class UserController {
                                                                        registrations)));
     }
 
-    private List<EventRegistrationData> registrationsConvertToEventRegistrationData (Iterable<Registration> registrations) {
+    private List<EventRegistrationData> registrationsConvertToEventRegistrationData(
+            Iterable<Registration> registrations) {
         List<EventRegistrationData> data = new ArrayList<>();
         for (Registration r : registrations) {
             List<UserSimpleData> competitors = new ArrayList<>();
             User competitor1 = userRepository.findById(r.getApplier().getId()).get();
-            competitors.add( UserSimpleData.builder()
-                                           .uid(competitor1.getId())
-                                           .sid(competitor1.getSid())
-                                           .username(competitor1.getUsername())
-                                           .build());
+            competitors.add(UserSimpleData.builder()
+                                          .uid(competitor1.getId())
+                                          .sid(competitor1.getSid())
+                                          .username(competitor1.getUsername())
+                                          .build());
             if (r.getPartnerUid() != null) {
                 User competitor2 = userRepository.findById(r.getPartnerUid()).get();
-                competitors.add( UserSimpleData.builder()
-                                               .uid(competitor2.getId())
-                                               .sid(competitor2.getSid())
-                                               .username(competitor2.getUsername())
-                                               .build());
+                competitors.add(UserSimpleData.builder()
+                                              .uid(competitor2.getId())
+                                              .sid(competitor2.getSid())
+                                              .username(competitor2.getUsername())
+                                              .build());
             }
             data.add(EventRegistrationData.builder()
                                           .eventId(r.getId())
