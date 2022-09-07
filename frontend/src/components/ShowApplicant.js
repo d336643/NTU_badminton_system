@@ -68,9 +68,10 @@ const FormTable = () => {
     const requestSearch = (searchedVal) => {
         setSearched(searchedVal);
         const filteredRows = rows.filter((row) => {
-            let competitorSid = row.sid;
+            // let competitorSid = row.sid;
+            let competitorName = row.name;
             let search = searchedVal.toLowerCase();
-            if (competitorSid.toLowerCase().includes(search))
+            if (competitorName.includes(search))
                 return row;
         });
         setShowrows(filteredRows);
@@ -230,7 +231,7 @@ const FormTable = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                placeholder="搜尋參賽者學號"
+                                placeholder="搜尋參賽者姓名"
                             />
                         </FormControl>
                     <Paper sx={{ width: '100%', overflow: 'hidden'}}>
