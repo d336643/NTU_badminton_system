@@ -10,7 +10,7 @@ const ShowAllApplicant = () => {
         <Container component="main" minWidth="xs" maxWidth="md" sx={{ alignItems: 'center' }}>
             <Box
                 sx={{
-                    marginTop: "3%",
+                    marginTop: "4%",
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
