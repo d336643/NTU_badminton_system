@@ -94,7 +94,6 @@ const LoginForm = () => {
         };
         try {
             const res = await instance.get(`/users/${uid}`, config)
-            console.log(res);
             if (res.status === 200) {
                 localStorage.setItem("name", res.data.data.username);
                 localStorage.setItem("sid", res.data.data.sid);
@@ -106,6 +105,7 @@ const LoginForm = () => {
                 localStorage.setItem("phone", res.data.data.phone);
                 localStorage.setItem("accountStatus", res.data.data.accountStatus);
                 localStorage.setItem("address", res.data.data.address);
+                localStorage.setItem("role", res.data.data.role);
             }
         } catch (error) {
             // console.log((error));
