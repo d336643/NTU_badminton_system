@@ -8,7 +8,7 @@ import { DoubleSquare } from "../ScheduleGraph/Square" // {} if no export defaul
 import { EVENTENTRY } from '../utilities/entry';
 import { useNavigate, useLocation } from "react-router-dom";
 
-const Competitor = () => {
+const EditSchedule = () => {
     const navigate = useNavigate();
     const dataId = useLocation();
 
@@ -45,4 +45,4 @@ const Competitor = () => {
     )
 }
 
-export default Competitor;
+export default EditSchedule;

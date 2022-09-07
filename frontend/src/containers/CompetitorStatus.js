@@ -207,7 +207,6 @@ const Reset = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                    // subheader={<ListSubheader>編輯個人資料</ListSubheader>}
                 >
                     <h3 style={{ marginBottom: '2%' }}>報名 / 繳費狀態</h3>
                     <Alert severity="info" style={{ marginBottom: '2%' }}>

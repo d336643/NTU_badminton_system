@@ -47,7 +47,7 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Button 
-                                onClick={() => navigate("/applicantsummary")}
+                                onClick={() => navigate("/showallapplicant")}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>

@@ -9,21 +9,20 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react
 const Competitor = ({setView, handleLogOut}) => {
     const navigate = useNavigate();
     return (
-        <>
-            <Container component="main" maxWidth="xs">
-                <Box
-                    sx={{
-                        mt: '20%',
-                        mb: '20%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    裁判系統
-                </Box>
-            </Container>
-        </>
+        <>暫不開放</>
+        // <Container component="main" maxWidth="xs">
+        //     <Box
+        //         sx={{
+        //             mt: '20%',
+        //             mb: '20%',
+        //             display: 'flex',
+        //             flexDirection: 'column',
+        //             alignItems: 'center',
+        //         }}
+        //     >
+        //         裁判系統
+        //     </Box>
+        // </Container>
     )
 }
 

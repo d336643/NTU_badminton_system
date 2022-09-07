@@ -11,11 +11,13 @@ import ErrorPage from "./components/ErrorPage";
 import CompetitionRule from './containers/CompetitionRule';
 import Register from "./components/Register";
 import ApplicantSummary from "./containers/ApplicantSummary";
-import ScheduleSummary from "./containers/ScheduleSummary";
+import ShowAllSchedule from "./containers/ShowAllSchedule";
 import CompetitorStatus from "./containers/CompetitorStatus";
-import ShowApplicant from "./components/ShowApplicant";
+import ShowAllApplicant from "./containers/ShowAllApplicant";
 import ScheduleHome from "./containers/homePages/ScheduleHome";
-import ScheduleSys from "./components/ScheduleSys";
+import ShowSchedule from "./components/ShowSchedule";
+import AssignSchedule from "./components/AssignSchedule";
+import EditSchedule from "./components/EditSchedule";
 import RefereeSys from "./components/RefereeSys";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -45,11 +47,12 @@ const App = () => {
                     <Route path="/register" element={<Register />} />
                     <Route path="/editprofile/:id" element={<EditProfile/>} />
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
-                    <Route path="/applicantsummary" element={<ApplicantSummary />} />
-                    <Route path="/schedulesummary" element={<ScheduleSummary />} />
-                    <Route path="/showapplicant/:dataType" element={<ShowApplicant />} />
+                    {/* <Route path="/applicantsummary" element={<ApplicantSummary />} /> */}
+                    <Route path="/showallschedule" element={<ShowAllSchedule />} />
+                    <Route path="/showallapplicant" element={<ShowAllApplicant />} />
                     <Route path="/schedulehome" element={<ScheduleHome />} />
-                    <Route path="/schedulesys/:dataType" element={<ScheduleSys />} />
+                    <Route path="/assignschedule" element={<AssignSchedule />} />
+                    <Route path="/editschedule/:dataType" element={<EditSchedule />} />
                     <Route path="/refereesys" element={<RefereeSys />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>

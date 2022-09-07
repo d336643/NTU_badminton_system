@@ -118,13 +118,13 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                             >
-                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/showallschedule">
                                     <Typography textAlign="center">進入賽程系統</Typography>
                                 </MenuItem>
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/refereesys">
                                     <Typography textAlign="center">進入裁判系統</Typography>
                                 </MenuItem> 
-                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/applicantsummary">
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/showallapplicant">
                                     <Typography textAlign="center">報名者表單、繳費</Typography>
                                 </MenuItem>
                                 
@@ -322,7 +322,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             <Button
                                 // key={page}
                                 component={Link}
-                                to='/applicantsummary'
+                                to='/showallapplicant'
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >

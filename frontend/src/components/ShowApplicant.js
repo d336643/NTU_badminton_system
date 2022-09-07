@@ -38,19 +38,18 @@ const createData = (eventId, uid, name, sid, account, status) => {
 }
 
 const columns = [
-    { id: 'name', label: '姓名', minWidth: 140 },
-    { id: 'sid', label: '學號', minWidth: 120 },
-    { id: 'account', label: '匯款後五碼', minWidth: 150 },
-    { id: 'status', label: '繳費狀態', minWidth: 60 },
+    { id: 'name', label: '姓名', minWidth: 110 },
+    { id: 'sid', label: '學號', minWidth: 110 },
+    { id: 'account', label: '匯款後五碼', minWidth: 120 },
+    { id: 'status', label: '繳費狀態', minWidth: 90 },
 ];
 
-const FormTable = () => {
+const FormTable = ({dataId}) => {
     const navigate = useNavigate();
     const uid =  localStorage.getItem("uid");
     const token =  localStorage.getItem("token");
-    const dataId = useLocation();
     const [ page, setPage ] = useState(0);
-    const [ rowsPerPage, setRowsPerPage ] = useState(10);
+    const [ rowsPerPage, setRowsPerPage ] = useState(5);
     const [ rows, setRows ] = useState([]);
     const [ showrows, setShowrows ] = useState([]);
     const [ eventsToPay, setEventsToPay ] = useState([]);
@@ -68,7 +67,6 @@ const FormTable = () => {
     const requestSearch = (searchedVal) => {
         setSearched(searchedVal);
         const filteredRows = rows.filter((row) => {
-            // let competitorSid = row.sid;
             let competitorName = row.name;
             let search = searchedVal.toLowerCase();
             if (competitorName.includes(search))
@@ -94,14 +92,14 @@ const FormTable = () => {
     }
 
     const fetchData = async() => {
-        console.log(dataId.state.data)
+        // console.log(dataId.state.data)
         const config = {
             headers:{
                 'Authorization': 'Bearer ' + token
             }
         }
         try {
-            let res = await instance.get(`admin/users?typeId=${dataId.state.data}`, config);
+            let res = await instance.get(`admin/users?typeId=${dataId+1}`, config);
             if(res.status === 200) {
                 const newState = res.data.events.map((obj) => {
                         if (obj.competitors.length === 1) {
@@ -198,24 +196,23 @@ const FormTable = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="sm" sx={{ alignItems: 'center' }}>
-                <CssBaseline />
-                <Box
+            <CssBaseline />
+                {/* <Box
                     sx={{
-                        marginTop: '5%',
+                        // marginTop: '5%',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                >
+                > */}
                     {showmessage && (
                         <Alert sx={{ position: 'fixed', top: '10%' }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>
                     )}
-                    <h3><b>{EVENTENTRY[Number(dataId.state.data)-1]}</b>{"報名、繳費狀態"}</h3>
-                    <FormControl fullWidth sx={{ mt: '5%' }}>
+                    {/* <h3><b>{EVENTENTRY[dataId]}</b>{"報名、繳費狀態"}</h3> */}
+                    <FormControl fullWidth>
                             {/* <InputLabel>搜尋參賽者姓名</InputLabel> */}
                             <OutlinedInput
                                 id="outlined-adornment-amount"
@@ -231,7 +228,7 @@ const FormTable = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                placeholder="搜尋參賽者姓名"
+                                placeholder="搜尋參賽者學姓名"
                             />
                         </FormControl>
                     <Paper sx={{ width: '100%', overflow: 'hidden'}}>
@@ -304,18 +301,16 @@ const FormTable = () => {
                                 儲存
                             </Button>
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                             <Button
                                 variant="outlined"
                                 onClick={() => navigate('/applicantsummary')}
                             >
                                 回到項目總覽
                             </Button>
-                        </Grid> 
+                        </Grid>  */}
                     </Grid>
-                    
-                </Box>
-            </Container>
+                {/* </Box> */}
         </>
     );
 }
