@@ -10,11 +10,11 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useNavigate } from "react-router-dom";
 
-export default function InfoDialog({open, setOpen, turnBack, alertmessage}) {
+export default function InfoDialog({route, open, setOpen, turnBack, alertmessage}) {
     const navigate = useNavigate();
     const handleClose = () => {
         setOpen(false);
-        if (turnBack) navigate('/');
+        if (turnBack) navigate(`${route}`);
     };
 
     return (

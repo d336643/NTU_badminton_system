@@ -28,7 +28,7 @@ export default function SwitchListSecondary() {
         sid: '',
         degreeId: 0,
         departmentId: null,
-        birthday: '2017-05-24',
+        birthday: '2022-05-24',
         iid: '',
         email: '',
         phone: '',
@@ -87,7 +87,7 @@ export default function SwitchListSecondary() {
         const value = Object.values(values);
         value.map(function(x, i) {
             if (value[i] === null || value[i] === '') {
-                if (key[i] !== 'address') {
+                if (key[i] !== 'iid' && key[i] !== 'address') {
                     blank = blank+key[i]+', ';
                 }
             }
@@ -96,16 +96,16 @@ export default function SwitchListSecondary() {
             setAlertmessage(blank+' 不得為空白');
             setOpen(true);
         }
-        else if (values.iid.length !== 10) {
+        else if (values.iid.length !== 0 && values.iid.length !== 10) {
             setAlertmessage(nation === 1 ? "身分證須為十碼" : "居留證須為十碼");
             setOpen(true);
         }
-        else if (nation === 1 && !verifyTWid(values.iid)) {
+        else if (values.iid.length !== 0 && nation === 1 && !verifyTWid(values.iid)) {
             setAlertmessage("身分證格式錯誤");
             setOpen(true);
         }
-        else if (nation !== 1 && !verifyLiveid(values.iid)) {
-            setAlertmessage("身分證格式錯誤");
+        else if (values.iid.length !== 0 && nation !== 1 && !verifyLiveid(values.iid)) {
+            setAlertmessage("居留證格式錯誤");
             setOpen(true);
         }
         else {
@@ -180,7 +180,7 @@ export default function SwitchListSecondary() {
     return (
         <>
             <Container component="main" maxWidth="sm">
-                <InfoDialog open={open} setOpen={setOpen} turnBack={status} alertmessage={alertmessage} />
+                <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={status} alertmessage={alertmessage} />
                 <form
                     style={{
                         marginTop: '5%',
@@ -313,7 +313,7 @@ export default function SwitchListSecondary() {
                             options={NATIONENTRY}
                             getOptionLabel={(option) => option.label}
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇國籍 (必填)" />}
+                            renderInput={(params) => <TextField {...params} label="請選擇國籍" />}
                             onChange={(event, newValue, reason) => {
                                 setNation(reason === "clear" || reason === "removeOption" ? null : newValue.id);
                             }}
@@ -342,7 +342,7 @@ export default function SwitchListSecondary() {
                             sx={{ gridColumn: '4/8' }}
                             size="small"
                             id="altIid"
-                            label="居留證號 (必填)"
+                            label="居留證號"
                             name="altIid"
                             autoComplete="altIid"
                             onChange={handleChange('iid')}
