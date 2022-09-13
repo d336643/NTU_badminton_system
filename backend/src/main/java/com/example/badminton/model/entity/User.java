@@ -78,7 +78,6 @@ public class User {
     @Size(min = 10, max = 10)
     private String birthday;
 
-    @NotBlank
     @Size(max = 10)
     private String iid;
 
