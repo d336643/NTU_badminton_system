@@ -8,11 +8,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Autocomplete from '@mui/material/Autocomplete';
 import Alert from '@mui/material/Alert';
-
 import InfoDialog from "./InfoDialog";
 import instance from "../instance";
+import { EVENTTYPEENTRY } from "../utilities/entry";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+    const navigate = useNavigate();
     const myUid = Number(localStorage.getItem('uid'));
     const token = localStorage.getItem('token');
     const applier = myUid;
@@ -126,17 +128,10 @@ const LoginForm = () => {
             setOpen(true);
         }
     }
-    
-    const entries = [
-        { label: '男單', id: 1 }, { label: '女單', id: 2 },
-        { label: '男雙', id: 3 }, { label: '女雙', id: 4 }, { label: '混雙', id: 5 },
-    ]
 
     return (
         <>
-            <Container component="main" maxWidth="sm"> {/*sx={{height: "75vh"}}*/}
-                <CssBaseline />
-                <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+            <Container component="main" maxWidth="sm">
                 <List
                     sx={{
                         marginTop: '5%',
@@ -147,114 +142,141 @@ const LoginForm = () => {
                 >
                     <h3 style={{ marginBottom: '2%' }}>報名賽事</h3>
                     <Alert severity="info" style={{ marginBottom: '3%' }}>
-                        <p style={{ marginBottom: '1%'}}>報名賽事前，請詳細閱讀<a href="/competitionrule">競賽章程</a></p>
-                        <p><b>報名後不能修改，請確認後再報名</b></p>
+                        <p style={{ marginBottom: '1%'}}>已截止報名</p>
                     </Alert>
-                    <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/2' }} id="entry-1" primary="項目一" />
-                        <Autocomplete 
-                            size="small"
-                            sx={{ gridColumn: '2/4' }}
-                            // disablePortal
-                            id="select-entry-1"
-                            options={entries}
-                            getOptionLabel={(option) => option.label}
-                            isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => 
-                                <TextField {...params} 
-                                    label="請選擇項目" 
-                                    error={typeID1 === typeID2 && typeID1 !== null  ? true : false}
-                                    helperText={typeID1 === typeID2 && typeID1 !== null ? "請勿重複報名" : ""}/>}
-                            onChange={(event, newValue, reason) => {
-                                setTypeID1(reason === "clear" || reason === "removeOption" ? null : newValue.id);
-                            }}
-                        />
-                    </ListItem>
-                    {
-                        typeID1 === null || typeID1 === 1 || typeID1 === 2
-                        ? <></>
-                        :
-                        <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                            <ListItemText sx={{ gridColumn: '1/2' }} id="sid-1" primary="" />
-                            <Autocomplete 
-                                size="small"
-                                sx={{ gridColumn: '2/4' }}
-                                id="select-sid-1"
-                                options={currentStudent.filter(checkSame)}
-                                getOptionLabel={(option) => `${option.sid}`+' '+`${option.username}`}
-                                isOptionEqualToValue={(option, value) => option.sid === value.sid}
-                                onChange={(event, newValue, reason) => {
-                                    setCompetitors1(reason === "clear" || reason === "removeOption" ? null : newValue.uid);
-                                    
-                                }}
-                                renderInput={(params) => 
-                                    <TextField {...params} 
-                                        // error={competitors1 === null ? true : false}
-                                        helperText={competitors1 === null ? "請確認隊友已擁有帳號" : ""}
-                                        label="隊友學號" 
-                                    />
-                                }
-                            />
-                        </ListItem>
-                    }
-                    <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/2' }} id="entry-2" primary="項目二" />
-                        <Autocomplete 
-                            size="small"
-                            sx={{ gridColumn: '2/4' }}
-                            // disablePortal
-                            id="select-entry-2"
-                            options={entries}
-                            getOptionLabel={(option) => option.label}
-                            isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => 
-                                <TextField {...params} 
-                                    label="請選擇項目" 
-                                    error={typeID1 === typeID2 && typeID1 !== null  ? true : false}
-                                    helperText={typeID1 === typeID2 && typeID2 !== null ? "請勿重複報名" : ""}/>}
-                            onChange={(event, newValue, reason) => {
-                                setTypeID2(reason === "clear" || reason === "removeOption" ? null : newValue.id);
-                            }}
-                        />
-                    </ListItem>
-                    {
-                        typeID2 === null || typeID2 === 1 || typeID2 === 2
-                        ? <></>
-                        :
-                        <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                            <ListItemText sx={{ gridColumn: '1/2' }} id="sid-2" primary="" />
-                            <Autocomplete 
-                                size="small"
-                                sx={{ gridColumn: '2/4' }}
-                                // disablePortal
-                                id="select-sid-2"
-                                options={currentStudent.filter(checkSame)}
-                                getOptionLabel={(option) => `${option.sid}`+' '+`${option.username}`}
-                                isOptionEqualToValue={(option, value) => option.sid === value.sid}
-                                onChange={(event, newValue, reason) => {
-                                    setCompetitors2(reason === "clear" || reason === "removeOption" ? null : newValue.uid);
-                                }}
-                                renderInput={(params) => 
-                                    <TextField {...params} 
-                                        // error={competitors2 === null ? true : false}
-                                        helperText={competitors2 === null ? "請確認隊友已擁有帳號" : ""}
-                                        label="隊友學號" 
-                                    />
-                                }
-                            />
-                        </ListItem>
-                    }
                     <Button
                         // fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 3 }}
-                        onClick={handleSubmit}
+                        onClick={() => navigate('/')}
                     >
-                        確認報名
+                        回首頁
                     </Button>
                 </List>
             </Container>
         </>
+        // <>
+        //     <Container component="main" maxWidth="sm"> {/*sx={{height: "75vh"}}*/}
+        //         <CssBaseline />
+        //         <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+        //         <List
+        //             sx={{
+        //                 marginTop: '5%',
+        //                 display: 'flex',
+        //                 flexDirection: 'column',
+        //                 alignItems: 'center',
+        //             }}
+        //         >
+        //             <h3 style={{ marginBottom: '2%' }}>報名賽事</h3>
+        //             <Alert severity="info" style={{ marginBottom: '3%' }}>
+        //                 <p style={{ marginBottom: '1%'}}>報名賽事前，請詳細閱讀<a href="/competitionrule">競賽章程</a></p>
+        //                 <p><b>報名後不能修改，請確認後再報名</b></p>
+        //             </Alert>
+        //             <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
+        //                 <ListItemText sx={{ gridColumn: '1/2' }} id="entry-1" primary="項目一" />
+        //                 <Autocomplete 
+        //                     size="small"
+        //                     sx={{ gridColumn: '2/4' }}
+        //                     // disablePortal
+        //                     id="select-entry-1"
+        //                     options={EVENTTYPEENTRY}
+        //                     getOptionLabel={(option) => option.label}
+        //                     isOptionEqualToValue={(option, value) => option.id === value.id}
+        //                     renderInput={(params) => 
+        //                         <TextField {...params} 
+        //                             label="請選擇項目" 
+        //                             error={typeID1 === typeID2 && typeID1 !== null  ? true : false}
+        //                             helperText={typeID1 === typeID2 && typeID1 !== null ? "請勿重複報名" : ""}/>}
+        //                     onChange={(event, newValue, reason) => {
+        //                         setTypeID1(reason === "clear" || reason === "removeOption" ? null : newValue.id);
+        //                     }}
+        //                 />
+        //             </ListItem>
+        //             {
+        //                 typeID1 === null || typeID1 === 1 || typeID1 === 2
+        //                 ? <></>
+        //                 :
+        //                 <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
+        //                     <ListItemText sx={{ gridColumn: '1/2' }} id="sid-1" primary="" />
+        //                     <Autocomplete 
+        //                         size="small"
+        //                         sx={{ gridColumn: '2/4' }}
+        //                         id="select-sid-1"
+        //                         options={currentStudent.filter(checkSame)}
+        //                         getOptionLabel={(option) => `${option.sid}`+' '+`${option.username}`}
+        //                         isOptionEqualToValue={(option, value) => option.sid === value.sid}
+        //                         onChange={(event, newValue, reason) => {
+        //                             setCompetitors1(reason === "clear" || reason === "removeOption" ? null : newValue.uid);
+                                    
+        //                         }}
+        //                         renderInput={(params) => 
+        //                             <TextField {...params} 
+        //                                 // error={competitors1 === null ? true : false}
+        //                                 helperText={competitors1 === null ? "請確認隊友已擁有帳號" : ""}
+        //                                 label="隊友學號" 
+        //                             />
+        //                         }
+        //                     />
+        //                 </ListItem>
+        //             }
+        //             <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
+        //                 <ListItemText sx={{ gridColumn: '1/2' }} id="entry-2" primary="項目二" />
+        //                 <Autocomplete 
+        //                     size="small"
+        //                     sx={{ gridColumn: '2/4' }}
+        //                     // disablePortal
+        //                     id="select-entry-2"
+        //                     options={EVENTTYPEENTRY}
+        //                     getOptionLabel={(option) => option.label}
+        //                     isOptionEqualToValue={(option, value) => option.id === value.id}
+        //                     renderInput={(params) => 
+        //                         <TextField {...params} 
+        //                             label="請選擇項目" 
+        //                             error={typeID1 === typeID2 && typeID1 !== null  ? true : false}
+        //                             helperText={typeID1 === typeID2 && typeID2 !== null ? "請勿重複報名" : ""}/>}
+        //                     onChange={(event, newValue, reason) => {
+        //                         setTypeID2(reason === "clear" || reason === "removeOption" ? null : newValue.id);
+        //                     }}
+        //                 />
+        //             </ListItem>
+        //             {
+        //                 typeID2 === null || typeID2 === 1 || typeID2 === 2
+        //                 ? <></>
+        //                 :
+        //                 <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
+        //                     <ListItemText sx={{ gridColumn: '1/2' }} id="sid-2" primary="" />
+        //                     <Autocomplete 
+        //                         size="small"
+        //                         sx={{ gridColumn: '2/4' }}
+        //                         // disablePortal
+        //                         id="select-sid-2"
+        //                         options={currentStudent.filter(checkSame)}
+        //                         getOptionLabel={(option) => `${option.sid}`+' '+`${option.username}`}
+        //                         isOptionEqualToValue={(option, value) => option.sid === value.sid}
+        //                         onChange={(event, newValue, reason) => {
+        //                             setCompetitors2(reason === "clear" || reason === "removeOption" ? null : newValue.uid);
+        //                         }}
+        //                         renderInput={(params) => 
+        //                             <TextField {...params} 
+        //                                 // error={competitors2 === null ? true : false}
+        //                                 helperText={competitors2 === null ? "請確認隊友已擁有帳號" : ""}
+        //                                 label="隊友學號" 
+        //                             />
+        //                         }
+        //                     />
+        //                 </ListItem>
+        //             }
+        //             <Button
+        //                 // fullWidth
+        //                 variant="contained"
+        //                 sx={{ mt: 3, mb: 3 }}
+        //                 onClick={handleSubmit}
+        //             >
+        //                 確認報名
+        //             </Button>
+        //         </List>
+        //     </Container>
+        // </>
     );
 }
 
