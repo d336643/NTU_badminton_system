@@ -17,7 +17,7 @@ const getDepartmentLabel = (departmentId) => {
 
 export const DoubleSquare = ({groupLabel, detail, viewType}) => {
     // viewType: edit, show
-    const game1 = detail[0].typeIndex, game2 = detail[1].typeIndex, game3 = detail[2].typeIndex, game4 = detail[3].typeIndex, game5 = detail[4].typeIndex, game6 = detail[5].typeIndex;
+    const game1 = detail[0].typeIndex, game2 = detail[2].typeIndex, game3 = detail[1].typeIndex, game4 = detail[3].typeIndex, game5 = detail[4].typeIndex, game6 = detail[5].typeIndex;
     
     return (
         <>
@@ -66,9 +66,9 @@ export const DoubleSquare = ({groupLabel, detail, viewType}) => {
                         <></>
                         :
                         <div class="group">
-                            <div class="name" id="unit[pos3]u">{getDepartmentLabel(detail[1].player1[0].departmentId)}{DEGREECODE[Number(detail[1].player1[0].degreeId)-1]}</div>
-                            <div class="name" id="name[pos3]u">{getDepartmentLabel(detail[1].player1[1].departmentId)}{DEGREECODE[Number(detail[1].player1[1].degreeId)-1]}</div><br></br>
-                            <div class="name" id="unit[pos3]d">{detail[1].player1[0].username}</div><div class="name" id="name[pos3]d">{detail[1].player1[1].username}</div>
+                            <div class="name" id="unit[pos3]u">{getDepartmentLabel(detail[2].player1[0].departmentId)}{DEGREECODE[Number(detail[2].player1[0].degreeId)-1]}</div>
+                            <div class="name" id="name[pos3]u">{getDepartmentLabel(detail[2].player1[1].departmentId)}{DEGREECODE[Number(detail[2].player1[1].degreeId)-1]}</div><br></br>
+                            <div class="name" id="unit[pos3]d">{detail[2].player1[0].username}</div><div class="name" id="name[pos3]d">{detail[2].player1[1].username}</div>
                         </div>
                     }
                     <div class="separater"></div>
@@ -76,9 +76,9 @@ export const DoubleSquare = ({groupLabel, detail, viewType}) => {
                         <></>
                         :
                         <div class="group">
-                            <div class="name" id="unit[pos4]u">{getDepartmentLabel(detail[1].player2[0].departmentId)}{DEGREECODE[Number(detail[1].player2[0].degreeId)-1]}</div>
-                            <div class="name" id="name[pos4]u">{getDepartmentLabel(detail[1].player2[1].departmentId)}{DEGREECODE[Number(detail[1].player2[1].degreeId)-1]}</div><br></br>
-                            <div class="name" id="unit[pos4]d">{detail[1].player2[0].username}</div><div class="name" id="name[pos4]d">{detail[1].player2[1].username}</div>
+                            <div class="name" id="unit[pos4]u">{getDepartmentLabel(detail[2].player2[0].departmentId)}{DEGREECODE[Number(detail[2].player2[0].degreeId)-1]}</div>
+                            <div class="name" id="name[pos4]u">{getDepartmentLabel(detail[2].player2[1].departmentId)}{DEGREECODE[Number(detail[2].player2[1].degreeId)-1]}</div><br></br>
+                            <div class="name" id="unit[pos4]d">{detail[2].player2[0].username}</div><div class="name" id="name[pos4]d">{detail[2].player2[1].username}</div>
                         </div>
                     }
                 </div>
