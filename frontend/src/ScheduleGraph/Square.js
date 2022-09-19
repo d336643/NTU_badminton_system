@@ -8,7 +8,7 @@ const getDepartmentLabel = (departmentId) => {
     const value = Object.values(DEPARTMENT);
     const target = value.map(function(x, i) {
         if (String(key[i]) === String(departmentId)) {
-            console.log(value[i])
+            // console.log(value[i])
             return String(value[i])
         } 
     });
@@ -17,8 +17,7 @@ const getDepartmentLabel = (departmentId) => {
 
 export const DoubleSquare = ({groupLabel, detail, viewType}) => {
     // viewType: edit, show
-    const game1 = detail[0].typeIndex, game2 = detail[1].typeIndex, game3 = detail[2].typeIndex
-    , game4 = detail[3].typeIndex, game5 = detail[4].typeIndex, game6 = detail[5].typeIndex;
+    const game1 = detail[0].typeIndex, game2 = detail[1].typeIndex, game3 = detail[2].typeIndex, game4 = detail[3].typeIndex, game5 = detail[4].typeIndex, game6 = detail[5].typeIndex;
     
     return (
         <>
@@ -59,7 +58,7 @@ export const DoubleSquare = ({groupLabel, detail, viewType}) => {
                     <div class="_343"><input class="score" type="text" id="[game2]_above" /></div>
                     <div class="_344"><input class="score" type="text" id="[game2]_below" /></div> */}
                     <div class="square-game1">{game1}</div><div class="square-game2">{game2}</div><div class="square-game3">{game3}</div>
-                    <div class="square-game4">{game4}</div><div class="square-game5">{game5}</div><div class="square-game6">{game4}</div>
+                    <div class="square-game4">{game4}</div><div class="square-game5">{game5}</div><div class="square-game6">{game6}</div>
                     <div class="square"></div>
                 </div>
                 <div class="below-player">
@@ -122,7 +121,7 @@ export const SingleSquare = ({groupLabel, detail, viewType}) => {
                 <div class="_343"><div class="score" type="text" id="[game2]_above" /></div>
                 <div class="_344"><div class="score" type="text" id="[game2]_below" /></div>
                 <div class="square-game1">{game1}</div><div class="square-game2">{game2}</div><div class="square-game3">{game3}</div>
-                <div class="square-game4">{game4}</div><div class="square-game5">{game5}</div><div class="square-game6">{game4}</div>
+                <div class="square-game4">{game4}</div><div class="square-game5">{game5}</div><div class="square-game6">{game6}</div>
                 <div class="square"></div>
             </div>
             {viewType === "edit" ? 

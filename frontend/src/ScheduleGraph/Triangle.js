@@ -65,7 +65,7 @@ export const SingleTriangle = ({groupLabel, detail, viewType}) => {
     const game1 = detail[0].typeIndex, game2 = detail[1].typeIndex, game3 = detail[2].typeIndex
 
     useEffect(() => {
-        console.log(detail);
+        // console.log(detail);
     }, [])
 
     return (
