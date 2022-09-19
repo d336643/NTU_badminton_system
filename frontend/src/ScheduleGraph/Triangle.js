@@ -23,8 +23,9 @@ export const DoubleTriangle = ({groupLabel, detail, viewType}) => {
             <div class="content">
                 <div class="above-player">
                     <div class="name" id="unit[pos1]u">{getDepartmentLabel(detail[0].player1[0].departmentId)}{DEGREECODE[Number(detail[0].player1[0].degreeId)-1]}</div>
-                    <div class="name" id="name[pos1]u">{getDepartmentLabel(detail[0].player1[1].departmentId)}{DEGREECODE[Number(detail[0].player1[1].degreeId)-1]}</div><br/>
-                    <div class="name" id="unit[pos1]d">{detail[0].player1[0].username}</div><div class="name" id="name[pos1]d">{detail[0].player1[1].username}</div>
+                    <div class="name" id="name[pos1]u">{detail[0].player1[0].username}</div><br/>
+                    <div class="name" id="unit[pos1]d">{getDepartmentLabel(detail[0].player1[1].departmentId)}{DEGREECODE[Number(detail[0].player1[1].degreeId)-1]}</div>
+                    <div class="name" id="name[pos1]d">{detail[0].player1[1].username}</div>
                 </div>
                 <div class="triangle-block">
                     <div class="label">{groupLabel}</div>
@@ -42,8 +43,9 @@ export const DoubleTriangle = ({groupLabel, detail, viewType}) => {
                         :
                         <div class="group">
                             <div class="name" id="unit[pos2]u">{getDepartmentLabel(detail[0].player2[0].departmentId)}{DEGREECODE[Number(detail[0].player2[0].degreeId)-1]}</div>
-                            <div class="name" id="name[pos2]u">{getDepartmentLabel(detail[0].player2[1].departmentId)}{DEGREECODE[Number(detail[0].player2[1].degreeId)-1]}</div><br></br>
-                            <div class="name" id="unit[pos2]d">{detail[0].player2[0].username}</div><div class="name" id="name[pos2]d">{detail[0].player2[1].username}</div>
+                            <div class="name" id="name[pos2]u">{detail[0].player2[0].username}</div><br></br>
+                            <div class="name" id="unit[pos2]d">{getDepartmentLabel(detail[0].player2[1].departmentId)}{DEGREECODE[Number(detail[0].player2[1].degreeId)-1]}</div>
+                            <div class="name" id="name[pos2]d">{detail[0].player2[1].username}</div>
                         </div>
                     }
                     <div class="separater"></div>
@@ -51,8 +53,9 @@ export const DoubleTriangle = ({groupLabel, detail, viewType}) => {
                         :
                         <div class="group">
                             <div class="name" id="unit[pos3]u">{getDepartmentLabel(detail[1].player2[0].departmentId)}{DEGREECODE[Number(detail[1].player2[0].degreeId)-1]}</div>
-                            <div class="name" id="name[pos3]u">{getDepartmentLabel(detail[1].player2[1].departmentId)}{DEGREECODE[Number(detail[1].player2[1].degreeId)-1]}</div><br></br>
-                            <div class="name" id="unit[pos3]d">{detail[1].player2[0].username}</div><div class="name" id="name[pos3]d">{detail[1].player2[1].username}</div>
+                            <div class="name" id="name[pos3]u">{detail[1].player2[0].username}</div><br></br>
+                            <div class="name" id="unit[pos3]d">{getDepartmentLabel(detail[1].player2[1].departmentId)}{DEGREECODE[Number(detail[1].player2[1].degreeId)-1]}</div>
+                            <div class="name" id="name[pos3]d">{detail[1].player2[1].username}</div>
                         </div>
                     }
                 </div>
