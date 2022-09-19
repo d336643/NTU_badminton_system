@@ -50,8 +50,8 @@ export const DoubleTriangle = ({groupLabel, detail, viewType}) => {
                     { viewType === "edit" ? <></>
                         :
                         <div class="group">
-                            <div class="name" id="unit[pos3]u">{getDepartmentLabel(detail[1].player1[0].departmentId)}{DEGREECODE[Number(detail[1].player1[0].degreeId)-1]}</div>
-                            <div class="name" id="name[pos3]u">{getDepartmentLabel(detail[1].player1[1].departmentId)}{DEGREECODE[Number(detail[1].player1[1].degreeId)-1]}</div><br></br>
+                            <div class="name" id="unit[pos3]u">{getDepartmentLabel(detail[1].player2[0].departmentId)}{DEGREECODE[Number(detail[1].player2[0].degreeId)-1]}</div>
+                            <div class="name" id="name[pos3]u">{getDepartmentLabel(detail[1].player2[1].departmentId)}{DEGREECODE[Number(detail[1].player2[1].degreeId)-1]}</div><br></br>
                             <div class="name" id="unit[pos3]d">{detail[1].player2[0].username}</div><div class="name" id="name[pos3]d">{detail[1].player2[1].username}</div>
                         </div>
                     }

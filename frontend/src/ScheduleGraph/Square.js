@@ -7,7 +7,7 @@ const getDepartmentLabel = (departmentId) => {
     const key = Object.keys(DEPARTMENT);
     const value = Object.values(DEPARTMENT);
     const target = value.map(function(x, i) {
-        if (Number(key[i]) === Number(departmentId)) {
+        if (String(key[i]) === String(departmentId)) {
             console.log(value[i])
             return String(value[i])
         } 
