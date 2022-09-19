@@ -47,15 +47,15 @@ public class Event {
     @ToString.Exclude
     private Set<Registration> registrations;
 
-    private Integer registrationCount;
-
-    private Integer treeGetOne;
-
-    private Integer treeGetTwo;
-
-    private Integer fourGetOne;
-
-    private Integer fourGetTwo;
-
-    private Integer totalRounds;
+//    private Integer registrationCount;
+//
+//    private Integer treeGetOne;
+//
+//    private Integer treeGetTwo;
+//
+//    private Integer fourGetOne;
+//
+//    private Integer fourGetTwo;
+//
+//    private Integer totalRounds;
 }
