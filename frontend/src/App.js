@@ -16,9 +16,10 @@ import CompetitorStatus from "./containers/CompetitorStatus";
 import ShowAllApplicant from "./containers/ShowAllApplicant";
 import ScheduleHome from "./containers/homePages/ScheduleHome";
 import ShowSchedule from "./components/ShowSchedule";
-import AssignSchedule from "./components/AssignSchedule";
-import EditSchedule from "./components/EditSchedule";
+import AssignAllSchedule from "./containers/AssignAllSchedule";
+import EditAllSchedule from "./containers/EditAllSchedule";
 import RefereeSys from "./components/RefereeSys";
+import OutputGameTable from "./components/OutputGameTable"
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
@@ -48,11 +49,12 @@ const App = () => {
                     <Route path="/editprofile/:id" element={<EditProfile/>} />
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
                     {/* <Route path="/applicantsummary" element={<ApplicantSummary />} /> */}
-                    <Route path="/showallschedule" element={<ShowAllSchedule />} />
                     <Route path="/showallapplicant" element={<ShowAllApplicant />} />
                     <Route path="/schedulehome" element={<ScheduleHome />} />
-                    <Route path="/assignschedule" element={<AssignSchedule />} />
-                    <Route path="/editschedule/:dataType" element={<EditSchedule />} />
+                    {/* <Route path="/assignallschedule" element={<AssignAllSchedule />} /> */}
+                    {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
+                    <Route path="/showallschedule" element={<ShowAllSchedule />} />
+                    <Route path="/outputgametable" element={<OutputGameTable />} />
                     <Route path="/refereesys" element={<RefereeSys />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>

@@ -78,7 +78,7 @@ const Reset = () => {
         <>
             {/* <Navbar /> */}
             <Container component="main" maxWidth="sm">
-                <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+                <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
                 <List
                     sx={{

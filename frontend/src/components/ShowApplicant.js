@@ -59,7 +59,7 @@ const FormTable = ({dataId}) => {
     const [ severity, setSeverity ] = useState('error');
     const [ searched, setSearched ] = useState("");
 
-    function handleChange(e) {
+    const handleChange = (e) => {
         setSearched(e.target.value);
         requestSearch(e.target.value);
     }
@@ -212,7 +212,7 @@ const FormTable = ({dataId}) => {
                         </Alert>
                     )}
                     {/* <h3><b>{EVENTENTRY[dataId]}</b>{"報名、繳費狀態"}</h3> */}
-                    <FormControl fullWidth sx={{mt: '-3%'}}>
+                    <FormControl fullWidth sx={{mt: '3%'}}>
                             {/* <InputLabel>搜尋參賽者姓名</InputLabel> */}
                             <OutlinedInput
                                 id="outlined-adornment-amount"

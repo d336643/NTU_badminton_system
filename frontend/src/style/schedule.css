@@ -33,13 +33,13 @@
 	padding: 25px;
 }
 
-.top-input {
+.above-player {
 	text-align: center;
 	vertical-align: top;
 	display: block;
 }
 
-.down-input {
+.below-player {
 	text-align: center;
 	vertical-align: bottom;
 	display: block;
@@ -70,7 +70,7 @@
 .label {
 	text-align: center;
 	position: absolute;
-	top: 80px;
+	top: 65px;
 	left: 100px;
 	width: 50px;
 	font-size: 36px;

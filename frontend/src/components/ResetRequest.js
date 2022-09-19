@@ -63,7 +63,7 @@ const Reset = () => {
     return (
         <>
             <Container component="main" maxWidth="xs">
-                <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+                <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
                 <List
                     sx={{

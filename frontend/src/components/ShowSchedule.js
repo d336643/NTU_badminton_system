@@ -1,24 +1,124 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
-import { DoubleSquare } from "../ScheduleGraph/Square" // {} if no export default
-import { EVENTENTRY } from '../utilities/entry';
+import { SingleSquare, DoubleSquare } from "../ScheduleGraph/Square" // {} if no export default
+import { SingleTriangle, DoubleTriangle } from '../ScheduleGraph/Triangle';
+import { EVENTENTRY, LETTERS, DEGREECODE } from '../utilities/entry';
 import { useNavigate } from "react-router-dom";
+import instance from '../instance';
 
-const ShowSchedule = ({dataId}) => {
+// GroupCompeteId: 1. 三取一 2. 三取二 3. 四取一 4. 四取二
+// Square: 1(上),2(下),3(左),4(右)
+// Triangle: 1(左上),2(右上),3(下)
+
+const ShowSchedule = ({dataId, department}) => {
     const navigate = useNavigate();
+    const [getInfo, setGetInfo] = useState(false)
+    const token = localStorage.getItem("token")
+    const [groupCnt, setGroupCnt] = useState(3)
+    const [groupDetail, setGroupDetail] = useState([])
+    const [resData, setResData] = useState()
+    
+    const getGroup = async () => {
+        const config = {
+            headers:{
+                'Authorization': 'Bearer ' + token
+            }
+        }
+        try {
+            const res = await instance.get(`/rounds?typeId=${dataId+1}`, config);
+            if (res.status === 200) {
+                console.log(res.data.data)
+                setResData(res.data.data);
+                let gCnt = Number(res.data.data.groupCnt);
+                setGroupCnt(gCnt);
+                let groupLetter = LETTERS.slice(0, gCnt);
+                console.log(groupLetter);
+                getGroupDetailOf(res.data.data, groupLetter);
+            }
+        } catch (error) {
+            // console.log(error);
+        }
+    }
+
+    const getGroupDetailOf = (dict, groupLetter) => {
+        let idx = 0;
+        const key = Object.keys(dict);
+        const value = Object.values(dict);
+        const arr = [];
+        console.log(key.length)
+        for (var i = 0; i < key.length; i++) {
+            if ( groupLetter.findIndex((element) => element === key[i]) > -1) {
+                arr.push(value[i]);
+            }
+        }
+        setGroupDetail(groupDetail.concat(arr))
+        setGetInfo(true);
+    }
+
+    useEffect(() => {
+        getGroup()
+        // ßonsole.log(groupDetail)
+    }, [])
 
     return (
         <>
-            <Grid container columnSpacing={{ xs: 1, md: 2 }}>
-                {Array.from(Array(6)).map((_, index) => (
-                    <Grid item xs={6} md={4} key={index}>
-                        <item><DoubleSquare /></item>
-                    </Grid>
-                ))}
+            <Grid container columnSpacing={{ xs: 1, md: 2 }}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center'
+                }}>
+                {getInfo ? 
+                    dataId <= 1 ?
+                        Array.from(Array(groupCnt)).map((_, index) => (
+                        groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
+                            <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                <SingleTriangle 
+                                    groupLabel={LETTERS[index]} 
+                                    detail={groupDetail[index]}
+                                    viewType={"show"}
+                                    // department={department}
+                                />
+                            </Grid> 
+                            :   
+                                <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                    <SingleSquare 
+                                        groupLabel={LETTERS[index]}
+                                        detail={groupDetail[index]}
+                                        viewType={"show"}
+                                        // department={department}
+                                    />
+                            </Grid>
+                        )) 
+                        :
+                        Array.from(Array(groupCnt)).map((_, index) => (
+                            groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
+                                <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                    <DoubleTriangle 
+                                        groupLabel={LETTERS[index]} 
+                                        detail={groupDetail[index]}
+                                        viewType={"show"}
+                                        // department={department}
+                                    />
+                                </Grid>
+                                : 
+                                    <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                        <DoubleSquare 
+                                            groupLabel={LETTERS[index]}
+                                            detail={groupDetail[index]}
+                                            // department={department}
+                                            viewType={"show"}
+                                        />
+                                    </Grid>
+                        )) 
+                    :
+                    <></>
+                }
             </Grid>
             {/* <Box
                 sx={{

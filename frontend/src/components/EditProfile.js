@@ -52,7 +52,8 @@ const EditForm = () => {
                 getKeysOf(res.data.data.departments);
             }
         } catch (error) {
-            // console.log(error);
+            setAlertmessage("系所資料錯誤！");
+            setOpen(true);
         }
     }
 
@@ -119,7 +120,7 @@ const EditForm = () => {
     return (
         <>
             <Container component="main" maxWidth="sm" alignItems='center' minHeight='100vh'>
-                <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+                <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
                     sx={{
                         marginTop: '5%',
@@ -127,7 +128,6 @@ const EditForm = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                    // subheader={<ListSubheader>編輯個人資料</ListSubheader>}
                 >
                     {/* <AccountBoxIcon fontSize="large" color="secondary"/> */}
                     <h3 style={{ marginBottom: '5%' }}>編輯個人資料</h3>
@@ -202,23 +202,6 @@ const EditForm = () => {
                             // inputProps={{ ...inputProps, readOnly: typeID1 === null && countGame >= 2? true : false }}
                         />
                     </ListItem>
-                    {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/3' }} id="college-item" primary="學院" />
-                        <Autocomplete 
-                            size="small"
-                            sx={{ gridColumn: '4/8' }}
-                            // disablePortal
-                            id="select-college"
-                            options={college}
-                            getOptionLabel={(option) => option.label || ""}
-                            isOptionEqualToValue={(option, value) => option.id === value.id}
-                            renderInput={(params) => <TextField {...params} label="請選擇學院" />}
-                            onChange={(event, newValue, reason) => {
-                                setValues({...values, collegeId: reason === "clear" || reason === "removeOption" ? null : newValue.id, changed: !values.changed});
-                            }}
-                            value={values.changed ? college.find(v => v.id === values.collegeId) : findLastOne(college)}
-                        />
-                    </ListItem> */}
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="departmentID-item" primary="系所" />
                         <Autocomplete 

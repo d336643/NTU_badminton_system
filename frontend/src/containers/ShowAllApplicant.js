@@ -8,16 +8,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const ShowAllApplicant = () => {
     return (
         <Container component="main" minWidth="xs" maxWidth="md" sx={{ alignItems: 'center' }}>
-            <Box
-                sx={{
-                    marginTop: "4%",
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-                <EntryTab manageType={0}/>
-            </Box>
+            <EntryTab manageType={0}/>
         </Container>
     );
 }

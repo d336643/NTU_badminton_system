@@ -28,12 +28,12 @@ const LoginForm = () => {
     // const [success, setSuccess] = useState(false);
 
     async function closeAlert(){
-        await delay(3);
+        await delay(2);
         setShowmessage(false);
     }
 
     async function handleAlert(){
-        await delay(1);
+        await delay(2);
         setShowmessage(false);
         navigate('/');
     }

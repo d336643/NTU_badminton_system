@@ -118,7 +118,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                             >
-                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/showallschedule">
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
                                     <Typography textAlign="center">進入賽程系統</Typography>
                                 </MenuItem>
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/refereesys">
