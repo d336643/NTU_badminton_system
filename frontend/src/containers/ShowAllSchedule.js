@@ -7,7 +7,7 @@ import instance from '../instance';
 const ShowAllApplicant = () => {
     return (
         // <>暫不開放</>
-        <Container component="main" minWidth="xs" maxWidth="lg" sx={{ alignItems: 'center' }}>
+        <Container component="main" minWidth="xs" maxWidth="xl" sx={{ alignItems: 'center' }}>
             <EntryTab manageType={3}/>
         </Container>
         
