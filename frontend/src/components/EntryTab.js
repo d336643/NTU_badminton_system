@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Tabs, Tab, Typography, Box, Alert } from '@mui/material';
+import { Tabs, Tab, Typography, Box, Alert, Stack, Switch } from '@mui/material';
 import ShowApplicant from './ShowApplicant';
 import ShowSchedule from './ShowSchedule';
 import AssignSchedule from './AssignSchedule';
@@ -45,9 +45,14 @@ function a11yProps(index) {
 // manageType: 0: show applicant status, 1: assign schedule, 2: edit schedule, 3: show schedule
 export default function BasicTabs({manageType, department}) {
   const [value, setValue] = React.useState(0);
-
+  const [scheduleType, setScheduleType] = React.useState(false); // false: cycle, true: tournament
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handleSwitch = (event) => {
+    setScheduleType(event.target.checked);
   };
 
   return (
@@ -59,7 +64,18 @@ export default function BasicTabs({manageType, department}) {
               alignItems: 'center',
           }}
         >
-            <h3 style={{ marginBottom: '1%' }}>{TYPE[Number(manageType)]}－{EVENTENTRY[Number(value)]}</h3>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <h3 style={{marginRight: '5px'}}>
+                {TYPE[Number(manageType)]}－{EVENTENTRY[Number(value)]}
+              </h3>
+              {/* <p>循環賽</p>
+              <Switch
+                checked={scheduleType}
+                onChange={handleSwitch}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+              <p>單淘汰</p> */}
+            </Stack>
             <Tabs 
                 value={value} 
                 onChange={handleChange} 
@@ -90,7 +106,7 @@ export default function BasicTabs({manageType, department}) {
                                 <EditSchedule dataId={Number(index)} department={department} />
                                 :
                                 manageType === 3 ? 
-                                    <ShowSchedule dataId={Number(index)} department={department}  />
+                                    <ShowSchedule dataId={Number(index)} department={department} scheduleType={scheduleType} />
                                     : <></>
                     }
                 </TabPanel>

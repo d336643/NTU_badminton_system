@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
+import { Divider } from '@mui/material';
+import Tournament from '../ScheduleGraph/Tournament';
 import { SingleSquare, DoubleSquare } from "../ScheduleGraph/Square" // {} if no export default
 import { SingleTriangle, DoubleTriangle } from '../ScheduleGraph/Triangle';
 import { EVENTENTRY, LETTERS, DEGREECODE } from '../utilities/entry';
@@ -14,13 +16,17 @@ import instance from '../instance';
 // Square: 1(上),2(下),3(左),4(右)
 // Triangle: 1(左上),2(右上),3(下)
 
-const ShowSchedule = ({dataId, department}) => {
+const ShowSchedule = ({dataId, department, scheduleType}) => {
     const navigate = useNavigate();
     const [getInfo, setGetInfo] = useState(false)
     const token = localStorage.getItem("token")
     const [groupCnt, setGroupCnt] = useState(3)
     const [groupDetail, setGroupDetail] = useState([])
     const [resData, setResData] = useState()
+
+    useEffect(() => {
+        console.log(scheduleType);
+    }, [])
     
     const getGroup = async () => {
         const config = {
@@ -66,73 +72,67 @@ const ShowSchedule = ({dataId, department}) => {
 
     return (
         <>
-            <Grid container columnSpacing={{ xs: 1, md: 2 }}
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center'
-                }}>
-                {getInfo ? 
-                    dataId <= 1 ?
-                        Array.from(Array(groupCnt)).map((_, index) => (
-                        groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
-                            <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                <SingleTriangle 
-                                    groupLabel={LETTERS[index]} 
-                                    detail={groupDetail[index]}
-                                    viewType={"show"}
-                                    // department={department}
-                                />
-                            </Grid> 
-                            :   
-                                <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                    <SingleSquare 
-                                        groupLabel={LETTERS[index]}
-                                        detail={groupDetail[index]}
-                                        viewType={"show"}
-                                        // department={department}
-                                    />
-                            </Grid>
-                        )) 
-                        :
-                        Array.from(Array(groupCnt)).map((_, index) => (
+            {/* {scheduleType ? 
+                <Tournament dataId={dataId}/>
+                : */}
+                <Grid container columnSpacing={{ xs: 1, md: 2 }}
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center'
+                    }}
+                >
+                    {getInfo ? 
+                        dataId <= 1 ?
+                            Array.from(Array(groupCnt)).map((_, index) => (
                             groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
                                 <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                    <DoubleTriangle 
+                                    <SingleTriangle 
                                         groupLabel={LETTERS[index]} 
                                         detail={groupDetail[index]}
                                         viewType={"show"}
                                         // department={department}
                                     />
-                                </Grid>
-                                : 
+                                </Grid> 
+                                :   
                                     <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                        <DoubleSquare 
+                                        <SingleSquare 
                                             groupLabel={LETTERS[index]}
                                             detail={groupDetail[index]}
-                                            // department={department}
                                             viewType={"show"}
+                                            // department={department}
+                                        />
+                                </Grid>
+                            )) 
+                            :
+                            Array.from(Array(groupCnt)).map((_, index) => (
+                                groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
+                                    <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                        <DoubleTriangle 
+                                            groupLabel={LETTERS[index]} 
+                                            detail={groupDetail[index]}
+                                            viewType={"show"}
+                                            // department={department}
                                         />
                                     </Grid>
-                        )) 
-                    :
-                    <></>
+                                    : 
+                                        <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                            <DoubleSquare 
+                                                groupLabel={LETTERS[index]}
+                                                detail={groupDetail[index]}
+                                                // department={department}
+                                                viewType={"show"}
+                                            />
+                                        </Grid>
+                            )):
+                        <></>
+                    }
+                </Grid>
+                {getInfo ? 
+                    <Tournament dataId={dataId}/> : <></>
                 }
-            </Grid>
-            {/* <Box
-                sx={{
-                    mt: '15%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}
-            >
-                <DoubleSquare />
-                <DoubleSquare />
-                <DoubleSquare />
-                <DoubleSquare />
-            </Box> */}
+            {/* } */}
         </>
     )
 }
