@@ -24,9 +24,9 @@ const ShowSchedule = ({dataId, department, scheduleType}) => {
     const [groupDetail, setGroupDetail] = useState([])
     const [resData, setResData] = useState()
 
-    useEffect(() => {
-        console.log(scheduleType);
-    }, [])
+    // useEffect(() => {
+    //     console.log(scheduleType);
+    // }, [])
     
     const getGroup = async () => {
         const config = {
@@ -37,12 +37,12 @@ const ShowSchedule = ({dataId, department, scheduleType}) => {
         try {
             const res = await instance.get(`/rounds?typeId=${dataId+1}`, config);
             if (res.status === 200) {
-                console.log(res.data.data)
+                // console.log(res.data.data)
                 setResData(res.data.data);
                 let gCnt = Number(res.data.data.groupCnt);
                 setGroupCnt(gCnt);
                 let groupLetter = LETTERS.slice(0, gCnt);
-                console.log(groupLetter);
+                // console.log(groupLetter);
                 getGroupDetailOf(res.data.data, groupLetter);
             }
         } catch (error) {
