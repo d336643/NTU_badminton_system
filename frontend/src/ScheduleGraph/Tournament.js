@@ -28,7 +28,7 @@ function Tournament({dataId}) {
     // const navigate = useNavigate();
     return (
         // <Root>
-            <iframe src={srcHTTP[(dataId)]} width="100%" height="520" allow="autoplay" />
+            <iframe src={srcHTTP[(dataId)]} width="100%" height="800" allow="autoplay" />
         // </Root>
     );
 }
