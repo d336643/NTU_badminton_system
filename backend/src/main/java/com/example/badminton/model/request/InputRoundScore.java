@@ -15,10 +15,10 @@ public class InputRoundScore {
     @NotNull
     private Integer typeIndex;
 
-    @NotNull
+
     private Integer player1Score;
 
-    @NotNull
+
     private Integer player2Score;
 
 }

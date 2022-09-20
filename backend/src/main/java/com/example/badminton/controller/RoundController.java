@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -196,7 +197,16 @@ public class RoundController {
         Integer score1 = req.getPlayer1Score();
         Integer score2 = req.getPlayer2Score();
 
-        // check
+        // check delete score case (temporarily)
+        if (score1 == null && score2 == null) {
+            Round toSave = opt.get();
+            toSave.setScoreA(null);
+            toSave.setScoreB(null);
+            toSave.setWinner(null);
+            roundRepository.save(toSave);
+            return ResponseEntity.ok(new MessageResponse(true, "Delete score success!"));
+        }
+
         if (score1 < 21 && score2 < 21) {
             return ResponseEntity
                     .badRequest()
@@ -220,5 +230,4 @@ public class RoundController {
         roundRepository.save(toSave);
         return ResponseEntity.ok(new MessageResponse(true, "Input score success!"));
     }
-
 }
