@@ -183,13 +183,13 @@ export default function SwitchListSecondary() {
                 <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={status} alertmessage={alertmessage} />
                 <form
                     style={{
-                        marginTop: '5%',
+                        marginTop: '20px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <h3 style={{ marginBottom: '2%' }}>註冊新帳號</h3>
+                    <h3 style={{ marginBottom: '20px' }}>註冊新帳號</h3>
                     <Alert severity="info" style={{ marginBottom: '2%' }}>
                         資料僅供參賽資格認證及保險用途
                     </Alert>

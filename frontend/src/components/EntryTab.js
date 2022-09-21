@@ -5,9 +5,10 @@ import ShowApplicant from './ShowApplicant';
 import ShowSchedule from './ShowSchedule';
 import AssignSchedule from './AssignSchedule';
 import EditSchedule from './EditSchedule';
+import OutputGameTable from './OutputGameTable';
 import { EVENTENTRY } from '../utilities/entry';
 
-const TYPE = ['報名、繳費狀態', '排定賽程', '修改賽程', '檢視賽程']
+const TYPE = ['報名、繳費狀態', '排定賽程', '修改賽程', '檢視賽程', '輸出出賽單']
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,7 +43,7 @@ function a11yProps(index) {
   };
 }
 
-// manageType: 0: show applicant status, 1: assign schedule, 2: edit schedule, 3: show schedule
+// manageType: 0: show applicant status, 1: assign schedule, 2: edit schedule, 3: show schedule, 4: output game table
 export default function BasicTabs({manageType, department}) {
   const [value, setValue] = React.useState(0);
   const [scheduleType, setScheduleType] = React.useState(false); // false: cycle, true: tournament
@@ -58,7 +59,7 @@ export default function BasicTabs({manageType, department}) {
   return (
         <Box
           sx={{
-              marginTop: "3%",
+              marginTop: "20px",
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -107,7 +108,7 @@ export default function BasicTabs({manageType, department}) {
                                 :
                                 manageType === 3 ? 
                                     <ShowSchedule dataId={Number(index)} department={department} scheduleType={scheduleType} />
-                                    : <></>
+                                    : <OutputGameTable dataId={Number(index)} />
                     }
                 </TabPanel>
             ))}

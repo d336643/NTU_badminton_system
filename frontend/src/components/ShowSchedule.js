@@ -55,7 +55,7 @@ const ShowSchedule = ({dataId, department, scheduleType}) => {
         const key = Object.keys(dict);
         const value = Object.values(dict);
         const arr = [];
-        console.log(key.length)
+        // console.log(key.length)
         for (var i = 0; i < key.length; i++) {
             if ( groupLetter.findIndex((element) => element === key[i]) > -1) {
                 arr.push(value[i]);
@@ -75,16 +75,16 @@ const ShowSchedule = ({dataId, department, scheduleType}) => {
             {/* {scheduleType ? 
                 <Tournament dataId={dataId}/>
                 : */}
-                <Grid container columnSpacing={{ xs: 1, md: 2 }}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center'
-                    }}
-                >
-                    {getInfo ? 
-                        dataId <= 1 ?
+                {getInfo ? 
+                    <Grid container columnSpacing={{ xs: 1, md: 2 }}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        {dataId <= 1 ?
                             Array.from(Array(groupCnt)).map((_, index) => (
                             groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
                                 <Grid item key={index} sx={{justifyContent: 'center'}}>
@@ -125,14 +125,18 @@ const ShowSchedule = ({dataId, department, scheduleType}) => {
                                                 viewType={"show"}
                                             />
                                         </Grid>
-                            )):
-                        <></>
-                    }
+                            ))}
+                       <Tournament dataId={dataId} />
+                       <Button 
+                            sx={{mt: '3%'}}
+                            variant="outlined"
+                            onClick={() => navigate('/schedulehome')}
+                        >
+                            返回賽程專區
+                        </Button>
                 </Grid>
-                {getInfo ? 
-                    <Tournament dataId={dataId}/> : <></>
-                }
-            {/* } */}
+                : <></>
+            }
         </>
     )
 }

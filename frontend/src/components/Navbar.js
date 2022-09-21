@@ -119,10 +119,10 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             }}
                             >
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
-                                    <Typography textAlign="center">進入賽程系統</Typography>
+                                    <Typography textAlign="center">賽程系統</Typography>
                                 </MenuItem>
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/refereesys">
-                                    <Typography textAlign="center">進入裁判系統</Typography>
+                                    <Typography textAlign="center">裁判系統</Typography>
                                 </MenuItem> 
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/showallapplicant">
                                     <Typography textAlign="center">報名者表單、繳費</Typography>
@@ -168,10 +168,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                             >
-                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
                                     <Typography textAlign="center">賽程專區</Typography>
-                                </MenuItem> 
-                                currently not open these functions*/}
+                                </MenuItem>
                                 {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
                                     <Typography textAlign="center">及時比分</Typography>
                                 </MenuItem> 
@@ -179,9 +178,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                     <Typography textAlign="center">競賽章程</Typography>
                                 </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                     <Typography textAlign="center">報名賽事</Typography>
-                                </MenuItem>
+                                </MenuItem> */}
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
                                     <Typography textAlign="center">報名 / 繳費狀態</Typography>
                                 </MenuItem>
@@ -217,10 +216,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             display: { xs: 'block', md: 'none' },
                         }}
                         >
-                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
                                 <Typography textAlign="center">賽程專區</Typography>
-                            </MenuItem> 
-                            currently not open these functions*/}
+                            </MenuItem>
                             {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
                                 <Typography textAlign="center">及時比分</Typography>
                             </MenuItem> 
@@ -228,9 +226,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                 <Typography textAlign="center">競賽章程</Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                 <Typography textAlign="center">報名賽事</Typography>
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
                                 <Typography textAlign="center">報名 / 繳費狀態</Typography>
                             </MenuItem>
@@ -266,13 +264,12 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
+                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                                <Typography textAlign="center">賽程專區</Typography>
+                            </MenuItem> */}
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                 <Typography textAlign="center">競賽章程</Typography>
                             </MenuItem>
-                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
-                                <Typography textAlign="center">賽程專區</Typography>
-                            </MenuItem> 
-                            currently not open these functions*/}
                             {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
                                 <Typography textAlign="center">及時比分</Typography>
                             </MenuItem> 
@@ -307,7 +304,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 component={Link}
                                 to='/schedulehome'
                                 onClick={handleCloseNavMenu}
-                                sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                                sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
                             >
                                 賽程系統
                             </Button>
@@ -315,7 +312,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 component={Link}
                                 to='/refereesys'
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
                                 裁判系統
                             </Button> 
@@ -324,7 +321,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 component={Link}
                                 to='/showallapplicant'
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
                                 報名者表單、繳費
                             </Button>
@@ -351,16 +348,15 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                         </Box>
                         :
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {/* <Button
+                            <Button
                                 // key={page}
                                 component={Link}
-                                to='/register'
+                                to='/schedulehome'
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
                             >
                                 賽程專區
-                            </Button> 
-                            currently not open these functions*/}
+                            </Button>
                             {/* <Button
                                 // key={page}
                                 component={Link}
@@ -376,41 +372,40 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 component={Link}
                                 to='/competitionrule'
                                 onClick={handleCloseNavMenu}
-                                sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                                sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
                                 競賽章程
                             </Button> 
-                            <Button
+                            {/* <Button
                                 // key={page}
                                 component={Link}
                                 to='/register'
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
                                 報名賽事
-                            </Button> 
+                            </Button>  */}
                             <Button
                                 // key={page}
                                 component={Link}
                                 to='/competitorstatus'
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
                                 報名 / 繳費狀態
                             </Button>
                         </Box>
                     :
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/* <Button
+                        <Button
                             // key={page}
                             component={Link}
-                            to='/register'
+                            to='/schedulehome'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
                         >
                             賽程專區
                         </Button> 
-                        currently not open these functions*/}
                         {/* <Button
                             // key={page}
                             component={Link}
@@ -426,36 +421,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             component={Link}
                             to='/competitionrule'
                             onClick={handleCloseNavMenu}
-                            sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
-                        >
-                            競賽章程
-                        </Button> 
-                        <Button
-                            // key={page}
-                            component={Link}
-                            to='/register'
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            報名賽事
-                        </Button> 
-                        <Button
-                            // key={page}
-                            component={Link}
-                            to='/competitorstatus'
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            報名 / 繳費狀態
-                        </Button>
-                    </Box>
-                    :
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <Button
-                            component={Link}
-                            to='/competitionrule'
-                            onClick={handleCloseNavMenu}
-                            sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
+                            sx={{ mr: 1, color: 'white', display: 'block' }}
                         >
                             競賽章程
                         </Button> 
@@ -464,11 +430,39 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             component={Link}
                             to='/register'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{ mr: 1, color: 'white', display: 'block' }}
+                        >
+                            報名賽事
+                        </Button>  */}
+                        <Button
+                            // key={page}
+                            component={Link}
+                            to='/competitorstatus'
+                            onClick={handleCloseNavMenu}
+                            sx={{ mr: 1, color: 'white', display: 'block' }}
+                        >
+                            報名 / 繳費狀態
+                        </Button>
+                    </Box>
+                    :
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        {/* <Button
+                            // key={page}
+                            component={Link}
+                            to='/schedulehome'
+                            onClick={handleCloseNavMenu}
+                            sx={{ mr: 1, color: 'white', display: 'block' }}
                         >
                             賽程專區
+                        </Button> */}
+                        <Button
+                            component={Link}
+                            to='/competitionrule'
+                            onClick={handleCloseNavMenu}
+                            sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
+                        >
+                            競賽章程
                         </Button> 
-                        currently not open these functions*/}
                         {/* <Button
                             // key={page}
                             component={Link}

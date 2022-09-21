@@ -134,23 +134,21 @@ const LoginForm = () => {
             <Container component="main" maxWidth="sm">
                 <List
                     sx={{
-                        marginTop: '5%',
+                        marginTop: '20px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <h3 style={{ marginBottom: '2%' }}>報名賽事</h3>
-                    <Alert severity="info" style={{ marginBottom: '3%' }}>
-                        <p style={{ marginBottom: '1%'}}>已截止報名</p>
+                    <h3 style={{ marginBottom: '20px' }}>報名賽事</h3>
+                    <Alert severity="info" style={{ marginBottom: '20px' }}>
+                        <p>已截止報名</p>
                     </Alert>
-                    <Button
-                        // fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 3 }}
+                    <Button 
+                        variant="outlined"
                         onClick={() => navigate('/')}
                     >
-                        回首頁
+                        返回主頁面
                     </Button>
                 </List>
             </Container>

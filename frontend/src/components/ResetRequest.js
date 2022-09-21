@@ -67,7 +67,7 @@ const Reset = () => {
                 <CssBaseline />
                 <List
                     sx={{
-                        marginTop: '5%',
+                        marginTop: '20px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -79,7 +79,7 @@ const Reset = () => {
                             {alertmessage}
                         </Alert>
                     )} */}
-                    <h3 style={{ marginBottom: '3%' }}>請輸入電子郵件以重設密碼</h3>
+                    <h3 style={{ marginBottom: '20px' }}>請輸入電子郵件以重設密碼</h3>
                     <Box noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"

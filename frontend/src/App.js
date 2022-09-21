@@ -19,7 +19,8 @@ import ShowSchedule from "./components/ShowSchedule";
 import AssignAllSchedule from "./containers/AssignAllSchedule";
 import EditAllSchedule from "./containers/EditAllSchedule";
 import RefereeSys from "./components/RefereeSys";
-import OutputGameTable from "./components/OutputGameTable"
+import ScheduleTime from "./containers/ScheduleTime";
+import OutputAllGame from "./containers/OutputAllGame"
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
@@ -50,11 +51,12 @@ const App = () => {
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
                     {/* <Route path="/applicantsummary" element={<ApplicantSummary />} /> */}
                     <Route path="/showallapplicant" element={<ShowAllApplicant />} />
-                    <Route path="/schedulehome" element={<ScheduleHome />} />
+                    <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
                     {/* <Route path="/assignallschedule" element={<AssignAllSchedule />} /> */}
                     {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
                     <Route path="/showallschedule" element={<ShowAllSchedule />} />
-                    <Route path="/outputgametable" element={<OutputGameTable />} />
+                    <Route path="/scheduletime" element={<ScheduleTime />} />
+                    <Route path="/outputgametable" element={<OutputAllGame />} />
                     <Route path="/refereesys" element={<RefereeSys />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>

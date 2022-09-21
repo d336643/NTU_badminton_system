@@ -4,9 +4,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 const Competitor = ({setView, handleLogOut}) => {
+    const navigate = useNavigate();
     const token = localStorage.getItem('token');
     
     return (
@@ -25,15 +26,15 @@ const Competitor = ({setView, handleLogOut}) => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    {/* <Grid item xs={12}>
-                        <Button component={Link} to="/register"
+                    <Grid item xs={12}>
+                        <Button 
+                            onClick={() => navigate('/schedulehome')}
                             variant="outlined"
                             size='large'
                             fullWidth>
                             賽程專區
                         </Button>
-                    </Grid> 
-                    currently not open these functions*/}
+                    </Grid>
                     {/* <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"
@@ -53,23 +54,26 @@ const Competitor = ({setView, handleLogOut}) => {
                     </Grid> 
                     currently not open these functions*/}
                     <Grid item xs={12}>
-                        <Button component={Link} to="/competitionrule"
+                        <Button 
+                            onClick={() => navigate('/competitionrule')}
                             variant="outlined"
                             size='large'
                             fullWidth>
                             競賽章程
                         </Button>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Button component={Link} to="/register"
+                    {/* <Grid item xs={12}>
+                        <Button 
+                            onClick={() => navigate('/register')}
                             variant="outlined"
                             size='large'
                             fullWidth>
                             報名賽事
                         </Button>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
-                        <Button component={Link} to="/competitorstatus"
+                        <Button 
+                            onClick={() => navigate('/competitorstatus')}
                             variant="outlined"
                             size='large'
                             fullWidth>
@@ -77,7 +81,8 @@ const Competitor = ({setView, handleLogOut}) => {
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button component={Link} to={`/editprofile/${token}`}
+                        <Button 
+                            onClick={() => navigate(`/editprofile/${token}`)}
                             variant="outlined"
                             size='large'
                             fullWidth>

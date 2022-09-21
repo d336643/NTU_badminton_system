@@ -4,9 +4,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 const General = () => {
+    const navigate = useNavigate();
     return (
         <Container component="main" maxWidth="xs">
             <Box
@@ -23,22 +24,24 @@ const General = () => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    {/* <Typography 
-                        margin= "5% 0px 5% 0px"
-                        component="h3"
-                        variant="h4"
-                    >
-                        臺大羽球比賽
-                    </Typography> */}
                     {/* <Grid item xs={12}>
-                        <Button component={Link} to="/register"
+                        <Button 
+                            onClick={() => navigate('/schedulehome')}
                             variant="outlined"
                             size='large'
                             fullWidth>
                             賽程專區
                         </Button>
-                    </Grid> 
-                    currently not open these functions*/}
+                    </Grid> */}
+                    {/* <Grid item xs={12}>
+                        <Button 
+                            onClick={() => navigate('/competitionrule')}
+                            variant="outlined"
+                            size='large'
+                            fullWidth>
+                            競賽章程
+                        </Button>
+                    </Grid> */}
                     {/* <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"
@@ -49,7 +52,7 @@ const General = () => {
                     </Grid> 
                     currently not open these functions*/}
                     <Grid item xs={12}>
-                        <Button component={Link} to="/login"
+                        <Button onClick={() => navigate('/login')}
                             variant="contained"
                             size='large'
                             fullWidth>
@@ -57,7 +60,7 @@ const General = () => {
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button component={Link} to="/signup"
+                        <Button onClick={() => navigate('/signup')}
                             variant="outlined"
                             size='large'
                             fullWidth>

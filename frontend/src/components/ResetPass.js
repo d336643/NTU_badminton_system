@@ -82,13 +82,13 @@ const Reset = () => {
                 <CssBaseline />
                 <List
                     sx={{
-                        marginTop: '5%',
+                        marginTop: '20px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >   
-                    <h3 style={{ marginBottom: "4%" }}>重設密碼</h3>
+                    <h3 style={{ marginBottom: "20px" }}>重設密碼</h3>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="新密碼" />
                         <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">

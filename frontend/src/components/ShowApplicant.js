@@ -206,13 +206,13 @@ const FormTable = ({dataId}) => {
                     }}
                 > */}
                     {showmessage && (
-                        <Alert sx={{ position: 'fixed', top: '10%' }}
+                        <Alert sx={{ position: 'fixed', top: '20px' }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>
                     )}
                     {/* <h3><b>{EVENTENTRY[dataId]}</b>{"報名、繳費狀態"}</h3> */}
-                    <FormControl fullWidth sx={{mt: '3%'}}>
+                    <FormControl fullWidth sx={{mt: '20px'}}>
                             {/* <InputLabel>搜尋參賽者姓名</InputLabel> */}
                             <OutlinedInput
                                 id="outlined-adornment-amount"

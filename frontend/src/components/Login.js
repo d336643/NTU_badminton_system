@@ -119,14 +119,14 @@ const LoginForm = () => {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: '10%',
+                        marginTop: '40px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
                     {showmessage && (
-                        <Alert sx={{ position: 'fixed', top: '8%' }}
+                        <Alert sx={{ position: 'fixed', top: '40px' }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>

@@ -71,6 +71,15 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         spacing={2}
                     >
                         <Grid item xs={12}>
+                            <Button 
+                                onClick={() => navigate('/schedulehome')}
+                                variant="outlined"
+                                size='large'
+                                fullWidth>
+                                賽程專區
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
                             <Button component={Link} to="/competitionrule"
                                 variant="outlined"
                                 size='large'
@@ -78,14 +87,14 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                 競賽章程
                             </Button>
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <Button component={Link} to="/register"
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
                                 報名賽事
                             </Button>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12}>
                             <Button component={Link} to="/competitorstatus"
                                 variant="outlined"

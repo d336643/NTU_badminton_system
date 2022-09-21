@@ -202,14 +202,14 @@ const Reset = () => {
                 <CssBaseline />
                 <List
                     sx={{
-                        marginTop: '5%',
+                        marginTop: '20px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <h3 style={{ marginBottom: '2%' }}>報名 / 繳費狀態</h3>
-                    <Alert severity="info" style={{ marginBottom: '2%' }}>
+                    <h3 style={{ marginBottom: '20px' }}>報名 / 繳費狀態</h3>
+                    <Alert severity="info" style={{ marginBottom: '20px' }}>
                         銀行代碼：700 &nbsp; 匯款帳戶：00515010011874 &nbsp; 戶名：謝宗翰
                     </Alert>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>

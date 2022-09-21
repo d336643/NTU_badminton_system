@@ -123,14 +123,14 @@ const EditForm = () => {
                 <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
                     sx={{
-                        marginTop: '5%',
+                        marginTop: '20px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
                     {/* <AccountBoxIcon fontSize="large" color="secondary"/> */}
-                    <h3 style={{ marginBottom: '5%' }}>編輯個人資料</h3>
+                    <h3 style={{ marginBottom: '20px' }}>編輯個人資料</h3>
                     {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                         <Button 
