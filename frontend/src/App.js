@@ -15,12 +15,12 @@ import ShowAllSchedule from "./containers/ShowAllSchedule";
 import CompetitorStatus from "./containers/CompetitorStatus";
 import ShowAllApplicant from "./containers/ShowAllApplicant";
 import ScheduleHome from "./containers/homePages/ScheduleHome";
-import ShowSchedule from "./components/ShowSchedule";
 import AssignAllSchedule from "./containers/AssignAllSchedule";
 import EditAllSchedule from "./containers/EditAllSchedule";
 import RefereeSys from "./components/RefereeSys";
 import ScheduleTime from "./containers/ScheduleTime";
-import OutputAllGame from "./containers/OutputAllGame"
+import OutputAllGame from "./containers/OutputAllGame";
+import PrintGameTable from "./components/PrintGameTable";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
@@ -30,6 +30,7 @@ const App = () => {
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
     const [isLogin, setIsLogin] = useState(false);
     const [identity, setIdentity] = useState("manager");
+    const [showNav, setShowNav] = useState(true);
     //browser bar title
     useEffect(() => {
     document.title = "2022台大羽球新生盃"
@@ -37,7 +38,7 @@ const App = () => {
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>
+                <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity} showNav={showNav}/>
                 {/* <Routes style={{height: "100vh"}}> */}
                 <Routes>
                     <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
@@ -57,6 +58,7 @@ const App = () => {
                     <Route path="/showallschedule" element={<ShowAllSchedule />} />
                     <Route path="/scheduletime" element={<ScheduleTime />} />
                     <Route path="/outputgametable" element={<OutputAllGame />} />
+                    <Route path="/printgametable/type=:type" element={<PrintGameTable/>} />
                     <Route path="/refereesys" element={<RefereeSys />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>

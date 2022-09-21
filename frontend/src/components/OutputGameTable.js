@@ -9,13 +9,6 @@ import { LETTERS } from '../utilities/entry';
 import { useNavigate } from "react-router-dom";
 import instance from '../instance';
 
-const tablestyle = {
-    border: '1px solid black',
-    align: "center",
-    justfyContent: 'center',
-    height: '50px'
-}
-
 const OutPut = ({dataId}) => {
     const navigate = useNavigate();
     const [getInfo, setGetInfo] = useState(false)
@@ -69,25 +62,42 @@ const OutPut = ({dataId}) => {
         // ßonsole.log(groupDetail)
     }, [])
 
+    const openInNewTab = (url) => {
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
+    function print() {
+        window.print();
+    }
+
     return (
         <>
             {getInfo ?
                 <Box
                     sx={{
+                        marginTop: '10px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    {dataId <= 1 ?
-                        Array.from(Array(groupCnt)).map((_, index) => (
-                            <SingleTableDetial detail={groupDetail[index]}/>
-                        )) 
-                        :
-                        Array.from(Array(groupCnt)).map((_, index) => (
-                            <DoubleTableDetial  detail={groupDetail[index]} />
-                        ))
-                    }
+                    <Button
+                        sx={{marginBottom: '10px'}}
+                        onClick={() => openInNewTab(`/printgametable/type=${dataId}`)}
+                        >
+                        匯出出賽單
+                    </Button>
+                    <div id='printMe'>
+                        {dataId <= 1 ?
+                            Array.from(Array(groupCnt)).map((_, index) => (
+                                <SingleTableDetial dataId={dataId} detail={groupDetail[index]}/>
+                            )) 
+                            :
+                            Array.from(Array(groupCnt)).map((_, index) => (
+                                <DoubleTableDetial dataId={dataId} detail={groupDetail[index]} />
+                            ))
+                        }
+                    </div>
                 </Box>
                 : <></>
             }

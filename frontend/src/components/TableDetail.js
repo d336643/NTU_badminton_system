@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -11,7 +11,11 @@ const tablestyle = {
     border: '1px solid black',
     align: "center",
     justfyContent: 'center',
-    height: '50px'
+    height: '52px'
+}
+
+const wordstyle = {
+    marginLeft: '50px'
 }
 
 const getDepartmentLabel = (departmentId) => {
@@ -28,58 +32,47 @@ const getDepartmentLabel = (departmentId) => {
 
 export const SingleTableDetial = ({dataId, detail}) => {
     const navigate = useNavigate();
-    const token = localStorage.getItem("token")
+    const [getLen, setGetLen] = useState(false);
+    const [len, setLen] = useState(3);
+
+    useEffect(() => {
+        detail[0].groupCompeteId <= 2 ? setLen(3) : setLen(6);
+        setGetLen(true);
+    })
 
     return (
         <>
-            {detail[0].groupCompeteId === 1 || detail[0].groupCompeteId === 2 ? 
-                Array.from(Array(3)).map((_, index) => (
-                    <table style={{border: '1px solid black', width: '640px'}}>
+            {getLen ?
+                Array.from(Array(len)).map((_, i) => (
+                    <table style={{border: '1px solid black', width: '680px', marginBottom: '30px'}}>
                         <tr style={tablestyle}>
-                            <th style={tablestyle}>{EVENTENTRY[dataId]} 第 1 場次</th>
-                            <th style={tablestyle}>職治一 楊子萱</th>
-                            <th style={tablestyle}>醫工一 陳湘</th>
+                            <th style={tablestyle}>{EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次</th>
+                            <th style={tablestyle}>
+                                {getDepartmentLabel(detail[i].player1[0].departmentId)}
+                                {DEGREECODE[Number(detail[i].player1[0].degreeId)-1]}
+                                &nbsp; {detail[i].player1[0].username}</th>
+                            <th style={tablestyle}>
+                                {getDepartmentLabel(detail[i].player2[0].departmentId)}
+                                {DEGREECODE[Number(detail[i].player2[0].degreeId)-1]} 
+                                &nbsp; {detail[i].player2[0].username}</th>
                         </tr>
                         <tr style={tablestyle}>
-                            <td style={tablestyle}>得分</td>
+                            <td style={tablestyle}><p style={wordstyle}>得分</p></td>
                             <td style={tablestyle}></td>
                             <td style={tablestyle}></td>
                         </tr>
                         <tr style={tablestyle}>
-                            <td style={tablestyle}>勝方簽名</td>
+                            <td style={tablestyle}><p style={wordstyle}>勝方簽名</p></td>
                             <td style={tablestyle}></td>
                             <td style={tablestyle}></td>
                         </tr>
                         <tr style={tablestyle}>
-                            <td style={tablestyle}>裁判簽名</td>
+                            <td style={tablestyle}><p style={wordstyle}>裁判簽名</p></td>
                             <td style={tablestyle} colspan="2"></td>
                         </tr>
                     </table>
                 ))
-                : 
-                Array.from(Array(6)).map((_, index) => (
-                    <table style={{border: '1px solid black', width: '640px'}}>
-                        <tr style={tablestyle}>
-                            <th style={tablestyle}>{EVENTENTRY[dataId]} 第 1 場次</th>
-                            <th style={tablestyle}>職治一 楊子萱</th>
-                            <th style={tablestyle}>醫工一 陳湘</th>
-                        </tr>
-                        <tr style={tablestyle}>
-                            <td style={tablestyle}>得分</td>
-                            <td style={tablestyle}></td>
-                            <td style={tablestyle}></td>
-                        </tr>
-                        <tr style={tablestyle}>
-                            <td style={tablestyle}>勝方簽名</td>
-                            <td style={tablestyle}></td>
-                            <td style={tablestyle}></td>
-                        </tr>
-                        <tr style={tablestyle}>
-                            <td style={tablestyle}>裁判簽名</td>
-                            <td style={tablestyle} colspan="2"></td>
-                        </tr>
-                    </table>
-                ))
+                : <></>
             }
         </>
     )
@@ -87,58 +80,58 @@ export const SingleTableDetial = ({dataId, detail}) => {
 
 export const DoubleTableDetial = ({dataId, detail}) => {
     const navigate = useNavigate();
-    const token = localStorage.getItem("token")
+    const [getLen, setGetLen] = useState(false);
+    const [len, setLen] = useState(3);
+
+    useEffect(() => {
+        detail[0].groupCompeteId <= 2 ? setLen(3) : setLen(6);
+        setGetLen(true);
+    })
 
     return (
         <>
-            {detail[0].groupCompeteId === 1 || detail[0].groupCompeteId === 2 ? 
-                Array.from(Array(3)).map((_, index) => (
-                    <table style={{border: '1px solid black', width: '640px'}}>
+            {getLen ?
+                Array.from(Array(len)).map((_, i) => (
+                    <table style={{border: '1px solid black', width: '640px', marginBottom: '30px'}}>
                         <tr style={tablestyle}>
-                            <th style={tablestyle}>{EVENTENTRY[dataId]} 第 1 場次</th>
-                            <th style={tablestyle}>職治一 楊子萱</th>
-                            <th style={tablestyle}>醫工一 陳湘</th>
+                            <th style={tablestyle}>{EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次</th>
+                            <th style={tablestyle}>
+                                {getDepartmentLabel(detail[i].player1[0].departmentId)}
+                                {DEGREECODE[Number(detail[i].player1[0].degreeId)-1]} 
+                                &nbsp;{detail[i].player1[0].username}
+                                <br/>
+                                {getDepartmentLabel(detail[i].player1[1].departmentId)}
+                                {DEGREECODE[Number(detail[i].player1[1].degreeId)-1]} 
+                                &nbsp;{detail[i].player1[1].username}
+                            </th>
+                            <th style={tablestyle}>
+                                {getDepartmentLabel(detail[i].player2[0].departmentId)}
+                                {DEGREECODE[Number(detail[i].player2[0].degreeId)-1]} 
+                                &nbsp;{detail[i].player2[0].username}
+                                <br/>
+                                {getDepartmentLabel(detail[i].player2[1].departmentId)}
+                                {DEGREECODE[Number(detail[i].player2[1].degreeId)-1]} 
+                                &nbsp;{detail[i].player2[1].username}
+                                <br/>
+                            </th>
                         </tr>
                         <tr style={tablestyle}>
-                            <td style={tablestyle}>得分</td>
+                            <td style={tablestyle}><p style={wordstyle}>得分</p></td>
                             <td style={tablestyle}></td>
                             <td style={tablestyle}></td>
                         </tr>
                         <tr style={tablestyle}>
-                            <td style={tablestyle}>勝方簽名</td>
+                            <td style={tablestyle}><p style={wordstyle}>勝方簽名</p></td>
                             <td style={tablestyle}></td>
                             <td style={tablestyle}></td>
                         </tr>
                         <tr style={tablestyle}>
-                            <td style={tablestyle}>裁判簽名</td>
+                            <td style={tablestyle}><p style={wordstyle}>裁判簽名</p></td>
                             <td style={tablestyle} colspan="2"></td>
                         </tr>
                     </table>
                 ))
-                : 
-                Array.from(Array(6)).map((_, index) => (
-                    <table style={{border: '1px solid black', width: '640px'}}>
-                        <tr style={tablestyle}>
-                            <th style={tablestyle}>{EVENTENTRY[dataId]} 第 1 場次</th>
-                            <th style={tablestyle}>職治一 楊子萱</th>
-                            <th style={tablestyle}>醫工一 陳湘</th>
-                        </tr>
-                        <tr style={tablestyle}>
-                            <td style={tablestyle}>得分</td>
-                            <td style={tablestyle}></td>
-                            <td style={tablestyle}></td>
-                        </tr>
-                        <tr style={tablestyle}>
-                            <td style={tablestyle}>勝方簽名</td>
-                            <td style={tablestyle}></td>
-                            <td style={tablestyle}></td>
-                        </tr>
-                        <tr style={tablestyle}>
-                            <td style={tablestyle}>裁判簽名</td>
-                            <td style={tablestyle} colspan="2"></td>
-                        </tr>
-                    </table>
-                ))
+                : <></>
             }
         </>
     )
