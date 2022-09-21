@@ -45,7 +45,7 @@ function a11yProps(index) {
 }
 
 // manageType: 0: show applicant status, 1: assign schedule, 2: edit schedule, 3: show schedule, 4: output game table
-export default function BasicTabs({manageType, department}) {
+export default function BasicTabs({manageType, department, identity}) {
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
   const [scheduleType, setScheduleType] = React.useState(false); // false: cycle, true: tournament
@@ -111,7 +111,7 @@ export default function BasicTabs({manageType, department}) {
                                 <EditSchedule dataId={Number(index)} department={department} />
                                 :
                                 manageType === 3 ? 
-                                    <ShowSchedule dataId={Number(index)} department={department} scheduleType={scheduleType} />
+                                    <ShowSchedule dataId={Number(index)} department={department} scheduleType={scheduleType} identity={identity}/>
                                     : <OutputGameTable dataId={Number(index)} />
                     }
                 </TabPanel>

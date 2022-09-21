@@ -16,7 +16,7 @@ import instance from '../instance';
 // Square: 1(上),2(下),3(左),4(右)
 // Triangle: 1(左上),2(右上),3(下)
 
-const ShowSchedule = ({dataId, department, scheduleType}) => {
+const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
     const navigate = useNavigate();
     const [getInfo, setGetInfo] = useState(false)
     const token = localStorage.getItem("token")
@@ -76,65 +76,88 @@ const ShowSchedule = ({dataId, department, scheduleType}) => {
                 <Tournament dataId={dataId}/>
                 : */}
                 {getInfo ? 
-                    <Grid container columnSpacing={{ xs: 1, md: 2 }}
+                    <Box
                         sx={{
+                            marginTop: '0px',
                             display: 'flex',
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            justifyContent: 'center'
+                            flexDirection: 'column',
+                            alignItems: 'center',
                         }}
                     >
-                        {dataId <= 1 ?
-                            Array.from(Array(groupCnt)).map((_, index) => (
-                            groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
-                                <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                    <SingleTriangle 
-                                        groupLabel={LETTERS[index]} 
-                                        detail={groupDetail[index]}
-                                        viewType={"show"}
-                                        // department={department}
-                                    />
-                                </Grid> 
-                                :   
-                                    <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                        <SingleSquare 
-                                            groupLabel={LETTERS[index]}
-                                            detail={groupDetail[index]}
-                                            viewType={"show"}
-                                            // department={department}
-                                        />
-                                </Grid>
-                            )) 
-                            :
-                            Array.from(Array(groupCnt)).map((_, index) => (
+                        {identity === "manager" ?
+                            <div class="no-printme">
+                                <Button
+                                    sx={{marginTop: '10px', marginBottom: '10px'}}
+                                    onClick={() => window.print()}
+                                    >
+                                    列印
+                                </Button>
+                            </div> : <></>
+                        }
+                        <div id='printMe' 
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center'
+                            }}>
+                            {dataId <= 1 ?
+                                Array.from(Array(groupCnt)).map((_, index) => (
                                 groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
                                     <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                        <DoubleTriangle 
+                                        <SingleTriangle 
                                             groupLabel={LETTERS[index]} 
                                             detail={groupDetail[index]}
                                             viewType={"show"}
                                             // department={department}
                                         />
-                                    </Grid>
-                                    : 
+                                    </Grid> 
+                                    :   
                                         <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                            <DoubleSquare 
+                                            <SingleSquare 
                                                 groupLabel={LETTERS[index]}
                                                 detail={groupDetail[index]}
-                                                // department={department}
                                                 viewType={"show"}
+                                                // department={department}
+                                            />
+                                    </Grid>
+                                )) 
+                                :
+                                Array.from(Array(groupCnt)).map((_, index) => (
+                                    groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
+                                        <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                            <DoubleTriangle 
+                                                groupLabel={LETTERS[index]} 
+                                                detail={groupDetail[index]}
+                                                viewType={"show"}
+                                                // department={department}
                                             />
                                         </Grid>
-                            ))}
-                       <Tournament dataId={dataId} />
-                       <Button 
-                            sx={{mt: '3%'}}
-                            variant="outlined"
-                            onClick={() => navigate('/schedulehome')}
-                        >
-                            返回賽程專區
-                        </Button>
-                </Grid>
+                                        : 
+                                            <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                                <DoubleSquare 
+                                                    groupLabel={LETTERS[index]}
+                                                    detail={groupDetail[index]}
+                                                    // department={department}
+                                                    viewType={"show"}
+                                                />
+                                            </Grid>
+                                ))
+                            }
+                        </div>
+                        <div class="no-printme" style={{width: '100%'}}>
+                            <Tournament dataId={dataId} />
+                        </div>
+                        <div class="no-printme">
+                            <Button 
+                                sx={{mt: '3%'}}
+                                variant="outlined"
+                                onClick={() => navigate('/schedulehome')}
+                            >
+                                返回賽程專區
+                            </Button>
+                        </div>
+                </Box>
                 : <></>
             }
         </>

@@ -54,7 +54,7 @@ const App = () => {
                     <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
                     {/* <Route path="/assignallschedule" element={<AssignAllSchedule />} /> */}
                     {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
-                    <Route path="/showallschedule" element={<ShowAllSchedule />} />
+                    <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />
                     <Route path="/scheduletime" element={<ScheduleTime />} />
                     <Route path="/outputgametable" element={<OutputAllGame />} />
                     {/* <Route path="/printgametable/type=:type" element={<PrintGameTable/>} /> */}
