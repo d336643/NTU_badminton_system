@@ -26,7 +26,7 @@ const ScheduleTime = () => {
             }} >
             <h3 style={{ marginBottom: '20px' }}>總賽程時間表</h3>
             <iframe 
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRKkfN8gAvl3ETNt-0LnUeAcZp2Znn2i5ki_9K5O-ReBaJT5hVX7JFuXwkJoqfv3CDaANyQ2ssRoHIS/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRKkfN8gAvl3ETNt-0LnUeAcZp2Znn2i5ki_9K5O-ReBaJT5hVX7JFuXwkJoqfv3CDaANyQ2ssRoHIS/pubhtml?widget=true&amp;headers=false"
                 width="100%" height="600" allow="autoplay"></iframe>
             {/* <Alert severity="info">
                 請點擊連結檢視賽程時間表：
