@@ -115,14 +115,35 @@ public class RoundController {
                                 .body(new MessageResponse(false, "Rid not found: " + r.getCompetitorB()));
                     }
 
-                    eachGroupEdgeData.add(EdgeData.builder()
-                                                  .groupIndex(r.getGroupIndex())
-                                                  .groupCompeteId(r.getGroupCompeteId())
-                                                  .typeIndex(r.getTypeIndex())
-                                                  .player1(competitor1.get())
-                                                  .player2(competitor2.get())
-                                                  .build()
-                    );
+                    if (r.getScoreA() == null) {
+                        eachGroupEdgeData.add(EdgeData.builder()
+                                                      .groupIndex(r.getGroupIndex())
+                                                      .groupCompeteId(r.getGroupCompeteId())
+                                                      .typeIndex(r.getTypeIndex())
+                                                      .player1(competitor1.get())
+                                                      .player2(competitor2.get())
+                                                      .build()
+                        );
+                    } else {
+                        final Optional<List<UserSimpleData2>> winner = getUserData(r.getWinner());
+                        if (!winner.isPresent()) {
+                            return ResponseEntity
+                                    .badRequest()
+                                    .body(new MessageResponse(false, "Rid not found: " + r.getWinner()));
+                        }
+                        eachGroupEdgeData.add(EdgeData.builder()
+                                                      .groupIndex(r.getGroupIndex())
+                                                      .groupCompeteId(r.getGroupCompeteId())
+                                                      .typeIndex(r.getTypeIndex())
+                                                      .player1(competitor1.get())
+                                                      .player2(competitor2.get())
+                                                      .score1(r.getScoreA())
+                                                      .score2(r.getScoreB())
+                                                      .winner(winner.get())
+                                                      .build()
+                        );
+                    }
+
                 }
             }
             data.put(g, eachGroupEdgeData);
