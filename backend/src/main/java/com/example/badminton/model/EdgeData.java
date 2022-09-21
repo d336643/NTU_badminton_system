@@ -15,6 +15,8 @@ public class EdgeData {
 
     private Integer typeIndex;
 
+    private String startTime;
+
     private List<UserSimpleData2> player1;
 
     private List<UserSimpleData2> player2;
