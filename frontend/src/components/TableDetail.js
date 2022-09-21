@@ -92,7 +92,7 @@ export const DoubleTableDetial = ({dataId, detail}) => {
         <>
             {getLen ?
                 Array.from(Array(len)).map((_, i) => (
-                    <table style={{border: '1px solid black', width: '640px', marginBottom: '30px'}}>
+                    <table style={{border: '1px solid black', width: '680px', marginBottom: '30px'}}>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>{EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次</th>
                             <th style={tablestyle}>

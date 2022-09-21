@@ -75,18 +75,20 @@ const OutPut = ({dataId}) => {
             {getInfo ?
                 <Box
                     sx={{
-                        marginTop: '10px',
+                        marginTop: '0px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <Button
-                        sx={{marginBottom: '10px'}}
-                        onClick={() => openInNewTab(`/printgametable/type=${dataId}`)}
-                        >
-                        匯出出賽單
-                    </Button>
+                    <div class="no-printme">
+                        <Button
+                            sx={{marginTop: '10px', marginBottom: '10px'}}
+                            onClick={() => window.print()}
+                            >
+                            列印
+                        </Button>
+                    </div>
                     <div id='printMe'>
                         {dataId <= 1 ?
                             Array.from(Array(groupCnt)).map((_, index) => (

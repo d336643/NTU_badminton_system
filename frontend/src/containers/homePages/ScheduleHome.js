@@ -68,7 +68,7 @@ const ScheduleHome = ({identity}) => {
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
-                                輸出出賽單
+                                匯出出賽單
                             </Button>
                         </Grid>
                         <Grid item xs={12}>

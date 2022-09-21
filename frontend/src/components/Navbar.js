@@ -65,6 +65,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
     };
 
     return (
+        <div class="no-printme">
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -602,6 +603,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                 </Toolbar>
             </Container>
         </AppBar>
+        </div>
     );
 };
 export default ResponsiveAppBar;

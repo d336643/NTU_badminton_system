@@ -9,7 +9,7 @@ import OutputGameTable from './OutputGameTable';
 import { EVENTENTRY } from '../utilities/entry';
 import { useNavigate } from "react-router-dom";
 
-const TYPE = ['報名、繳費狀態', '排定賽程', '修改賽程', '檢視賽程', '檢視出賽單']
+const TYPE = ['報名、繳費狀態', '排定賽程', '修改賽程', '檢視賽程', '匯出出賽單']
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -68,7 +68,7 @@ export default function BasicTabs({manageType, department}) {
           }}
         >
             <Stack direction="row" spacing={1} alignItems="center">
-              <h3 style={{marginRight: '5px'}}>
+              <h3 class = "no-printme" style={{marginRight: '5px'}}>
                 {TYPE[Number(manageType)]}－{EVENTENTRY[Number(value)]}
               </h3>
               {/* <p>循環賽</p>
@@ -79,19 +79,21 @@ export default function BasicTabs({manageType, department}) {
               />
               <p>單淘汰</p> */}
             </Stack>
-            <Tabs 
-                value={value} 
-                onChange={handleChange} 
-                variant="fullWidth"
-                textColor="primary"
-                indicatorColor="primary"
-            >
-                <Tab label="男單" {...a11yProps(0)} style={{minWidth:"20%"}}/>
-                <Tab label="女單" {...a11yProps(1)} style={{minWidth:"20%"}}/>
-                <Tab label="男雙" {...a11yProps(2)} style={{minWidth:"20%"}}/>
-                <Tab label="女雙" {...a11yProps(3)} style={{minWidth:"20%"}}/>
-                <Tab label="混雙" {...a11yProps(4)} style={{minWidth:"20%"}}/>
-            </Tabs>
+            <div class = "no-printme">
+              <Tabs 
+                  value={value} 
+                  onChange={handleChange} 
+                  variant="fullWidth"
+                  textColor="primary"
+                  indicatorColor="primary"
+              >
+                  <Tab label="男單" {...a11yProps(0)} style={{minWidth:"20%"}}/>
+                  <Tab label="女單" {...a11yProps(1)} style={{minWidth:"20%"}}/>
+                  <Tab label="男雙" {...a11yProps(2)} style={{minWidth:"20%"}}/>
+                  <Tab label="女雙" {...a11yProps(3)} style={{minWidth:"20%"}}/>
+                  <Tab label="混雙" {...a11yProps(4)} style={{minWidth:"20%"}}/>
+              </Tabs>
+            </div>
             {manageType === 2 ?
               <Alert severity="info" maxWidth="sm" size="small">
                 欲修改賽程請點擊的參賽者，使其跳至待修改區域
