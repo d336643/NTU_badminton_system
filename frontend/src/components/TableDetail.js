@@ -46,7 +46,11 @@ export const SingleTableDetial = ({dataId, detail}) => {
                 Array.from(Array(len)).map((_, i) => (
                     <table style={{border: '1px solid black', width: '680px', marginBottom: '30px'}}>
                         <tr style={tablestyle}>
-                            <th style={tablestyle}>{EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次</th>
+                            <th style={tablestyle}>
+                                {EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次
+                                <br/>
+                                第 ＿ 場地 &nbsp; 時間 {detail[i].startTime.slice(5,16)}
+                            </th>
                             <th style={tablestyle}>
                                 {getDepartmentLabel(detail[i].player1[0].departmentId)}
                                 {DEGREECODE[Number(detail[i].player1[0].degreeId)-1]}
@@ -94,7 +98,11 @@ export const DoubleTableDetial = ({dataId, detail}) => {
                 Array.from(Array(len)).map((_, i) => (
                     <table style={{border: '1px solid black', width: '680px', marginBottom: '30px'}}>
                         <tr style={tablestyle}>
-                            <th style={tablestyle}>{EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次</th>
+                            <th style={tablestyle}>
+                                {EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次
+                                <br/>
+                                第 ＿ 場地 &nbsp; 時間 {detail[i].startTime.slice(5,16)}
+                            </th>
                             <th style={tablestyle}>
                                 {getDepartmentLabel(detail[i].player1[0].departmentId)}
                                 {DEGREECODE[Number(detail[i].player1[0].degreeId)-1]} 

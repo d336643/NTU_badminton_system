@@ -21,16 +21,16 @@ const Root = styled('div')(({ theme }) => ({
 }));
 
 const srcHTTP = ["https://drive.google.com/file/d/1MRSo66xyZNkKCxyizIsEcXcP0oAPs-TZ/preview", "https://drive.google.com/file/d/1_gzjUnC2uTlUQW20W4d3aOf134QYyE5n/preview",
-  "https://drive.google.com/file/d/16pQ_P2tN_29yJ1fwsMs8YrIy3WO6bhld/preview", "https://drive.google.com/file/d/1JSmhcOGKoKM6Md7PTe2GtvHIe_8NbDai/preview",
-  "https://drive.google.com/file/d/1DHdT1-MNKLbA-vAM6idXLmbjd8Lo1uGL/preview"]
-
-function Tournament({ dataId }) {
-  // const navigate = useNavigate();
-  return (
-    // <Root>
-    <iframe src={srcHTTP[(dataId)]} width="100%" height="800" allow="autoplay" />
-    // </Root>
-  );
+    "https://drive.google.com/file/d/16pQ_P2tN_29yJ1fwsMs8YrIy3WO6bhld/preview", "https://drive.google.com/file/d/1JSmhcOGKoKM6Md7PTe2GtvHIe_8NbDai/preview", 
+    "https://drive.google.com/file/d/1DHdT1-MNKLbA-vAM6idXLmbjd8Lo1uGL/preview"]
+    
+function Tournament({dataId}) {
+    // const navigate = useNavigate();
+    return (
+        // <Root>
+            <iframe src={srcHTTP[(dataId)]} width="100%" height="800" allow="autoplay" />
+        // </Root>
+    );
 }
 
 export default Tournament;
