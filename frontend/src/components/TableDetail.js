@@ -11,7 +11,7 @@ const tablestyle = {
     border: '1px solid black',
     align: "center",
     justfyContent: 'center',
-    height: '52px'
+    height: '55px'
 }
 
 const wordstyle = {
@@ -44,7 +44,10 @@ export const SingleTableDetial = ({dataId, detail}) => {
         <>
             {getLen ?
                 Array.from(Array(len)).map((_, i) => (
-                    <table style={{border: '1px solid black', width: '680px', marginBottom: '30px'}}>
+                    <table style={
+                        i === 2 || i === 5 ? {border: '1px solid black', width: '680px', marginBottom: '90px', marginTop: '59px', pageBreakAfter: 'always' }
+                        : {border: '1px solid black', width: '680px', marginBottom: '90px', marginTop: '59px'}
+                    }>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>
                                 {EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次
@@ -96,7 +99,10 @@ export const DoubleTableDetial = ({dataId, detail}) => {
         <>
             {getLen ?
                 Array.from(Array(len)).map((_, i) => (
-                    <table style={{border: '1px solid black', width: '680px', marginBottom: '30px'}}>
+                    <table style={
+                        i === 2 || i === 5 ? {border: '1px solid black', width: '680px', marginBottom: '90px', marginTop: '59px', pageBreakAfter: 'always' }
+                        : {border: '1px solid black', width: '680px', marginBottom: '90px', marginTop: '59px'}
+                    }>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>
                                 {EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次
