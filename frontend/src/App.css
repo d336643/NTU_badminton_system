@@ -36,9 +36,10 @@
     transform: rotate(360deg);
   }
 }
+.printgraph { display: grid; }
 
 @media print { 
     .no-printme  { display: none;}
     .printme  { display: block;}
-    .printgraph  { display: block;}
+    .printgraph { display: flex; }
 }
