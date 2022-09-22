@@ -40,4 +40,5 @@
 @media print { 
     .no-printme  { display: none;}
     .printme  { display: block;}
+    .printgraph  { display: block;}
 }
