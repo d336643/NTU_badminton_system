@@ -58,7 +58,7 @@ export const DoubleSquare = ({groupLabel, detail, viewType}) => {
                     <div class="_144">{detail[4].score2 === null ? '' : detail[4].score2}<div class="score" id="[game5]_below" /></div>
                     <div class="_244">{detail[3].score2 === null ? '' : detail[3].score2}<div class="score" id="[game4]_below" /></div>
                     <div class="_343">{detail[1].score1 === null ? '' : detail[1].score1}<div class="score" id="[game2]_above" /></div>
-                    <div class="_344">{detail[1].score1 === null ? '' : detail[1].score1}<div class="score" id="[game2]_below" /></div>
+                    <div class="_344">{detail[1].score2 === null ? '' : detail[1].score2}<div class="score" id="[game2]_below" /></div>
                     <div class="square-game1">{game1}</div><div class="square-game2">{game2}</div><div class="square-game3">{game3}</div>
                     <div class="square-game4">{game4}</div><div class="square-game5">{game5}</div><div class="square-game6">{game6}</div>
                     <div class="square"></div>
@@ -123,7 +123,7 @@ export const SingleSquare = ({groupLabel, detail, viewType}) => {
                 <div class="_144">{detail[4].score2 === null ? '' : detail[4].score2}<div class="score" id="[game5]_below" /></div>
                 <div class="_244">{detail[3].score2 === null ? '' : detail[3].score2}<div class="score" id="[game4]_below" /></div>
                 <div class="_343">{detail[1].score1 === null ? '' : detail[1].score1}<div class="score" id="[game2]_above" /></div>
-                <div class="_344">{detail[1].score1 === null ? '' : detail[1].score1}<div class="score" id="[game2]_below" /></div>
+                <div class="_344">{detail[1].score2 === null ? '' : detail[1].score2}<div class="score" id="[game2]_below" /></div>
                 <div class="square-game1">{game1}</div><div class="square-game2">{game2}</div><div class="square-game3">{game3}</div>
                 <div class="square-game4">{game4}</div><div class="square-game5">{game5}</div><div class="square-game6">{game6}</div>
                 <div class="square"></div>
