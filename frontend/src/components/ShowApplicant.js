@@ -27,8 +27,6 @@ import instance from '../instance';
 import delay from '../utilities/delay';
 import { EVENTENTRY } from '../utilities/entry'
 import { useNavigate, useLocation } from 'react-router-dom';
-import { type } from '@testing-library/user-event/dist/type';
-import { set } from 'date-fns';
 
 let counter = 0;
 const createData = (eventId, uid, name, sid, account, status) => {
@@ -206,7 +204,7 @@ const FormTable = ({dataId}) => {
                     }}
                 > */}
                     {showmessage && (
-                        <Alert sx={{ position: 'fixed', top: '20px' }}
+                        <Alert sx={{position: "absolute", top: 0, left: { xs: '22%', md: '40%' }, right: { xs: '22%', md: '40%' }, zIndex: 999 }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>

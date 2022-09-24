@@ -47,18 +47,18 @@ export const DoubleSquare = ({groupLabel, detail, viewType}) => {
                     </div>
                 <div class="square-block">
                     <div class="label">{groupLabel}</div>
-                    {/* <div class="_121"><input class="score" type="text" id="[game1]_above" /></div>
-                    <div class="_122"><input class="score" type="text" id="[game1]_below" /></div>
-                    <div class="_131"><input class="score" type="text" id="[game3]_above" /></div>
-                    <div class="_141"><input class="score" type="text" id="[game5]_above" /></div>
-                    <div class="_232"><input class="score" type="text" id="[game6]_above" /></div>
-                    <div class="_242"><input class="score" type="text" id="[game4]_above" /></div>
-                    <div class="_133"><input class="score" type="text" id="[game3]_below" /></div>
-                    <div class="_233"><input class="score" type="text" id="[game6]_below" /></div>
-                    <div class="_144"><input class="score" type="text" id="[game5]_below" /></div>
-                    <div class="_244"><input class="score" type="text" id="[game4]_below" /></div>
-                    <div class="_343"><input class="score" type="text" id="[game2]_above" /></div>
-                    <div class="_344"><input class="score" type="text" id="[game2]_below" /></div> */}
+                    <div class="_121">{detail[0].score1 === null ? '' : detail[0].score1}<div class="score" id="[game1]_above" /></div>
+                    <div class="_122">{detail[0].score2 === null ? '' : detail[0].score2}<div class="score" id="[game1]_below" /></div>
+                    <div class="_131">{detail[2].score1 === null ? '' : detail[2].score1}<div class="score" id="[game3]_above" /></div>
+                    <div class="_141">{detail[4].score1 === null ? '' : detail[4].score1}<div class="score" id="[game5]_above" /></div>
+                    <div class="_232">{detail[5].score1 === null ? '' : detail[5].score1}<div class="score" id="[game6]_above" /></div>
+                    <div class="_242">{detail[3].score1 === null ? '' : detail[3].score1}<div class="score" id="[game4]_above" /></div>
+                    <div class="_133">{detail[2].score2 === null ? '' : detail[2].score2}<div class="score" id="[game3]_below" /></div>
+                    <div class="_233">{detail[5].score2 === null ? '' : detail[5].score2}<div class="score" id="[game6]_below" /></div>
+                    <div class="_144">{detail[4].score2 === null ? '' : detail[4].score2}<div class="score" id="[game5]_below" /></div>
+                    <div class="_244">{detail[3].score2 === null ? '' : detail[3].score2}<div class="score" id="[game4]_below" /></div>
+                    <div class="_343">{detail[1].score1 === null ? '' : detail[1].score1}<div class="score" id="[game2]_above" /></div>
+                    <div class="_344">{detail[1].score1 === null ? '' : detail[1].score1}<div class="score" id="[game2]_below" /></div>
                     <div class="square-game1">{game1}</div><div class="square-game2">{game2}</div><div class="square-game3">{game3}</div>
                     <div class="square-game4">{game4}</div><div class="square-game5">{game5}</div><div class="square-game6">{game6}</div>
                     <div class="square"></div>
@@ -112,18 +112,18 @@ export const SingleSquare = ({groupLabel, detail, viewType}) => {
             }
             <div class="square-block">
                 <div class="label">{groupLabel}</div>
-                <div class="_121"><div class="score" type="text" id="[game1]_above" /></div>
-                <div class="_122"><div class="score" type="text" id="[game1]_below" /></div>
-                <div class="_131"><div class="score" type="text" id="[game3]_above" /></div>
-                <div class="_141"><div class="score" type="text" id="[game5]_above" /></div>
-                <div class="_232"><div class="score" type="text" id="[game6]_above" /></div>
-                <div class="_242"><div class="score" type="text" id="[game4]_above" /></div>
-                <div class="_133"><div class="score" type="text" id="[game3]_below" /></div>
-                <div class="_233"><div class="score" type="text" id="[game6]_below" /></div>
-                <div class="_144"><div class="score" type="text" id="[game5]_below" /></div>
-                <div class="_244"><div class="score" type="text" id="[game4]_below" /></div>
-                <div class="_343"><div class="score" type="text" id="[game2]_above" /></div>
-                <div class="_344"><div class="score" type="text" id="[game2]_below" /></div>
+                <div class="_121">{detail[0].score1 === null ? '' : detail[0].score1}<div class="score" id="[game1]_above" /></div>
+                <div class="_122">{detail[0].score2 === null ? '' : detail[0].score2}<div class="score" id="[game1]_below" /></div>
+                <div class="_131">{detail[2].score1 === null ? '' : detail[2].score1}<div class="score" id="[game3]_above" /></div>
+                <div class="_141">{detail[4].score1 === null ? '' : detail[4].score1}<div class="score" id="[game5]_above" /></div>
+                <div class="_232">{detail[5].score1 === null ? '' : detail[5].score1}<div class="score" id="[game6]_above" /></div>
+                <div class="_242">{detail[3].score1 === null ? '' : detail[3].score1}<div class="score" id="[game4]_above" /></div>
+                <div class="_133">{detail[2].score2 === null ? '' : detail[2].score2}<div class="score" id="[game3]_below" /></div>
+                <div class="_233">{detail[5].score2 === null ? '' : detail[5].score2}<div class="score" id="[game6]_below" /></div>
+                <div class="_144">{detail[4].score2 === null ? '' : detail[4].score2}<div class="score" id="[game5]_below" /></div>
+                <div class="_244">{detail[3].score2 === null ? '' : detail[3].score2}<div class="score" id="[game4]_below" /></div>
+                <div class="_343">{detail[1].score1 === null ? '' : detail[1].score1}<div class="score" id="[game2]_above" /></div>
+                <div class="_344">{detail[1].score1 === null ? '' : detail[1].score1}<div class="score" id="[game2]_below" /></div>
                 <div class="square-game1">{game1}</div><div class="square-game2">{game2}</div><div class="square-game3">{game3}</div>
                 <div class="square-game4">{game4}</div><div class="square-game5">{game5}</div><div class="square-game6">{game6}</div>
                 <div class="square"></div>
