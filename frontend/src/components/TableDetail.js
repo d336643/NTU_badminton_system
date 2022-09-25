@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import { EVENTENTRY, DEGREECODE, DEPARTMENT } from '../utilities/entry';
+import { EVENTENTRY, DEGREECODE, DEPARTMENT, GAME } from '../utilities/entry';
 
 const tablestyle = {
     border: '1px solid black',
@@ -18,6 +18,14 @@ const wordstyle = {
     marginLeft: '50px'
 }
 
+const namestyle = {
+    border: '1px solid black',
+    align: "center",
+    justfyContent: 'center',
+    height: '55px',
+    width: '200px'
+}
+
 const getDepartmentLabel = (departmentId) => {
     const key = Object.keys(DEPARTMENT);
     const value = Object.values(DEPARTMENT);
@@ -28,6 +36,44 @@ const getDepartmentLabel = (departmentId) => {
         } 
     });
     return target;
+}
+
+export const AdvTableDetial = () => {
+    return (
+        <>
+            {Array.from(Array(GAME.length)).map((_, i) => (
+                    <table style={
+                        (i+1) % 3 === 0 ? {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px', pageBreakAfter: 'always' }
+                        : {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
+                    }>
+                        <tr style={tablestyle}>
+                            <th style={tablestyle}>
+                                {GAME[i].type} &nbsp; 第 {GAME[i].typeIndex} 場次
+                                <br/>
+                                第 ＿ 場地 &nbsp; 時間 {GAME[i].startTime.slice(5,16)}
+                            </th>
+                            <th style={namestyle}></th>
+                            <th style={namestyle}></th>
+                        </tr>
+                        <tr style={tablestyle}>
+                            <td style={tablestyle}><p style={wordstyle}>得分</p></td>
+                            <td style={tablestyle}></td>
+                            <td style={tablestyle}></td>
+                        </tr>
+                        <tr style={tablestyle}>
+                            <td style={tablestyle}><p style={wordstyle}>勝方簽名</p></td>
+                            <td style={tablestyle}></td>
+                            <td style={tablestyle}></td>
+                        </tr>
+                        <tr style={tablestyle}>
+                            <td style={tablestyle}><p style={wordstyle}>裁判簽名</p></td>
+                            <td style={tablestyle} colspan="2"></td>
+                        </tr>
+                    </table>
+                ))
+            }
+        </>
+    )
 }
 
 export const SingleTableDetial = ({dataId, detail}) => {

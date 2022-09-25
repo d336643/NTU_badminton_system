@@ -364,3 +364,806 @@ export const DEPARTMENT = {
     '8530': '全球衛生碩士學位學程',
     '8540': '全球衛生博士學位學程',
 }
+
+export const GAME = [
+	{
+		"type": "女單",
+		"typeIndex": 37,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 38,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 39,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 40,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 41,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 42,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 43,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 44,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 45,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 46,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 46,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 47,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 47,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 48,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 48,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 49,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 49,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 50,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 50,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 51,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 51,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "女單",
+		"typeIndex": 52,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 52,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 53,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 54,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 55,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 56,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 57,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 58,
+		"startTime": "2022-10-06 20:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 59,
+		"startTime": "2022-10-06 20:00:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 60,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "女雙",
+		"typeIndex": 61,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 70,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 71,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 72,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 73,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 74,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 75,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 76,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 77,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 78,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 79,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 80,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 81,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 82,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 83,
+		"startTime": "2022-10-04 20:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 84,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 85,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 86,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 87,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 88,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 89,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 90,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 91,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 92,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 93,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 94,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 95,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 96,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 97,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 97,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 98,
+		"startTime": "2022-10-06 20:00:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 98,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 99,
+		"startTime": "2022-10-06 20:00:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 99,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 100,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 100,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "混雙",
+		"typeIndex": 101,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 101,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 102,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 103,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 104,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 105,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 106,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 107,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 108,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 109,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 110,
+		"startTime": "2022-10-04 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 111,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 112,
+		"startTime": "2022-10-04 20:00:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 113,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 114,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 115,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 116,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 117,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 118,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 119,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 120,
+		"startTime": "2022-10-04 21:00:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 121,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 122,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 123,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 124,
+		"startTime": "2022-10-06 19:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 125,
+		"startTime": "2022-10-06 20:00:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 126,
+		"startTime": "2022-10-06 20:00:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 127,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "男雙",
+		"typeIndex": 128,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 148,
+		"startTime": "2022-10-04 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 149,
+		"startTime": "2022-10-04 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 150,
+		"startTime": "2022-10-04 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 151,
+		"startTime": "2022-10-04 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 152,
+		"startTime": "2022-10-04 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 153,
+		"startTime": "2022-10-04 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 154,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 155,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 156,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 157,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 158,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 159,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 160,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 161,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 162,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 163,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 164,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 165,
+		"startTime": "2022-10-04 18:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 166,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 167,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 168,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 169,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 170,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 171,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 172,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 173,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 174,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 175,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 176,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 177,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 178,
+		"startTime": "2022-10-04 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 179,
+		"startTime": "2022-10-04 19:15:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 180,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 181,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 182,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 183,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 184,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 185,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 186,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 187,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 188,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 189,
+		"startTime": "2022-10-04 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 190,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 191,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 192,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 193,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 194,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 195,
+		"startTime": "2022-10-04 20:45:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 196,
+		"startTime": "2022-10-06 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 197,
+		"startTime": "2022-10-06 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 198,
+		"startTime": "2022-10-06 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 199,
+		"startTime": "2022-10-06 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 200,
+		"startTime": "2022-10-06 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 201,
+		"startTime": "2022-10-06 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 202,
+		"startTime": "2022-10-06 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 203,
+		"startTime": "2022-10-06 18:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 204,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 205,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 206,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 207,
+		"startTime": "2022-10-06 19:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 208,
+		"startTime": "2022-10-06 20:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 209,
+		"startTime": "2022-10-06 20:00:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 210,
+		"startTime": "2022-10-06 20:30:00"
+	},
+	{
+		"type": "男單",
+		"typeIndex": 211,
+		"startTime": "2022-10-06 20:30:00"
+	}
+]

@@ -20,6 +20,7 @@ import EditAllSchedule from "./containers/EditAllSchedule";
 import RefereeSys from "./components/RefereeSys";
 import ScheduleTime from "./containers/ScheduleTime";
 import OutputAllGame from "./containers/OutputAllGame";
+import OutputHome from "./containers/homePages/OutputHome";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
@@ -57,7 +58,7 @@ const App = () => {
                     <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />
                     <Route path="/scheduletime" element={<ScheduleTime />} />
                     <Route path="/outputgametable" element={<OutputAllGame />} />
-                    {/* <Route path="/printgametable/type=:type" element={<PrintGameTable/>} /> */}
+                    <Route path="/outputhome" element={<OutputHome/>} />
                     <Route path="/refereesys" element={<RefereeSys />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>

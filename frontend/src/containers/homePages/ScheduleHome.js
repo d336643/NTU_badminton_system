@@ -64,7 +64,7 @@ const ScheduleHome = ({identity}) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Button 
-                                onClick={() => navigate('/outputgametable')}
+                                onClick={() => navigate('/outputhome')}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
