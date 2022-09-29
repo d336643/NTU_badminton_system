@@ -14,6 +14,7 @@ import ApplicantSummary from "./containers/ApplicantSummary";
 import ShowAllSchedule from "./containers/ShowAllSchedule";
 import CompetitorStatus from "./containers/CompetitorStatus";
 import ShowAllApplicant from "./containers/ShowAllApplicant";
+import ShowAllTournament from "./containers/ShowAllTournament";
 import ScheduleHome from "./containers/homePages/ScheduleHome";
 import AssignAllSchedule from "./containers/AssignAllSchedule";
 import EditAllSchedule from "./containers/EditAllSchedule";
@@ -56,6 +57,7 @@ const App = () => {
                     {/* <Route path="/assignallschedule" element={<AssignAllSchedule />} /> */}
                     {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
                     <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />
+                    <Route path="/showalltournament" element={<ShowAllTournament identity={identity}/>} />
                     <Route path="/scheduletime" element={<ScheduleTime />} />
                     <Route path="/outputgametable" element={<OutputAllGame />} />
                     <Route path="/outputhome" element={<OutputHome/>} />
