@@ -230,16 +230,16 @@ public class RoundController {
             return ResponseEntity.ok(new MessageResponse(true, "Delete score success!"));
         }
 
-        if (score1 < 21 && score2 < 21) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse(false, "Both score1 and score2 are less than 21."));
-        }
-        if (score1 == score2) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse(false, "score1 should not equal to score2."));
-        }
+//        if (score1 < 21 && score2 < 21) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse(false, "Both score1 and score2 are less than 21."));
+//        }
+//        if (score1 == score2) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse(false, "score1 should not equal to score2."));
+//        }
 
 
         Round toSave = opt.get();
