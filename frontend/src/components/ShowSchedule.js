@@ -15,7 +15,7 @@ import instance from '../instance';
 // GroupCompeteId: 1. 三取一 2. 三取二 3. 四取一 4. 四取二
 // Square: 1(上),2(下),3(左),4(右)
 // Triangle: 1(左上),2(右上),3(下)
-const COMPETE = ["三取一", "三取二", "四取一", "四取二"]
+// const COMPETE = ["三取一", "三取二", "四取一", "四取二"]
 let cnt = 0;
 
 const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
@@ -223,7 +223,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                                 Array.from(Array(groupCnt)).map((_, index) => (
                                 groupDetail[index][0].groupCompeteId <= 2? 
                                     <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                        {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>}
+                                        {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
                                         <div class='no-printme'>
                                             <SingleTriangle 
                                                 groupLabel={LETTERS[index]} 
@@ -235,7 +235,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                                     </Grid> 
                                     :   
                                         <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                            {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>}
+                                            {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
                                             <div class='no-printme'>
                                                 <SingleSquare 
                                                     groupLabel={LETTERS[index]}
@@ -249,7 +249,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                                 Array.from(Array(groupCnt)).map((_, index) => (
                                     groupDetail[index][0].groupCompeteId <= 2? 
                                         <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                            {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>}
+                                            {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
                                             <div class='no-printme'>
                                                 <DoubleTriangle 
                                                     groupLabel={LETTERS[index]} 
@@ -260,7 +260,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                                         </Grid>
                                         : 
                                             <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                                {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>}
+                                                {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
                                                 <div class='no-printme'>
                                                     <DoubleSquare 
                                                         groupLabel={LETTERS[index]}
