@@ -1,7 +1,7 @@
 /*
  *  Flex Layout Specifics
 */
-main{
+.tournament{
     display:flex;
     flex-direction:row;
 }
@@ -9,7 +9,7 @@ main{
     display:flex;
     flex-direction:column;
     justify-content:center;
-    width:200px;
+    min-width: 50px;
     list-style:none;
     padding:0;
 }

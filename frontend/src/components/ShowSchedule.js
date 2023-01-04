@@ -15,6 +15,7 @@ import instance from '../instance';
 // GroupCompeteId: 1. 三取一 2. 三取二 3. 四取一 4. 四取二
 // Square: 1(上),2(下),3(左),4(右)
 // Triangle: 1(左上),2(右上),3(下)
+// const COMPETE = ["三取一", "三取二", "四取一", "四取二"]
 let cnt = 0;
 
 const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
@@ -83,9 +84,13 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            alignContent: 'center'
+                            alignContent: 'center',
+                            justifyContent: 'center',
                         }}
                     >
+                        <div class="no-printme" style={{width: '100%'}}>
+                            <Tournament dataId={dataId} />
+                        </div>
                         {dataId <= 1 ?
                             Array.from(Array(groupCnt)).map((_, index) => (
                                 index % 2 === 0 ?
@@ -216,8 +221,9 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             }}>
                             {dataId <= 1 ?
                                 Array.from(Array(groupCnt)).map((_, index) => (
-                                groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
+                                groupDetail[index][0].groupCompeteId <= 2? 
                                     <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                        {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
                                         <div class='no-printme'>
                                             <SingleTriangle 
                                                 groupLabel={LETTERS[index]} 
@@ -229,40 +235,42 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                                     </Grid> 
                                     :   
                                         <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                            {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
                                             <div class='no-printme'>
-                                            <SingleSquare 
-                                                groupLabel={LETTERS[index]}
-                                                detail={groupDetail[index]}
-                                                viewType={"show"}
-                                                // department={department}
+                                                <SingleSquare 
+                                                    groupLabel={LETTERS[index]}
+                                                    detail={groupDetail[index]}
+                                                    viewType={"show"}
+                                                    // department={department}
                                             /></div>
                                     </Grid>
                                 )) 
                                 :
                                 Array.from(Array(groupCnt)).map((_, index) => (
-                                    groupDetail[index][0].groupCompeteId === 1 || groupDetail[index][0].groupCompeteId === 2? 
+                                    groupDetail[index][0].groupCompeteId <= 2? 
                                         <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                            <div class='no-printme'><DoubleTriangle 
-                                                groupLabel={LETTERS[index]} 
-                                                detail={groupDetail[index]}
-                                                viewType={"show"}
-                                                // department={department}
+                                            {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
+                                            <div class='no-printme'>
+                                                <DoubleTriangle 
+                                                    groupLabel={LETTERS[index]} 
+                                                    detail={groupDetail[index]}
+                                                    viewType={"show"}
+                                                    // department={department}
                                             /></div>
                                         </Grid>
                                         : 
                                             <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                                <div class='no-printme'><DoubleSquare 
-                                                    groupLabel={LETTERS[index]}
-                                                    detail={groupDetail[index]}
-                                                    // department={department}
-                                                    viewType={"show"}
+                                                {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
+                                                <div class='no-printme'>
+                                                    <DoubleSquare 
+                                                        groupLabel={LETTERS[index]}
+                                                        detail={groupDetail[index]}
+                                                        // department={department}
+                                                        viewType={"show"}
                                                 /></div>
                                             </Grid>
                                 ))
                             }
-                        </div>
-                        <div class="no-printme" style={{width: '100%'}}>
-                            <Tournament dataId={dataId} />
                         </div>
                         <div class="no-printme">
                             <Button 
