@@ -6,176 +6,29 @@ import { EVENTENTRY, LETTERS } from '../utilities/entry';
 import { useNavigate } from "react-router-dom";
 import instance from '../instance';
 
-const EditSchedule = ({dataId, department}) => {
-    const [groupCnt, setGroupCnt] = useState(3)
-    const [groupDetail, setGroupDetail] = useState([
-        [ // A
-            {
-                groupIndex: 1,
-                groupCompeteId: 4,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "euni", "sid": "R00000000", departmentId: '7250', degreeId: 1},
-                    { "uid": 9, "username": "ally", "sid": "R111111111", departmentId: '7250', degreeId: 3}
-                ],
-                player2: [
-                    { "uid": 1, "username": "jannie", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "Una", "sid": "R333333333", departmentId: '7250', degreeId: 1}
-                ]
-            },
-            {
-                groupIndex: 2,
-                groupCompeteId: 4,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "Jake", "sid": "R00000000", departmentId: '7250', degreeId: 4},
-                    { "uid": 9, "username": "Alison", "sid": "R111111111", departmentId: '7250', degreeId: 5},
-                ],
-                player2: [
-                    { "uid": 1, "username": "Cece", "sid": "R222222222", departmentId: '7250', degreeId: 6},
-                    { "uid": 2, "username": "Kiki", "sid": "R333333333", departmentId: '7250', degreeId: 7},
-                ]
-            },
-            {
-                groupIndex: 3,
-                groupCompeteId: 4,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "Audrie", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "Eric", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "jannie", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "Una", "sid": "R333333333", departmentId: '7250', degreeId: 2},
-                ]
-            },
-            {
-                groupIndex: 4,
-                groupCompeteId: 4,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "euni", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "ally", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "jannie", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "Una", "sid": "R333333333", departmentId: '7250', degreeId: 2},
-                ]
-            },
-        ],
-        [ // B
-            {
-                groupIndex: 1,
-                groupCompeteId: 4,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "BB", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "B1", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "Jeee", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "UUU", "sid": "R333333333", departmentId: '7250', degreeId: 2},
-                ]
-            },
-            {
-                groupIndex: 2,
-                groupCompeteId: 4,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "Cei", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "Oops", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "Hey", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "Hi", "sid": "R333333333", departmentId: '7250', degreeId: 2},
-                ]
-            },
-            {
-                groupIndex: 3,
-                groupCompeteId: 4,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "Wooooo", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "Lol", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "hahaha", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "youuuuu", "sid": "R333333333", departmentId: '7250', degreeId: 2},
-                ]
-            },
-            {
-                groupIndex: 4,
-                groupCompeteId: 4,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "kkkk", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "okk", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "jannie", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "Una", "sid": "R333333333", departmentId: '7250', degreeId: 2},
-                ]
-            },
-        ],
-        [ // C
-            {
-                groupIndex: 1,
-                groupCompeteId: 2,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "BB", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "B1", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "Jeee", "sid": "R222222222", departmentId: '7250', degreeId: 6},
-                    { "uid": 2, "username": "UUU", "sid": "R333333333", departmentId: '7250', degreeId: 6},
-                ]
-            },
-            {
-                groupIndex: 2,
-                groupCompeteId: 2,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "Cei", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "Oops", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "Hey", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "Hi", "sid": "R333333333", departmentId: '7250', degreeId: 2},
-                ]
-            },
-            {
-                groupIndex: 3,
-                groupCompeteId: 2,
-                typeIndex: null,
-                player1: [
-                    { "uid": 7, "username": "Wooooo", "sid": "R00000000", departmentId: '7250', degreeId: 2},
-                    { "uid": 9, "username": "Lol", "sid": "R111111111", departmentId: '7250', degreeId: 2},
-                ],
-                player2: [
-                    { "uid": 1, "username": "hahaha", "sid": "R222222222", departmentId: '7250', degreeId: 2},
-                    { "uid": 2, "username": "youuuuu", "sid": "R333333333", departmentId: '7250', degreeId: 2},
-                ]
-            }
-        ]
-    ])
-
-    const [resData, setResData] = useState()
+const EditSchedule = ({dataId}) => {
+    const token = localStorage.getItem("token")
+    const navigate = useNavigate();
+    const [getInfo, setGetInfo] = useState(false);
+    const [groupCnt, setGroupCnt] = useState(0);
+    const [groupDetail, setGroupDetail] = useState([]);
+    const [resData, setResData] = useState();
     
-    const getInfo = async () => {
+    const getGroup = async () => {
         const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              'accept':'application/json'
-            },
-        };
+            headers:{
+                'Authorization': 'Bearer ' + token
+            }
+        }
         try {
-            const res = await instance.get("/rounds", config);
-            if (res.data.success === true) {
+            const res = await instance.get(`/rounds?typeId=${dataId+1}`, config);
+            if (res.status === 200) {
+                console.log(res.data.data)
                 setResData(res.data.data);
-                let gCnt = res.data.data.groupCnt;
-                setGroupCnt(res.data.data.groupCnt);
+                let gCnt = Number(res.data.data.groupCnt);
+                setGroupCnt(gCnt);
                 let groupLetter = LETTERS.slice(0, gCnt);
+                // console.log(groupLetter);
                 getGroupDetailOf(res.data.data, groupLetter);
             }
         } catch (error) {
@@ -187,74 +40,149 @@ const EditSchedule = ({dataId, department}) => {
         let idx = 0;
         const key = Object.keys(dict);
         const value = Object.values(dict);
-        const testArr = value.map(function(x, i) {
-            if (key[i] === groupLetter[idx]) {
-                idx += 1;
-                return value[i];
-            }  
-        });
-        setGroupDetail(groupDetail.concat(testArr))
+        const arr = [];
+        // console.log(key.length)
+        for (var i = 0; i < key.length; i++) {
+            if ( groupLetter.findIndex((element) => element === key[i]) > -1) {
+                arr.push(value[i]);
+            }
+        }
+        setGroupDetail(groupDetail.concat(arr))
+        setGetInfo(true);
     }
 
     useEffect(() => {
-        Array.from(Array(groupCnt)).map((_, index) => (
-            console.log(groupDetail[index][0])
-        ))
-    //     getGroup();
-    //     console.log(resData);
+        getGroup()
+        // console.log(groupDetail)
     }, [])
 
     return (
         <>
-            <Container sx={{display: 'grid', gridAutoColumns: '1fr'}}>
-                <Box sx={{gridColumn: '1/4', marginTop: '20px'}}>
-                    <Box sx={{position: 'sticky', top: '30px', left: '-10px'}}>
-                        <h>待修改</h>
+            {getInfo ? 
+                <Box
+                    style={{
+                        marginTop: '0px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Box sx={{position: 'sticky', marginTop: '10px'}}>
+                        <h>I am sticky! -- 待修改</h>
                     </Box>
-                </Box>
-                <Grid container
-                    sx={{gridColumn: '4/22', display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center'}}>
-                    {Array.from(Array(groupCnt)).map((_, index) => (
-                        groupDetail[index][0].groupCompeteId === 1 ?
-                            <Grid item key={index}>
-                                <SingleTriangle 
-                                    groupLabel={LETTERS[index]} 
-                                    detail={groupDetail[index]}
-                                    department={department}
-                                />
-                            </Grid> 
-                            : groupDetail[index][0].groupCompeteId === 2 ?
-                                <Grid item key={index}>
-                                    <DoubleTriangle 
+                    {dataId <= 1 ?
+                        Array.from(Array(groupCnt)).map((_, index) => (
+                            index % 2 === 0 ?
+                            <div class='printgraph' 
+                                style={
+                                    (index+2) % 6 === 0 ?
+                                    {
+                                        // display: 'grid',
+                                        gridTemplateColumns: 'repeat(2, 1fr)',
+                                        pageBreakAfter: 'always',
+                                        marginTop: '5px',
+                                        marginBottom: '5px'
+                                    }
+                                    :
+                                    {
+                                        // display: 'grid',
+                                        gridTemplateColumns: 'repeat(2, 1fr)',
+                                        marginTop: '5px',
+                                        marginBottom: '5px'
+                                    }
+                                }
+                            >
+                                {groupDetail[index][0].groupCompeteId <= 2? 
+                                    <SingleTriangle 
                                         groupLabel={LETTERS[index]} 
                                         detail={groupDetail[index]}
-                                        department={department}
-                                    />
-                                </Grid>
-                                : groupDetail[index][0].groupCompeteId === 3 ?
-                                    <Grid item key={index}>
+                                        viewType={"edit"}
+                                    /> 
+                                    : 
                                         <SingleSquare 
                                             groupLabel={LETTERS[index]}
                                             detail={groupDetail[index]}
-                                            department={department}
+                                            viewType={"edit"}
+                                            // department={department}
                                         />
-                                    </Grid>
-                                    : groupDetail[index][0].groupCompeteId === 4 ?
-                                        <Grid item key={index}>
-                                            <DoubleSquare 
-                                                groupLabel={LETTERS[index]}
-                                                detail={groupDetail[index]}
-                                                department={department}
-                                                viewType={"edit"}
-                                            />
-                                        </Grid>
-                                        : <></>
-                    ))}
-                </Grid>
-            </Container>
+                                }
+                                {index+1 < groupCnt ?
+                                    groupDetail[index+1][0].groupCompeteId <= 2? 
+                                        <SingleTriangle 
+                                            groupLabel={LETTERS[index+1]} 
+                                            detail={groupDetail[index+1]}
+                                            viewType={"edit"}
+                                            // department={department}
+                                        /> 
+                                        : 
+                                        <SingleSquare 
+                                            groupLabel={LETTERS[index+1]}
+                                            detail={groupDetail[index+1]}
+                                            viewType={"edit"}
+                                            // department={department}
+                                        />
+                                    : <></>}
+                            </div> : <></>
+                        ))
+                        :
+                        Array.from(Array(groupCnt)).map((_, index) => (
+                            index % 2 === 0 ?
+                            <div class='printgraph' 
+                                style={
+                                    (index + 2) % 6 === 0 ?
+                                    {
+                                        // display: 'grid',
+                                        gridTemplateColumns: 'repeat(2, 1fr)',
+                                        pageBreakAfter: 'always',
+                                        marginTop: '5px',
+                                        marginBottom: '5px'
+                                    }
+                                    :
+                                    {
+                                        // display: 'grid',
+                                        gridTemplateColumns: 'repeat(2, 1fr)',
+                                        marginTop: '5px',
+                                        marginBottom: '5px'
+                                    }
+                                }
+                            >
+                                {groupDetail[index][0].groupCompeteId <= 2? 
+                                    <DoubleTriangle 
+                                        groupLabel={LETTERS[index]} 
+                                        detail={groupDetail[index]}
+                                        viewType={"edit"}
+                                        // department={department}
+                                    /> 
+                                    : 
+                                        <DoubleSquare 
+                                            groupLabel={LETTERS[index]}
+                                            detail={groupDetail[index]}
+                                            viewType={"edit"}
+                                            // department={department}
+                                        />
+                                }
+                                {index+1 < groupCnt ?
+                                    groupDetail[index+1][0].groupCompeteId <= 2? 
+                                        <DoubleTriangle 
+                                            groupLabel={LETTERS[index+1]} 
+                                            detail={groupDetail[index+1]}
+                                            viewType={"edit"}
+                                        /> 
+                                        : 
+                                        <DoubleSquare 
+                                            groupLabel={LETTERS[index+1]}
+                                            detail={groupDetail[index+1]}
+                                            viewType={"edit"}
+                                        />
+                                    : <></>}
+                            </div> : <></>
+                        ))
+                    }
+                </Box>
+                : <></>
+            }
         </>
     )
 }

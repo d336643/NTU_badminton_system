@@ -25,6 +25,9 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
     const [groupCnt, setGroupCnt] = useState(3)
     const [groupDetail, setGroupDetail] = useState([])
     const [resData, setResData] = useState()
+    const [resEliData, setResEliData] = useState()
+    const [eliRoundArr, setEliRoundArr] = useState([])
+    const [winnerInfo, setWinnerInfo] = useState([])
 
     // useEffect(() => {
     //     console.log(scheduleType);
@@ -39,13 +42,47 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
         try {
             const res = await instance.get(`/rounds?typeId=${dataId+1}`, config);
             if (res.status === 200) {
-                // console.log(res.data.data)
+                console.log(res.data.data)
                 setResData(res.data.data);
                 let gCnt = Number(res.data.data.groupCnt);
                 setGroupCnt(gCnt);
                 let groupLetter = LETTERS.slice(0, gCnt);
                 // console.log(groupLetter);
                 getGroupDetailOf(res.data.data, groupLetter);
+            }
+        } catch (error) {
+            // console.log(error);
+        }
+    }
+
+    const getSingleElimination = async () => {
+        const config = {
+            headers:{
+                'Authorization': 'Bearer ' + token
+            }
+        }
+        try {
+            const res = await instance.get(`/rounds/SingleElimination?typeId=${dataId+1}`, config);
+            if (res.status === 200) {
+                setResEliData(res.data.data);
+                setEliRoundArr(eliRoundArr.concat(res.data.data.rounds));
+            }
+        } catch (error) {
+            // console.log(error);
+        }
+    }
+
+    const getWinner = async () => {
+        const config = {
+            headers:{
+                'Authorization': 'Bearer ' + token
+            }
+        }
+        try {
+            const res = await instance.get(`/rounds/winners?typeId=${dataId+1}`, config);
+            if (res.status === 200) {
+                console.log(res.data.data);
+                setWinnerInfo(winnerInfo.concat(res.data.data));
             }
         } catch (error) {
             // console.log(error);
@@ -88,8 +125,11 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             justifyContent: 'center',
                         }}
                     >
-                        <div class="no-printme" style={{width: '100%'}}>
-                            <Tournament dataId={dataId} />
+                        <div class="no-printme" style={{width: '85%'}}>
+                            <Tournament 
+                                eliRoundArr={eliRoundArr} 
+                                winnerInfo={winnerInfo}
+                            />
                         </div>
                         {dataId <= 1 ?
                             Array.from(Array(groupCnt)).map((_, index) => (

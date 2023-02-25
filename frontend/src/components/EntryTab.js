@@ -108,7 +108,7 @@ export default function BasicTabs({manageType, department, identity}) {
                             <AssignSchedule dataId={Number(index)} />
                             :
                             manageType === 2 ? 
-                                <EditSchedule dataId={Number(index)} department={department} />
+                                <EditSchedule dataId={Number(index)}/>
                                 :
                                 manageType === 3 ? 
                                     <ShowSchedule dataId={Number(index)} department={department} scheduleType={scheduleType} identity={identity}/>

@@ -26,7 +26,7 @@ const ScheduleHome = ({identity}) => {
                         justifyContent="center"
                         spacing={2}
                     >
-                        {/* <Grid item xs={12}>
+                        <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate('/assignallschedule')}
                                 variant="outlined"
@@ -34,7 +34,7 @@ const ScheduleHome = ({identity}) => {
                                 fullWidth>
                                 排定賽程
                             </Button>
-                        </Grid> */}
+                        </Grid>
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate('/showallschedule')}
