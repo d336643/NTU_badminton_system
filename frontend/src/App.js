@@ -9,7 +9,7 @@ import Signup from "./components/Signup";
 import EditProfile from "./components/EditProfile";
 import ErrorPage from "./components/ErrorPage";
 import CompetitionRule from './containers/CompetitionRule';
-import EditRegisterTab from "./components/EditRegisterTab";
+import EditRegisterTab from "./components/RegisterTab";
 import ApplicantSummary from "./containers/ApplicantSummary";
 import ShowAllSchedule from "./containers/ShowAllSchedule";
 import CompetitorStatus from "./containers/CompetitorStatus";
