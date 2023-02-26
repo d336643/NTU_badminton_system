@@ -17,7 +17,7 @@ import instance from "../instance";
 import delay from '../utilities/delay';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { EVENTTYPEENTRY, EVENTENTRY, DEGREECODE } from '../utilities/entry';
-import { getDepartmentLabel } from '../utilities/getDepartmentLabel';
+import { getDepartmentLabel } from '../utilities/getDepartment';
 // import ClearIcon from '@mui/icons-material/Clear';
 
 const boxStyled = {

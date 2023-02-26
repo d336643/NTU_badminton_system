@@ -179,11 +179,11 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                     <Typography textAlign="center">競賽章程</Typography>
                                 </MenuItem>
-                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
-                                    <Typography textAlign="center">報名賽事</Typography>
-                                </MenuItem> */}
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                                    <Typography textAlign="center">報名 / 編輯賽事</Typography>
+                                </MenuItem>
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
-                                    <Typography textAlign="center">報名 / 繳費狀態</Typography>
+                                    <Typography textAlign="center">報名及繳費狀態</Typography>
                                 </MenuItem>
                             </Menu>
                         </Box>
@@ -227,11 +227,11 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                 <Typography textAlign="center">競賽章程</Typography>
                             </MenuItem>
-                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
-                                <Typography textAlign="center">報名賽事</Typography>
-                            </MenuItem> */}
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                                <Typography textAlign="center">報名 / 編輯賽事</Typography>
+                            </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
-                                <Typography textAlign="center">報名 / 繳費狀態</Typography>
+                                <Typography textAlign="center">報名及繳費狀態</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>
@@ -326,26 +326,6 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             >
                                 報名者表單、繳費
                             </Button>
-                            {/* 
-                            <Button
-                                // key={page}
-                                component={Link}
-                                to='/'
-                                onClick={handleCloseNavMenu}
-                                sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
-                            >
-                                登入場單
-                            </Button>
-                            <Button
-                                // key={page}
-                                component={Link}
-                                to='/'
-                                onClick={handleCloseNavMenu}
-                                sx={{ ml: 2, my: 2, color: 'white', display: 'block' }}
-                            >
-                                清空場次
-                            </Button>
-                            currently not open these functions*/}
                         </Box>
                         :
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -377,15 +357,15 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             >
                                 競賽章程
                             </Button> 
-                            {/* <Button
+                            <Button
                                 // key={page}
                                 component={Link}
                                 to='/register'
                                 onClick={handleCloseNavMenu}
                                 sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
-                                報名賽事
-                            </Button>  */}
+                                報名 / 編輯賽事
+                            </Button> 
                             <Button
                                 // key={page}
                                 component={Link}
@@ -393,7 +373,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 onClick={handleCloseNavMenu}
                                 sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
-                                報名 / 繳費狀態
+                                報名及繳費狀態
                             </Button>
                         </Box>
                     :
@@ -426,15 +406,15 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                         >
                             競賽章程
                         </Button> 
-                        {/* <Button
+                        <Button
                             // key={page}
                             component={Link}
                             to='/register'
                             onClick={handleCloseNavMenu}
                             sx={{ mr: 1, color: 'white', display: 'block' }}
                         >
-                            報名賽事
-                        </Button>  */}
+                            報名 / 編輯賽事
+                        </Button> 
                         <Button
                             // key={page}
                             component={Link}
@@ -442,7 +422,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             onClick={handleCloseNavMenu}
                             sx={{ mr: 1, color: 'white', display: 'block' }}
                         >
-                            報名 / 繳費狀態
+                            報名及繳費狀態
                         </Button>
                     </Box>
                     :

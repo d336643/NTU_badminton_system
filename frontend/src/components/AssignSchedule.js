@@ -89,12 +89,13 @@ const AssignSchedule = ({ dataId }) => {
             <InfoDialog route={'./showallschedule'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
             <List
                 sx={{
-                    marginTop: '3%',
+                    marginTop: '20px',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}
             >
+                <h3 style={{ marginBottom: '20px' }}>排定賽程</h3>
                 {/* <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
                     <ListItemText sx={{ gridColumn: '1/8' }} primary="賽程日期" />
                     <TextField

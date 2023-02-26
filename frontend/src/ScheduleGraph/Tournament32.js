@@ -7,7 +7,7 @@ const Tournament32 = () => {
     return (
         <>
             <h1>32強圖表</h1>
-            <main id="tournament">
+            <main class="tournament">
                 <ul class="round round-1">
                     <li class="spacer">&nbsp;</li>
                     

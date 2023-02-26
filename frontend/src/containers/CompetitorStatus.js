@@ -26,7 +26,7 @@ const createData = (eventId, account) => {
 }
 const text = ['一', '二']
 
-const Reset = () => {
+const CompetitorStatus = () => {
     const navigate = useNavigate();
     const uid = localStorage.getItem('uid');
     const token = localStorage.getItem('token');
@@ -48,7 +48,7 @@ const Reset = () => {
     const eventStatus = ["未繳費(已報名)", "審核中", "審核通過，已繳費"]
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
 
-    const findDepart = (departmentId,) => {
+    const findDepart = (departmentId) => {
         let target = '';
         department.map((d) => {
             if (d.indexOf(departmentId) === 0) {
@@ -58,6 +58,7 @@ const Reset = () => {
         })
         return target;
     }
+    
     const getInfo = async () => {
         const config = {
             headers: {
@@ -208,7 +209,7 @@ const Reset = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <h3 style={{ marginBottom: '20px' }}>報名 / 繳費狀態</h3>
+                    <h3 style={{ marginBottom: '20px' }}>報名及繳費狀態</h3>
                     <Alert severity="info" style={{ marginBottom: '20px' }}>
                         銀行代碼：700 &nbsp; 匯款帳戶：00515010011874 &nbsp; 戶名：謝宗翰
                     </Alert>
@@ -342,4 +343,4 @@ const Reset = () => {
     );
 }
 
-export default Reset;
+export default CompetitorStatus;

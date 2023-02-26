@@ -80,31 +80,43 @@ const Manager = ({setView, handleLogOut, identity}) => {
                             </Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button component={Link} to="/competitionrule"
+                            <Button 
+                                onClick={() => navigate('/competitionrule')}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
                                 競賽章程
                             </Button>
                         </Grid>
-                        {/* <Grid item xs={12}>
+                        <Grid item xs={12}>
                             <Button component={Link} to="/register"
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
-                                報名賽事
-                            </Button>
-                        </Grid> */}
-                        <Grid item xs={12}>
-                            <Button component={Link} to="/competitorstatus"
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                報名 / 繳費狀態
+                                報名 / 編輯賽事
                             </Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button component={Link} to={`/editprofile/${token}`}
+                            <Button 
+                                onClick={() => navigate('/competitorstatus')}
+                                variant="outlined"
+                                size='large'
+                                fullWidth>
+                                報名及繳費狀態
+                            </Button>
+                        </Grid>
+                        {/* <Grid item xs={12}>
+                            <Button 
+                                onClick={() => navigate(`/editregister/${token}`)}
+                                variant="outlined"
+                                size='large'
+                                fullWidth>
+                                編輯 / 查詢個人賽事
+                            </Button>
+                        </Grid> */}
+                        <Grid item xs={12}>
+                            <Button 
+                                onClick={() => navigate(`/editprofile/${token}`)}
                                 variant="outlined"
                                 size='large'
                                 fullWidth>

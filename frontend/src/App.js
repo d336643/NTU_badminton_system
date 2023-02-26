@@ -9,7 +9,7 @@ import Signup from "./components/Signup";
 import EditProfile from "./components/EditProfile";
 import ErrorPage from "./components/ErrorPage";
 import CompetitionRule from './containers/CompetitionRule';
-import Register from "./components/Register";
+import EditRegisterTab from "./components/EditRegisterTab";
 import ApplicantSummary from "./containers/ApplicantSummary";
 import ShowAllSchedule from "./containers/ShowAllSchedule";
 import CompetitorStatus from "./containers/CompetitorStatus";
@@ -26,6 +26,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './style/theme';
+import Tournament from "./ScheduleGraph/Tournament";
 
 const App = () => {
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
@@ -34,7 +35,7 @@ const App = () => {
     const [showNav, setShowNav] = useState(true);
     //browser bar title
     useEffect(() => {
-    document.title = "2022台大羽球新生盃"
+    document.title = "2023台大盃羽球賽"
     }, [])
     return (
         <Router>
@@ -48,20 +49,22 @@ const App = () => {
                     <Route path="/updatepass" element={<Updatepass />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/competitionrule" element={<CompetitionRule isLogin={isLogin}/>} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/register" element={<EditRegisterTab />} />
                     <Route path="/editprofile/:id" element={<EditProfile/>} />
+                    {/* <Route path="/editregister/:id" element={<EditRegister/>} /> */}
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
                     {/* <Route path="/applicantsummary" element={<ApplicantSummary />} /> */}
                     <Route path="/showallapplicant" element={<ShowAllApplicant />} />
                     <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
-                    {/* <Route path="/assignallschedule" element={<AssignAllSchedule />} /> */}
-                    {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
+                    <Route path="/assignallschedule" element={<AssignAllSchedule />} />
+                    <Route path="/editallschedule" element={<EditAllSchedule />} />
                     <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />
                     <Route path="/showalltournament" element={<ShowAllTournament identity={identity}/>} />
                     <Route path="/scheduletime" element={<ScheduleTime />} />
                     <Route path="/outputgametable" element={<OutputAllGame />} />
                     <Route path="/outputhome" element={<OutputHome/>} />
                     <Route path="/refereesys" element={<RefereeSys />} />
+                    <Route path="/tournament" element={<Tournament />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
                 {/* <Footer /> */}

@@ -8,15 +8,14 @@ import Tournament32 from '../ScheduleGraph/Tournament32';
 import Tournament64 from '../ScheduleGraph/Tournament64';
 import instance from '../instance';
 
-const ShowAllApplicant = ({identity}) => {
+const ShowAllTournament = ({identity}) => {
     return (
-        // <>暫不開放</>
         <Container component="main" minWidth="xs" maxWidth="xl" sx={{ alignItems: 'center' }}>
-            <Tournament64 />
-            <Tournament8 />
+            {/* <Tournament64 /> */}
+            <Tournament16 />
         </Container>
         
     );
 }
 
-export default ShowAllApplicant;
+export default ShowAllTournament;

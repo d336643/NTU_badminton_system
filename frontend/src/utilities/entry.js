@@ -34,6 +34,11 @@ export const EVENTENTRY = ['男單', '女單', '男雙', '女雙', '混雙']
 
 export const NUMBER = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+export const TITLE = {
+    'silver': '亞', 
+	'golden': '冠',
+}
+
 export const DEPARTMENT = {
     '527A': '材工',
     '1000': '文學院',
