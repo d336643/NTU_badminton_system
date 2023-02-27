@@ -27,7 +27,7 @@ import com.example.badminton.model.entity.Role;
 import com.example.badminton.model.entity.User;
 import com.example.badminton.model.request.BankAccountRegistration;
 import com.example.badminton.model.request.UserUpdateRequest;
-import com.example.badminton.model.response.EventRegistrationResponse;
+import com.example.badminton.model.response.EventRegistrationsResponse;
 import com.example.badminton.model.response.MessageResponse;
 import com.example.badminton.model.response.SuccessDataResponse;
 import com.example.badminton.repository.RegistrationRepository;
@@ -148,7 +148,7 @@ public class UserController {
             registrationRepository.save(r);
         }
 
-        return ResponseEntity.ok(new EventRegistrationResponse(true,
+        return ResponseEntity.ok(new EventRegistrationsResponse(true,
                                                                registrationsConvertToEventRegistrationData(
                                                                        registrations)));
     }
@@ -179,6 +179,8 @@ public class UserController {
                                           .status(r.getStatus())
                                           .payer(r.getPayerUid())
                                           .account(r.getPayAccount())
+                                          .semester(r.getSemester())
+                                          .registrationId(r.getRegistrationId())
                                           .build());
         }
         return data;

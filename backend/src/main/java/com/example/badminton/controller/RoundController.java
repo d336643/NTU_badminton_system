@@ -8,13 +8,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +26,6 @@ import com.example.badminton.model.UserSimpleData2;
 import com.example.badminton.model.entity.Registration;
 import com.example.badminton.model.entity.Round;
 import com.example.badminton.model.entity.User;
-import com.example.badminton.model.request.EventsRegistrationRequest;
 import com.example.badminton.model.request.InputRoundScore;
 import com.example.badminton.model.response.MessageResponse;
 import com.example.badminton.model.response.SuccessDataResponse;

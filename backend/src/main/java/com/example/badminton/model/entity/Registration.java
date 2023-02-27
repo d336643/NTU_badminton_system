@@ -58,4 +58,11 @@ public class Registration {
     @Column(name = "pay_account")
     String payAccount;
 
+    @Column(length = 10)
+    @NotNull
+    private String semester;
+
+    @Column(name = "registration_id")
+    @NotNull
+    private Integer registrationId;
 }

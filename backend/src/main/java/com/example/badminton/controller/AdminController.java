@@ -1,7 +1,6 @@
 package com.example.badminton.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.badminton.model.EventRegistrationData;
 import com.example.badminton.model.RoleEnum;
-import com.example.badminton.model.UserBasicData;
 import com.example.badminton.model.UserSimpleData;
 import com.example.badminton.model.entity.Event;
 import com.example.badminton.model.entity.Registration;
 import com.example.badminton.model.entity.Role;
 import com.example.badminton.model.entity.User;
 import com.example.badminton.model.request.PayStatusToPaidRequest;
-import com.example.badminton.model.response.EventRegistrationResponse;
+import com.example.badminton.model.response.EventRegistrationsResponse;
 import com.example.badminton.model.response.MessageResponse;
-import com.example.badminton.model.response.SuccessDataResponse;
 import com.example.badminton.repository.EventRepository;
 import com.example.badminton.repository.RegistrationRepository;
 import com.example.badminton.repository.UserRepository;
@@ -57,7 +53,7 @@ public class AdminController {
         Optional<Event> opt = eventRepository.findById(typeId);
         if (opt.isPresent()){
             Event e = opt.get();
-            return ResponseEntity.ok(new EventRegistrationResponse(true,
+            return ResponseEntity.ok(new EventRegistrationsResponse(true,
                                                                    registrationsConvertToEventRegistrationData(
                                                                            e.getRegistrations())));
         } else {
@@ -146,7 +142,7 @@ public class AdminController {
         }
 
         // return updated registration
-        return ResponseEntity.ok(new EventRegistrationResponse(true,
+        return ResponseEntity.ok(new EventRegistrationsResponse(true,
                                                                registrationsConvertToEventRegistrationData(
                                                                        Stream.concat(registrationsToPay.stream(), registrationsToUnpay.stream())
                                                                              .collect(Collectors.toList()))));

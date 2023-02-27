@@ -13,11 +13,15 @@ public class EventRegistrationData {
 
     private Long typeId;
 
-    private List<UserSimpleData> competitors;
-
     private Integer status;
 
     private Long payer;
 
     private String account;
+
+    private String semester;
+
+    private Integer registrationId;
+
+    private List<UserSimpleData> competitors;
 }

@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import com.example.badminton.exception.UserNotFoundException;
-import com.example.badminton.model.EventData;
+import com.example.badminton.model.EventCreateData;
 import com.example.badminton.model.RoleEnum;
 import com.example.badminton.model.entity.Role;
 import com.example.badminton.model.entity.User;
@@ -16,14 +16,14 @@ import com.example.badminton.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class CompetitorNumValidator implements ConstraintValidator<CompetitorNumConstraint, List<EventData>> {
+public class CompetitorNumValidator implements ConstraintValidator<CompetitorNumConstraint, List<EventCreateData>> {
 
     private final UserRepository userRepository;
 
     @Override
-    public boolean isValid(List<EventData> values, ConstraintValidatorContext context) throws UserNotFoundException{
+    public boolean isValid(List<EventCreateData> values, ConstraintValidatorContext context) throws UserNotFoundException{
         //過往已經報超過兩項
-        for (EventData e : values) {
+        for (EventCreateData e : values) {
             for (Long uid : e.getCompetitors()) {
                 Optional<User> opt = userRepository.findById(uid);
                 //check uid exist
