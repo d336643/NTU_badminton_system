@@ -32,11 +32,11 @@ let counter = 0;
 const createData = (registrationId, eventId, uid, name, sid, account, status) => {
     counter += 1;
     return { id: counter, registrationId: registrationId, eventId: eventId, uid: uid, name: name, 
-            sid: sid, account: account, status: status, checked: status === 3 ? true : false };
+            sid: sid, account: account === "NULL" ? "" : account, status: status, checked: status === 3 ? true : false };
 }
 
 const columns = [
-    // { id: 'registrationId', label: '序號', minWidth: 70},
+    { id: 'registrationId', label: '序號', minWidth: 70},
     { id: 'name', label: '姓名', minWidth: 110 },
     { id: 'sid', label: '學號', minWidth: 110 },
     { id: 'account', label: '匯款後五碼', minWidth: 120 },
@@ -67,9 +67,9 @@ const FormTable = ({dataId}) => {
         setSearched(searchedVal);
         const filteredRows = rows.filter((row) => {
             let competitorName = row.name.toLowerCase();
-            // let competitorOrder = row.registrationId;
+            let competitorOrder = Number(row.registrationId);
             let search = searchedVal.toLowerCase();
-            if (competitorName.includes(search, 0) || competitorName.match(search) !== null)
+            if (competitorName.includes(search) || competitorOrder === Number(search))
                 return row;
         });
         setShowrows(filteredRows);
@@ -99,7 +99,7 @@ const FormTable = ({dataId}) => {
             }
         }
         try {
-            let res = await instance.get(`admin/users?typeId=${dataId+1}`, config); //&semester='112-2'
+            let res = await instance.get(`admin/users?typeId=${dataId+1}&semester='112-2'`, config); //&semester='112-2'
             if(res.status === 200) {
                 const newState = res.data.events.map((obj) => {
                         if (obj.competitors.length === 1) {
@@ -218,7 +218,7 @@ const FormTable = ({dataId}) => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                placeholder="搜尋參賽者學姓名或序號"
+                                placeholder="搜尋參賽者學姓名"
                             />
                         </FormControl>
                     <Paper sx={{ width: '100%', overflow: 'hidden'}}>

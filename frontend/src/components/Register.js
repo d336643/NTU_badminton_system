@@ -472,7 +472,7 @@ const LoginForm = () => {
                                     >
                                         <Grid item>
                                             <Button 
-                                                variant="contained"
+                                                variant="outlined"
                                                 onClick={() => {handleDelete(1)}}
                                             >
                                                 刪除此項目
@@ -484,6 +484,14 @@ const LoginForm = () => {
                                                 onClick={() => {handleEdit(1)}}
                                             >
                                                 確認編輯項目
+                                            </Button>
+                                        </Grid>
+                                        <Grid item>
+                                            <Button 
+                                                variant="outlined"
+                                                onClick={() => {setEditmode1(false)}}
+                                            >
+                                                返回上一頁
                                             </Button>
                                         </Grid>
                                     </Grid>
@@ -662,6 +670,14 @@ const LoginForm = () => {
                                                 確認編輯項目
                                             </Button>
                                         </Grid>
+                                        <Grid item>
+                                            <Button 
+                                                variant="outlined"
+                                                onClick={() => {setEditmode1(false)}}
+                                            >
+                                                返回上一頁
+                                            </Button>
+                                        </Grid>
                                     </Grid>
                                     :
                                     editmode2 ?
@@ -687,6 +703,14 @@ const LoginForm = () => {
                                                 確認編輯項目
                                             </Button>
                                         </Grid>
+                                        <Grid item>
+                                            <Button 
+                                                variant="outlined"
+                                                onClick={() => {setEditmode2(false)}}
+                                            >
+                                                返回上一頁
+                                            </Button>
+                                        </Grid>
                                     </Grid>
                                     :
                                     <Grid
@@ -697,7 +721,7 @@ const LoginForm = () => {
                                     >
                                         <Grid item>
                                             <Button 
-                                                variant="outlined"
+                                                variant="contained"
                                                 onClick={() => {setEditmode1(true)}}
                                             >
                                                 編輯報名項目一
@@ -705,7 +729,7 @@ const LoginForm = () => {
                                         </Grid>
                                         <Grid item>
                                             <Button 
-                                                variant="outlined"
+                                                variant="contained"
                                                 onClick={() => {setEditmode2(true)}}
                                             >
                                                 編輯報名項目二
@@ -718,7 +742,7 @@ const LoginForm = () => {
                                 <>
                                     <Divider color='secondary' style={{marginTop: '2%', marginBottom: '2%', width:'100%'}}><Chip color='secondary' variant='outlined' label={'項目一'} /></Divider>
                                     <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                                        <ListItemText sx={{ gridColumn: '1/3' }} id="entry-1" primary="項目一" />
+                                        <ListItemText sx={{ gridColumn: '1/3' }} id="entry-1" primary="報名項目" />
                                         <Autocomplete 
                                             size="small"
                                             sx={{ gridColumn: '4/8' }}
@@ -764,7 +788,7 @@ const LoginForm = () => {
                                     }
                                     <Divider color='secondary' style={{marginTop: '2%', marginBottom: '2%', width:'100%'}}><Chip color='secondary' variant='outlined' label={'項目二'} /></Divider>
                                     <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                                        <ListItemText sx={{ gridColumn: '1/3' }} id="entry-2" primary="項目二" />
+                                        <ListItemText sx={{ gridColumn: '1/3' }} id="entry-2" primary="報名項目" />
                                         <Autocomplete 
                                             size="small"
                                             sx={{ gridColumn: '4/8' }}

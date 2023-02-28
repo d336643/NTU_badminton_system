@@ -108,15 +108,6 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                 報名及繳費狀態
                             </Button>
                         </Grid>
-                        {/* <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate(`/editregister/${token}`)}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                編輯 / 查詢個人賽事
-                            </Button>
-                        </Grid> */}
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate(`/editprofile/${token}`)}
