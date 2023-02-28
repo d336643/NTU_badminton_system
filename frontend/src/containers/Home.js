@@ -20,6 +20,7 @@ const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) =
         async function identityCheck(isLogin) {
             if (!isLogin) {
                 let login = await checkIdentity();
+                console.log("login", login);
                 setView(login);
                 setIdentity(login);
                 if ( login === "guest") setIsLogin(false);

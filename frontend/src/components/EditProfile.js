@@ -119,7 +119,7 @@ const EditForm = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="sm" alignItems='center' minHeight='100vh'>
+            <Container component="main" maxWidth="sm" alignitems='center' minheight='100vh'>
                 <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
                     sx={{
@@ -329,12 +329,12 @@ const EditForm = () => {
                                 onChange={handleChange('address')}
                             />
                     </ListItem>
-                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                    {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="status-item" primary="帳號狀態" />
                         <p style={{ gridColumn: '4/8' }}>
                         {STATUS[values.status-1]}
                         </p>
-                    </ListItem>
+                    </ListItem> */}
                     <Button
                         // type="submit"
                         fullWidth

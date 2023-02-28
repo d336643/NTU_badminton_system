@@ -7,7 +7,7 @@ export const DrawerWidth = 250;
 export const Colors = {
   primary: "#00838f",
 //   "#5f2c3e",
-  secondary: "#b39ddb",
+  secondary: "#A550AF",
 //   "#d1adcc",
   success: "#51d657",
   info: "#00a2ff",

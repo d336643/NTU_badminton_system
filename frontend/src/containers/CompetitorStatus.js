@@ -246,11 +246,11 @@ const CompetitorStatus = () => {
                                 <>
                                     <Divider color='secondary' style={{marginTop: '2%', marginBottom: '2%', width:'100%'}}><Chip color='secondary' variant='outlined' label={`項目${text[i]}`} /></Divider>
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                                        <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名項目" />
+                                        <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名項目及序號" />
                                         <TextField
                                             sx={{ gridColumn: '4/8' }}
                                             size="small"
-                                            value={eventEntry[event.typeId-1]}
+                                            value={eventEntry[event.typeId-1] + event.registrationId}
                                             readOnly={true}
                                         />
                                     </ListItem>

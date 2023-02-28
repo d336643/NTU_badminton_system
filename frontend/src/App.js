@@ -9,7 +9,7 @@ import Signup from "./components/Signup";
 import EditProfile from "./components/EditProfile";
 import ErrorPage from "./components/ErrorPage";
 import CompetitionRule from './containers/CompetitionRule';
-import EditRegisterTab from "./components/RegisterTab";
+import Register from "./components/Register";
 import ApplicantSummary from "./containers/ApplicantSummary";
 import ShowAllSchedule from "./containers/ShowAllSchedule";
 import CompetitorStatus from "./containers/CompetitorStatus";
@@ -49,7 +49,7 @@ const App = () => {
                     <Route path="/updatepass" element={<Updatepass />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/competitionrule" element={<CompetitionRule isLogin={isLogin}/>} />
-                    <Route path="/register" element={<EditRegisterTab />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="/editprofile/:id" element={<EditProfile/>} />
                     {/* <Route path="/editregister/:id" element={<EditRegister/>} /> */}
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
