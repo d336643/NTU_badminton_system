@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -13,6 +14,7 @@ import Chip from '@mui/material/Chip';
 import Alert from '@mui/material/Alert';
 import InfoDialog from "./InfoDialog";
 import instance from "../instance";
+import baseURL from "../urlUtility";
 import { EVENTTYPEENTRY } from "../utilities/entry";
 import { useNavigate } from "react-router-dom";
 
@@ -227,25 +229,23 @@ const LoginForm = () => {
             applier: applier,
             eventId: eid
         }
-        const config = {
+        await axios({
+            url:baseURL+`/events`,
+            method:'delete',
+            data : form,
             headers:{
                 'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json'}
+        }).then ((response) => {
+            if (response.data.success === true){
+                setAlertmessage("刪除項目完成");
+                setSuccess(true);
+                setOpen(true);
             }
-        }
-        try {
-            const res = await instance.delete('/events', form, config);
-                if (res.status === 200){
-                    setAlertmessage("刪除項目完成");
-                    setSuccess(true);
-                    setOpen(true);
-
-                }
-        } catch (error) {
-            // console.log((error));
+        }).catch((error) => {
             setAlertmessage(String(error).replace('Error: ', ''));
             setOpen(true);
-        }
+        });
     }
 
     const editEvent = async(events) => {
