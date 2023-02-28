@@ -218,7 +218,7 @@ const FormTable = ({dataId}) => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                placeholder="搜尋參賽者學姓名"
+                                placeholder="搜尋參賽者學姓名或序號"
                             />
                         </FormControl>
                     <Paper sx={{ width: '100%', overflow: 'hidden'}}>
