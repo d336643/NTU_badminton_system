@@ -29,13 +29,14 @@ import { EVENTENTRY } from '../utilities/entry'
 import { useNavigate, useLocation } from 'react-router-dom';
 
 let counter = 0;
-const createData = (eventId, uid, name, sid, account, status) => {
+const createData = (registrationId, eventId, uid, name, sid, account, status) => {
     counter += 1;
-    return { id: counter, eventId: eventId, uid: uid, name: name, 
+    return { id: counter, registrationId: registrationId, eventId: eventId, uid: uid, name: name, 
             sid: sid, account: account, status: status, checked: status === 3 ? true : false };
 }
 
 const columns = [
+    // { id: 'registrationId', label: '序號', minWidth: 70},
     { id: 'name', label: '姓名', minWidth: 110 },
     { id: 'sid', label: '學號', minWidth: 110 },
     { id: 'account', label: '匯款後五碼', minWidth: 120 },
@@ -65,9 +66,10 @@ const FormTable = ({dataId}) => {
     const requestSearch = (searchedVal) => {
         setSearched(searchedVal);
         const filteredRows = rows.filter((row) => {
-            let competitorName = row.name;
+            let competitorName = row.name.toLowerCase();
+            // let competitorOrder = row.registrationId;
             let search = searchedVal.toLowerCase();
-            if (competitorName.includes(search))
+            if (competitorName.includes(search, 0) || competitorName.match(search) !== null)
                 return row;
         });
         setShowrows(filteredRows);
@@ -97,17 +99,17 @@ const FormTable = ({dataId}) => {
             }
         }
         try {
-            let res = await instance.get(`admin/users?typeId=${dataId+1}`, config);
+            let res = await instance.get(`admin/users?typeId=${dataId+1}`, config); //&semester='112-2'
             if(res.status === 200) {
                 const newState = res.data.events.map((obj) => {
                         if (obj.competitors.length === 1) {
                             let comInfo = obj.competitors[0];
-                            return createData(obj.eventId, comInfo.uid, comInfo.username, comInfo.sid, obj.account, obj.status);
+                            return createData(obj.registrationId, obj.eventId, comInfo.uid, comInfo.username, comInfo.sid, obj.account, obj.status);
                         }
                         else {
                             let comInfo1 = obj.competitors[0];
                             let comInfo2 = obj.competitors[1];
-                            return createData(obj.eventId, `${comInfo1.uid},\n`+comInfo2.uid, `${comInfo1.username},\n`+comInfo2.username, `${comInfo1.sid},\n`+comInfo2.sid, obj.account, obj.status);
+                            return createData(obj.registrationId, obj.eventId, `${comInfo1.uid},\n${comInfo2.uid}`, `${comInfo1.username},\n${comInfo2.username}`, `${comInfo1.sid},\n${comInfo2.sid}`, obj.account, obj.status);
                         }
                 });
                 setRows(rows.concat(newState));
@@ -195,23 +197,13 @@ const FormTable = ({dataId}) => {
     return (
         <>
             <CssBaseline />
-                {/* <Box
-                    sx={{
-                        // marginTop: '5%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                > */}
                     {showmessage && (
                         <Alert sx={{position: "absolute", top: 0, left: { xs: '22%', md: '40%' }, right: { xs: '22%', md: '40%' }, zIndex: 999 }}
                                 severity={severity}>
                             {alertmessage}
                         </Alert>
                     )}
-                    {/* <h3><b>{EVENTENTRY[dataId]}</b>{"報名、繳費狀態"}</h3> */}
                     <FormControl fullWidth sx={{mt: '20px'}}>
-                            {/* <InputLabel>搜尋參賽者姓名</InputLabel> */}
                             <OutlinedInput
                                 id="outlined-adornment-amount"
                                 value={searched}
@@ -226,7 +218,7 @@ const FormTable = ({dataId}) => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                placeholder="搜尋參賽者學姓名"
+                                placeholder="搜尋參賽者學姓名或序號"
                             />
                         </FormControl>
                     <Paper sx={{ width: '100%', overflow: 'hidden'}}>
