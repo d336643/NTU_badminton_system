@@ -65,7 +65,6 @@ public class AdminController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updatePaymentStauts(@Valid @RequestBody PayStatusToPaidRequest req) {
 
-        //check verifier is admin
         Optional<User> opt = userRepository.findById(req.getVerifier());
         User user = opt.get();
         Boolean isAdmin = false;
@@ -173,6 +172,8 @@ public class AdminController {
                                           .status(r.getStatus())
                                           .payer(r.getPayerUid())
                                           .account(r.getPayAccount())
+                                          .semester(r.getSemester())
+                                          .registrationId(r.getRegistrationId())
                                           .build());
         }
         return data;
