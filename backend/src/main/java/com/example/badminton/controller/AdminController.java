@@ -48,7 +48,7 @@ public class AdminController {
     private final RegistrationRepository registrationRepository;
 
     @GetMapping("/users")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getAllRegistrationData(@RequestParam Long typeId) {
         Optional<Event> opt = eventRepository.findById(typeId);
         if (opt.isPresent()){
