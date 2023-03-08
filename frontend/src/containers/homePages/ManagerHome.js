@@ -110,6 +110,15 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Button 
+                                onClick={() => navigate('/allapplicant')}
+                                variant="outlined"
+                                size='large'
+                                fullWidth>
+                                查看各項目報名選手
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button 
                                 onClick={() => navigate(`/editprofile/${token}`)}
                                 variant="outlined"
                                 size='large'

@@ -13,14 +13,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import instance from '../instance';
@@ -40,7 +36,7 @@ const columns = [
     { id: 'name', label: '姓名', minWidth: 110 },
     { id: 'sid', label: '學號', minWidth: 110 },
     { id: 'account', label: '匯款後五碼', minWidth: 120 },
-    { id: 'status', label: '繳費狀態', minWidth: 90 },
+    { id: 'status', label: '繳費狀態', minWidth: 70 },
 ];
 
 const FormTable = ({dataId}) => {
@@ -218,7 +214,7 @@ const FormTable = ({dataId}) => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                placeholder="搜尋參賽者學姓名或序號"
+                                placeholder="搜尋參賽者姓名或序號"
                             />
                         </FormControl>
                     <Paper sx={{ width: '100%', overflow: 'hidden'}}>

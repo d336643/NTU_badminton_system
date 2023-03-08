@@ -62,7 +62,7 @@ const Competitor = ({setView, handleLogOut}) => {
                             fullWidth>
                             報名 / 編輯賽事
                         </Button>
-                    </Grid> 
+                    </Grid>
                     <Grid item xs={12}>
                         <Button 
                             onClick={() => navigate('/competitorstatus')}
@@ -72,6 +72,15 @@ const Competitor = ({setView, handleLogOut}) => {
                             報名及繳費狀態
                         </Button>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Button 
+                            onClick={() => navigate('/allapplicant')}
+                            variant="outlined"
+                            size='large'
+                            fullWidth>
+                            查看各項目報名選手
+                        </Button>
+                    </Grid> 
                     {/* <Grid item xs={12}>
                         <Button 
                             onClick={() => navigate(`/editregister/${token}`)}

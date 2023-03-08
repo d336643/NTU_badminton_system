@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab, Typography, Box, Alert, Stack, Switch, Button, Link } from '@mui/material';
+import ShowOtherApplicant from './ShowOtherApplicant';
 import ShowApplicant from './ShowApplicant';
 import ShowSchedule from './ShowSchedule';
 import AssignSchedule from './AssignSchedule';
@@ -69,7 +70,7 @@ export default function BasicTabs({manageType, department, identity}) {
         >
             <Stack direction="row" spacing={1} alignItems="center">
               <h3 class = "no-printme" style={{marginRight: '5px'}}>
-                {TYPE[Number(manageType)]}－{EVENTENTRY[Number(value)]}
+                {TYPE[Number(manageType > 0 ? manageType : 0)]}－{EVENTENTRY[Number(value)]}
               </h3>
               {/* <p>循環賽</p>
               <Switch
@@ -101,18 +102,21 @@ export default function BasicTabs({manageType, department, identity}) {
             }
             {Array.from(Array(5)).map((_, index) => (
                 <TabPanel value={value} index={index} style={{ marginTop: '-30px' }}>
-                    { manageType === 0 ?
-                        <ShowApplicant dataId={Number(index)} />
-                        : 
-                        manageType === 1 ? 
-                            <AssignSchedule dataId={Number(index)} />
-                            :
-                            manageType === 2 ? 
-                                <EditSchedule dataId={Number(index)}/>
-                                :
-                                manageType === 3 ? 
-                                    <ShowSchedule dataId={Number(index)} department={department} scheduleType={scheduleType} identity={identity}/>
-                                    : <OutputGameTable dataId={Number(index)} />
+                    { manageType > 0 ?
+                        manageType === 0 ?
+                          <ShowApplicant dataId={Number(index)} />
+                          :
+                            manageType === 1 ? 
+                              <AssignSchedule dataId={Number(index)} />
+                              :
+                              manageType === 2 ? 
+                                  <EditSchedule dataId={Number(index)}/>
+                                  :
+                                  manageType === 3 ? 
+                                      <ShowSchedule dataId={Number(index)} department={department} scheduleType={scheduleType} identity={identity}/>
+                                      : <OutputGameTable dataId={Number(index)} />
+                        :
+                        <ShowOtherApplicant dataId={Number(index)} />
                     }
                 </TabPanel>
             ))}

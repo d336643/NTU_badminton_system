@@ -10,10 +10,10 @@ import EditProfile from "./components/EditProfile";
 import ErrorPage from "./components/ErrorPage";
 import CompetitionRule from './containers/CompetitionRule';
 import Register from "./components/Register";
-import ApplicantSummary from "./containers/ApplicantSummary";
 import ShowAllSchedule from "./containers/ShowAllSchedule";
 import CompetitorStatus from "./containers/CompetitorStatus";
 import ShowAllApplicant from "./containers/ShowAllApplicant";
+import ShowAllOtherApplicant from "./containers/ShowAllOtherApplicant";
 import ShowAllTournament from "./containers/ShowAllTournament";
 import ScheduleHome from "./containers/homePages/ScheduleHome";
 import AssignAllSchedule from "./containers/AssignAllSchedule";
@@ -53,7 +53,7 @@ const App = () => {
                     <Route path="/editprofile/:id" element={<EditProfile/>} />
                     {/* <Route path="/editregister/:id" element={<EditRegister/>} /> */}
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
-                    {/* <Route path="/applicantsummary" element={<ApplicantSummary />} /> */}
+                    <Route path="/allapplicant" element={<ShowAllOtherApplicant />} />
                     <Route path="/showallapplicant" element={<ShowAllApplicant />} />
                     <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
                     <Route path="/assignallschedule" element={<AssignAllSchedule />} />

@@ -186,6 +186,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
                                     <Typography textAlign="center">報名及繳費狀態</Typography>
                                 </MenuItem>
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/allapplicant">
+                                    <Typography textAlign="center">查看各項目報名選手</Typography>
+                                </MenuItem>
                             </Menu>
                         </Box>
                     :
@@ -233,6 +236,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
                                 <Typography textAlign="center">報名及繳費狀態</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/allapplicant">
+                                <Typography textAlign="center">查看各項目報名選手</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>
@@ -424,6 +430,15 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             sx={{ mr: 1, color: 'white', display: 'block' }}
                         >
                             報名及繳費狀態
+                        </Button>
+                        <Button
+                            // key={page}
+                            component={Link}
+                            to='/allapplicant'
+                            onClick={handleCloseNavMenu}
+                            sx={{ mr: 1, color: 'white', display: 'block' }}
+                        >
+                            查看各項目報名選手
                         </Button>
                     </Box>
                     :
