@@ -204,7 +204,7 @@ public class EventController {
         }
 
         if (registration.get().getStatus() != 1) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new MessageResponse(false, "不可編輯已繳費的參賽項目"));
         }
 
@@ -312,7 +312,7 @@ public class EventController {
         }
 
         if (registration.get().getStatus() != 1) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new MessageResponse(false, "不可刪除已繳費的參賽項目"));
         }
 
