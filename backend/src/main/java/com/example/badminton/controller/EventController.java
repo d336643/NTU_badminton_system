@@ -203,6 +203,11 @@ public class EventController {
                     new MessageResponse(false, "EventId " + req.getEvent().getEventId() + " not exist."));
         }
 
+        if (registration.get().getStatus() != 1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new MessageResponse(false, "不可編輯已繳費的參賽項目"));
+        }
+
         // 不能修改成其他項目
         Boolean notModifySameEventType = req.getEvent().getTypeId() != registration.get().getEvent().getId().longValue();
         if (notModifySameEventType) {
@@ -304,6 +309,11 @@ public class EventController {
         if (!registration.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new MessageResponse(false, "EventId " + req.getEventId() + " not exist."));
+        }
+
+        if (registration.get().getStatus() != 1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new MessageResponse(false, "不可刪除已繳費的參賽項目"));
         }
 
         // Invalid to delete other's event
