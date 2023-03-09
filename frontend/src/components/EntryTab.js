@@ -102,7 +102,7 @@ export default function BasicTabs({manageType, department, identity}) {
             }
             {Array.from(Array(5)).map((_, index) => (
                 <TabPanel value={value} index={index} style={{ marginTop: '-30px' }}>
-                    { manageType > 0 ?
+                    { manageType >= 0 ?
                         manageType === 0 ?
                           <ShowApplicant dataId={Number(index)} />
                           :
