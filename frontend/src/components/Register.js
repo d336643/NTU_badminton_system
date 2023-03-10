@@ -243,7 +243,8 @@ const LoginForm = () => {
                 setOpen(true);
             }
         }).catch((error) => {
-            setAlertmessage(String(error).replace('Error: ', ''));
+            // console.log(error)
+            setAlertmessage(String(error.response.data.msg));
             setOpen(true);
         });
     }
@@ -305,7 +306,7 @@ const LoginForm = () => {
         //     <Container component="main" maxWidth="sm">
         //         <List
         //             sx={{
-        //                 marginTop: '20px',
+        //                 marginTop: '5%',
         //                 display: 'flex',
         //                 flexDirection: 'column',
         //                 alignItems: 'center',
@@ -344,7 +345,7 @@ const LoginForm = () => {
                             團賽報名表單
                         </a>
                         </p>
-                        {/* <p><b>報名後不能修改，請確認後再報名</b></p> */}
+                        <p><b>僅能修改未繳費之報名項目</b></p>
                     </Alert>
                     {
                         gotinfo === true ?
@@ -850,37 +851,6 @@ const LoginForm = () => {
                                 </>
                             :<></>
                     }
-                    {/* <Grid
-                        container
-                        justifyContent="center"
-                        spacing={2}
-                        sx={{mt: '2%'}}
-                    >
-                        {gotinfo === true ?
-                            editmode == true ?
-                                events.length > 0 ?
-                                    <Grid item>
-                                        <Button 
-                                            variant="contained"
-                                            onClick={handleSubmit}
-                                        >
-                                            確認編輯賽事
-                                        </Button>
-                                    </Grid>
-                                    : 
-                                    <></>
-                                : 
-                                <Grid item>
-                                    <Button 
-                                        variant="contained"
-                                        onClick={handleSubmit}
-                                    >
-                                        確認報名
-                                    </Button>
-                                </Grid> 
-                            : <></>
-                        }
-                    </Grid> */}
                 </List>
             </Container>
         </>
