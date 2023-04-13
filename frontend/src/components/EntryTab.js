@@ -97,7 +97,8 @@ export default function BasicTabs({manageType, department, identity}) {
             </div>
             {manageType === 2 ?
               <Alert severity="info" maxWidth="sm" size="small">
-                欲修改賽程請點擊的參賽者，使其跳至待修改區域
+                {/* 欲修改賽程請點擊的參賽者，使其跳至待修改區域 */}
+                欲修改賽程請選擇要移動的場次編號及目標場次編號
               </Alert> : <></>
             }
             {Array.from(Array(5)).map((_, index) => (

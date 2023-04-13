@@ -27,7 +27,7 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         justifyContent="center"
                         spacing={2}
                     >
-                        {/* <Grid item xs={12}>
+                        <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate("/schedulehome")}
                                 variant="outlined"
@@ -36,8 +36,7 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                 進入賽程系統
                             </Button>
                         </Grid>
-                        報名期間先不開放 */}
-                        {/* <Grid item xs={12}>
+                        <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate("/refereesys")}
                                 variant="outlined"
@@ -46,7 +45,6 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                 進入裁判系統
                             </Button>
                         </Grid>
-                        報名期間先不開放 */}
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate("/showallapplicant")}
@@ -72,7 +70,7 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         justifyContent="center"
                         spacing={2}
                     >
-                        {/* <Grid item xs={12}>
+                        <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate('/schedulehome')}
                                 variant="outlined"
@@ -81,7 +79,6 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                 賽程專區
                             </Button>
                         </Grid>
-                        報名期間先不開放 */}
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate('/competitionrule')}

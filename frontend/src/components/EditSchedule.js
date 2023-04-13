@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Box, Grid, Alert } from '@mui/material';
+import { Container, Box, Grid, Alert, ListItem, ListItemText,  Autocomplete, TextField, Button} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import { SingleSquare, DoubleSquare } from "../ScheduleGraph/Square" // {} if no export default
 import { SingleTriangle, DoubleTriangle } from '../ScheduleGraph/Triangle';
 import { EVENTENTRY, LETTERS } from '../utilities/entry';
 import { useNavigate } from "react-router-dom";
 import instance from '../instance';
+
+const allGame = [{typeIndex: 1}, {typeIndex: 2}, {typeIndex: 3}]
 
 const EditSchedule = ({dataId}) => {
     const token = localStorage.getItem("token")
@@ -13,6 +16,8 @@ const EditSchedule = ({dataId}) => {
     const [groupCnt, setGroupCnt] = useState(0);
     const [groupDetail, setGroupDetail] = useState([]);
     const [resData, setResData] = useState();
+    const [editNum, setEditNum] = useState(0);
+
     
     const getGroup = async () => {
         const config = {
@@ -58,10 +63,10 @@ const EditSchedule = ({dataId}) => {
 
     return (
         <>
-            {getInfo ? 
+            {/* {getInfo ?  */}
                 <Box
-                    style={{
-                        marginTop: '0px',
+                    sx={{
+                        mt: '0px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -69,8 +74,59 @@ const EditSchedule = ({dataId}) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Box sx={{position: 'sticky', marginTop: '10px'}}>
-                        <h>I am sticky! -- 待修改</h>
+                    <Box sx={{ position: 'sticky', mt: '10px', display: 'flex', flexDirection: 'column'}}>
+                        {/* <h>I am sticky! -- 選擇要移動的場次編號及目標場次編號</h> */}
+                        {
+                            Array.from(Array(editNum)).map((_, index) => (
+                                <>
+                                <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                                    <ListItemText sx={{ gridColumn: '1/3' }} id="source" primary="欲修改場次" />
+                                    <Autocomplete 
+                                        size="small"
+                                        sx={{ gridColumn: '4/8' }}
+                                        id="select-source"
+                                        options={allGame}
+                                        getOptionLabel={(option) => `${option.typeIndex}`}
+                                        isOptionEqualToValue={(option, value) => option.typeIndex === value.typeIndex}
+                                        defaultValue={'請選擇場次編號'}
+                                        onChange={(event, newValue, reason) => {
+                                            // setCompetitors1(reason === "clear" || reason === "removeOption" ? null : newValue.uid)
+                                        }}
+                                        renderInput={(params) => 
+                                            <TextField {...params} 
+                                            />
+                                        }
+                                    />
+                                </ListItem>
+                                <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                                    <ListItemText sx={{ gridColumn: '1/3' }} id="source" primary="目標場次" />
+                                    <Autocomplete 
+                                        size="small"
+                                        sx={{ gridColumn: '4/8' }}
+                                        id="select-source"
+                                        options={allGame}
+                                        getOptionLabel={(option) => `${option.typeIndex}`}
+                                        isOptionEqualToValue={(option, value) => option.typeIndex === value.typeIndex}
+                                        defaultValue={'請選擇場次編號'}
+                                        onChange={(event, newValue, reason) => {
+                                            // setCompetitors1(reason === "clear" || reason === "removeOption" ? null : newValue.uid)
+                                        }}
+                                        renderInput={(params) => 
+                                            <TextField {...params} 
+                                            />
+                                        }
+                                    />
+                                </ListItem>
+                                </>
+                            ))
+                        }
+                        <Button 
+                            variant="text"
+                            onClick={() => setEditNum(editNum+1)}
+                        >
+                            <AddIcon />
+                            新增編輯場次
+                        </Button>
                     </Box>
                     {dataId <= 1 ?
                         Array.from(Array(groupCnt)).map((_, index) => (
@@ -181,8 +237,8 @@ const EditSchedule = ({dataId}) => {
                         ))
                     }
                 </Box>
-                : <></>
-            }
+                {/* : <></>
+            } */}
         </>
     )
 }
