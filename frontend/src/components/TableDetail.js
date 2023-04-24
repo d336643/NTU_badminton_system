@@ -50,7 +50,8 @@ export const AdvTableDetial = () => {
                             <th style={tablestyle}>
                                 {GAME[i].type} &nbsp; 第 {GAME[i].typeIndex} 場次
                                 <br/>
-                                第 ＿ 場地 &nbsp; 時間 {GAME[i].startTime.slice(5,16)}
+                                第 ＿ 場地 &nbsp; 時間 
+                                {/* {GAME[i].startTime.slice(5,16)} */}
                             </th>
                             <th style={namestyle}></th>
                             <th style={namestyle}></th>
@@ -98,7 +99,8 @@ export const SingleTableDetial = ({dataId, detail}) => {
                             <th style={tablestyle}>
                                 {EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次
                                 <br/>
-                                第 ＿ 場地 &nbsp; 時間 {detail[i].startTime.slice(5,16)}
+                                第 ＿ 場地 &nbsp; 時間 
+                                {/* {detail[i].startTime.slice(5,16)} */}
                             </th>
                             <th style={tablestyle}>
                                 {getDepartmentLabel(detail[i].player1[0].departmentId)}
@@ -153,7 +155,8 @@ export const DoubleTableDetial = ({dataId, detail}) => {
                             <th style={tablestyle}>
                                 {EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次
                                 <br/>
-                                第 ＿ 場地 &nbsp; 時間 {detail[i].startTime.slice(5,16)}
+                                第 ＿ 場地 &nbsp; 時間 
+                                {/* {detail[i].startTime.slice(5,16)} */}
                             </th>
                             <th style={tablestyle}>
                                 {getDepartmentLabel(detail[i].player1[0].departmentId)}

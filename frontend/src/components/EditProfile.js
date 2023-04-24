@@ -33,7 +33,7 @@ const EditForm = () => {
     });
     const [open, setOpen] = useState(false);
     const [department, setDepartment] = useState([]);
-    const [nation, setNation] = useState(1);
+    // const [nation, setNation] = useState(1);
     const [success, setSuccess] = useState(false);
     const [alertmessage, setAlertmessage] = useState('Alert message');
     

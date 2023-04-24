@@ -57,7 +57,7 @@ const App = () => {
                     <Route path="/showallapplicant" element={<ShowAllApplicant />} />
                     <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
                     <Route path="/assignallschedule" element={<AssignAllSchedule />} />
-                    <Route path="/editallschedule" element={<EditAllSchedule />} />
+                    {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
                     <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />
                     <Route path="/showalltournament" element={<ShowAllTournament identity={identity}/>} />
                     <Route path="/scheduletime" element={<ScheduleTime />} />

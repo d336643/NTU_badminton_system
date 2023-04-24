@@ -200,23 +200,23 @@ const FormTable = ({dataId}) => {
                         </Alert>
                     )}
                     <FormControl fullWidth sx={{mt: '20px'}}>
-                            <OutlinedInput
-                                id="outlined-adornment-amount"
-                                value={searched}
-                                onChange={(v) => handleChange(v)}
-                                startAdornment={
-                                    <InputAdornment position="start"><SearchIcon /></InputAdornment>
-                                }
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton>
-                                            <ClearIcon onClick={cancelSearch}/>
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                placeholder="搜尋參賽者姓名或序號"
-                            />
-                        </FormControl>
+                        <OutlinedInput
+                            id="outlined-adornment-amount"
+                            value={searched}
+                            onChange={(v) => handleChange(v)}
+                            startAdornment={
+                                <InputAdornment position="start"><SearchIcon /></InputAdornment>
+                            }
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton>
+                                        <ClearIcon onClick={cancelSearch}/>
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            placeholder="搜尋參賽者姓名或序號"
+                        />
+                    </FormControl>
                     <Paper sx={{ width: '100%', overflow: 'hidden'}}>
                         <TableContainer sx={{ maxHeight: 550 }}>
                             <Table stickyHeader aria-label="sticky table">

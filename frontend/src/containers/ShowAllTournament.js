@@ -11,7 +11,7 @@ import instance from '../instance';
 const ShowAllTournament = ({identity}) => {
     return (
         <Container component="main" minWidth="xs" maxWidth="xl" sx={{ alignItems: 'center' }}>
-            {/* <Tournament64 /> */}
+            <Tournament64 />
             <Tournament16 />
         </Container>
         
