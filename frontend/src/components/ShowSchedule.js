@@ -125,12 +125,11 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             justifyContent: 'center',
                         }}
                     >
-                        {/* <div class="no-printme" style={{width: '85%'}}>
+                        <div class="no-printme" style={{width: '85%'}}>
                             <Tournament 
-                                eliRoundArr={eliRoundArr} 
-                                winnerInfo={winnerInfo}
+                                dataId={dataId}
                             />
-                        </div> */}
+                        </div>
                         {dataId <= 1 ?
                             Array.from(Array(groupCnt)).map((_, index) => (
                                 index % 2 === 0 ?
