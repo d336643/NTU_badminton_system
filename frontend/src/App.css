@@ -40,6 +40,16 @@
 
 @media print { 
     .no-printme  { display: none;}
-    .printme  { display: block;}
-    .printgraph { display: grid; }
+    .printMe  { 
+      display: block;
+      /* break-inside: avoid; */
+      size: portrait;
+      size: A4;
+    }
+    .printgraph { 
+      display: block;
+      break-inside: avoid;
+      size: portrait;
+      size: A4;
+    }
 }

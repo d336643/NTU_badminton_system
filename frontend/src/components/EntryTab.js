@@ -101,6 +101,13 @@ export default function BasicTabs({manageType, department, identity}) {
                 欲修改賽程請選擇要移動的場次編號及目標場次編號
               </Alert> : <></>
             }
+            {manageType === 3 ?
+              <div class="no-printme">
+                <Alert  severity="info" maxWidth="sm" size="small">
+                  全部四角都是四取二；男單、男雙三取一；女單、女雙、混雙三取二
+                </Alert>
+              </div> : <></>
+            }
             {Array.from(Array(5)).map((_, index) => (
                 <TabPanel value={value} index={index} style={{ marginTop: '-30px' }}>
                     { manageType >= 0 ?

@@ -43,15 +43,16 @@ export const AdvTableDetial = () => {
         <>
             {Array.from(Array(GAME.length)).map((_, i) => (
                     <table style={
-                        (i+1) % 3 === 0 ? {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px', pageBreakAfter: 'always' }
-                        : {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
+                        // (i+1) % 3 === 0 ? {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px', pageBreakAfter: 'always' }
+                        // : 
+                        {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
                     }>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>
                                 {GAME[i].type} &nbsp; 第 {GAME[i].typeIndex} 場次
                                 <br/>
                                 第 ＿ 場地 &nbsp; 時間 
-                                {/* {GAME[i].startTime.slice(5,16)} */}
+                                {GAME[i].startTime.slice(5,16)}
                             </th>
                             <th style={namestyle}></th>
                             <th style={namestyle}></th>
@@ -92,15 +93,16 @@ export const SingleTableDetial = ({dataId, detail}) => {
             {getLen ?
                 Array.from(Array(len)).map((_, i) => (
                     <table style={
-                        i === 2 || i === 5 ? {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px', pageBreakAfter: 'always' }
-                        : {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
+                        i === 2 || i === 5 ? {border: '1px solid black', width: '680px', pageBreakAfter: 'always' }
+                        // : {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
+                        :{border: '1px solid black', width: '680px', marginBottom: '100px', marginTop: '50px'}
                     }>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>
                                 {EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次
                                 <br/>
                                 第 ＿ 場地 &nbsp; 時間 
-                                {/* {detail[i].startTime.slice(5,16)} */}
+                                {detail[i].startTime.slice(5,16)}
                             </th>
                             <th style={tablestyle}>
                                 {getDepartmentLabel(detail[i].player1[0].departmentId)}
@@ -148,15 +150,16 @@ export const DoubleTableDetial = ({dataId, detail}) => {
             {getLen ?
                 Array.from(Array(len)).map((_, i) => (
                     <table style={
-                        i === 2 || i === 5 ? {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px', pageBreakAfter: 'always' }
-                        : {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
+                        i === 2 || i === 5 ? {border: '1px solid black', width: '680px', pageBreakAfter: 'always' }
+                        // : {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
+                        :{border: '1px solid black', width: '680px', marginBottom: '100px', marginTop: '50px'}
                     }>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>
                                 {EVENTENTRY[dataId]} &nbsp; 第 {detail[i].typeIndex} 場次
                                 <br/>
                                 第 ＿ 場地 &nbsp; 時間 
-                                {/* {detail[i].startTime.slice(5,16)} */}
+                                {detail[i].startTime.slice(5,16)}
                             </th>
                             <th style={tablestyle}>
                                 {getDepartmentLabel(detail[i].player1[0].departmentId)}

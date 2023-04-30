@@ -135,20 +135,18 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                                 index % 2 === 0 ?
                                 <div class='printgraph' 
                                     style={
-                                        (index+2) % 6 === 0 ?
+                                        // (index+2) % 6 === 0 ?
+                                        // {
+                                        //     // display: 'grid',
+                                        //     gridTemplateColumns: 'repeat(2, 1fr)',
+                                        //     pageBreakAfter: 'always',
+                                        //     marginTop: '5px',
+                                        //     marginBottom: '5px'
+                                        // }
+                                        // :
                                         {
                                             // display: 'grid',
                                             gridTemplateColumns: 'repeat(2, 1fr)',
-                                            pageBreakAfter: 'always',
-                                            marginTop: '5px',
-                                            marginBottom: '5px'
-                                        }
-                                        :
-                                        {
-                                            // display: 'grid',
-                                            gridTemplateColumns: 'repeat(2, 1fr)',
-                                            marginTop: '5px',
-                                            marginBottom: '5px'
                                         }
                                     }
                                 >
@@ -190,20 +188,18 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                                 index % 2 === 0 ?
                                 <div class='printgraph' 
                                     style={
-                                        (index + 2) % 6 === 0 ?
+                                        // (index + 2) % 6 === 0 ?
+                                        // {
+                                        //     // display: 'grid',
+                                        //     gridTemplateColumns: 'repeat(2, 1fr)',
+                                        //     pageBreakAfter: 'always',
+                                        //     marginTop: '5px',
+                                        //     marginBottom: '5px'
+                                        // }
+                                        // :
                                         {
                                             // display: 'grid',
                                             gridTemplateColumns: 'repeat(2, 1fr)',
-                                            pageBreakAfter: 'always',
-                                            marginTop: '5px',
-                                            marginBottom: '5px'
-                                        }
-                                        :
-                                        {
-                                            // display: 'grid',
-                                            gridTemplateColumns: 'repeat(2, 1fr)',
-                                            marginTop: '5px',
-                                            marginBottom: '5px'
                                         }
                                     }
                                 >

@@ -81,7 +81,7 @@ const OutPut = ({dataId}) => {
                             列印
                         </Button>
                     </div>
-                    <div id='printMe'>
+                    <div class='printMe'>
                         <AdvTableDetial />
                     </div>
                 </Box>
@@ -103,17 +103,19 @@ const OutPut = ({dataId}) => {
                             列印
                         </Button>
                     </div>
-                    <div id='printMe'>
-                        {dataId <= 1 ?
-                            Array.from(Array(groupCnt)).map((_, index) => (
+                    {dataId <= 1 ?
+                        Array.from(Array(groupCnt)).map((_, index) => (
+                            <div class='printMe'>
                                 <SingleTableDetial dataId={dataId} detail={groupDetail[index]}/>
-                            )) 
-                            :
-                            Array.from(Array(groupCnt)).map((_, index) => (
+                            </div>
+                        )) 
+                        :
+                        Array.from(Array(groupCnt)).map((_, index) => (
+                            <div class='printMe'>
                                 <DoubleTableDetial dataId={dataId} detail={groupDetail[index]} />
-                            ))
-                        }
-                    </div>
+                            </div>
+                        ))
+                    }
                 </Box>
                 : <></>
             }
