@@ -125,11 +125,6 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             justifyContent: 'center',
                         }}
                     >
-                        <div class="no-printme" style={{width: '85%'}}>
-                            <Tournament 
-                                dataId={dataId}
-                            />
-                        </div>
                         {dataId <= 1 ?
                             Array.from(Array(groupCnt)).map((_, index) => (
                                 index % 2 === 0 ?
@@ -306,6 +301,11 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                                             </Grid>
                                 ))
                             }
+                            <div class="no-printme" style={{width: '85%'}}>
+                                <Tournament 
+                                    dataId={dataId}
+                                />
+                            </div>
                         </div>
                         <div class="no-printme">
                             <Button 
