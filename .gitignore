@@ -35,3 +35,7 @@ build/
 
 ### python virtual env ###
 .venv/
+
+
+backend/src/main/resources/application.properties
+backend/src/main/resources/application.yaml
