@@ -336,7 +336,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                         </Box>
                         :
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            <Button
+                            {/* <Button
                                 // key={page}
                                 component={Link}
                                 to='/schedulehome'
@@ -344,7 +344,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
                             >
                                 賽程專區
-                            </Button>
+                            </Button> */}
                             {/* <Button
                                 // key={page}
                                 component={Link}
@@ -355,7 +355,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 及時比分
                             </Button> 
                             currently not open these functions*/}
-                            <Button
+                            {/* <Button
                                 // key={page}
                                 component={Link}
                                 to='/competitionrule'
@@ -363,7 +363,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
                                 競賽章程
-                            </Button> 
+                            </Button>  */}
                             <Button
                                 // key={page}
                                 component={Link}
