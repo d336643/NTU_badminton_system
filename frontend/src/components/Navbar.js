@@ -177,9 +177,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                     <Typography textAlign="center">及時比分</Typography>
                                 </MenuItem> 
                                 currently not open these functions*/}
-                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                     <Typography textAlign="center">競賽章程</Typography>
-                                </MenuItem> */}
+                                </MenuItem>
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                     <Typography textAlign="center">報名 / 編輯賽事</Typography>
                                 </MenuItem>
@@ -228,9 +228,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 <Typography textAlign="center">及時比分</Typography>
                             </MenuItem> 
                             currently not open these functions*/}
-                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                 <Typography textAlign="center">競賽章程</Typography>
-                            </MenuItem> */}
+                            </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                 <Typography textAlign="center">報名 / 編輯賽事</Typography>
                             </MenuItem>
@@ -355,7 +355,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 及時比分
                             </Button> 
                             currently not open these functions*/}
-                            {/* <Button
+                            <Button
                                 // key={page}
                                 component={Link}
                                 to='/competitionrule'
@@ -363,7 +363,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
                                 競賽章程
-                            </Button>  */}
+                            </Button> 
                             <Button
                                 // key={page}
                                 component={Link}
@@ -404,7 +404,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             及時比分
                         </Button> 
                         currently not open these functions*/}
-                        {/* <Button
+                        <Button
                             // key={page}
                             component={Link}
                             to='/competitionrule'
@@ -412,7 +412,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             sx={{ mr: 1, color: 'white', display: 'block' }}
                         >
                             競賽章程
-                        </Button>  */}
+                        </Button> 
                         <Button
                             // key={page}
                             component={Link}
@@ -452,14 +452,14 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                         >
                             賽程專區
                         </Button> */}
-                        {/* <Button
+                        <Button
                             component={Link}
                             to='/competitionrule'
                             onClick={handleCloseNavMenu}
                             sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
                         >
                             競賽章程
-                        </Button>  */}
+                        </Button> 
                         {/* <Button
                             // key={page}
                             component={Link}
