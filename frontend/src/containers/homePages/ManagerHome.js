@@ -27,7 +27,7 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         justifyContent="center"
                         spacing={2}
                     >
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate("/schedulehome")}
                                 variant="outlined"
@@ -35,7 +35,7 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                 fullWidth>
                                 進入賽程系統
                             </Button>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate("/refereesys")}
