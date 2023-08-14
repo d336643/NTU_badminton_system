@@ -211,7 +211,7 @@ const CompetitorStatus = () => {
                 >
                     <h3 style={{ marginBottom: '20px' }}>報名及繳費狀態</h3>
                     <Alert severity="info" style={{ marginBottom: '20px' }}>
-                        銀行代碼：700 &nbsp; 匯款帳戶：005-1501-001-1874 &nbsp; 戶名：謝宗翰
+                        銀行代碼：700 &nbsp; 匯款帳戶：00013611355868 &nbsp; 戶名：張閔翔
                     </Alert>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
