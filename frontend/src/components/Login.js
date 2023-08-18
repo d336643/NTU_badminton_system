@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import { useNavigate } from "react-router-dom";
+
+import {
+    Avatar,
+    Button,
+    CssBaseline,
+    TextField,
+    Alert,
+    Grid,
+    Box,
+    Container,
+} from '@mui/material';
+
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import delay from '../utilities/delay';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
@@ -54,12 +57,7 @@ const LoginForm = () => {
     // }
 
     const submit = async (form) => {
-        const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              'accept':'application/json'
-            },
-        };
+        const config = getCommonConfig(false);
         try {
             const res = await instance.post('/auth/signin', form, config);
             if (res.data.success === true) {

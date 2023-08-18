@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
-import { Divider } from '@mui/material';
-import Tournament from '../scheduleGraph/Tournament';
-import { SingleSquare, DoubleSquare } from "../scheduleGraph/Square" // {} if no export default
-import { SingleTriangle, DoubleTriangle } from '../scheduleGraph/Triangle';
-import { EVENTENTRY, LETTERS, DEGREECODE } from '../utilities/entry';
+
 import { useNavigate } from "react-router-dom";
+
+import { 
+    Grid,
+    Box,
+    Button,
+} from '@mui/material';
+
+import Tournament from '../scheduleGraph/Tournament';
+import { SingleSquare, DoubleSquare } from "../scheduleGraph/Square";
+import { SingleTriangle, DoubleTriangle } from '../scheduleGraph/Triangle';
+
+import { EVENTENTRY, LETTERS, DEGREECODE } from '../utilities/entry';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 

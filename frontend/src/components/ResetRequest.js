@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import InfoDialog from "../components/InfoDialog";
+
 import { useNavigate, useParams } from "react-router-dom";
-import List from "@mui/material/List";
+
+import {
+    Button,
+    TextField,
+    List,
+    CssBaseline,
+    Box,
+    Container,
+} from '@mui/material';
+
+import InfoDialog from "../components/InfoDialog";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
@@ -35,12 +38,7 @@ const Reset = () => {
     };
 
     const submit = async (form) => {
-        const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              'accept':'application/json'
-            },
-        };
+        const config = getCommonConfig(false);
         try {
             let res = await instance.post('/auth/password/reset/validate', form, config);
             if (res.status === 200) {

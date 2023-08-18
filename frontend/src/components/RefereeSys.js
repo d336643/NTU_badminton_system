@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Autocomplete from '@mui/material/Autocomplete';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import IconButton from '@mui/material/IconButton';
-import InfoDialog from "./InfoDialog";
-import delay from '../utilities/delay';
+
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+
+import {
+    Button,
+    CssBaseline,
+    TextField,
+    Container,
+    List,
+    ListItem,
+    ListItemText,
+    Autocomplete,
+    Alert,
+    Box,
+    Checkbox,
+    FormControlLabel
+} from '@mui/material';
+
+import delay from '../utilities/delay';
 import { EVENTTYPEENTRY, EVENTENTRY, DEGREECODE } from '../utilities/entry';
 import { getDepartmentLabel } from '../utilities/getDepartment';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
-// import ClearIcon from '@mui/icons-material/Clear';
 
 const boxStyled = {
     borderRadius: '25px',

@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Container from '@mui/material/Container';
-import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
+
+import { useSearchParams, useParams } from "react-router-dom";
+
+import {
+    List,
+    ListItem,
+    ListItemText,
+    Container,
+    TextField,
+    FormControl,
+    InputLabel,
+    IconButton,
+    OutlinedInput,
+    CssBaseline,
+    Button,
+    InputAdornment,
+} from '@mui/material';
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 import InfoDialog from "./InfoDialog";
-import FormHelperText from '@mui/material/TextField';
 
 import { checkPassword } from "../utilities/checkString";
-import { useSearchParams, useParams } from "react-router-dom";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
@@ -51,12 +56,7 @@ const Reset = () => {
     };
 
     const submit = async (form) => {
-        const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              'accept':'application/json'
-            },
-        };
+        const config = getCommonConfig(false);
         try {
             let res = await instance.post('/auth/password/reset', form, config);
             // console.log(res)

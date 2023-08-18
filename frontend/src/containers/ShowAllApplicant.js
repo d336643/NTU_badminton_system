@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import EntryTab from '../components/EntryTab';
-import { EVENTENTRY } from '../utilities/entry'
+
 import { useNavigate, useLocation } from 'react-router-dom';
+
+import {
+    Container,
+} from '@mui/material';
+
+import EntryTab from '../components/EntryTab';
 
 const ShowAllApplicant = () => {
     return (

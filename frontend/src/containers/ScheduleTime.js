@@ -1,12 +1,12 @@
 
 import React, { useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Alert from '@mui/material/Alert';
-import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
-import { Divider } from '@mui/material';
+
 import { useNavigate } from "react-router-dom";
+
+import { 
+    Container,
+    Button,
+ } from '@mui/material';
 
 // GroupCompeteId: 1. 三取一 2. 三取二 3. 四取一 4. 四取二
 // Square: 1(上),2(下),3(左),4(右)

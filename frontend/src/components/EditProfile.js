@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
-import Autocomplete from '@mui/material/Autocomplete';
+
+import { useParams, useNavigate } from "react-router-dom";
+
+import {
+    Button,
+    TextField,
+    List,
+    ListItem,
+    ListItemText,
+    Container,
+    Autocomplete,
+} from '@mui/material';
+
 import InfoDialog from "./InfoDialog";
+
 import { verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY, STATUS }  from '../utilities/entry'
-import { useParams, useNavigate } from "react-router-dom";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
@@ -41,12 +46,7 @@ const EditForm = () => {
     // const [file, setFile] = useState(null); in this moment we don't need file
 
     const getInfo = async () => {
-        const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              'accept':'application/json'
-            },
-        };
+        const config = getCommonConfig(false);
         try {
             const res = await instance.get("/public/departments", config);
             if (res.data.success === true) {

@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import InputLabel from '@mui/material/InputLabel';
-import Chip from '@mui/material/Chip';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Alert from '@mui/material/Alert';
-import InfoDialog from "../components/InfoDialog";
-import { DEGREEE } from '../utilities/entry';
+
 import { useNavigate } from "react-router-dom";
-import { bgcolor } from "@mui/system";
+
+import {
+    Container,
+    Button,
+    CssBaseline,
+    Divider,
+    TextField,
+    Grid,
+    Chip,
+    List,
+    ListItem,
+    ListItemText,
+    Alert
+} from '@mui/material';
+
+import InfoDialog from "../components/InfoDialog";
+
+import { DEGREEE } from '../utilities/entry';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 

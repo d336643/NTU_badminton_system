@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Box, Grid, Alert, ListItem, ListItemText,  Autocomplete, TextField, Button} from '@mui/material';
+
+import { useNavigate } from "react-router-dom";
+
+import { 
+    Box,
+    ListItem, 
+    ListItemText,  
+    Autocomplete, 
+    TextField, 
+    Button
+} from '@mui/material';
+
 import AddIcon from '@mui/icons-material/Add';
-import { SingleSquare, DoubleSquare } from "../scheduleGraph/Square" // {} if no export default
+
+import { SingleSquare, DoubleSquare } from "../scheduleGraph/Square";
 import { SingleTriangle, DoubleTriangle } from '../scheduleGraph/Triangle';
 import { EVENTENTRY, LETTERS } from '../utilities/entry';
-import { useNavigate } from "react-router-dom";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 

@@ -1,14 +1,13 @@
-import React from 'react'
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import InfoIcon from '@mui/icons-material/Info';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ErrorIcon from '@mui/icons-material/Error';
+import React from 'react';
+
 import { useNavigate } from "react-router-dom";
+
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent
+} from '@mui/material';
 
 export default function InfoDialog({route, open, setOpen, turnBack, alertmessage}) {
     const navigate = useNavigate();

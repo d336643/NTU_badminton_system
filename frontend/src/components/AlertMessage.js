@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Alert from '@mui/material/Alert';
-import delay from '../utilities/delay';
+
 import { useNavigate } from "react-router-dom";
+
+import { Alert } from '@mui/material';
+
+import delay from '../utilities/delay';
+
 
 const AlertMessage = ( {setShowmessage, message, route, closeType} ) => {
     const navigate = useNavigate();

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputAdornment from '@mui/material/InputAdornment';
-import Typography from '@mui/material/Typography';
-import Alert from '@mui/material/Alert';
+
+import { useNavigate } from "react-router-dom";
+
+import {
+    Button,
+    CssBaseline,
+    TextField,
+    List,
+    ListItem,
+    ListItemText,
+    InputAdornment
+} from '@mui/material';
+
 import InfoDialog from "./InfoDialog";
-import { verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
-import { NUMBER }  from '../utilities/entry'
-import { useParams, useNavigate } from "react-router-dom";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
+
 /*
 CategoryId:
 1. 冠亞

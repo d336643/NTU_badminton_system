@@ -1,10 +1,13 @@
 import React from "react";
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
+
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+
+import {
+    Container,
+    Grid,
+    Box,
+    Button,
+} from '@mui/material';
 
 const Competitor = ({setView, handleLogOut}) => {
     const navigate = useNavigate();

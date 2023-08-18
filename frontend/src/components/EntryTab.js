@@ -1,14 +1,25 @@
 import * as React from 'react';
+
+import { useNavigate } from "react-router-dom";
+
 import PropTypes from 'prop-types';
-import { Tabs, Tab, Typography, Box, Alert, Stack, Switch, Button, Link } from '@mui/material';
+import { 
+  Tabs, 
+  Tab, 
+  Typography, 
+  Box, 
+  Alert, 
+  Stack,
+} from '@mui/material';
+
 import ShowOtherApplicant from './ShowOtherApplicant';
 import ShowApplicant from './ShowApplicant';
 import ShowSchedule from './ShowSchedule';
 import AssignSchedule from './AssignSchedule';
 import EditSchedule from './EditSchedule';
 import OutputGameTable from './OutputGameTable';
+
 import { EVENTENTRY } from '../utilities/entry';
-import { useNavigate } from "react-router-dom";
 
 const TYPE = ['報名、繳費狀態', '排定賽程', '修改賽程', '檢視賽程', '匯出出賽單']
 

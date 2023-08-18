@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import EntryTab from '../components/EntryTab';
+
+import { 
+    Container, 
+    Box,
+} from '@mui/material';
+
 import Tournament16 from '../scheduleGraph/Tournament16';
 import Tournament64 from '../scheduleGraph/Tournament64';
 

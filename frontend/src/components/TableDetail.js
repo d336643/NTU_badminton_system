@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
+
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+
 import { EVENTENTRY, DEGREECODE, DEPARTMENT, GAME } from '../utilities/entry';
 
 const tablestyle = {
