@@ -13,10 +13,11 @@ import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Alert from '@mui/material/Alert';
 import InfoDialog from "./InfoDialog";
-import instance from "../instance";
 import baseURL from "../urlUtility";
 import { EVENTTYPEENTRY } from "../utilities/entry";
 import { useNavigate } from "react-router-dom";
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const LoginForm = () => {
     const navigate = useNavigate();

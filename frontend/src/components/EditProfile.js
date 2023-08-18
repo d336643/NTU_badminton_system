@@ -8,10 +8,11 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Autocomplete from '@mui/material/Autocomplete';
 import InfoDialog from "./InfoDialog";
-import instance from "../instance";
 import { verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY, STATUS }  from '../utilities/entry'
 import { useParams, useNavigate } from "react-router-dom";
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const EditForm = () => {
     const tokenId = localStorage.getItem('token')

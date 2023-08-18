@@ -15,9 +15,11 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InfoDialog from "./InfoDialog";
 import FormHelperText from '@mui/material/TextField';
-import instance from '../instance';
+
 import { checkPassword } from "../utilities/checkString";
 import { useSearchParams, useParams } from "react-router-dom";
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const Reset = () => {
     const [searchParams, setSearchParams] = useSearchParams({});

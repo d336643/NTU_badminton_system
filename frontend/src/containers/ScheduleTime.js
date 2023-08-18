@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import { Divider } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import instance from '../instance';
 
 // GroupCompeteId: 1. 三取一 2. 三取二 3. 四取一 4. 四取二
 // Square: 1(上),2(下),3(左),4(右)

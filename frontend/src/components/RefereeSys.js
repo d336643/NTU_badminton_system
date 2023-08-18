@@ -13,11 +13,12 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
 import InfoDialog from "./InfoDialog";
-import instance from "../instance";
 import delay from '../utilities/delay';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { EVENTTYPEENTRY, EVENTENTRY, DEGREECODE } from '../utilities/entry';
 import { getDepartmentLabel } from '../utilities/getDepartment';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 // import ClearIcon from '@mui/icons-material/Clear';
 
 const boxStyled = {

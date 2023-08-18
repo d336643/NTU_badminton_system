@@ -5,12 +5,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import { Divider } from '@mui/material';
-import Tournament from '../ScheduleGraph/Tournament';
-import { SingleSquare, DoubleSquare } from "../ScheduleGraph/Square" // {} if no export default
-import { SingleTriangle, DoubleTriangle } from '../ScheduleGraph/Triangle';
+import Tournament from '../scheduleGraph/Tournament';
+import { SingleSquare, DoubleSquare } from "../scheduleGraph/Square" // {} if no export default
+import { SingleTriangle, DoubleTriangle } from '../scheduleGraph/Triangle';
 import { EVENTENTRY, LETTERS, DEGREECODE } from '../utilities/entry';
 import { useNavigate } from "react-router-dom";
-import instance from '../instance';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 // GroupCompeteId: 1. 三取一 2. 三取二 3. 四取一 4. 四取二
 // Square: 1(上),2(下),3(左),4(右)

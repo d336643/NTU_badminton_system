@@ -7,9 +7,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import InfoDialog from "../components/InfoDialog";
-import instance from '../instance';
 import { useNavigate, useParams } from "react-router-dom";
 import List from "@mui/material/List";
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const Reset = () => {
     const navigate = useNavigate();

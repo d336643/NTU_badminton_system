@@ -7,7 +7,8 @@ import Button from "@mui/material/Button";
 import { SingleTableDetial, DoubleTableDetial, AdvTableDetial} from './TableDetail';
 import { LETTERS, GAME } from '../utilities/entry';
 import { useNavigate } from "react-router-dom";
-import instance from '../instance';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const OutPut = ({dataId}) => {
     const navigate = useNavigate();

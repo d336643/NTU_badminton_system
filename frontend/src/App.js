@@ -26,7 +26,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './style/theme';
-import Tournament from "./ScheduleGraph/Tournament";
+import Tournament from "./scheduleGraph/Tournament";
 
 const App = () => {
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager

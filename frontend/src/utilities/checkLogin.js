@@ -1,4 +1,4 @@
-import instance from "../instance";
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const checkLogin = async () => {
     let uid = localStorage.getItem("uid");

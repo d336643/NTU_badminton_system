@@ -16,10 +16,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Alert from '@mui/material/Alert';
 import InfoDialog from "../components/InfoDialog";
-import instance from "../instance";
 import { DEGREEE } from '../utilities/entry';
 import { useNavigate } from "react-router-dom";
 import { bgcolor } from "@mui/system";
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const createData = (eventId, account) => {
     return { eventId: eventId, account: account };

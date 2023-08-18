@@ -19,10 +19,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-import instance from '../instance';
 import delay from '../utilities/delay';
 import { EVENTENTRY } from '../utilities/entry'
 import { useNavigate, useLocation } from 'react-router-dom';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 let counter = 0;
 const createData = (registrationId, eventId, uid, name, sid, account, status) => {

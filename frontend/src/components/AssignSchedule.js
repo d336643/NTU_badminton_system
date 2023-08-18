@@ -11,11 +11,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import InfoDialog from "./InfoDialog";
-import instance from "../instance";
 import { verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
 import { NUMBER }  from '../utilities/entry'
 import { useParams, useNavigate } from "react-router-dom";
 
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 /*
 CategoryId:
 1. 冠亞

@@ -13,7 +13,8 @@ import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from "react-router-dom";
 import delay from '../utilities/delay';
-import instance from "../instance";
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const LoginForm = () => {
     const navigate = useNavigate();
