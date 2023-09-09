@@ -13,7 +13,7 @@ import {
 
 import AddIcon from '@mui/icons-material/Add';
 
-import { SingleSquare, DoubleSquare } from "../scheduleGraph/Square";
+import { SingleSquare, DoubleSquare } from '../scheduleGraph/Square';
 import { SingleTriangle, DoubleTriangle } from '../scheduleGraph/Triangle';
 import { EVENTENTRY, LETTERS } from '../utilities/entry';
 

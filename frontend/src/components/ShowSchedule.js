@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 import Tournament from '../scheduleGraph/Tournament';
-import { SingleSquare, DoubleSquare } from "../scheduleGraph/Square";
+import { SingleSquare, DoubleSquare } from '../scheduleGraph/Square';
 import { SingleTriangle, DoubleTriangle } from '../scheduleGraph/Triangle';
 
 import { EVENTENTRY, LETTERS, DEGREECODE } from '../utilities/entry';
