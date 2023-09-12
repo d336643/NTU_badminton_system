@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Autocomplete from '@mui/material/Autocomplete';
-import Divider from '@mui/material/Divider';
-import Chip from '@mui/material/Chip';
-import Alert from '@mui/material/Alert';
+
+import { useNavigate } from "react-router-dom";
+
+import {
+    Button,
+    CssBaseline,
+    TextField,
+    List,
+    ListItem,
+    ListItemText,
+    Container,
+    Grid,
+    Autocomplete,
+    Divider,
+    Chip,
+    Alert,
+} from '@mui/material';
+
 import InfoDialog from "./InfoDialog";
-import instance from "../instance";
+
 import baseURL from "../urlUtility";
 import { EVENTTYPEENTRY } from "../utilities/entry";
-import { useNavigate } from "react-router-dom";
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
+
+import axios from 'axios';
 
 const LoginForm = () => {
     const navigate = useNavigate();

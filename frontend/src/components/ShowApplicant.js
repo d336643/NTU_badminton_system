@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
+
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import { 
+    Paper,
+    Table, 
+    TableBody,  
+    TableCell, 
+    TableContainer,
+    TableHead,
+    TablePagination, 
+    TableRow,
+    Checkbox,
+    CssBaseline,
+    Button,
+    Grid,
+    Alert,
+    IconButton,
+    FormControl,
+    InputAdornment,
+    OutlinedInput,
+} from '@mui/material';
+
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-import instance from '../instance';
+
 import delay from '../utilities/delay';
-import { EVENTENTRY } from '../utilities/entry'
-import { useNavigate, useLocation } from 'react-router-dom';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 let counter = 0;
 const createData = (registrationId, eventId, uid, name, sid, account, status) => {
@@ -88,12 +93,7 @@ const FormTable = ({dataId}) => {
     }
 
     const fetchData = async() => {
-        // console.log(dataId.state.data)
-        const config = {
-            headers:{
-                'Authorization': 'Bearer ' + token
-            }
-        }
+        const config = getCommonConfig(true);
         try {
             let res = await instance.get(`admin/users?typeId=${dataId+1}&semester='112-2'`, config); //&semester='112-2'
             if(res.status === 200) {

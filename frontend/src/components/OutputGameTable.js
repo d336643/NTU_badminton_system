@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
+
+import { useNavigate } from "react-router-dom";
+
+import {
+    Box,
+    Button,
+} from '@mui/material';
+
 import { SingleTableDetial, DoubleTableDetial, AdvTableDetial} from './TableDetail';
 import { LETTERS, GAME } from '../utilities/entry';
-import { useNavigate } from "react-router-dom";
-import instance from '../instance';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const OutPut = ({dataId}) => {
     const navigate = useNavigate();
     const [getInfo, setGetInfo] = useState(false)
-    const token = localStorage.getItem("token")
     const [groupCnt, setGroupCnt] = useState(0)
     const [groupDetail, setGroupDetail] = useState([])
-
-    // useEffect(() => {
-    //     console.log(scheduleType);
-    // }, [])
     
     const getGroup = async () => {
         if (dataId !== 5) {
-            const config = {
-                headers:{
-                    'Authorization': 'Bearer ' + token
-                }
-            }
+            const config = getCommonConfig(true);
             try {
                 const res = await instance.get(`/rounds?typeId=${dataId+1}`, config);
                 if (res.status === 200) {

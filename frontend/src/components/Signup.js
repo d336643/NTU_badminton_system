@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import FormHelperText from '@mui/material/FormHelperText';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import Autocomplete from '@mui/material/Autocomplete';
-import FormControl from '@mui/material/FormControl';
+
+import { useNavigate } from "react-router-dom";
+
+import {
+    Autocomplete,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    TextField,
+    Alert,
+    Button,
+    Container,
+    FormControl,
+    FormHelperText,
+    ListItem,
+    ListItemText
+} from '@mui/material';
+  
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import InfoDialog from "./InfoDialog";
-import instance from "../instance";
+ 
+import InfoDialog from './InfoDialog';
+
 import { checkPassword, verifyTWid, verifyLiveid, verifyEmail } from "../utilities/checkString";
 import { DEGREEENTRY, NATIONENTRY }  from '../utilities/entry'
-import { useNavigate } from "react-router-dom";
+import { instance, getCommonConfig } from "../apiUtilities/instance";
 
 export default function SwitchListSecondary() {
     const navigate = useNavigate();
@@ -48,12 +54,7 @@ export default function SwitchListSecondary() {
     // const [file, setFile] = useState(null); in this moment we don't need file
 
     const getInfo = async () => {
-        const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              'accept':'application/json'
-            },
-        };
+        const config = getCommonConfig(false);
         try {
             const res = await instance.get("/public/departments", config);
             if (res.data.success === true) {

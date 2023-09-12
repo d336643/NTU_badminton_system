@@ -1,31 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
+
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow,
+    Checkbox,
+    CssBaseline,
+    Button,
+    Grid,
+    IconButton,
+    FormControl,
+    InputAdornment,
+    OutlinedInput,
+} from '@mui/material';
+
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-import instance from '../instance';
-import { useNavigate, useLocation } from 'react-router-dom';
+
+import { PAGE_SIZES } from '../Constants';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
+
 
 let counter = 0;
 const createData = (registrationId, eventId, uid, name, sid, account, status) => {
     counter += 1;
-    return { id: counter, registrationId: registrationId, eventId: eventId, uid: uid, name: name, 
-            sid: sid, account: account === "NULL" ? "" : account, status: status, checked: status === 3 ? true : false };
-}
+    return { 
+        id: counter, 
+        registrationId: registrationId, 
+        eventId: eventId, 
+        uid: uid, 
+        name: name, 
+        sid: sid, 
+        account: account === "NULL" ? "" : 
+        account, 
+        status: status, 
+        checked: status === 3 ? true : false 
+    };
+  };
+  
 
 const columns = [
     { id: 'registrationId', label: '序號', minWidth: 70},
@@ -69,24 +89,20 @@ const FormTable = ({dataId}) => {
 
     const fetchData = async() => {
         // console.log(dataId.state.data)
-        const config = {
-            headers:{
-                'Authorization': 'Bearer ' + token
-            }
-        }
+        const config = getCommonConfig(true);
         try {
             let res = await instance.get(`admin/users?typeId=${dataId+1}&semester='112-2'`, config); //&semester='112-2'
             if(res.status === 200) {
                 const newState = res.data.events.map((obj) => {
-                        if (obj.competitors.length === 1) {
-                            let comInfo = obj.competitors[0];
-                            return createData(obj.registrationId, obj.eventId, comInfo.uid, comInfo.username, comInfo.sid, obj.account, obj.status);
-                        }
-                        else {
-                            let comInfo1 = obj.competitors[0];
-                            let comInfo2 = obj.competitors[1];
-                            return createData(obj.registrationId, obj.eventId, `${comInfo1.uid},\n${comInfo2.uid}`, `${comInfo1.username},\n${comInfo2.username}`, `${comInfo1.sid},\n${comInfo2.sid}`, obj.account, obj.status);
-                        }
+                    if (obj.competitors.length === 1) {
+                        let comInfo = obj.competitors[0];
+                        return createData(obj.registrationId, obj.eventId, comInfo.uid, comInfo.username, comInfo.sid, obj.account, obj.status);
+                    }
+                    else {
+                        let comInfo1 = obj.competitors[0];
+                        let comInfo2 = obj.competitors[1];
+                        return createData(obj.registrationId, obj.eventId, `${comInfo1.uid},\n${comInfo2.uid}`, `${comInfo1.username},\n${comInfo2.username}`, `${comInfo1.sid},\n${comInfo2.sid}`, obj.account, obj.status);
+                    }
                 });
                 setRows(rows.concat(newState));
                 setShowrows(showrows.concat(newState));
@@ -138,13 +154,9 @@ const FormTable = ({dataId}) => {
                         <TableHead>
                             <TableRow>
                             {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
+                            <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                                {column.label}
+                            </TableCell>
                             ))}
                             </TableRow>
                         </TableHead>
@@ -178,7 +190,7 @@ const FormTable = ({dataId}) => {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
+                    rowsPerPageOptions={PAGE_SIZES}
                     component="div"
                     count={rows.length}
                     rowsPerPage={rowsPerPage}

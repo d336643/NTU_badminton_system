@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Box } from '@mui/material';
+
+import { 
+    Container, 
+    Box 
+} from '@mui/material';
+
 import EntryTab from '../components/EntryTab';
-import instance from '../instance';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const EditAllSchedule = () => {
     return (

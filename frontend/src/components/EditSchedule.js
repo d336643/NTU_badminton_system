@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Box, Grid, Alert, ListItem, ListItemText,  Autocomplete, TextField, Button} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import { SingleSquare, DoubleSquare } from "../ScheduleGraph/Square" // {} if no export default
-import { SingleTriangle, DoubleTriangle } from '../ScheduleGraph/Triangle';
-import { EVENTENTRY, LETTERS } from '../utilities/entry';
+
 import { useNavigate } from "react-router-dom";
-import instance from '../instance';
+
+import { 
+    Box,
+    ListItem, 
+    ListItemText,  
+    Autocomplete, 
+    TextField, 
+    Button
+} from '@mui/material';
+
+import AddIcon from '@mui/icons-material/Add';
+
+import { SingleSquare, DoubleSquare } from '../scheduleGraph/Square';
+import { SingleTriangle, DoubleTriangle } from '../scheduleGraph/Triangle';
+import { EVENTENTRY, LETTERS } from '../utilities/entry';
+
+import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const allGame = [{typeIndex: 1}, {typeIndex: 2}, {typeIndex: 3}]
 
