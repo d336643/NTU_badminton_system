@@ -125,9 +125,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                             >
-                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
                                     <Typography textAlign="center">賽程系統</Typography>
-                                </MenuItem> */}
+                                </MenuItem>
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/refereesys">
                                     <Typography textAlign="center">裁判系統</Typography>
                                 </MenuItem> 
@@ -313,14 +313,14 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                     view === "manager" ?
                         identity == "manager" ?
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {/* <Button
+                            <Button
                                 component={Link}
                                 to='/schedulehome'
                                 onClick={handleCloseNavMenu}
                                 sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
                             >
                                 賽程系統
-                            </Button> */}
+                            </Button>
                             <Button
                                 component={Link}
                                 to='/refereesys'
