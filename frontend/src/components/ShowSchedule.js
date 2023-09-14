@@ -8,7 +8,6 @@ import {
     Button,
 } from '@mui/material';
 
-import Tournament from '../scheduleGraph/Tournament';
 import { SingleSquare, DoubleSquare } from '../scheduleGraph/Square';
 import { SingleTriangle, DoubleTriangle } from '../scheduleGraph/Triangle';
 
@@ -25,8 +24,7 @@ let cnt = 0;
 const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
     const navigate = useNavigate();
     const [getInfo, setGetInfo] = useState(false)
-    const token = localStorage.getItem("token")
-    const [groupCnt, setGroupCnt] = useState(3)
+    const [groupCnt, setGroupCnt] = useState(null)
     const [groupDetail, setGroupDetail] = useState([])
     const [resData, setResData] = useState()
     const [resEliData, setResEliData] = useState()
@@ -38,11 +36,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
     // }, [])
     
     const getGroup = async () => {
-        const config = {
-            headers:{
-                'Authorization': 'Bearer ' + token
-            }
-        }
+        const config  = getCommonConfig(true);
         try {
             const res = await instance.get(`/rounds?typeId=${dataId+1}`, config);
             if (res.status === 200) {
@@ -51,7 +45,6 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                 let gCnt = Number(res.data.data.groupCnt);
                 setGroupCnt(gCnt);
                 let groupLetter = LETTERS.slice(0, gCnt);
-                // console.log(groupLetter);
                 getGroupDetailOf(res.data.data, groupLetter);
             }
         } catch (error) {
@@ -60,11 +53,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
     }
 
     const getSingleElimination = async () => {
-        const config = {
-            headers:{
-                'Authorization': 'Bearer ' + token
-            }
-        }
+        const config  = getCommonConfig(true);
         try {
             const res = await instance.get(`/rounds/SingleElimination?typeId=${dataId+1}`, config);
             if (res.status === 200) {
@@ -77,11 +66,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
     }
 
     const getWinner = async () => {
-        const config = {
-            headers:{
-                'Authorization': 'Bearer ' + token
-            }
-        }
+        const config  = getCommonConfig(true);
         try {
             const res = await instance.get(`/rounds/winners?typeId=${dataId+1}`, config);
             if (res.status === 200) {
@@ -105,221 +90,213 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
             }
         }
         setGroupDetail(groupDetail.concat(arr))
+        console.log(groupDetail.concat(arr))
         setGetInfo(true);
     }
 
     useEffect(() => {
         getGroup()
-        // ßonsole.log(groupDetail)
     }, [])
 
     return (
         <>
-            {/* {scheduleType ? 
-                <Tournament dataId={dataId}/>
-                : */}
-                {getInfo ? 
-                    <Box
+            {getInfo ? 
+                <Box
+                    style={{
+                        marginTop: '0px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    {dataId <= 1 ?
+                        Array.from(Array(groupCnt)).map((_, index) => (
+                            index % 2 === 0 ?
+                            <div class='printgraph' 
+                                style={
+                                    // (index+2) % 6 === 0 ?
+                                    // {
+                                    //     // display: 'grid',
+                                    //     gridTemplateColumns: 'repeat(2, 1fr)',
+                                    //     pageBreakAfter: 'always',
+                                    //     marginTop: '5px',
+                                    //     marginBottom: '5px'
+                                    // }
+                                    // :
+                                    {
+                                        // display: 'grid',
+                                        gridTemplateColumns: 'repeat(2, 1fr)',
+                                    }
+                                }
+                            >
+                                {groupDetail[index][0].groupCompeteId <= 2? 
+                                    <SingleTriangle 
+                                        groupLabel={LETTERS[index]} 
+                                        detail={groupDetail[index]}
+                                        viewType={"show"}
+                                        // department={department}
+                                    /> 
+                                    : 
+                                        <SingleSquare 
+                                            groupLabel={LETTERS[index]}
+                                            detail={groupDetail[index]}
+                                            viewType={"show"}
+                                            // department={department}
+                                        />
+                                }
+                                {index+1 < groupCnt ?
+                                    groupDetail[index+1][0].groupCompeteId <= 2? 
+                                        <SingleTriangle 
+                                            groupLabel={LETTERS[index+1]} 
+                                            detail={groupDetail[index+1]}
+                                            viewType={"show"}
+                                            // department={department}
+                                        /> 
+                                        : 
+                                        <SingleSquare 
+                                            groupLabel={LETTERS[index+1]}
+                                            detail={groupDetail[index+1]}
+                                            viewType={"show"}
+                                            // department={department}
+                                        />
+                                    : <></>}
+                            </div> : <></>
+                        ))
+                        :
+                        Array.from(Array(groupCnt)).map((_, index) => (
+                            index % 2 === 0 ?
+                            <div class='printgraph' 
+                                style={
+                                    // (index + 2) % 6 === 0 ?
+                                    // {
+                                    //     // display: 'grid',
+                                    //     gridTemplateColumns: 'repeat(2, 1fr)',
+                                    //     pageBreakAfter: 'always',
+                                    //     marginTop: '5px',
+                                    //     marginBottom: '5px'
+                                    // }
+                                    // :
+                                    {
+                                        // display: 'grid',
+                                        gridTemplateColumns: 'repeat(2, 1fr)',
+                                    }
+                                }
+                            >
+                                {groupDetail[index][0].groupCompeteId <= 2? 
+                                    <DoubleTriangle 
+                                        groupLabel={LETTERS[index]} 
+                                        detail={groupDetail[index]}
+                                        viewType={"show"}
+                                        // department={department}
+                                    /> 
+                                    : 
+                                        <DoubleSquare 
+                                            groupLabel={LETTERS[index]}
+                                            detail={groupDetail[index]}
+                                            viewType={"show"}
+                                            // department={department}
+                                        />
+                                }
+                                {index+1 < groupCnt ?
+                                    groupDetail[index+1][0].groupCompeteId <= 2? 
+                                        <DoubleTriangle 
+                                            groupLabel={LETTERS[index+1]} 
+                                            detail={groupDetail[index+1]}
+                                            viewType={"show"}
+                                            // department={department}
+                                        /> 
+                                        : 
+                                        <DoubleSquare 
+                                            groupLabel={LETTERS[index+1]}
+                                            detail={groupDetail[index+1]}
+                                            viewType={"show"}
+                                            // department={department}
+                                        />
+                                    : <></>}
+                            </div> : <></>
+                        ))
+                    }
+                    {identity === "manager" ?
+                        <div class="no-printme">
+                            <Button
+                                sx={{marginTop: '10px', marginBottom: '10px'}}
+                                onClick={() => window.print()}
+                                >
+                                列印
+                            </Button>
+                        </div> : <></>
+                    }
+                    <div class='no-printme' 
                         style={{
-                            marginTop: '0px',
                             display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            alignContent: 'center',
-                            justifyContent: 'center',
-                        }}
-                    >
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                            justifyContent: 'center'
+                        }}>
                         {dataId <= 1 ?
                             Array.from(Array(groupCnt)).map((_, index) => (
-                                index % 2 === 0 ?
-                                <div class='printgraph' 
-                                    style={
-                                        // (index+2) % 6 === 0 ?
-                                        // {
-                                        //     // display: 'grid',
-                                        //     gridTemplateColumns: 'repeat(2, 1fr)',
-                                        //     pageBreakAfter: 'always',
-                                        //     marginTop: '5px',
-                                        //     marginBottom: '5px'
-                                        // }
-                                        // :
-                                        {
-                                            // display: 'grid',
-                                            gridTemplateColumns: 'repeat(2, 1fr)',
-                                        }
-                                    }
-                                >
-                                    {groupDetail[index][0].groupCompeteId <= 2? 
+                            groupDetail[index][0].groupCompeteId <= 2? 
+                                <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                    {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
+                                    <div class='no-printme'>
                                         <SingleTriangle 
                                             groupLabel={LETTERS[index]} 
                                             detail={groupDetail[index]}
                                             viewType={"show"}
                                             // department={department}
-                                        /> 
-                                        : 
+                                        />
+                                    </div>
+                                </Grid> 
+                                :   
+                                    <Grid item key={index} sx={{justifyContent: 'center'}}>
+                                        {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
+                                        <div class='no-printme'>
                                             <SingleSquare 
                                                 groupLabel={LETTERS[index]}
                                                 detail={groupDetail[index]}
                                                 viewType={"show"}
                                                 // department={department}
-                                            />
-                                    }
-                                    {index+1 < groupCnt ?
-                                        groupDetail[index+1][0].groupCompeteId <= 2? 
-                                            <SingleTriangle 
-                                                groupLabel={LETTERS[index+1]} 
-                                                detail={groupDetail[index+1]}
-                                                viewType={"show"}
-                                                // department={department}
-                                            /> 
-                                            : 
-                                            <SingleSquare 
-                                                groupLabel={LETTERS[index+1]}
-                                                detail={groupDetail[index+1]}
-                                                viewType={"show"}
-                                                // department={department}
-                                            />
-                                        : <></>}
-                                </div> : <></>
-                            ))
+                                        /></div>
+                                </Grid>
+                            )) 
                             :
                             Array.from(Array(groupCnt)).map((_, index) => (
-                                index % 2 === 0 ?
-                                <div class='printgraph' 
-                                    style={
-                                        // (index + 2) % 6 === 0 ?
-                                        // {
-                                        //     // display: 'grid',
-                                        //     gridTemplateColumns: 'repeat(2, 1fr)',
-                                        //     pageBreakAfter: 'always',
-                                        //     marginTop: '5px',
-                                        //     marginBottom: '5px'
-                                        // }
-                                        // :
-                                        {
-                                            // display: 'grid',
-                                            gridTemplateColumns: 'repeat(2, 1fr)',
-                                        }
-                                    }
-                                >
-                                    {groupDetail[index][0].groupCompeteId <= 2? 
-                                        <DoubleTriangle 
-                                            groupLabel={LETTERS[index]} 
-                                            detail={groupDetail[index]}
-                                            viewType={"show"}
-                                            // department={department}
-                                        /> 
-                                        : 
-                                            <DoubleSquare 
-                                                groupLabel={LETTERS[index]}
-                                                detail={groupDetail[index]}
-                                                viewType={"show"}
-                                                // department={department}
-                                            />
-                                    }
-                                    {index+1 < groupCnt ?
-                                        groupDetail[index+1][0].groupCompeteId <= 2? 
-                                            <DoubleTriangle 
-                                                groupLabel={LETTERS[index+1]} 
-                                                detail={groupDetail[index+1]}
-                                                viewType={"show"}
-                                                // department={department}
-                                            /> 
-                                            : 
-                                            <DoubleSquare 
-                                                groupLabel={LETTERS[index+1]}
-                                                detail={groupDetail[index+1]}
-                                                viewType={"show"}
-                                                // department={department}
-                                            />
-                                        : <></>}
-                                </div> : <></>
-                            ))
-                        }
-                        {identity === "manager" ?
-                            <div class="no-printme">
-                                <Button
-                                    sx={{marginTop: '10px', marginBottom: '10px'}}
-                                    onClick={() => window.print()}
-                                    >
-                                    列印
-                                </Button>
-                            </div> : <></>
-                        }
-                        <div class='no-printme' 
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                flexWrap: 'wrap',
-                                justifyContent: 'center'
-                            }}>
-                            {dataId <= 1 ?
-                                Array.from(Array(groupCnt)).map((_, index) => (
                                 groupDetail[index][0].groupCompeteId <= 2? 
                                     <Grid item key={index} sx={{justifyContent: 'center'}}>
                                         {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
                                         <div class='no-printme'>
-                                            <SingleTriangle 
+                                            <DoubleTriangle 
                                                 groupLabel={LETTERS[index]} 
                                                 detail={groupDetail[index]}
                                                 viewType={"show"}
                                                 // department={department}
-                                            />
-                                        </div>
-                                    </Grid> 
-                                    :   
+                                        /></div>
+                                    </Grid>
+                                    : 
                                         <Grid item key={index} sx={{justifyContent: 'center'}}>
                                             {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
                                             <div class='no-printme'>
-                                                <SingleSquare 
+                                                <DoubleSquare 
                                                     groupLabel={LETTERS[index]}
                                                     detail={groupDetail[index]}
-                                                    viewType={"show"}
                                                     // department={department}
-                                            /></div>
-                                    </Grid>
-                                )) 
-                                :
-                                Array.from(Array(groupCnt)).map((_, index) => (
-                                    groupDetail[index][0].groupCompeteId <= 2? 
-                                        <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                            {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
-                                            <div class='no-printme'>
-                                                <DoubleTriangle 
-                                                    groupLabel={LETTERS[index]} 
-                                                    detail={groupDetail[index]}
                                                     viewType={"show"}
-                                                    // department={department}
                                             /></div>
                                         </Grid>
-                                        : 
-                                            <Grid item key={index} sx={{justifyContent: 'center'}}>
-                                                {/* {identity === "manager" ? <p class='no-printme'>{COMPETE[Number(groupDetail[index][0].groupCompeteId)-1]}</p> :<></>} */}
-                                                <div class='no-printme'>
-                                                    <DoubleSquare 
-                                                        groupLabel={LETTERS[index]}
-                                                        detail={groupDetail[index]}
-                                                        // department={department}
-                                                        viewType={"show"}
-                                                /></div>
-                                            </Grid>
-                                ))
-                            }
-                            <div class="no-printme" style={{width: '85%'}}>
-                                <Tournament 
-                                    dataId={dataId}
-                                />
-                            </div>
-                        </div>
-                        <div class="no-printme">
-                            <Button 
-                                sx={{mt: '3%'}}
-                                variant="outlined"
-                                onClick={() => navigate('/schedulehome')}
-                            >
-                                返回賽程專區
-                            </Button>
-                        </div>
+                            ))
+                        }
+                    </div>
+                    <div class="no-printme">
+                        <Button 
+                            sx={{mt: '3%'}}
+                            variant="outlined"
+                            onClick={() => navigate('/schedulehome')}
+                        >
+                            返回賽程專區
+                        </Button>
+                    </div>
                 </Box>
                 : <></>
             }
