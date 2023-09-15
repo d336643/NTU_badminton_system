@@ -88,7 +88,7 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                 競賽章程
                             </Button>
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <Button component={Link} to="/register"
                                 variant="outlined"
                                 size='large'
@@ -113,7 +113,7 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                 fullWidth>
                                 查看各項目報名選手
                             </Button>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate(`/editprofile/${token}`)}
