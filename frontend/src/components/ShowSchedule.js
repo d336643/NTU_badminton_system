@@ -111,22 +111,13 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                         justifyContent: 'center',
                     }}
                 >
+                    <iframe src="https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview" width="640" height="480" allow="autoplay"></iframe>
                     {dataId <= 1 ?
                         Array.from(Array(groupCnt)).map((_, index) => (
                             index % 2 === 0 ?
                             <div class='printgraph' 
                                 style={
-                                    // (index+2) % 6 === 0 ?
-                                    // {
-                                    //     // display: 'grid',
-                                    //     gridTemplateColumns: 'repeat(2, 1fr)',
-                                    //     pageBreakAfter: 'always',
-                                    //     marginTop: '5px',
-                                    //     marginBottom: '5px'
-                                    // }
-                                    // :
                                     {
-                                        // display: 'grid',
                                         gridTemplateColumns: 'repeat(2, 1fr)',
                                     }
                                 }
@@ -169,17 +160,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             index % 2 === 0 ?
                             <div class='printgraph' 
                                 style={
-                                    // (index + 2) % 6 === 0 ?
-                                    // {
-                                    //     // display: 'grid',
-                                    //     gridTemplateColumns: 'repeat(2, 1fr)',
-                                    //     pageBreakAfter: 'always',
-                                    //     marginTop: '5px',
-                                    //     marginBottom: '5px'
-                                    // }
-                                    // :
                                     {
-                                        // display: 'grid',
                                         gridTemplateColumns: 'repeat(2, 1fr)',
                                     }
                                 }
