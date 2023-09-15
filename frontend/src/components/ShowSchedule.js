@@ -19,7 +19,13 @@ import { instance, getCommonConfig } from '../apiUtilities/instance';
 // Square: 1(上),2(下),3(左),4(右)
 // Triangle: 1(左上),2(右上),3(下)
 // const COMPETE = ["三取一", "三取二", "四取一", "四取二"]
-let cnt = 0;
+const sheetUrl = [
+    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
+    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
+    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
+    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
+    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
+]
 
 const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
     const navigate = useNavigate();
@@ -111,7 +117,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <iframe src="https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview" width="640" height="480" allow="autoplay"></iframe>
+                    {/* <iframe src={sheetUrl[dataId-1]} width="640" height="480" allow="autoplay"></iframe> */}
                     {dataId <= 1 ?
                         Array.from(Array(groupCnt)).map((_, index) => (
                             index % 2 === 0 ?
