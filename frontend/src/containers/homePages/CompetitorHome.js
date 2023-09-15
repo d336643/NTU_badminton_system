@@ -29,7 +29,7 @@ const Competitor = ({setView, handleLogOut}) => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    {/* <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <Button 
                             onClick={() => navigate('/schedulehome')}
                             variant="outlined"
@@ -37,7 +37,7 @@ const Competitor = ({setView, handleLogOut}) => {
                             fullWidth>
                             賽程專區
                         </Button>
-                    </Grid> */}
+                    </Grid>
                     {/* <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"
@@ -83,15 +83,6 @@ const Competitor = ({setView, handleLogOut}) => {
                             查看各項目報名選手
                         </Button>
                     </Grid> 
-                    {/* <Grid item xs={12}>
-                        <Button 
-                            onClick={() => navigate(`/editregister/${token}`)}
-                            variant="outlined"
-                            size='large'
-                            fullWidth>
-                            編輯 / 查看個人賽事
-                        </Button>
-                    </Grid> */}
                     <Grid item xs={12}>
                         <Button 
                             onClick={() => navigate(`/editprofile/${token}`)}
