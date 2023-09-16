@@ -20,11 +20,11 @@ import { instance, getCommonConfig } from '../apiUtilities/instance';
 // Triangle: 1(左上),2(右上),3(下)
 // const COMPETE = ["三取一", "三取二", "四取一", "四取二"]
 const sheetUrl = [
-    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
-    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
-    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
-    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
-    "https://drive.google.com/file/d/1EC1u4EY3OlK565Wgkq9-lxz6iFu_HvuO/preview",
+    "https://drive.google.com/file/d/1_L1PvhVMcbV-VUxuin141xfloQBUar8H/preview",
+    "https://drive.google.com/file/d/1aKPC-mbK42Z3AkdcM2cHBxirZMSa_HPU/preview",
+    "https://drive.google.com/file/d/1mR54RtEROR_28au6vXmW_9nEMQZey2z9/preview",
+    "https://drive.google.com/file/d/1isAqLFcMWDK_t0jb5x0P70ROR-wNXI5T/preview",
+    "https://drive.google.com/file/d/14NOnD1wEpnR9lg7JfOG98QzwpqWsUsze/preview",
 ]
 
 const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
@@ -117,7 +117,6 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                         justifyContent: 'center',
                     }}
                 >
-                    {/* <iframe src={sheetUrl[dataId-1]} width="640" height="480" allow="autoplay"></iframe> */}
                     {dataId <= 1 ?
                         Array.from(Array(groupCnt)).map((_, index) => (
                             index % 2 === 0 ?
@@ -275,6 +274,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             ))
                         }
                     </div>
+                    <iframe src={sheetUrl[dataId]} width="75%" height="600" allow="autoplay"></iframe>
                     <div class="no-printme">
                         <Button 
                             sx={{mt: '3%'}}
