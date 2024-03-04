@@ -197,7 +197,7 @@ public class AuthController {
         // send token
         String suject = "台大新生盃重設密碼信件";
         // String url = "http://ntubadminton.site:3000/updatepass?token=" + myToken.getToken();
-        String url = "http://34.80.88.220:3000/updatepass?token=" + myToken.getToken();
+        String url = "http://104.199.141.127:3000/updatepass?token=" + myToken.getToken();
         String context = String.format("%s 你好：\n 點此連結重設系統密碼：%s", user.getUsername(), url);
 //        mailService.prepareAndSend(req.getEmail(), suject, context);
         mailService.prepareAndSend(req.getBackEmail(), suject, context);
