@@ -35,7 +35,7 @@ const App = () => {
     const [showNav, setShowNav] = useState(true);
     //browser bar title
     useEffect(() => {
-    document.title = "2023台大盃羽球賽"
+    document.title = "2024台大盃羽球賽"
     }, [])
     return (
         <Router>
