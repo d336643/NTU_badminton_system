@@ -13,7 +13,7 @@ function ShowPdf({isLogin}) {
             }} 
         >{/*minHeight: '80vh'*/}
             <h3 style={{ marginBottom: '20px', marginTop: "20px" }}>競賽章程</h3>
-            <iframe src="https://drive.google.com/file/d/1v1Q085o-09TVhExLl7Ac6kcfga9Y0k_x/preview" width="100%" height="720" allow="autoplay"></iframe>
+            <iframe src="https://drive.google.com/file/d/1cizVYho9KI_A9mKdKXI9KExt5QzDKaQ8/preview" width="100%" height="720" allow="autoplay"></iframe>
             {isLogin ?
                 // <Button 
                 //     sx={{mt: '3%'}}
