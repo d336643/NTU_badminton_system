@@ -280,23 +280,23 @@ const CompetitorStatus = () => {
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="匯款後五碼" />
                                         {event.account === null ? 
-                                            // <TextField
-                                            //     sx={{ gridColumn: '4/8' }}
-                                            //     size="small"
-                                            //     id="account"
-                                            //     label="輸入匯款後五碼"
-                                            //     name="account"
-                                            //     onChange={e => handleAccountSet(e.target.value, event.eventId)}
-                                            // />
                                             <TextField
                                                 sx={{ gridColumn: '4/8' }}
                                                 size="small"
                                                 id="account"
-                                                label="匯款時間已截止"
+                                                label="輸入匯款後五碼"
                                                 name="account"
-                                                disabled
-                                                // onChange={e => handleAccountSet(e.target.value, event.eventId)}
+                                                onChange={e => handleAccountSet(e.target.value, event.eventId)}
                                             />
+                                            // <TextField
+                                            //     sx={{ gridColumn: '4/8' }}
+                                            //     size="small"
+                                            //     id="account"
+                                            //     label="匯款時間已截止"
+                                            //     name="account"
+                                            //     disabled
+                                            //     // onChange={e => handleAccountSet(e.target.value, event.eventId)}
+                                            // />
                                             :
                                             <TextField
                                                 sx={{ gridColumn: '4/8' }}
