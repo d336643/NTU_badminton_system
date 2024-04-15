@@ -183,9 +183,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                     <Typography textAlign="center">競賽章程</Typography>
                                 </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                     <Typography textAlign="center">報名 / 編輯賽事</Typography>
-                                </MenuItem>
+                                </MenuItem> */}
                                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
                                     <Typography textAlign="center">報名及繳費狀態</Typography>
                                 </MenuItem>
@@ -233,9 +233,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                 <Typography textAlign="center">競賽章程</Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
+                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/register">
                                 <Typography textAlign="center">報名 / 編輯賽事</Typography>
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitorstatus">
                                 <Typography textAlign="center">報名及繳費狀態</Typography>
                             </MenuItem>
@@ -365,7 +365,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             >
                                 競賽章程
                             </Button> 
-                            <Button
+                            {/* <Button
                                 // key={page}
                                 component={Link}
                                 to='/register'
@@ -373,7 +373,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 sx={{ mr: 1, color: 'white', display: 'block' }}
                             >
                                 報名 / 編輯賽事
-                            </Button> 
+                            </Button>  */}
                             <Button
                                 // key={page}
                                 component={Link}
@@ -414,7 +414,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                         >
                             競賽章程
                         </Button> 
-                        <Button
+                        {/* <Button
                             // key={page}
                             component={Link}
                             to='/register'
@@ -422,7 +422,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             sx={{ mr: 1, color: 'white', display: 'block' }}
                         >
                             報名 / 編輯賽事
-                        </Button> 
+                        </Button>  */}
                         <Button
                             // key={page}
                             component={Link}
