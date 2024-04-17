@@ -115,7 +115,7 @@ export default function BasicTabs({manageType, department, identity}) {
             {manageType === 3 ?
               <div class="no-printme">
                 <Alert  severity="info" maxWidth="sm" size="small">
-                  全部四角皆為四取二；三角除了女單K取二，其餘皆取一。
+                  四角循環皆取二名晉級；三角循環除女單取二名，其餘皆取一名。
                 </Alert>
               </div> : <></>
             }

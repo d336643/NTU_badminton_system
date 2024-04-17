@@ -20,11 +20,11 @@ import { instance, getCommonConfig } from '../apiUtilities/instance';
 // Triangle: 1(左上),2(右上),3(下)
 // const COMPETE = ["三取一", "三取二", "四取一", "四取二"]
 const sheetUrl = [
-    "https://drive.google.com/file/d/1_L1PvhVMcbV-VUxuin141xfloQBUar8H/preview",
-    "https://drive.google.com/file/d/1aKPC-mbK42Z3AkdcM2cHBxirZMSa_HPU/preview",
-    "https://drive.google.com/file/d/1mR54RtEROR_28au6vXmW_9nEMQZey2z9/preview",
-    "https://drive.google.com/file/d/1isAqLFcMWDK_t0jb5x0P70ROR-wNXI5T/preview",
-    "https://drive.google.com/file/d/14NOnD1wEpnR9lg7JfOG98QzwpqWsUsze/preview",
+    "https://drive.google.com/file/d/1IRRsaxJCWtk9e42IURvQ3fezv2kL8Ify/preview",
+    "https://drive.google.com/file/d/1hQDXHgvrH3Ag4hTiMbnsKvgK9sucw8Vq/preview",
+    "https://drive.google.com/file/d/1efSHrFc8sDFTaR_RrxC2hGjgzzhc5p-F/preview",
+    "https://drive.google.com/file/d/1VRE4EiRsQF951BlujQY1TGYkT_pCVj6q/preview",
+    "https://drive.google.com/file/d/1AEUF0lMm9Srj1iZre1sgRU_EkPb1dtVz/preview",
 ]
 
 const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
@@ -214,7 +214,6 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             </Button>
                         </div> : <></>
                     }
-                    <iframe class="no-printme" src={sheetUrl[dataId]} width="75%" height="600" allow="autoplay"></iframe>
                     <div class='no-printme' 
                         style={{
                             display: 'flex',
@@ -275,6 +274,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             ))
                         }
                     </div>
+                    <iframe class="no-printme" src={sheetUrl[dataId]} width="75%" height="600" allow="autoplay"></iframe>
                     <div class="no-printme">
                         <Button 
                             sx={{mt: '3%'}}
