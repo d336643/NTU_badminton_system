@@ -29,7 +29,7 @@ const Competitor = ({setView, handleLogOut}) => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    {/* <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <Button 
                             onClick={() => navigate('/schedulehome')}
                             variant="outlined"
@@ -37,7 +37,7 @@ const Competitor = ({setView, handleLogOut}) => {
                             fullWidth>
                             賽程專區
                         </Button>
-                    </Grid> */}
+                    </Grid>
                     {/* <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"

@@ -174,9 +174,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                             >
-                                {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
                                     <Typography textAlign="center">賽程專區</Typography>
-                                </MenuItem> */}
+                                </MenuItem>
                                 {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
                                     <Typography textAlign="center">及時比分</Typography>
                                 </MenuItem> */}
@@ -224,9 +224,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             display: { xs: 'block', md: 'none' },
                         }}
                         >
-                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
                                 <Typography textAlign="center">賽程專區</Typography>
-                            </MenuItem> */}
+                            </MenuItem>
                             {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
                                 <Typography textAlign="center">及時比分</Typography>
                             </MenuItem> */}
@@ -274,9 +274,9 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
                                 <Typography textAlign="center">賽程專區</Typography>
-                            </MenuItem> */}
+                            </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu} component={Link} to="/competitionrule">
                                 <Typography textAlign="center">競賽章程</Typography>
                             </MenuItem>
@@ -337,7 +337,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                         </Box>
                         :
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {/* <Button
+                            <Button
                                 // key={page}
                                 component={Link}
                                 to='/schedulehome'
@@ -345,7 +345,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
                             >
                                 賽程專區
-                            </Button> */}
+                            </Button>
                             {/* <Button
                                 // key={page}
                                 component={Link}
@@ -386,7 +386,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                         </Box>
                     :
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/* <Button
+                        <Button
                             // key={page}
                             component={Link}
                             to='/schedulehome'
@@ -394,7 +394,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
                         >
                             賽程專區
-                        </Button>  */}
+                        </Button> 
                         {/* <Button
                             // key={page}
                             component={Link}
@@ -444,14 +444,14 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                     </Box>
                     :
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/* <Button
+                        <Button
                             component={Link}
                             to='/schedulehome'
                             onClick={handleCloseNavMenu}
                             sx={{ mr: 1, color: 'white', display: 'block' }}
                         >
                             賽程專區
-                        </Button> */}
+                        </Button>
                         <Button
                             component={Link}
                             to='/competitionrule'
