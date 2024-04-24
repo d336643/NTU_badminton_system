@@ -79,7 +79,6 @@ public class RoundController {
     }
 
     @GetMapping("")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<?> getRounds(@RequestParam Integer typeId) {
 
         List<Round> rounds = roundRepository.findAllByTypeId(typeId);

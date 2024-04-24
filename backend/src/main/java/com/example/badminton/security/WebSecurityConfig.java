@@ -51,6 +51,7 @@ public class WebSecurityConfig {
             .authorizeRequests()
             .antMatchers("/api/v1/auth/**").permitAll()
             .antMatchers("/api/v1/public/**").permitAll()
+            .antMatchers("/api/v1/rounds/**").permitAll()
             .anyRequest().authenticated();
 
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
