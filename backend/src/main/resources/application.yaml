@@ -1,0 +1,24 @@
+database: mysql
+spring:
+  cloud:
+    gcp:
+      sql:
+        instance-connection-name: ntu-badminton-system:asia-east1:ntu-badminton-mysql
+        database-name: ${DB_NAME}
+        enabled: false
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:3306/${DB_NAME}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: ${SEVER_PORT}
+
+badminton:
+  jwt:
+    secret: ${JWT_SECRET}
+    expireMs: ${JWT_EXPIRE_MS}

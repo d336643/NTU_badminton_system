@@ -34,6 +34,3 @@ build/
 
 ### Mac ###
 .DS_Store
-
-src/main/resources/application.properties
-src/main/resources/application.yaml
