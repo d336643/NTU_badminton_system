@@ -22,11 +22,10 @@ import RefereeSys from "./components/RefereeSys";
 import ScheduleTime from "./containers/ScheduleTime";
 import OutputAllGame from "./containers/OutputAllGame";
 import OutputHome from "./containers/homePages/OutputHome";
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './style/theme';
 import Tournament from "./scheduleGraph/Tournament";
+import ResponsiveAppBar from "./containers/ResponsiceAppBar";
 
 const App = () => {
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
@@ -40,7 +39,7 @@ const App = () => {
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <Navbar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity} showNav={showNav}/>
+                <ResponsiveAppBar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity} showNav={showNav}/>
                 {/* <Routes style={{height: "100vh"}}> */}
                 <Routes>
                     <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
