@@ -6,7 +6,7 @@ import AssignSchedule from '../components/AssignSchedule';
 
 const AssignAllSchedule = () => {
     return (
-        <Container component="main" minWidth="xs" maxWidth="sm" sx={{ justifyContent: 'center' }}>
+        <Container component="main" minWidth="xs" maxWidth="sm" sx={{ justifyContent: 'center', paddingBottom: '100px', paddingTop: '60px' }}>
             {/* <EntryTab manageType={1}/> */}
             <AssignSchedule />
         </Container>

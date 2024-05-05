@@ -22,6 +22,8 @@ const ScheduleTime = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                paddingBottom: '100px', 
+                paddingTop: '60px'
             }} >
             <h3 style={{ marginBottom: '20px' }}>總賽程時間表</h3>
             <iframe src="https://drive.google.com/file/d/1BUo1Ijn9UKwj1C6QR06DfS6-VEEJ6CPZ/preview" width="640" height="480" allow="autoplay"></iframe>

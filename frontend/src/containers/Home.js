@@ -3,7 +3,6 @@ import Container from '@mui/material/Container';
 import General from './homePages/GeneralHome';
 import Competitor from './homePages/CompetitorHome';
 import Manager from './homePages/ManagerHome'
-// import Footer from '../components/Footer';
 import checkIdentity from '../utilities/checkIdentity';
 
 const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
@@ -32,7 +31,7 @@ const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) =
 
     return (
         <>
-            <Container component="main" maxWidth="sm">
+            <Container component="main" maxWidth="sm" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
                 {/*sx={{height: "70vh"}}*/}
                 { isLogin ?
                     view === "manager" ?

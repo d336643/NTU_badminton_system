@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react
 const ScheduleHome = ({identity}) => {
     const navigate = useNavigate();
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
             <Box
                 sx={{
                     mt: '20%',

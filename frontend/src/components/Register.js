@@ -318,6 +318,8 @@ const LoginForm = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        paddingBottom: '100px', 
+                        paddingTop: '60px'
                     }}
                 >
                     <h3 style={{ marginBottom: '20px' }}>報名賽事</h3>

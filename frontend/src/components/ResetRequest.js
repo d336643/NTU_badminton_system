@@ -60,71 +60,63 @@ const Reset = () => {
     }
 
     return (
-        <>
-            <Container component="main" maxWidth="xs">
-                <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
-                <CssBaseline />
-                <List
-                    sx={{
-                        marginTop: '20px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    {/* {showmessage && (
-                        <Alert sx={{ position: 'fixed', top: '10%' }}
-                                severity={severity}>
-                            {alertmessage}
-                        </Alert>
-                    )} */}
-                    <h3 style={{ marginBottom: '20px' }}>請輸入電子郵件以重設密碼</h3>
-                    <Box noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            size="small"
-                            required
-                            fullWidth
-                            id="email"
-                            label="請輸入台大信箱以驗證身分"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            value={values.email}
-                            onChange={handleChange('email')}
-                        />
-                        <TextField
-                            margin="normal"
-                            size="small"
-                            fullWidth
-                            id="backEmail"
-                            label="請輸入非台大信箱之電子郵件收取重設密碼連結"
-                            name="backEmail"
-                            autoComplete="backEmail"
-                            autoFocus
-                            value={values.backEmail}
-                            onChange={handleChange('backEmail')}
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 4, mb: 3 }}
-                            onClick={handleSubmit}
-                        >
-                            重設密碼
-                        </Button>
-                        <Button 
-                            fullWidth
-                            variant="outlined"
-                            onClick={() => navigate('/login')}
-                        >
-                            回到登入
-                        </Button>
-                    </Box>
-                </List>
-            </Container>
-        </>
+        <Container component="main" maxWidth="xs" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
+            <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+            <CssBaseline />
+            <List
+                sx={{
+                    marginTop: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <h3 style={{ marginBottom: '20px' }}>請輸入電子郵件以重設密碼</h3>
+                <Box noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        size="small"
+                        required
+                        fullWidth
+                        id="email"
+                        label="請輸入台大信箱以驗證身分"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        value={values.email}
+                        onChange={handleChange('email')}
+                    />
+                    <TextField
+                        margin="normal"
+                        size="small"
+                        fullWidth
+                        id="backEmail"
+                        label="請輸入非台大信箱之電子郵件收取重設密碼連結"
+                        name="backEmail"
+                        autoComplete="backEmail"
+                        autoFocus
+                        value={values.backEmail}
+                        onChange={handleChange('backEmail')}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 4, mb: 3 }}
+                        onClick={handleSubmit}
+                    >
+                        重設密碼
+                    </Button>
+                    <Button 
+                        fullWidth
+                        variant="outlined"
+                        onClick={() => navigate('/login')}
+                    >
+                        回到登入
+                    </Button>
+                </Box>
+            </List>
+        </Container>
     );
 }
 

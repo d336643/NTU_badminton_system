@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const ShowAllApplicant = () => {
     return (
-        <Container component="main" minWidth="xs" maxWidth="md" sx={{ alignItems: 'center' }}>
+        <Container component="main" minWidth="xs" maxWidth="md" sx={{ alignItems: 'center', paddingBottom: '100px', paddingTop: '60px' }}>
             <EntryTab manageType={-1}/>
         </Container>
     );

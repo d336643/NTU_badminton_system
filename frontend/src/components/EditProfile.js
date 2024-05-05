@@ -120,7 +120,8 @@ const EditForm = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="sm" alignitems='center' minheight='100vh'>
+            <Container component="main" maxWidth="sm" alignitems='center' minheight='100vh' 
+                sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
                 <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <List
                     sx={{
@@ -130,7 +131,6 @@ const EditForm = () => {
                         alignItems: 'center',
                     }}
                 >
-                    {/* <AccountBoxIcon fontSize="large" color="secondary"/> */}
                     <h3 style={{ marginBottom: '20px' }}>編輯個人資料</h3>
                     {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />

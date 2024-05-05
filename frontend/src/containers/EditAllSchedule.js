@@ -12,7 +12,8 @@ import { instance, getCommonConfig } from '../apiUtilities/instance';
 const EditAllSchedule = () => {
     return (
         // <>暫不開放</>
-        <Container component="main" minWidth="xs" maxWidth="lg" sx={{ alignItems: 'center' }}>
+        <Container component="main" minWidth="xs" maxWidth="lg" 
+            sx={{ alignItems: 'center', paddingBottom: '100px', paddingTop: '60px' }}>
             <EntryTab manageType={2}/>
         </Container>
     )

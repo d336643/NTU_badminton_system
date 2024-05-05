@@ -23,14 +23,6 @@ import { getDepartmentLabel } from '../utilities/getDepartment';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
-const boxStyled = {
-    borderRadius: '25px',
-    border: '2px solid #b39ddb',
-    padding: '20px',
-    // width: '200px',
-    // height: '150px',
-}
-
 const Competitor = ({setView, handleLogOut}) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -136,8 +128,7 @@ const Competitor = ({setView, handleLogOut}) => {
 
 
     return (
-        // <>暫不開放</>
-        <Container component="main" maxWidth="sm">
+        <Container component="main" maxWidth="sm" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
             <CssBaseline />
             {showmessage && (
                 <Alert sx={{position: "absolute", top: 0, left: { xs: '22%', md: '40%' }, right: { xs: '22%', md: '40%' }, zIndex: 999 }}

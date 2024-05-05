@@ -51,11 +51,6 @@ const LoginForm = () => {
         submit(values);
     };
 
-    // const form = {
-    //     sid: "B09705024",
-    //     password: "asdfg12345",
-    // }
-
     const submit = async (form) => {
         const config = getCommonConfig(false);
         try {
@@ -112,91 +107,88 @@ const LoginForm = () => {
     }
 
     return (
-        <>
-            <Container component="main" maxWidth="xs" sx={{height: "75vh"}}>
+        <Container component="main" maxWidth="xs" sx={{ height: "75vh", paddingBottom: '100px', paddingTop: '60px' }}>
             {/* <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} /> */}
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: '40px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    {showmessage && (
-                        <Alert sx={{ position: 'fixed', top: '40px' }}
-                                severity={severity}>
-                            {alertmessage}
-                        </Alert>
-                    )}
-                    <Avatar sx={{ mb: 2, bgcolor: 'primary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Box noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            size="small"
-                            // required
-                            fullWidth
-                            id="sid"
-                            label="學號"
-                            name="sid"
-                            autoComplete="sid"
-                            autoFocus
-                            value={values.sid}
-                            onChange={handleChange('sid')}
-                        />
-                        <TextField
-                            margin="normal"
-                            size="small"
-                            // required
-                            fullWidth
-                            name="password"
-                            label="密碼"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            // error={values.password === ""}
-                            // helperText={values.password === "" ? 'Empty field!' : ' '}
-                            onChange={handleChange('password')}
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 3 }}
-                            onClick={handleSubmit}
-                        >
-                            登入
-                        </Button>
-                        <Grid
-                            container
-                            justifyContent="center"
-                            spacing={2}
-                        >
-                            <Grid item>
-                                <Button 
-                                    variant="outlined"
-                                    onClick={() => navigate('/resetpass')}
-                                >
-                                    忘記密碼
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button 
-                                    variant="outlined"
-                                    onClick={() => navigate('/signup')}
-                                >
-                                    註冊
-                                </Button>
-                            </Grid>
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: '60px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                {showmessage && (
+                    <Alert sx={{ position: 'fixed', top: '60px' }}
+                            severity={severity}>
+                        {alertmessage}
+                    </Alert>
+                )}
+                <Avatar sx={{ mb: 2, bgcolor: 'primary.main' }}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Box noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        size="small"
+                        // required
+                        fullWidth
+                        id="sid"
+                        label="學號"
+                        name="sid"
+                        autoComplete="sid"
+                        autoFocus
+                        value={values.sid}
+                        onChange={handleChange('sid')}
+                    />
+                    <TextField
+                        margin="normal"
+                        size="small"
+                        // required
+                        fullWidth
+                        name="password"
+                        label="密碼"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        // error={values.password === ""}
+                        // helperText={values.password === "" ? 'Empty field!' : ' '}
+                        onChange={handleChange('password')}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 3 }}
+                        onClick={handleSubmit}
+                    >
+                        登入
+                    </Button>
+                    <Grid
+                        container
+                        justifyContent="center"
+                        spacing={2}
+                    >
+                        <Grid item>
+                            <Button 
+                                variant="outlined"
+                                onClick={() => navigate('/resetpass')}
+                            >
+                                忘記密碼
+                            </Button>
                         </Grid>
-                    </Box>
+                        <Grid item>
+                            <Button 
+                                variant="outlined"
+                                onClick={() => navigate('/signup')}
+                            >
+                                註冊
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Box>
-                {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
-            </Container>
-        </>
+            </Box>
+        </Container>
     );
 }
 

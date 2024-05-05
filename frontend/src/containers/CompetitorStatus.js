@@ -199,7 +199,8 @@ const CompetitorStatus = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="sm">
+            <Container component="main" maxWidth="sm" 
+                sx={{ paddingBottom: '60px', paddingTop: '60px' }}>
                 <InfoDialog open={open} setOpen={setOpen} turnBack={stored} alertmessage={alertmessage} />
                 <CssBaseline />
                 <List

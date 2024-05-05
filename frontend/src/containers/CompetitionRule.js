@@ -10,6 +10,8 @@ function ShowPdf({isLogin}) {
             sx={{display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                paddingBottom: '100px', 
+                paddingTop: '60px'
             }} 
         >{/*minHeight: '80vh'*/}
             <h3 style={{ marginBottom: '20px', marginTop: "20px" }}>競賽章程</h3>
@@ -29,7 +31,14 @@ function ShowPdf({isLogin}) {
                 >
                     返回主頁面
                 </Button>
-                : <></>
+                : 
+                <Button 
+                    sx={{mt: '20px'}}
+                    variant="outlined"
+                    onClick={() => navigate('/')}
+                >
+                    返回主頁面
+                </Button>
             }
         </Container>
     );

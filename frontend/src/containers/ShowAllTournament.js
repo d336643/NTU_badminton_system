@@ -12,7 +12,7 @@ import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const ShowAllTournament = ({identity}) => {
     return (
-        <Container component="main" minWidth="xs" maxWidth="xl" sx={{ alignItems: 'center' }}>
+        <Container component="main" minWidth="xs" maxWidth="xl" sx={{ alignItems: 'center', paddingBottom: '100px', paddingTop: '60px' }}>
             <Tournament64 />
             <Tournament16 />
         </Container>

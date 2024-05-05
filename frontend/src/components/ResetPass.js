@@ -77,75 +77,72 @@ const Reset = () => {
     }
 
     return (
-        <>
-            {/* <Navbar /> */}
-            <Container component="main" maxWidth="sm">
-                <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
-                <CssBaseline />
-                <List
-                    sx={{
-                        marginTop: '20px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >   
-                    <h3 style={{ marginBottom: "20px" }}>重設密碼</h3>
-                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="新密碼" />
-                        <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">
-                            <InputLabel htmlFor="adornment-password">輸入新密碼</InputLabel>
-                            <OutlinedInput
-                                id="adornment-password"
-                                type={showPassword ? 'text' : 'password'}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                error={password.length !== 0 ? checkPassword(password) ? false : true : false}
-                                endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                    >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                                }
-                                label="Password"
-                            />
-                            {/* <FormHelperText error>
-                                {password.length !== 0 ? checkPassword(password) ? "" : "密碼需由至少8位英文及數字混和組成" : ""}
-                            </FormHelperText> */}
-                        </FormControl>
-                    </ListItem>
-                    <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
-                        <ListItemText sx={{ gridColumn: '1/3' }} id="confirm-item" primary="再次輸入新密碼" />
-                        <TextField
-                            sx={{ gridColumn: '4/8' }}
-                            size="small"
-                            // required
-                            id="confirmPassword"
-                            type={'password'}
-                            label="再次輸入新密碼"
-                            name="confirmPassword"
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            error={confirmPassword !== "" && confirmPassword !== password ? true : false}
-                            helperText={confirmPassword !== "" && confirmPassword !== password ? '輸入與密碼不一致' : ''}
+        <Container component="main" maxWidth="sm" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
+            <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+            <CssBaseline />
+            <List
+                sx={{
+                    marginTop: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >   
+                <h3 style={{ marginBottom: "20px" }}>重設密碼</h3>
+                <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                    <ListItemText sx={{ gridColumn: '1/3' }} id="password-item" primary="新密碼" />
+                    <FormControl sx={{ gridColumn: '4/8' }} size="small" variant="outlined">
+                        <InputLabel htmlFor="adornment-password">輸入新密碼</InputLabel>
+                        <OutlinedInput
+                            id="adornment-password"
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            error={password.length !== 0 ? checkPassword(password) ? false : true : false}
+                            endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                            }
+                            label="Password"
                         />
-                    </ListItem>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 4, mb: 3 }}
-                        onClick={handleSubmit}
-                    >
-                        確認重設密碼
-                    </Button>
-                </List>
-            </Container>
-        </>
+                        {/* <FormHelperText error>
+                            {password.length !== 0 ? checkPassword(password) ? "" : "密碼需由至少8位英文及數字混和組成" : ""}
+                        </FormHelperText> */}
+                    </FormControl>
+                </ListItem>
+                <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                    <ListItemText sx={{ gridColumn: '1/3' }} id="confirm-item" primary="再次輸入新密碼" />
+                    <TextField
+                        sx={{ gridColumn: '4/8' }}
+                        size="small"
+                        // required
+                        id="confirmPassword"
+                        type={'password'}
+                        label="再次輸入新密碼"
+                        name="confirmPassword"
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        error={confirmPassword !== "" && confirmPassword !== password ? true : false}
+                        helperText={confirmPassword !== "" && confirmPassword !== password ? '輸入與密碼不一致' : ''}
+                    />
+                </ListItem>
+                <Button
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 4, mb: 3 }}
+                    onClick={handleSubmit}
+                >
+                    確認重設密碼
+                </Button>
+            </List>
+        </Container>
     );
 }
 

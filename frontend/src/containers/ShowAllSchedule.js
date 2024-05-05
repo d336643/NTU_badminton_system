@@ -11,7 +11,7 @@ import { instance, getCommonConfig } from '../apiUtilities/instance';
 const ShowAllSchedule = ({identity}) => {
     return (
         // <>暫不開放</>
-        <Container component="main" minWidth="xs" maxWidth="xl" sx={{ alignItems: 'center' }}>
+        <Container component="main" minWidth="xs" maxWidth="xl" sx={{ alignItems: 'center', paddingBottom: '100px', paddingTop: '60px' }}>
             <EntryTab manageType={3} identity={identity}/>
         </Container>
         
