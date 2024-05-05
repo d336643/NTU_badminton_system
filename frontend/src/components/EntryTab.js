@@ -80,7 +80,7 @@ export default function BasicTabs({manageType, department, identity}) {
           }}
         >
             <Stack direction="row" spacing={1} alignItems="center">
-              <h3 class = "no-printme" style={{marginRight: '5px'}}>
+              <h3 class="no-printme" style={{marginRight: '5px'}}>
                 {TYPE[Number(manageType > 0 ? manageType : 0)]}－{EVENTENTRY[Number(value)]}
               </h3>
               {/* <p>循環賽</p>

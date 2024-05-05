@@ -23,7 +23,6 @@ export default function InfoDialog({route, open, setOpen, turnBack, alertmessage
             fullWidth
             minWidth="xs"
         >
-            {/* <DialogTitle >{<InfoIcon />}</DialogTitle> */}
             <DialogContent>
                 {alertmessage}
             </DialogContent>
