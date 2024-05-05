@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
     AppBar,
     Box,
+    Button,
     Toolbar,
     Tooltip,
     IconButton,
     Typography,
     Menu,
+    MenuItem,
     Container,
 } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import Home from '@mui/icons-material/Home';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import checkIdentity from '../utilities/checkIdentity';
@@ -73,7 +74,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
 
     return (
         <div class="no-printme">
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Typography
@@ -91,7 +92,8 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 cursor: 'pointer',
                             }}
                         >
-                            <Home sx={{mr: 2, mt: 0.3, cursor: 'pointer'}}/>台大羽球比賽
+                            {/* <Home sx={{mr: 2, mt: 0.3, cursor: 'pointer'}}/> */}
+                            台大羽球比賽
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
@@ -133,7 +135,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             </Menu>
                         </Box>
                         <Typography
-                            variant="h5"
+                            variant="h6"
                             noWrap
                             onClick={() => navigate('/')}
                             sx={{
@@ -148,7 +150,8 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 cursor: 'pointer',
                             }}
                         >
-                            <Home sx={{mr: 2, mt: 0.5, cursor: 'pointer'}}/>台大羽球比賽
+                            {/* <Home sx={{mr: 2, mt: 0.5, cursor: 'pointer'}}/> */}
+                            台大羽球比賽
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {
@@ -162,35 +165,36 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                             }
                         </Box>
                         <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Open settings">
-                                <IconButton 
-                                    size="large"
-                                    color='inherit'
-                                    onClick={handleOpenUserMenu} 
-                                    sx={{ p: 0 }}
-                                >
-                                    <AccountCircle />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {
-                                    isLogin ?
-                                        view === "manager" ? 
+                            {
+                                isLogin ?
+                                <>
+                                    <Tooltip title="Open settings">
+                                        <IconButton 
+                                            size="large"
+                                            color='inherit'
+                                            onClick={handleOpenUserMenu} 
+                                            sx={{ p: 0 }}
+                                        >
+                                            <AccountCircle />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: '45px' }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorElUser}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorElUser)}
+                                        onClose={handleCloseUserMenu}
+                                    >
+                                        {view === "manager" ? 
                                             <ManagerPersonalMenu 
                                                 handleCloseUserMenu={handleCloseUserMenu} 
                                                 identity={identity}
@@ -198,14 +202,15 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                                 navbarLogout={navbarLogout}
                                                 changeIdentity={changeIdentity}
                                             />
-                                        : <CompetitorPersonalMenu 
+                                        : 
+                                        <CompetitorPersonalMenu 
                                             handleCloseUserMenu={handleCloseUserMenu} 
                                             token={token}
                                             navbarLogout={navbarLogout}
-                                    />
-                                    : <></>
-                                }
-                            </Menu>
+                                        />}
+                                    </Menu>
+                                </> : <></>
+                            }
                         </Box>
                     </Toolbar>
                 </Container>
