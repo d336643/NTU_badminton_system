@@ -24,8 +24,9 @@ import OutputAllGame from "./containers/OutputAllGame";
 import OutputHome from "./containers/homePages/OutputHome";
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './style/theme';
-import Tournament from "./scheduleGraph/Tournament";
 import ResponsiveAppBar from "./containers/ResponsiceAppBar";
+import AboutPage from "./components/AboutPage";
+import Footer from "./components/Footer";
 
 const App = () => {
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
@@ -43,6 +44,7 @@ const App = () => {
                 {/* <Routes style={{height: "100vh"}}> */}
                 <Routes>
                     <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
+                    <Route path="/about" element={<AboutPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/resetpass" element={<ResetRequest />} />
                     <Route path="/updatepass" element={<Updatepass />} />
@@ -63,10 +65,9 @@ const App = () => {
                     <Route path="/outputgametable" element={<OutputAllGame />} />
                     <Route path="/outputhome" element={<OutputHome/>} />
                     <Route path="/refereesys" element={<RefereeSys />} />
-                    <Route path="/tournament" element={<Tournament />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
-                {/* <Footer /> */}
+                <Footer />
             </ThemeProvider>
         </Router>
     );
