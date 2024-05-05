@@ -34,7 +34,7 @@ export function CompetitorButton({handleCloseNavMenu}) {
                 component={Link}
                 to='/schedulehome'
                 onClick={handleCloseNavMenu}
-                sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
+                sx={{ mr: 1, color: 'white', display: 'block' }}
             >
                 賽程專區
             </Button> 

@@ -32,7 +32,7 @@ export function ManagerButton({handleCloseNavMenu}) {
                 component={Link}
                 to='/schedulehome'
                 onClick={handleCloseNavMenu}
-                sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
+                sx={{ mr: 1, color: 'white', display: 'block' }}
             >
                 賽程系統
             </Button>

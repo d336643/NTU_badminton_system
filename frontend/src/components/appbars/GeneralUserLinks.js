@@ -33,7 +33,7 @@ export function GeneralUserButton({handleCloseNavMenu}) {
                 component={Link}
                 to='/competitionrule'
                 onClick={handleCloseNavMenu}
-                sx={{ ml: 2, mr: 1, color: 'white', display: 'block' }}
+                sx={{ mr: 1, color: 'white', display: 'block' }}
             >
                 競賽章程
             </Button> 
