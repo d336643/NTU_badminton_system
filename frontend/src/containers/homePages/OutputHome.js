@@ -19,7 +19,7 @@ const OutputHome = ({}) => {
     }
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
             {showed ?
                 showType === 0 ? <OutputAllGame /> : <OutputGameTable dataId={5} />
                 :

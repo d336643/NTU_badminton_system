@@ -69,7 +69,7 @@ const OutPut = ({dataId}) => {
                 >
                     <div class="no-printme">
                         <Button
-                            sx={{marginTop: '10px', marginTop: '20px', marginBottom: '-25px'}}
+                            sx={{marginTop: '15px', marginBottom: '-25px'}}
                             onClick={() => window.print()}
                             >
                             列印
@@ -91,7 +91,7 @@ const OutPut = ({dataId}) => {
                 >
                     <div class="no-printme">
                         <Button
-                            sx={{marginTop: '10px', marginBottom: '10px'}}
+                            sx={{marginTop: '15px', marginBottom: '-25px'}}
                             onClick={() => window.print()}
                             >
                             列印

@@ -37,12 +37,11 @@ const getDepartmentLabel = (departmentId) => {
 
 export const AdvTableDetial = () => {
     return (
-        <>
+        <div style={{marginTop: '-20px'}}>
             {Array.from(Array(GAME.length)).map((_, i) => (
                     <table style={
-                        // (i+1) % 3 === 0 ? {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px', pageBreakAfter: 'always' }
-                        // : 
-                        {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
+                        i === 2 || i === 5 ? {border: '1px solid black', width: '680px', pageBreakAfter: 'always' }
+                        :{border: '1px solid black', width: '680px', marginBottom: '90px', marginTop: '45px'}
                     }>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>
@@ -71,7 +70,7 @@ export const AdvTableDetial = () => {
                     </table>
                 ))
             }
-        </>
+        </div>
     )
 }
 
@@ -86,13 +85,13 @@ export const SingleTableDetial = ({dataId, detail}) => {
     })
 
     return (
-        <>
+        <div style={{marginTop: '-20px'}}>
             {getLen ?
                 Array.from(Array(len)).map((_, i) => (
+                    
                     <table style={
                         i === 2 || i === 5 ? {border: '1px solid black', width: '680px', pageBreakAfter: 'always' }
-                        // : {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
-                        :{border: '1px solid black', width: '680px', marginBottom: '100px', marginTop: '50px'}
+                        :{border: '1px solid black', width: '680px', marginBottom: '90px', marginTop: '45px'}
                     }>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>
@@ -128,7 +127,7 @@ export const SingleTableDetial = ({dataId, detail}) => {
                 ))
                 : <></>
             }
-        </>
+        </div>
     )
 }
 
@@ -143,13 +142,12 @@ export const DoubleTableDetial = ({dataId, detail}) => {
     })
 
     return (
-        <>
+        <div style={{marginTop: '-20px'}}>
             {getLen ?
                 Array.from(Array(len)).map((_, i) => (
                     <table style={
                         i === 2 || i === 5 ? {border: '1px solid black', width: '680px', pageBreakAfter: 'always' }
-                        // : {border: '1px solid black', width: '680px', marginBottom: '80px', marginTop: '50px'}
-                        :{border: '1px solid black', width: '680px', marginBottom: '100px', marginTop: '50px'}
+                        :{border: '1px solid black', width: '680px', marginBottom: '90px', marginTop: '45px'}
                     }>
                         <tr style={tablestyle}>
                             <th style={tablestyle}>
@@ -196,6 +194,6 @@ export const DoubleTableDetial = ({dataId, detail}) => {
                 ))
                 : <></>
             }
-        </>
+        </div>
     )
 }
