@@ -214,6 +214,7 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             </Button>
                         </div> : <></>
                     }
+                    <iframe class="no-printme" src={sheetUrl[dataId]} width="75%" height="600" allow="autoplay"></iframe>
                     <div class='no-printme' 
                         style={{
                             display: 'flex',
@@ -274,7 +275,6 @@ const ShowSchedule = ({dataId, department, scheduleType, identity}) => {
                             ))
                         }
                     </div>
-                    <iframe class="no-printme" src={sheetUrl[dataId]} width="75%" height="600" allow="autoplay"></iframe>
                     <div class="no-printme">
                         <Button 
                             sx={{mt: '3%'}}
