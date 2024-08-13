@@ -22,3 +22,6 @@ badminton:
   jwt:
     secret: ${JWT_SECRET}
     expireMs: ${JWT_EXPIRE_MS}
+
+frontend:
+  url: ${FRONTEND_URL}

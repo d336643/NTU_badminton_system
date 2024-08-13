@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -67,6 +68,9 @@ public class AuthController {
 
     @Autowired
     private MailService mailService;
+
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -197,7 +201,7 @@ public class AuthController {
         // send token
         String suject = "台大新生盃重設密碼信件";
         // String url = "http://ntubadminton.site:3000/updatepass?token=" + myToken.getToken();
-        String url = "http://35.206.238.147:3000/updatepass?token=" + myToken.getToken();
+        String url = frontendUrl + "/updatepass?token=" + myToken.getToken();
         String context = String.format("%s 你好：\n 點此連結重設系統密碼：%s", user.getUsername(), url);
 //        mailService.prepareAndSend(req.getEmail(), suject, context);
         mailService.prepareAndSend(req.getBackEmail(), suject, context);
