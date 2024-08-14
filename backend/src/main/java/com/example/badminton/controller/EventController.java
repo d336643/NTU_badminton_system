@@ -71,6 +71,8 @@ public class EventController {
             for (Long uid : e.getCompetitors()) {
                 User user = userRepository.findById(uid).get();
                 for (Registration r : user.getRegistrations()) {
+                    if (r.getSemester() != e.getSemester())
+                        continue;
                     if (e.getTypeId() == r.getEvent().getId().longValue()) {
                         return ResponseEntity.badRequest().body(
                                 new MessageResponse(false, String.format("User %s already register %s.", user.getUsername(), r.getEvent().getName())));
@@ -93,20 +95,24 @@ public class EventController {
         // user 報名數至多報名兩個
         for (Long uid : uids) {
             User user = userRepository.findById(uid).get();
+            String semester = req.getEvents().get(0).getSemester();
+            
+            Integer self_registered_cnt = registrationRepository.findAllByApplierAndSemester(uid, semester).size(); //自己曾報名場數
+            Integer assisted_register_cnt = registrationRepository.findAllByPartnerUidAndSemester(uid, semester).size(); //被別人報名場數
+
             //applier: 自己曾報名場數+被別人報名場數+這次報名場數
             if (uid == req.getApplier()) {
-                if ((user.getRegistrations().size() + registrationRepository.findAllByPartnerUid(uid).size()
+                if ((self_registered_cnt + assisted_register_cnt
                         + req.getEvents().size()) > 2) {
                     return ResponseEntity.badRequest().body(
-                            new MessageResponse(false, String.format("One user(%s) can at most register 2 events.", user.getUsername())));
+                            new MessageResponse(false, String.format("One user(%s) can at most register 2 events. 自己曾報名%d場，別人幫報名%d場。", user.getUsername(), self_registered_cnt, assisted_register_cnt)));
                 }
             }
             //partner: 自己曾報名場數+被別人報名場數+這次被報名場數（一定是1）
             else {
-                if ((user.getRegistrations().size() + registrationRepository.findAllByPartnerUid(uid).size()
-                        + 1) > 2) {
+                if ((self_registered_cnt + assisted_register_cnt + 1) > 2) {
                     return ResponseEntity.badRequest().body(
-                            new MessageResponse(false, String.format("One user(%s) can at most register 2 events.", user.getUsername())));
+                            new MessageResponse(false, String.format("One user(%s) can at most register 2 events. 自己曾報名%d場，別人幫報名%d場。", user.getUsername(), self_registered_cnt, assisted_register_cnt)));
                 }
             }
         }
@@ -245,20 +251,24 @@ public class EventController {
                     new MessageResponse(false, "TypeID and competitor cnt not match!"));
         }
 
-        //檢查 partner 是否報名同樣項目
-        User user = userRepository.findById(partnerUid).get();
-        for (Registration r : user.getRegistrations()) {
+        // 檢查 partner 的報名狀況
+        String semester = registration.get().getSemester();
+        List<Registration> partnerSelfRegisteredEvents = registrationRepository.findAllByApplierAndSemester(partnerUid, semester); //隊友自己曾報名的
+        List<Registration> partnerAssistedRegisterCnt = registrationRepository.findAllByPartnerUidAndSemester(partnerUid, semester); //隊友被別人報名ㄉ
+
+        //1. 檢查 partner 是否報名同樣項目
+        User partner = userRepository.findById(partnerUid).get();
+        for (Registration r : partnerSelfRegisteredEvents) {
             Boolean registerDuplicateEventType = req.getEvent().getTypeId() == r.getEvent().getId().longValue();
             if (registerDuplicateEventType) {
                 return ResponseEntity.badRequest().body(
-                        new MessageResponse(false, String.format("User %s already register %s.", user.getUsername(), r.getEvent().getName())));
+                        new MessageResponse(false, String.format("User %s already register %s.", partner.getUsername(), r.getEvent().getName())));
             }
         }
 
-        // 檢查 partner 至多報名兩個項目
-        User partner = userRepository.findById(partnerUid).get();
+        // 2. 檢查 partner 至多報名兩個項目
         //partner: 自己曾報名場數+被別人報名場數+這次被報名場數（一定是1）
-        if ((partner.getRegistrations().size() + registrationRepository.findAllByPartnerUid(partnerUid).size()
+        if ((partnerSelfRegisteredEvents.size() + partnerAssistedRegisterCnt.size()
                 + 1) > 2) {
             return ResponseEntity.badRequest().body(
                     new MessageResponse(false, String.format("One user(%s) can at most register 2 events.", partner.getUsername())));
