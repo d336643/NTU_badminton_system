@@ -31,7 +31,7 @@ const LoginForm = () => {
     const myUid = Number(localStorage.getItem('uid'));
     const token = localStorage.getItem('token');
     const applier = myUid;
-    const cursemester = "112-2";
+    const cursemester = "113-1";
     const [oldtypeID1, setOldtypeID1] = useState(null);
     const [oldtypeID2, setOldtypeID2] = useState(null);
     const [typeID1, setTypeID1] = useState(null);

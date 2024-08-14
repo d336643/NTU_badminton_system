@@ -95,7 +95,7 @@ const FormTable = ({dataId}) => {
     const fetchData = async() => {
         const config = getCommonConfig(true);
         try {
-            let res = await instance.get(`admin/users?typeId=${dataId+1}&semester='112-2'`, config); //&semester='112-2'
+            let res = await instance.get(`admin/users?typeId=${dataId+1}&semester='113-1'`, config); 
             if(res.status === 200) {
                 const newState = res.data.events.map((obj) => {
                         if (obj.competitors.length === 1) {
