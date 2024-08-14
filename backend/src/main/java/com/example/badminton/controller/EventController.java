@@ -97,7 +97,7 @@ public class EventController {
             User user = userRepository.findById(uid).get();
             String semester = req.getEvents().get(0).getSemester();
             
-            Integer self_registered_cnt = registrationRepository.findAllByApplierAndSemester(uid, semester).size(); //自己曾報名場數
+            Integer self_registered_cnt = registrationRepository.findAllByApplierAndSemester(user, semester).size(); //自己曾報名場數
             Integer assisted_register_cnt = registrationRepository.findAllByPartnerUidAndSemester(uid, semester).size(); //被別人報名場數
 
             //applier: 自己曾報名場數+被別人報名場數+這次報名場數
@@ -253,11 +253,11 @@ public class EventController {
 
         // 檢查 partner 的報名狀況
         String semester = registration.get().getSemester();
-        List<Registration> partnerSelfRegisteredEvents = registrationRepository.findAllByApplierAndSemester(partnerUid, semester); //隊友自己曾報名的
+        User partner = userRepository.findById(partnerUid).get();
+        List<Registration> partnerSelfRegisteredEvents = registrationRepository.findAllByApplierAndSemester(partner, semester); //隊友自己曾報名的
         List<Registration> partnerAssistedRegisterCnt = registrationRepository.findAllByPartnerUidAndSemester(partnerUid, semester); //隊友被別人報名ㄉ
 
         //1. 檢查 partner 是否報名同樣項目
-        User partner = userRepository.findById(partnerUid).get();
         for (Registration r : partnerSelfRegisteredEvents) {
             Boolean registerDuplicateEventType = req.getEvent().getTypeId() == r.getEvent().getId().longValue();
             if (registerDuplicateEventType) {
