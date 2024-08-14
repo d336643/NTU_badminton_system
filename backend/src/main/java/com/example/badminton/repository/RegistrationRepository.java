@@ -13,9 +13,15 @@ import com.example.badminton.model.entity.Registration;
 @Repository
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
     List<Registration> findAllByPartnerUid(Long uid);
+    
+    List<Registration> findAllByPartnerUidAndSemester(Long uid, String semester);
+
+    List<Registration> findAllByApplierAndSemester(Long uid, String semester);
 
     @Query(value = "SELECT IFNULL(MAX(registration_id), 0) FROM registration WHERE event_id = :eid AND semester = :semester", nativeQuery = true)
     int findRegistrationIdsByEventIdAndSemester(@Param("eid") Long eid, @Param("semester") String semester);
+
+    
 
     @Modifying
     @Query("DELETE FROM Registration r WHERE r.id = :id")
