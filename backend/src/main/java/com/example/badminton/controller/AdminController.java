@@ -2,6 +2,7 @@ package com.example.badminton.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -49,13 +50,18 @@ public class AdminController {
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> getAllRegistrationData(@RequestParam Long typeId) {
+    public ResponseEntity<?> getAllRegistrationData(@RequestParam Long typeId, @RequestParam String semester) {
         Optional<Event> opt = eventRepository.findById(typeId);
         if (opt.isPresent()){
             Event e = opt.get();
+            Set<Registration> registrations = e.getRegistrations();
+            Set<Registration> filteredRegistrations = registrations.stream()
+    .filter(registration -> semester.equals(registration.getSemester()))
+    .collect(Collectors.toSet());
+            
             return ResponseEntity.ok(new EventRegistrationsResponse(true,
                                                                    registrationsConvertToEventRegistrationData(
-                                                                           e.getRegistrations())));
+                                                                           filteredRegistrations)));
         } else {
             return ResponseEntity.badRequest().body(new MessageResponse(false, "typeId should range from 1 to 5."));
         }
