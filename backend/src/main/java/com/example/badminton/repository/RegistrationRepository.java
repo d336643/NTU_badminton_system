@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.badminton.model.entity.Registration;
+import com.example.badminton.model.entity.User;
+
 
 @Repository
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
@@ -16,7 +18,7 @@ public interface RegistrationRepository extends JpaRepository<Registration, Long
     
     List<Registration> findAllByPartnerUidAndSemester(Long uid, String semester);
 
-    List<Registration> findAllByApplierAndSemester(Long uid, String semester);
+    List<Registration> findAllByApplierAndSemester(User applier, String semester);
 
     @Query(value = "SELECT IFNULL(MAX(registration_id), 0) FROM registration WHERE event_id = :eid AND semester = :semester", nativeQuery = true)
     int findRegistrationIdsByEventIdAndSemester(@Param("eid") Long eid, @Param("semester") String semester);
