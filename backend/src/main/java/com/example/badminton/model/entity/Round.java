@@ -18,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 
 @Builder
 @Data
@@ -79,4 +81,8 @@ public class Round {
 
     private Integer duration;
 
+    // 20240815: add "semester" column to `rounds` table
+    @Column(length = 10)
+    @NotNull
+    private String semester;
 }

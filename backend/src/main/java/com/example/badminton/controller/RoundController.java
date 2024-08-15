@@ -79,9 +79,9 @@ public class RoundController {
     }
 
     @GetMapping("")
-    ResponseEntity<?> getRounds(@RequestParam Integer typeId) {
+    ResponseEntity<?> getRounds(@RequestParam Integer typeId, @RequestParam String semester) {
 
-        List<Round> rounds = roundRepository.findAllByTypeId(typeId);
+        List<Round> rounds = roundRepository.findAllByTypeIdAndSemester(typeId, semester);
 
         Set<String> unique_groupps = new HashSet<>();
         for (Round r : rounds) {

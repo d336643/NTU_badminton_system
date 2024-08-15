@@ -13,6 +13,6 @@ import com.example.badminton.model.entity.Round;
 
 @Repository
 public interface RoundRepository extends JpaRepository<Round, Long> {
-    List<Round> findAllByTypeId(Integer typeId);
+    List<Round> findAllByTypeIdAndSemester(Integer typeId, String semester);
     Optional<Round> findByTypeIdAndTypeIndex(Integer typeId, Integer typeIndex);
 }
