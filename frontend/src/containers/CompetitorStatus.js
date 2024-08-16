@@ -15,6 +15,7 @@ import {
     ListItemText,
     Alert,
     Autocomplete,
+    CircularProgress
 } from '@mui/material';
 
 import InfoDialog from "../components/InfoDialog";
@@ -50,6 +51,7 @@ const CompetitorStatus = () => {
     const [submit, setSubmit] = useState(false);
     const [selectedSemester, setSelectedSemester] = useState('');
     const [semesters, setSemesters] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const eventStatus = ["未繳費(已報名)", "審核中", "審核通過，已繳費"]
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
@@ -107,29 +109,35 @@ const CompetitorStatus = () => {
                 const res = await instance.get(`events/status?uid=${uid}`, config);
                 if (res.data.success) {
                     const fetchedSemesters = res.data.events.map(event => event.semester);
-                    const uniqueSemesters = [...new Set(fetchedSemesters)]; // To ensure unique semesters
+                    const uniqueSemesters = [...new Set(fetchedSemesters)];
                     setSemesters(uniqueSemesters);
 
-                    const latestSemester = uniqueSemesters.sort().reverse()[0]; // Get the latest semester
-                    setSelectedSemester(latestSemester);
+                    if (uniqueSemesters.includes(SEMESTER)) {
+                        setSelectedSemester(SEMESTER);
+                    } else {
+                        setSemesters(uniqueSemesters => [SEMESTER, ...uniqueSemesters]);
+                        setSelectedSemester(SEMESTER);
+                    }
     
-                    setEvents(events.concat(res.data.events));
                     const newState = res.data.events.map((event) => {
                         if (event.typeId > 2) {
-                            event.competitors.map(obj => {
+                            event.competitors.forEach(obj => {
                                 if (obj.uid !== Number(uid)) {
                                     let partner = obj.username;
                                     let sid = obj.sid;
-                                    setPartners(partners.concat({typeId: event.typeId, partner: partner, sid: sid}));
+                                    setPartners(prevPartners => [...prevPartners, { typeId: event.typeId, partner: partner, sid: sid }]);
                                 }
-                            })
+                            });
                         }
                         return createData(event.eventId, event.account);
                     });
-                    setEventsToPay(eventsToPay.concat(newState));
+                    setEvents(res.data.events);
+                    setEventsToPay(newState);
                 }
             } catch (error) {
                 // console.log(error);
+            } finally {
+                setLoading(false);
             }
         }
         fetchData();
@@ -283,7 +291,9 @@ const CompetitorStatus = () => {
                             disabled={true}
                         />
                     </ListItem>
-                    { filteredEvents.length > 0 ?
+                    {loading ? ( <CircularProgress /> ) 
+                        : 
+                        filteredEvents.length > 0 ?
                         filteredEvents.map((event, i) => {
                             return (
                                 <>
