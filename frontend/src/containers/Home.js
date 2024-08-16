@@ -8,22 +8,27 @@ import checkIdentity from '../utilities/checkIdentity';
 const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
 
     const handleLogOut = () => {
+        setIsLogin(false);
         localStorage.clear();
         // console.log("local storage has been cleared.")
         // setIsLogin(false);
         setView("guest");
-        setIsLogin(false);
     }
 
     useEffect(() => {
         async function identityCheck(isLogin) {
+            let login = await checkIdentity();
             if (!isLogin) {
-                let login = await checkIdentity();
-                console.log("login", login);
                 setView(login);
                 setIdentity(login);
                 if ( login === "guest") setIsLogin(false);
                 else setIsLogin(true);
+            }
+            else {
+                if (login != view)
+                    setView(login);
+                if (login != identity)
+                    setIdentity(login);
             }
         }
         identityCheck(isLogin);

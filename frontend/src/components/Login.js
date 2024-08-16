@@ -19,7 +19,7 @@ import delay from '../utilities/delay';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
-const LoginForm = () => {
+const LoginForm = ({setView, setIsLogin, setIdentity}) => {
     const navigate = useNavigate();
     const [values, setValues] = useState({
         sid: '',
@@ -56,13 +56,18 @@ const LoginForm = () => {
         try {
             const res = await instance.post('/auth/signin', form, config);
             if (res.data.success === true) {
+                setAlertmessage('登入成功');
+                setSeverity('success');
+                setShowmessage(true);
+                closeAlert();
+                
                 // setView("competitor")
                 localStorage.setItem("token", res.data.token);
-                // console.log("userId", res.data.uid);
                 localStorage.setItem("uid", res.data.uid);
                 
                 await getInfo(res.data.uid, res.data.token);
-
+                
+                setIsLogin(true)
                 navigate('/');
             }
             else {
@@ -100,6 +105,13 @@ const LoginForm = () => {
                 localStorage.setItem("accountStatus", res.data.data.accountStatus);
                 localStorage.setItem("address", res.data.data.address);
                 localStorage.setItem("role", res.data.data.role);
+                if (res.data.data.role === "2") {
+                    setView("manager");
+                    setIdentity("manager");
+                } else {
+                    setView("competitor");
+                    setIdentity("competitor");
+                }
             }
         } catch (error) {
             // console.log((error));
@@ -119,8 +131,16 @@ const LoginForm = () => {
                 }}
             >
                 {showmessage && (
-                    <Alert sx={{ position: 'fixed', top: '60px' }}
-                            severity={severity}>
+                    <Alert 
+                        sx={{ position: 'fixed', 
+                            top: 0, 
+                            left: '50%', 
+                            transform: 'translateX(-50%)', 
+                            zIndex: 1500,  // Increased zIndex value
+                            width: 'auto',
+                            maxWidth: '90%'}}
+                        severity={severity}
+                    >
                         {alertmessage}
                     </Alert>
                 )}

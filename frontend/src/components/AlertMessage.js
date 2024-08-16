@@ -42,7 +42,17 @@ const AlertMessage = ( {setShowmessage, message, route, closeType} ) => {
         <>
             {open && (
                 <Alert 
-                    severity={severity}>
+                    sx={{ 
+                        position: "fixed", 
+                        top: 0, 
+                        left: '50%', 
+                        transform: 'translateX(-50%)', 
+                        zIndex: 1500,  // Increased zIndex value
+                        width: 'auto',
+                        maxWidth: '90%' // Ensure it fits within the viewport
+                    }} 
+                    severity={alert.severity}
+                >
                     {message}
                 </Alert>
             )}

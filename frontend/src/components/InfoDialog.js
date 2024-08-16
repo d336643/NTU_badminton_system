@@ -22,6 +22,7 @@ export default function InfoDialog({route, open, setOpen, turnBack, alertmessage
             onClose={handleClose}
             fullWidth
             minWidth="xs"
+            sx={{zIndex: 1500}}
         >
             <DialogContent>
                 {alertmessage}

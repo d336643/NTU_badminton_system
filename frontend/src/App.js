@@ -47,7 +47,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
                     <Route path="/about" element={<AboutPage />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<Login setView={setView} setIsLogin={setIsLogin} setIdentity={setIdentity}/>} />
                     <Route path="/resetpass" element={<ResetRequest />} />
                     <Route path="/updatepass" element={<Updatepass />} />
                     <Route path="/signup" element={<Signup />} />
