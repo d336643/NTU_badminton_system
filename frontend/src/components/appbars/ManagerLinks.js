@@ -2,16 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, MenuItem, Typography } from '@mui/material';
 
-export function ManagerMenu({ registrationOpen, handleCloseNavMenu }) {
+import { REGISTRATION_OPEN } from '../../utilities/globalVariable';
+
+export function ManagerMenu({ handleCloseNavMenu }) {
     return (
         <>
-            {registrationOpen? 
+            {REGISTRATION_OPEN? 
                 <></>:
                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
                     <Typography textAlign="center">賽程系統</Typography>
                 </MenuItem>
             }
-            {registrationOpen? 
+            {REGISTRATION_OPEN? 
                 <></>:
                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/refereesys">
                     <Typography textAlign="center">裁判系統</Typography>
@@ -31,10 +33,10 @@ export function ManagerMenu({ registrationOpen, handleCloseNavMenu }) {
     );
 };
 
-export function ManagerButton({registrationOpen, handleCloseNavMenu}) {
+export function ManagerButton({handleCloseNavMenu}) {
     return (
         <>
-            {registrationOpen?
+            {REGISTRATION_OPEN?
                 <></>
                 :
                 <Button
@@ -46,7 +48,7 @@ export function ManagerButton({registrationOpen, handleCloseNavMenu}) {
                     賽程系統
                 </Button>
             }
-            {registrationOpen ? 
+            {REGISTRATION_OPEN ? 
                             <></>
                             :
                 <Button

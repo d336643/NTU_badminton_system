@@ -6,7 +6,9 @@ import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
-const General = ({registrationOpen}) => {
+import { REGISTRATION_OPEN } from "../../utilities/globalVariable";
+
+const General = () => {
     const navigate = useNavigate();
     return (
         <Container component="main" maxWidth="xs">
@@ -25,7 +27,7 @@ const General = ({registrationOpen}) => {
                     spacing={2}
                 >
                     {
-                        registrationOpen ? 
+                        REGISTRATION_OPEN ? 
                         <></>
                         :
                         <Grid item xs={12}>

@@ -6,7 +6,9 @@ import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
-const Manager = ({registrationOpen, setView, handleLogOut, identity}) => {
+import { REGISTRATION_OPEN } from '../../utilities/globalVariable';
+
+const Manager = ({setView, handleLogOut, identity}) => {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
     
@@ -27,7 +29,7 @@ const Manager = ({registrationOpen, setView, handleLogOut, identity}) => {
                         justifyContent="center"
                         spacing={2}
                     >
-                        {registrationOpen ? 
+                        {REGISTRATION_OPEN ? 
                             <></>
                             :
                             <Grid item xs={12}>
@@ -40,7 +42,7 @@ const Manager = ({registrationOpen, setView, handleLogOut, identity}) => {
                                 </Button>
                             </Grid>
                         }
-                        {registrationOpen ? 
+                        {REGISTRATION_OPEN ? 
                             <></>
                             :
                             <Grid item xs={12}>
@@ -78,7 +80,7 @@ const Manager = ({registrationOpen, setView, handleLogOut, identity}) => {
                         justifyContent="center"
                         spacing={2}
                     >
-                        {registrationOpen ? 
+                        {REGISTRATION_OPEN ? 
                             <></>
                             :
                             <Grid item xs={12}>

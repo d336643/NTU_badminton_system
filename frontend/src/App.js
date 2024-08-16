@@ -28,23 +28,24 @@ import ResponsiveAppBar from "./containers/ResponsiceAppBar";
 import AboutPage from "./components/AboutPage";
 import Footer from "./components/Footer";
 
+import { SEMESTER, REGISTRATION_OPEN } from "./utilities/globalVariable";
+
 const App = () => {
-    const [registrationOpen, setRegistrationOpen] = useState(true); // Control this based on registration deadline
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
     const [isLogin, setIsLogin] = useState(false);
     const [identity, setIdentity] = useState("manager");
     const [showNav, setShowNav] = useState(true);
     //browser bar title
     useEffect(() => {
-    document.title = "113-1新生盃羽球賽"
+        document.title = SEMESTER + " 新生盃羽球賽"
     }, [])
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <ResponsiveAppBar registrationOpen={registrationOpen} view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity} showNav={showNav}/>
+                <ResponsiveAppBar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity} showNav={showNav}/>
                 {/* <Routes style={{height: "100vh"}}> */}
                 <Routes>
-                    <Route path="/" element={<Home registrationOpen={registrationOpen} view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
+                    <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/resetpass" element={<ResetRequest />} />
@@ -59,7 +60,7 @@ const App = () => {
                     <Route path="/showallapplicant" element={<ShowAllApplicant />} />
                     <Route path="/assignallschedule" element={<AssignAllSchedule />} />
                     {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
-                    {registrationOpen? <></>:
+                    {REGISTRATION_OPEN? <></>:
                         <>
                             <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
                             <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />

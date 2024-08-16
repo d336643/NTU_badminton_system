@@ -9,7 +9,9 @@ import {
     Button,
 } from '@mui/material';
 
-const Competitor = ({registrationOpen, setView, handleLogOut}) => {
+import { REGISTRATION_OPEN } from "../../utilities/globalVariable";
+
+const Competitor = ({setView, handleLogOut}) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     
@@ -30,7 +32,7 @@ const Competitor = ({registrationOpen, setView, handleLogOut}) => {
                     spacing={2}
                 >
                     {
-                        registrationOpen ? 
+                        REGISTRATION_OPEN ? 
                         <></>
                         :
                         <Grid item xs={12}>

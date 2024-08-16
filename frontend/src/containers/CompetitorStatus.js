@@ -20,15 +20,15 @@ import {
 import InfoDialog from "../components/InfoDialog";
 
 import { DEGREEE } from '../utilities/entry';
+import { SEMESTER } from "../utilities/globalVariable";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
+
 
 const createData = (eventId, account) => {
     return { eventId: eventId, account: account };
 }
 const text = ['一', '二']
-
-const currentSemester = '113-1'
 
 const CompetitorStatus = () => {
     const navigate = useNavigate();
@@ -215,13 +215,13 @@ const CompetitorStatus = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="sm" 
-                sx={{ paddingBottom: '60px', paddingTop: '60px' }}>
+            <Container component="main" maxWidth="sm" sx={{ paddingBottom: '60px', paddingTop: '60px' }}>
                 <InfoDialog open={open} setOpen={setOpen} turnBack={stored} alertmessage={alertmessage} />
                 <CssBaseline />
                 <List
                     sx={{
-                        marginTop: '20px',
+                        mt: '20px',
+                        mb: 3,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -260,6 +260,7 @@ const CompetitorStatus = () => {
                             size="small"
                             value={name}
                             readOnly={true}
+                            disabled={true}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -269,6 +270,7 @@ const CompetitorStatus = () => {
                             size="small"
                             value={sid}
                             readOnly={true}
+                            disabled={true}
                         />
                     </ListItem>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
@@ -278,6 +280,7 @@ const CompetitorStatus = () => {
                             size="small"
                             value={findDepart(departmentId)+DEGREEE[degreeId-1]}
                             readOnly={true}
+                            disabled={true}
                         />
                     </ListItem>
                     { filteredEvents.length > 0 ?
@@ -292,6 +295,7 @@ const CompetitorStatus = () => {
                                             size="small"
                                             value={eventEntry[event.typeId-1] + event.registrationId}
                                             readOnly={true}
+                                            disabled={true}
                                         />
                                     </ListItem>
                                     {
@@ -303,6 +307,7 @@ const CompetitorStatus = () => {
                                                 size="small"
                                                 value={getPartners(event.typeId)}
                                                 readOnly={true}
+                                                disabled={true}
                                             />
                                         </ListItem>
                                         : <></>
@@ -314,11 +319,12 @@ const CompetitorStatus = () => {
                                             size="small"
                                             value={eventStatus[event.status-1]}
                                             readOnly={true}
+                                            disabled={true}
                                         />
                                     </ListItem>
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="匯款後五碼" />
-                                        {selectedSemester == currentSemester? 
+                                        {selectedSemester == SEMESTER? 
                                             event.account === null ?   
                                                 <TextField
                                                     sx={{ gridColumn: '4/8' }}
@@ -343,6 +349,7 @@ const CompetitorStatus = () => {
                                                     size="small"
                                                     value={event.account}
                                                     readOnly={true}
+                                                    disabled={true}
                                                 />
                                             :
                                             <TextField
@@ -351,6 +358,7 @@ const CompetitorStatus = () => {
                                                 id="account"
                                                 value={event.account ? event.account : ''}
                                                 readOnly={true}
+                                                disabled={true}
                                             />
                                         }
                                     </ListItem>
@@ -366,10 +374,9 @@ const CompetitorStatus = () => {
                         spacing={2}
                         sx={{mt: '2%'}}
                     >
-                        { status && selectedSemester == currentSemester ?
+                        { status && selectedSemester == SEMESTER ?
                             <Grid item>
                                 <Button 
-                                    sx={{ mb: 3 }}
                                     variant="contained"
                                     onClick={handleStore}
                                 >
@@ -380,7 +387,6 @@ const CompetitorStatus = () => {
                         }
                         <Grid item>
                             <Button 
-                                sx={{ mb: 3 }}
                                 variant="outlined"
                                 onClick={() => navigate('/')}
                             >

@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, MenuItem, Typography } from '@mui/material';
 
-export function CompetitorMenu({ registrationOpen, handleCloseNavMenu }) {
+import { REGISTRATION_OPEN } from '../../utilities/globalVariable';
+
+export function CompetitorMenu({ handleCloseNavMenu }) {
     return (
         <>
             {
-                registrationOpen?
+                REGISTRATION_OPEN?
                 <></>
                 :
                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
@@ -32,10 +34,10 @@ export function CompetitorMenu({ registrationOpen, handleCloseNavMenu }) {
     );
 };
 
-export function CompetitorButton({registrationOpen, handleCloseNavMenu}) {
+export function CompetitorButton({handleCloseNavMenu}) {
     return (
         <>
-            {registrationOpen ? 
+            {REGISTRATION_OPEN ? 
                 <></>
                 :<Button
                     component={Link}

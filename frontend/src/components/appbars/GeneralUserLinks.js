@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, MenuItem, Typography } from '@mui/material';
 
-export function GeneralUserMenu({ registrationOpen, handleCloseNavMenu }) {
+import { REGISTRATION_OPEN } from '../../utilities/globalVariable';
+
+export function GeneralUserMenu({ handleCloseNavMenu }) {
     return (
         <>
-            {registrationOpen ? 
+            {REGISTRATION_OPEN ? 
                 <></>
                 :
                 <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
@@ -22,10 +24,10 @@ export function GeneralUserMenu({ registrationOpen, handleCloseNavMenu }) {
     );
 };
 
-export function GeneralUserButton({registrationOpen, handleCloseNavMenu}) {
+export function GeneralUserButton({handleCloseNavMenu}) {
     return (
         <>
-            {registrationOpen ?
+            {REGISTRATION_OPEN ?
                 <></>
                 :
                 <Button
