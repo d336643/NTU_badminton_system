@@ -13,7 +13,8 @@ import {
     List,
     ListItem,
     ListItemText,
-    Alert
+    Alert,
+    Autocomplete,
 } from '@mui/material';
 
 import InfoDialog from "../components/InfoDialog";
@@ -26,6 +27,8 @@ const createData = (eventId, account) => {
     return { eventId: eventId, account: account };
 }
 const text = ['一', '二']
+
+const currentSemester = '113-1'
 
 const CompetitorStatus = () => {
     const navigate = useNavigate();
@@ -45,6 +48,8 @@ const CompetitorStatus = () => {
     const [alertmessage, setAlertmessage] = useState('Alert message');
     const [department, setDepartment] = useState([]);
     const [submit, setSubmit] = useState(false);
+    const [selectedSemester, setSelectedSemester] = useState('');
+    const [semesters, setSemesters] = useState([]);
 
     const eventStatus = ["未繳費(已報名)", "審核中", "審核通過，已繳費"]
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"]
@@ -101,19 +106,26 @@ const CompetitorStatus = () => {
             try {
                 const res = await instance.get(`events/status?uid=${uid}`, config);
                 if (res.data.success) {
+                    const fetchedSemesters = res.data.events.map(event => event.semester);
+                    const uniqueSemesters = [...new Set(fetchedSemesters)]; // To ensure unique semesters
+                    setSemesters(uniqueSemesters);
+
+                    const latestSemester = uniqueSemesters.sort().reverse()[0]; // Get the latest semester
+                    setSelectedSemester(latestSemester);
+    
                     setEvents(events.concat(res.data.events));
                     const newState = res.data.events.map((event) => {
                         if (event.typeId > 2) {
                             event.competitors.map(obj => {
                                 if (obj.uid !== Number(uid)) {
-                                    let partner = obj.username
-                                    let sid = obj.sid
-                                    setPartners(partners.concat({typeId: event.typeId, partner: partner, sid: sid}))
+                                    let partner = obj.username;
+                                    let sid = obj.sid;
+                                    setPartners(partners.concat({typeId: event.typeId, partner: partner, sid: sid}));
                                 }
                             })
                         }
                         return createData(event.eventId, event.account);
-                    })
+                    });
                     setEventsToPay(eventsToPay.concat(newState));
                 }
             } catch (error) {
@@ -197,6 +209,10 @@ const CompetitorStatus = () => {
         return name[0]
     }
 
+    const filteredEvents = selectedSemester
+        ? events.filter(event => event.semester === selectedSemester)
+        : events;
+
     return (
         <>
             <Container component="main" maxWidth="sm" 
@@ -212,6 +228,28 @@ const CompetitorStatus = () => {
                     }}
                 >
                     <h3 style={{ marginBottom: '20px' }}>報名及繳費狀態</h3>
+                    <Grid container alignItems="center" sx={{ marginBottom: '20px' }}>
+                        <Grid item xs={4} />
+                        <Grid item xs={4} style={{ textAlign: 'right'}}>
+                            <Autocomplete
+                                size="small"
+                                id="select-semester"
+                                options={semesters.map(semester => ({ label: semester, id: semester }))}
+                                getOptionLabel={(option) => option.label || ""}
+                                isOptionEqualToValue={(option, value) => option.id === value.id}
+                                renderInput={(params) => <TextField {...params} label="學期" />}
+                                onChange={(event, newValue) => {
+                                    if (newValue) {
+                                        setSelectedSemester(newValue.id);
+                                    }
+                                }}
+                                value={semesters.find(semester => semester === selectedSemester) ? { label: selectedSemester, id: selectedSemester } : null}
+                                disableClearable
+                                sx={{padding: '5px', paddingLeft: '15px', paddingRight: '15px' }}
+                            />
+                        </Grid>
+                        <Grid item xs={4} />
+                    </Grid>
                     <Alert severity="info" style={{ marginBottom: '20px' }}>
                         銀行代碼：700 &nbsp; 匯款帳戶：00013611355868 &nbsp; 戶名：張閔翔
                     </Alert>
@@ -242,8 +280,8 @@ const CompetitorStatus = () => {
                             readOnly={true}
                         />
                     </ListItem>
-                    { events.length > 0 ?
-                        events.map((event, i) => {
+                    { filteredEvents.length > 0 ?
+                        filteredEvents.map((event, i) => {
                             return (
                                 <>
                                     <Divider color='secondary' style={{marginTop: '2%', marginBottom: '2%', width:'100%'}}><Chip color='secondary' variant='outlined' label={`項目${text[i]}`} /></Divider>
@@ -280,29 +318,38 @@ const CompetitorStatus = () => {
                                     </ListItem>
                                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                                         <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="匯款後五碼" />
-                                        {event.account === null ? 
-                                            <TextField
-                                                sx={{ gridColumn: '4/8' }}
-                                                size="small"
-                                                id="account"
-                                                label="輸入匯款後五碼"
-                                                name="account"
-                                                onChange={e => handleAccountSet(e.target.value, event.eventId)}
-                                            />
-                                            // <TextField
-                                            //     sx={{ gridColumn: '4/8' }}
-                                            //     size="small"
-                                            //     id="account"
-                                            //     label="匯款時間已截止"
-                                            //     name="account"
-                                            //     disabled
-                                            //     // onChange={e => handleAccountSet(e.target.value, event.eventId)}
-                                            // />
+                                        {selectedSemester == currentSemester? 
+                                            event.account === null ?   
+                                                <TextField
+                                                    sx={{ gridColumn: '4/8' }}
+                                                    size="small"
+                                                    id="account"
+                                                    label="輸入匯款後五碼"
+                                                    name="account"
+                                                    onChange={e => handleAccountSet(e.target.value, event.eventId)}
+                                                />
+                                                // <TextField
+                                                //     sx={{ gridColumn: '4/8' }}
+                                                //     size="small"
+                                                //     id="account"
+                                                //     label="匯款時間已截止"
+                                                //     name="account"
+                                                //     disabled
+                                                //     // onChange={e => handleAccountSet(e.target.value, event.eventId)}
+                                                // />
+                                                :
+                                                <TextField
+                                                    sx={{ gridColumn: '4/8' }}
+                                                    size="small"
+                                                    value={event.account}
+                                                    readOnly={true}
+                                                />
                                             :
                                             <TextField
                                                 sx={{ gridColumn: '4/8' }}
                                                 size="small"
-                                                value={event.account}
+                                                id="account"
+                                                value={event.account ? event.account : ''}
                                                 readOnly={true}
                                             />
                                         }
@@ -319,9 +366,10 @@ const CompetitorStatus = () => {
                         spacing={2}
                         sx={{mt: '2%'}}
                     >
-                        { status ?
+                        { status && selectedSemester == currentSemester ?
                             <Grid item>
                                 <Button 
+                                    sx={{ mb: 3 }}
                                     variant="contained"
                                     onClick={handleStore}
                                 >
@@ -332,6 +380,7 @@ const CompetitorStatus = () => {
                         }
                         <Grid item>
                             <Button 
+                                sx={{ mb: 3 }}
                                 variant="outlined"
                                 onClick={() => navigate('/')}
                             >
