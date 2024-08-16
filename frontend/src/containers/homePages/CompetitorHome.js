@@ -63,7 +63,7 @@ const Competitor = ({registrationOpen, setView, handleLogOut}) => {
                             競賽章程
                         </Button>
                     </Grid>
-                    {/* <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <Button 
                             onClick={() => navigate('/register')}
                             variant="outlined"
@@ -71,7 +71,7 @@ const Competitor = ({registrationOpen, setView, handleLogOut}) => {
                             fullWidth>
                             報名 / 編輯賽事
                         </Button>
-                    </Grid> */}
+                    </Grid>
                     <Grid item xs={12}>
                         <Button 
                             onClick={() => navigate('/competitorstatus')}

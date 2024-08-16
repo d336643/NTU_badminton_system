@@ -100,14 +100,14 @@ const Manager = ({registrationOpen, setView, handleLogOut, identity}) => {
                                 競賽章程
                             </Button>
                         </Grid>
-                        {/* <Grid item xs={12}>
+                        <Grid item xs={12}>
                             <Button component={Link} to="/register"
                                 variant="outlined"
                                 size='large'
                                 fullWidth>
                                 報名 / 編輯賽事
                             </Button>
-                        </Grid> */}
+                        </Grid>
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate('/competitorstatus')}
