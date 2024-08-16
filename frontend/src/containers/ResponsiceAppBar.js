@@ -24,7 +24,7 @@ import { ManagerMenu, ManagerButton, ManagerPersonalMenu } from '../components/a
 import { CompetitorMenu, CompetitorButton, CompetitorPersonalMenu } from '../components/appbars/CompetitorLinks';
 import { GeneralUserMenu, GeneralUserButton } from '../components/appbars/GeneralUserLinks';
 
-const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
+const ResponsiveAppBar = ({registrationOpen, view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -127,10 +127,10 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 {   
                                     isLogin?
                                         view === "manager" ? 
-                                            identity === "manager" ? <ManagerMenu handleCloseNavMenu={handleCloseNavMenu}/>
-                                            : <CompetitorMenu handleCloseNavMenu={handleCloseNavMenu}/>
-                                        : <CompetitorMenu handleCloseNavMenu={handleCloseNavMenu}/>
-                                    : <GeneralUserMenu handleCloseNavMenu={handleCloseNavMenu}/>
+                                            identity === "manager" ? <ManagerMenu registrationOpen={registrationOpen} handleCloseNavMenu={handleCloseNavMenu}/>
+                                            : <CompetitorMenu registrationOpen={registrationOpen} handleCloseNavMenu={handleCloseNavMenu}/>
+                                        : <CompetitorMenu registrationOpen={registrationOpen} handleCloseNavMenu={handleCloseNavMenu}/>
+                                    : <GeneralUserMenu registrationOpen={registrationOpen} handleCloseNavMenu={handleCloseNavMenu}/>
                                 }
                             </Menu>
                         </Box>
@@ -158,10 +158,10 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 isLogin ?
                                     view === "manager" ? 
                                         identity == "manager" ?
-                                            <ManagerButton handleCloseNavMenu={handleCloseNavMenu}/>
-                                        : <CompetitorButton handleCloseNavMenu={handleCloseNavMenu}/>
-                                    : <CompetitorButton handleCloseNavMenu={handleCloseNavMenu}/>
-                                : <GeneralUserButton handleCloseNavMenu={handleCloseNavMenu}/>
+                                            <ManagerButton registrationOpen={registrationOpen} handleCloseNavMenu={handleCloseNavMenu}/>
+                                        : <CompetitorButton registrationOpen={registrationOpen} handleCloseNavMenu={handleCloseNavMenu}/>
+                                    : <CompetitorButton registrationOpen={registrationOpen} handleCloseNavMenu={handleCloseNavMenu}/>
+                                : <GeneralUserButton registrationOpen={registrationOpen} handleCloseNavMenu={handleCloseNavMenu}/>
                             }
                         </Box>
                         <Box sx={{ flexGrow: 0 }}>

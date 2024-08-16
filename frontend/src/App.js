@@ -29,6 +29,7 @@ import AboutPage from "./components/AboutPage";
 import Footer from "./components/Footer";
 
 const App = () => {
+    const [registrationOpen, setRegistrationOpen] = useState(true); // Control this based on registration deadline
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
     const [isLogin, setIsLogin] = useState(false);
     const [identity, setIdentity] = useState("manager");
@@ -40,10 +41,10 @@ const App = () => {
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <ResponsiveAppBar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity} showNav={showNav}/>
+                <ResponsiveAppBar registrationOpen={registrationOpen} view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity} showNav={showNav}/>
                 {/* <Routes style={{height: "100vh"}}> */}
                 <Routes>
-                    <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
+                    <Route path="/" element={<Home registrationOpen={registrationOpen} view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/resetpass" element={<ResetRequest />} />
@@ -56,15 +57,19 @@ const App = () => {
                     <Route path="/competitorstatus" element={<CompetitorStatus />} />
                     <Route path="/allapplicant" element={<ShowAllOtherApplicant />} />
                     <Route path="/showallapplicant" element={<ShowAllApplicant />} />
-                    <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
                     <Route path="/assignallschedule" element={<AssignAllSchedule />} />
                     {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
-                    <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />
-                    <Route path="/showalltournament" element={<ShowAllTournament identity={identity}/>} />
-                    <Route path="/scheduletime" element={<ScheduleTime />} />
-                    <Route path="/outputgametable" element={<OutputAllGame />} />
-                    <Route path="/outputhome" element={<OutputHome/>} />
-                    <Route path="/refereesys" element={<RefereeSys />} />
+                    {registrationOpen? <></>:
+                        <>
+                            <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
+                            <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />
+                            <Route path="/showalltournament" element={<ShowAllTournament identity={identity}/>} />
+                            <Route path="/scheduletime" element={<ScheduleTime />} />
+                            <Route path="/outputgametable" element={<OutputAllGame />} />
+                            <Route path="/outputhome" element={<OutputHome/>} />
+                            <Route path="/refereesys" element={<RefereeSys />} />
+                        </>
+                    }
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
                 <Footer />

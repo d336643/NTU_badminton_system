@@ -2,12 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, MenuItem, Typography } from '@mui/material';
 
-export function CompetitorMenu({ handleCloseNavMenu }) {
+export function CompetitorMenu({ registrationOpen, handleCloseNavMenu }) {
     return (
         <>
-            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
-                <Typography textAlign="center">賽程專區</Typography>
-            </MenuItem>
+            {
+                registrationOpen?
+                <></>
+                :
+                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                    <Typography textAlign="center">賽程專區</Typography>
+                </MenuItem>
+            }
             {/* <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">
                 <Typography textAlign="center">及時比分</Typography>
             </MenuItem> */}
@@ -27,17 +32,20 @@ export function CompetitorMenu({ handleCloseNavMenu }) {
     );
 };
 
-export function CompetitorButton({handleCloseNavMenu}) {
+export function CompetitorButton({registrationOpen, handleCloseNavMenu}) {
     return (
         <>
-            <Button
-                component={Link}
-                to='/schedulehome'
-                onClick={handleCloseNavMenu}
-                sx={{ mr: 1, color: 'white', display: 'block' }}
-            >
-                賽程專區
-            </Button> 
+            {registrationOpen ? 
+                <></>
+                :<Button
+                    component={Link}
+                    to='/schedulehome'
+                    onClick={handleCloseNavMenu}
+                    sx={{ mr: 1, color: 'white', display: 'block' }}
+                >
+                    賽程專區
+                </Button> 
+            }
             {/* <Button
                 component={Link}
                 to='/'

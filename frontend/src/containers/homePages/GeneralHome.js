@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
-const General = () => {
+const General = ({registrationOpen}) => {
     const navigate = useNavigate();
     return (
         <Container component="main" maxWidth="xs">
@@ -24,15 +24,21 @@ const General = () => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    <Grid item xs={12}>
-                        <Button 
-                            onClick={() => navigate('/schedulehome')}
-                            variant="outlined"
-                            size='large'
-                            fullWidth>
-                            賽程專區
-                        </Button>
-                    </Grid>
+                    {
+                        registrationOpen ? 
+                        <></>
+                        :
+                        <Grid item xs={12}>
+                            <Button
+                                onClick={() => navigate("/schedulehome")}
+                                variant="outlined"
+                                size='large'
+                                fullWidth
+                            >
+                                賽程專區
+                            </Button>
+                        </Grid>
+                    }
                     {/* <Grid item xs={12}>
                         <Button 
                             onClick={() => navigate('/competitionrule')}

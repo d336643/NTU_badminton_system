@@ -2,15 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, MenuItem, Typography } from '@mui/material';
 
-export function ManagerMenu({ handleCloseNavMenu }) {
+export function ManagerMenu({ registrationOpen, handleCloseNavMenu }) {
     return (
         <>
-            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
-                <Typography textAlign="center">賽程系統</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseNavMenu} component={Link} to="/refereesys">
-                <Typography textAlign="center">裁判系統</Typography>
-            </MenuItem> 
+            {registrationOpen? 
+                <></>:
+                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/schedulehome">
+                    <Typography textAlign="center">賽程系統</Typography>
+                </MenuItem>
+            }
+            {registrationOpen? 
+                <></>:
+                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/refereesys">
+                    <Typography textAlign="center">裁判系統</Typography>
+                </MenuItem> 
+            }
             <MenuItem onClick={handleCloseNavMenu} compsonent={Link} to="/showallapplicant">
                 <Typography textAlign="center">報名者表單、繳費</Typography>
             </MenuItem>
@@ -25,25 +31,33 @@ export function ManagerMenu({ handleCloseNavMenu }) {
     );
 };
 
-export function ManagerButton({handleCloseNavMenu}) {
+export function ManagerButton({registrationOpen, handleCloseNavMenu}) {
     return (
         <>
-            <Button
-                component={Link}
-                to='/schedulehome'
-                onClick={handleCloseNavMenu}
-                sx={{ mr: 1, color: 'white', display: 'block' }}
-            >
-                賽程系統
-            </Button>
-            <Button
-                component={Link}
-                to='/refereesys'
-                onClick={handleCloseNavMenu}
-                sx={{ mr: 1, color: 'white', display: 'block' }}
-            >
-                裁判系統
-            </Button> 
+            {registrationOpen?
+                <></>
+                :
+                <Button
+                    component={Link}
+                    to='/schedulehome'
+                    onClick={handleCloseNavMenu}
+                    sx={{ mr: 1, color: 'white', display: 'block' }}
+                >
+                    賽程系統
+                </Button>
+            }
+            {registrationOpen ? 
+                            <></>
+                            :
+                <Button
+                    component={Link}
+                    to='/refereesys'
+                    onClick={handleCloseNavMenu}
+                    sx={{ mr: 1, color: 'white', display: 'block' }}
+                >
+                    裁判系統
+                </Button> 
+            }
             <Button
                 component={Link}
                 to='/showallapplicant'

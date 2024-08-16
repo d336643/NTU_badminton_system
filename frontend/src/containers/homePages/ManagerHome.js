@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
-const Manager = ({setView, handleLogOut, identity}) => {
+const Manager = ({registrationOpen, setView, handleLogOut, identity}) => {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
     
@@ -27,24 +27,32 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         justifyContent="center"
                         spacing={2}
                     >
-                        <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate("/schedulehome")}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                進入賽程系統
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate("/refereesys")}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                進入裁判系統
-                            </Button>
-                        </Grid>
+                        {registrationOpen ? 
+                            <></>
+                            :
+                            <Grid item xs={12}>
+                                <Button 
+                                    onClick={() => navigate("/schedulehome")}
+                                    variant="outlined"
+                                    size='large'
+                                    fullWidth>
+                                    進入賽程系統
+                                </Button>
+                            </Grid>
+                        }
+                        {registrationOpen ? 
+                            <></>
+                            :
+                            <Grid item xs={12}>
+                                <Button 
+                                    onClick={() => navigate("/refereesys")}
+                                    variant="outlined"
+                                    size='large'
+                                    fullWidth>
+                                    進入裁判系統
+                                </Button>
+                            </Grid>
+                        }
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate("/showallapplicant")}
@@ -70,15 +78,19 @@ const Manager = ({setView, handleLogOut, identity}) => {
                         justifyContent="center"
                         spacing={2}
                     >
-                        <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate('/schedulehome')}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                賽程專區
-                            </Button>
-                        </Grid>
+                        {registrationOpen ? 
+                            <></>
+                            :
+                            <Grid item xs={12}>
+                                <Button 
+                                    onClick={() => navigate('/schedulehome')}
+                                    variant="outlined"
+                                    size='large'
+                                    fullWidth>
+                                    賽程專區
+                                </Button>
+                            </Grid>
+                        }
                         <Grid item xs={12}>
                             <Button 
                                 onClick={() => navigate('/competitionrule')}

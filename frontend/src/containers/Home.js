@@ -5,7 +5,7 @@ import Competitor from './homePages/CompetitorHome';
 import Manager from './homePages/ManagerHome'
 import checkIdentity from '../utilities/checkIdentity';
 
-const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
+const HomePage = ({registrationOpen, view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
 
     const handleLogOut = () => {
         localStorage.clear();
@@ -35,9 +35,9 @@ const HomePage = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) =
                 {/*sx={{height: "70vh"}}*/}
                 { isLogin ?
                     view === "manager" ?
-                        <Manager setView={setView} handleLogOut={handleLogOut} identity={identity} /> 
-                        : <Competitor setView={setView} handleLogOut={handleLogOut} />
-                    : <General />
+                        <Manager registrationOpen={registrationOpen} setView={setView} handleLogOut={handleLogOut} identity={identity} /> 
+                        : <Competitor registrationOpen={registrationOpen} setView={setView} handleLogOut={handleLogOut} />
+                    : <General registrationOpen={registrationOpen}/>
                 }
             </Container>
             {/* <Footer /> */}

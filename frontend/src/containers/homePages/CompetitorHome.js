@@ -9,7 +9,7 @@ import {
     Button,
 } from '@mui/material';
 
-const Competitor = ({setView, handleLogOut}) => {
+const Competitor = ({registrationOpen, setView, handleLogOut}) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     
@@ -29,15 +29,22 @@ const Competitor = ({setView, handleLogOut}) => {
                     justifyContent="center"
                     spacing={2}
                 >
-                    <Grid item xs={12}>
-                        <Button 
-                            onClick={() => navigate('/schedulehome')}
-                            variant="outlined"
-                            size='large'
-                            fullWidth>
-                            賽程專區
-                        </Button>
-                    </Grid>
+                    {
+                        registrationOpen ? 
+                        <></>
+                        :
+                        <Grid item xs={12}>
+                            <Button
+                                onClick={() => navigate("/schedulehome")}
+                                variant="outlined"
+                                size='large'
+                                fullWidth
+                            >
+                                賽程專區
+                            </Button>
+                        </Grid>
+                    }
+                    
                     {/* <Grid item xs={12}>
                         <Button component={Link} to="/"
                             variant="outlined"
