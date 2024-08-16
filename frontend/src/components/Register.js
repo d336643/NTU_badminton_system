@@ -30,7 +30,6 @@ const RegisterForm = () => {
     const navigate = useNavigate();
     const myUid = Number(localStorage.getItem('uid'));
     const token = localStorage.getItem('token');
-    const applier = myUid;
     // 1: Man Single, 2: Woman Single, 3: Men Double, 4: Women Double, 5: Mixed Double
     const [typeID1, setTypeID1] = useState(null);
     const [typeID2, setTypeID2] = useState(null);
