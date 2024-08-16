@@ -63,14 +63,14 @@ export function CompetitorButton({registrationOpen, handleCloseNavMenu}) {
             >
                 競賽章程
             </Button> 
-            {/* <Button
+            <Button
                 component={Link}
                 to='/register'
                 onClick={handleCloseNavMenu}
                 sx={{ mr: 1, color: 'white', display: 'block' }}
             >
                 報名 / 編輯賽事
-            </Button>  */}
+            </Button> 
             <Button
                 component={Link}
                 to='/competitorstatus'
