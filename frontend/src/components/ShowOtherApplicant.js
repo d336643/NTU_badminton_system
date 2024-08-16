@@ -25,6 +25,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import { PAGE_SIZES } from '../Constants';
+import { SEMESTER } from '../utilities/globalVariable';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
@@ -91,7 +92,7 @@ const FormTable = ({dataId}) => {
         // console.log(dataId.state.data)
         const config = getCommonConfig(true);
         try {
-            let res = await instance.get(`admin/users?typeId=${dataId+1}&semester='113-1'`, config);
+            let res = await instance.get(`admin/users?typeId=${dataId+1}&semester=${SEMESTER}`, config);
             if(res.status === 200) {
                 const newState = res.data.events.map((obj) => {
                     if (obj.competitors.length === 1) {

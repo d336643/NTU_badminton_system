@@ -26,6 +26,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import delay from '../utilities/delay';
+import { SEMESTER } from '../utilities/globalVariable';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
@@ -95,7 +96,7 @@ const FormTable = ({dataId}) => {
     const fetchData = async() => {
         const config = getCommonConfig(true);
         try {
-            let res = await instance.get(`admin/users?typeId=${dataId+1}&semester='113-1'`, config); 
+            let res = await instance.get(`admin/users?typeId=${dataId+1}&semester=${SEMESTER}`, config); 
             if(res.status === 200) {
                 const newState = res.data.events.map((obj) => {
                         if (obj.competitors.length === 1) {
@@ -194,8 +195,18 @@ const FormTable = ({dataId}) => {
         <>
             <CssBaseline />
                     {showmessage && (
-                        <Alert sx={{position: "absolute", top: 0, left: { xs: '22%', md: '40%' }, right: { xs: '22%', md: '40%' }, zIndex: 999 }}
-                                severity={severity}>
+                        <Alert 
+                            sx={{ 
+                                position: "fixed", 
+                                top: 0, 
+                                left: '50%', 
+                                transform: 'translateX(-50%)', 
+                                zIndex: 1500,  // Increased zIndex value
+                                width: 'auto',
+                                maxWidth: '90%' // Ensure it fits within the viewport
+                            }} 
+                            severity={alert.severity}
+                        >
                             {alertmessage}
                         </Alert>
                     )}
