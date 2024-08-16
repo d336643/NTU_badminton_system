@@ -15,31 +15,28 @@ import {
     Divider,
     Chip,
     Alert,
+    Box,
+    CircularProgress
 } from '@mui/material';
 
 import InfoDialog from "./InfoDialog";
 
-import baseURL from "../urlUtility";
 import { EVENTTYPEENTRY } from "../utilities/entry";
+import { REGISTRATION_OPEN, SEMESTER } from "../utilities/globalVariable";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
-import axios from 'axios';
-
-const LoginForm = () => {
+const RegisterForm = () => {
     const navigate = useNavigate();
     const myUid = Number(localStorage.getItem('uid'));
     const token = localStorage.getItem('token');
     const applier = myUid;
-    const cursemester = "113-1";
-    const [oldtypeID1, setOldtypeID1] = useState(null);
-    const [oldtypeID2, setOldtypeID2] = useState(null);
+    // 1: Man Single, 2: Woman Single, 3: Men Double, 4: Women Double, 5: Mixed Double
     const [typeID1, setTypeID1] = useState(null);
     const [typeID2, setTypeID2] = useState(null);
-    // 1: Man Single, 2: Woman Single, 3: Men Double, 4: Women Double, 5: Mixed Double
     const [competitors1, setCompetitors1] = useState(null);
     const [competitors2, setCompetitors2] = useState(null);
-    const [currentStudent, setCurrentStudent] = useState();
+    const [currentStudent, setCurrentStudent] = useState([]);
     const [success, setSuccess] = useState(true);
     const [alertmessage, setAlertmessage] = useState('Alert message');
     const [open, setOpen] = useState(false);
@@ -48,157 +45,133 @@ const LoginForm = () => {
     const [editmode1, setEditmode1] = useState(false);
     const [editmode2, setEditmode2] = useState(false);
     const [gotinfo, setGotinfo] = useState(false);
+    const [historyEvents, setHistoryEvents] = useState([]);
     const eventEntry = ["男單", "女單", "男雙", "女雙", "混雙"];
 
-    const checkSame = (opt) => {
-        return Number(opt.uid) !== myUid;
-    }
+    const checkSame = (opt) => Number(opt.uid) !== myUid;
+
+    const getHistoryPartners = (event) => {
+        const partner = event.competitors.find(c => c.uid !== myUid);
+        return partner ? `${partner.sid} ${partner.username}` : "";
+    };
 
     const getPartners = (tid) => {
         let name = partners.map(p => {
             if (tid === p.typeId) {
-                return {uid: p.uid, username: p.partner, sid: p.sid}
+                return { uid: p.uid, username: p.partner, sid: p.sid };
             }
-        })
-        return name[0]
-    }
+            return null;
+        }).filter(Boolean);
+        return name[0];
+    };
 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const config = {
-    //             headers:{
-    //                 'Authorization': 'Bearer ' + token,
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         }
-    //         try {
-    //             const res = await instance.get(`/users`, config);
-    //             if (res.data.success === true){
-    //                 const users = res.data.data;
-    //                 setCurrentStudent(users);
-    //             }
-    //         } catch (error) {
-    //             // console.log(error);
-    //         }
-    //     }
-    //     fetchData();
-    // }, [])
+    const showAlert = (message, isSuccess) => {
+        setAlertmessage(message);
+        setSuccess(isSuccess);
+        setOpen(true);
+    };
 
     useEffect(() => {
         async function fetchData() {
             const config = {
-                headers:{
+                headers: {
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
                 }
-            }
+            };
             try {
                 const res = await instance.get(`/users`, config);
-                if (res.data.success === true){
-                    const users = res.data.data;
-                    setCurrentStudent(users);
+                if (res.data.success === true) {
+                    setCurrentStudent(res.data.data);
                 }
             } catch (error) {
-                // console.log(error);
+                console.log(error);
             }
             try {
                 const res = await instance.get(`events/status?uid=${myUid}`, config);
                 if (res.data.success) {
-                    setEvents(events.concat(res.data.events));
-                    const newState = res.data.events.map((event, i) => {
-                        if (i === 0) {
-                            setTypeID1(event.typeId);
-                            setOldtypeID1(event.typeId);
-                        }
-                        else if (i === 1) {
-                            setTypeID2(event.typeId);
-                            setOldtypeID2(event.typeId);
-                        }
-                        if (event.typeId > 2) {
-                            event.competitors.map((obj) => {
-                                if (obj.uid !== Number(myUid)) {
-                                    let userid = obj.uid;
-                                    let partner = obj.username;
-                                    let sid = obj.sid;
-                                    setPartners(partners.concat({typeId: event.typeId, uid: userid, partner: partner, sid: sid}));
-                                    if (i === 0) setCompetitors1(userid);
-                                    else if (i === 1) setCompetitors2(userid);
-                                }
-                            })
-                        }
-                    })
+                    const currentEvents = res.data.events.filter(event => event.semester === SEMESTER);
+                    const pastEvents = res.data.events.filter(event => event.semester !== SEMESTER);
+
+                    setEvents(currentEvents);
+                    setHistoryEvents(pastEvents);
+
+                    if (currentEvents.length > 0) {
+                        const newState = currentEvents.map((event, i) => {
+                            if (i === 0) {
+                                setTypeID1(event.typeId);
+                            } else if (i === 1) {
+                                setTypeID2(event.typeId);
+                            }
+                            if (event.typeId > 2) {
+                                event.competitors.forEach((obj) => {
+                                    if (obj.uid !== myUid) {
+                                        setPartners(partners.concat({ typeId: event.typeId, uid: obj.uid, partner: obj.username, sid: obj.sid }));
+                                        if (i === 0) setCompetitors1(obj.uid);
+                                        else if (i === 1) setCompetitors2(obj.uid);
+                                    }
+                                });
+                            }
+                        });
+                    }
                     setGotinfo(true);
                 }
             } catch (error) {
-                // console.log(error);
+                console.log(error);
             }
         }
         fetchData();
-    }, [])
+    }, []);
 
-    const handleSubmit = (number) => {
-        if (number === 1) {
-            let regEvent = [];
-            if (typeID2 !== null) {
-                if (typeID2 === 1 || typeID2 === 2) 
-                    regEvent = regEvent.concat({typeId: typeID2, semester: cursemester, competitors: [myUid]});
-                else {
-                    if (competitors2 === null) {
-                        setAlertmessage("未選擇隊友");
-                        setSuccess(false);
-                        setOpen(true);
-                        return;
-                    }
-                    else regEvent = regEvent.concat({typeId: typeID2, semester: cursemester, competitors: [myUid, competitors2]});
-                }
+    const groupEventsBySemester = (events) => {
+        return events.reduce((grouped, event) => {
+            const semester = event.semester;
+            if (!grouped[semester]) {
+                grouped[semester] = [];
             }
-            submit(regEvent);
-        }
-        else {
-            if (typeID1 === null && typeID2 === null) {
-                setAlertmessage("請至少選擇一場比賽");
-                setSuccess(false);
-                setOpen(true);
-                return;
+            grouped[semester].push(event);
+            return grouped;
+        }, {});
+    };
+
+    const groupedHistoryEvents = groupEventsBySemester(historyEvents);
+
+    const handleSubmit = () => {
+        let regEvent = [];
+    
+        if (typeID1 === null && typeID2 === null) {
+            showAlert("請至少選擇一場比賽", false);
+            return;
+        } else if (typeID1 === typeID2) {
+            showAlert("請勿重複報名", false);
+            return;
+        } else {
+            if (typeID1 !== null && !isEventCreated(typeID1)) {
+                regEvent.push(createEvent(typeID1, competitors1));
             }
-            else if (typeID1 ===  typeID2) {
-                setAlertmessage("請勿重複報名");
-                setSuccess(false);
-                setOpen(true);
-                return;
-            }
-            else {
-                let regEvent = [];
-                if (typeID1 !== null) {
-                    if (typeID1 === 1 || typeID1 === 2)
-                        regEvent = regEvent.concat({typeId: typeID1, semester: cursemester, competitors: [myUid]});
-                    else {
-                        if (competitors1 === null) {
-                            setAlertmessage("未選擇隊友");
-                            setSuccess(false);
-                            setOpen(true);
-                            return;
-                        }
-                        else regEvent = regEvent.concat({typeId: typeID1, semester: cursemester, competitors: [myUid, competitors1]});
-                    }
-                }
-                if (typeID2 !== null) {
-                    if (typeID2 === 1 || typeID2 === 2) 
-                        regEvent = regEvent.concat({typeId: typeID2, semester: cursemester, competitors: [myUid]});
-                    else {
-                        if (competitors2 === null) {
-                            setAlertmessage("未選擇隊友");
-                            setSuccess(false);
-                            setOpen(true);
-                            return;
-                        }
-                        else regEvent = regEvent.concat({typeId: typeID2, semester: cursemester, competitors: [myUid, competitors2]});
-                    }
-                }
-                submit(regEvent);
+            if (typeID2 !== null && !isEventCreated(typeID2)) {
+                regEvent.push(createEvent(typeID2, competitors2));
             }
         }
-    }
+    
+        if (regEvent.length) submit(regEvent);
+    };
+    
+    const isEventCreated = (typeId) => {
+        return events.some(event => event.typeId === typeId);
+    };
+    
+    const createEvent = (typeId, competitor) => {
+        if ((typeId > 2 && competitor === null) || typeId === null) {
+            showAlert("未選擇隊友", false);
+            return null;
+        }
+        return {
+            typeId,
+            semester: SEMESTER,
+            competitors: competitor ? [myUid, competitor] : [myUid]
+        };
+    };
 
     const handleDelete = (entry) => {
         if (entry === 1)
@@ -232,116 +205,68 @@ const LoginForm = () => {
         }
     }
 
-    const deleteEvent = async(eid) => {
-        let form = {
-            applier: applier,
-            eventId: eid
-        }
-        await axios({
-            url:baseURL+`/events`,
-            method:'delete',
-            data : form,
-            headers:{
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'}
-        }).then ((response) => {
-            if (response.data.success === true){
-                setAlertmessage("刪除項目完成");
-                setSuccess(true);
-                setOpen(true);
-            }
-        }).catch((error) => {
-            // console.log(error)
-            setAlertmessage(String(error.response.data.msg));
-            setOpen(true);
-        });
-    }
-
-    const editEvent = async(events) => {
-        let form = {
-            applier: applier,
-            event: events[0]
-        }
-        const config = {
-            headers:{
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }
-        }
+    const deleteEvent = async (eid) => {
         try {
-            const res = await instance.put('/events', form, config);
-            if (res.status === 200){
-                setAlertmessage("編輯完成，請至 \"報名及繳費狀態\" 頁確認");
-                setSuccess(true);
-                setOpen(true);
+            const res = await instance.delete(`/events`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                data: { applier: myUid, eventId: eid }
+            });
 
+            if (res.data.success) {
+                showAlert("刪除項目完成", true);
             }
         } catch (error) {
-            // console.log((error));
-			setAlertmessage(String(error).replace('Error: ', ''));
-            setOpen(true);
+            showAlert(String(error.response.data.msg), false);
         }
-    }
+    };
 
-    const submit = async(events) => {
-        let form = {
-            applier: applier,
-            events: events,
-        }
-        const config = {
-            headers:{
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }
-        }
+    const editEvent = async (events) => {
         try {
-            const res = await instance.post(`/events`, form, config);
-            if (res.status === 200){
-                setAlertmessage("報名完成，請至 \"報名及繳費狀態\" 頁確認");
-                setSuccess(true);
-                setOpen(true);
+            const res = await instance.put('/events', { applier: myUid, event: events[0] }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
 
+            if (res.status === 200) {
+                showAlert("編輯完成，請至 \"報名及繳費狀態\" 頁確認", true);
             }
         } catch (error) {
-            // console.log((error));
-			setAlertmessage(String(error).replace('Error: ', ''));
-            setOpen(true);
+            showAlert(String(error).replace('Error: ', ''), false);
         }
-    }
+    };
+
+    const submit = async (events) => {
+        try {
+            const res = await instance.post(`/events`, { applier: myUid, events }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (res.status === 200) {
+                showAlert("報名完成，請至 \"報名及繳費狀態\" 頁確認", true);
+            }
+        } catch (error) {
+            showAlert(String(error).replace('Error: ', ''), false);
+        }
+    };
 
     return (
-        // <>
-        //     <Container component="main" maxWidth="sm">
-        //         <List
-        //             sx={{
-        //                 marginTop: '5%',
-        //                 display: 'flex',
-        //                 flexDirection: 'column',
-        //                 alignItems: 'center',
-        //                 paddingBottom: '100px', 
-        //                 paddingTop: '60px'
-        //             }}
-        //         >
-        //             <h3 style={{ marginBottom: '20px' }}>報名賽事</h3>
-        //             <Alert severity="info" style={{ marginBottom: '20px' }}>
-        //                 <p>已截止報名</p>
-        //             </Alert>
-        //             <Button 
-        //                 variant="outlined"
-        //                 onClick={() => navigate('/')}
-        //             >
-        //                 返回主頁面
-        //             </Button>
-        //         </List>
-        //     </Container>
-        // </>
         <>
-            <Container component="main" maxWidth="sm"> {/*sx={{height: "75vh"}}*/}
-                <CssBaseline />
+        {REGISTRATION_OPEN ? 
+            <Container component="main" maxWidth="sm" sx={{ paddingBottom: '60px', paddingTop: '60px' }}>
                 <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+                <CssBaseline />
                 <List
                     sx={{
-                        marginTop: '5%',
+                        mt: '20px',
+                        mb: 3,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -357,6 +282,7 @@ const LoginForm = () => {
                         </p>
                         <p><b>僅能修改未繳費之報名項目</b></p>
                     </Alert>
+                    {/* Current Registration Section */}
                     {
                         gotinfo === true ?
                         events.length > 0 ?
@@ -516,7 +442,7 @@ const LoginForm = () => {
                                         <Grid item>
                                             <Button 
                                                 variant="contained"
-                                                onClick={() => {handleSubmit(1)}}
+                                                onClick={() => {handleSubmit()}}
                                             >
                                                 新增報名項目
                                             </Button>
@@ -853,18 +779,85 @@ const LoginForm = () => {
                                     >
                                         <Button 
                                             variant="contained"
-                                            onClick={() => {handleSubmit(2)}}
+                                            onClick={() => {handleSubmit()}}
                                         >
                                             確認報名
                                         </Button>
                                     </Grid>
                                 </>
-                            :<></>
+                            :<CircularProgress />
                     }
+                    {/* Historical Information Section */}
+                    {Object.keys(groupedHistoryEvents).length > 0 &&
+                    <>
+                        <Divider color='secondary' style={{ marginTop: '5%', marginBottom: '2%', width: '100%' }} textAlign="left">
+                            <p>歷史報名項目</p>
+                        </Divider>
+                        {Object.entries(groupedHistoryEvents).map(([semester, events]) => (
+                            <Box key={semester} sx={{ width: '100%', mb: 2 }}>
+                                <Divider color='secondary' style={{ marginTop: '2%', marginBottom: '2%', width: '100%' }}><Chip color='primary' variant='outlined' label={semester} /></Divider>
+                                {events.map((event, index) => (
+                                    <Box key={index}>
+                                        <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                                            <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="報名項目" />
+                                            <TextField
+                                                sx={{ gridColumn: '4/8' }}
+                                                size="small"
+                                                value={eventEntry[event.typeId-1]}
+                                                readOnly={true}
+                                                disabled={true}
+                                            />
+                                        </ListItem>
+                                        {
+                                            event.typeId > 2 ? 
+                                            <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
+                                                <ListItemText sx={{ gridColumn: '1/3' }} id="sid-item" primary="隊友" />
+                                                <TextField
+                                                    sx={{ gridColumn: '4/8' }}
+                                                    size="small"
+                                                    value={getHistoryPartners(event)}
+                                                    readOnly={true}
+                                                    disabled={true}
+                                                />
+                                            </ListItem>
+                                            : <></>
+                                        }
+                                    </Box>
+                                ))}
+                            </Box>
+                        ))}
+                    </>
+                }
                 </List>
             </Container>
-        </>
+            :
+            <Container component="main" maxWidth="sm">
+                    <List
+                        sx={{
+                            marginTop: '5%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            paddingBottom: '100px', 
+                            paddingTop: '60px'
+                        }}
+                    >
+                        <h3 style={{ marginBottom: '20px' }}>報名賽事</h3>
+                        <Alert severity="info" style={{ marginBottom: '20px' }}>
+                            <p>已截止報名</p>
+                        </Alert>
+                        <Button 
+                            variant="outlined"
+                            onClick={() => navigate('/')}
+                        >
+                            返回主頁面
+                        </Button>
+                    </List>
+                </Container>
+        
+        }
+        </>   
     )
 }
 
-export default LoginForm;
+export default RegisterForm;
