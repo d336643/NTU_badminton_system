@@ -251,7 +251,7 @@ const CompetitorStatus = () => {
                         <Grid item xs={4} />
                     </Grid>
                     <Alert severity="info" style={{ marginBottom: '20px' }}>
-                        銀行代碼：700 &nbsp; 匯款帳戶：00013611355868 &nbsp; 戶名：張閔翔
+                        銀行代碼：700 &nbsp; 匯款帳戶：00213950391560 &nbsp; 戶名：王品淳
                     </Alert>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
