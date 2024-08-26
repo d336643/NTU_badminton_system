@@ -72,35 +72,15 @@ export function ManagerButton({handleCloseNavMenu}) {
     )
 }
 
-export function ManagerPersonalMenu({ handleCloseUserMenu, identity, token, navbarLogout, changeIdentity }) {
+export function ManagerPersonalMenu({ handleCloseUserMenu, token, navbarLogout }) {
     return (
         <>
-        {identity === "manager" ?
-            <>
             <MenuItem onClick={handleCloseUserMenu} component={Link} to={`/editprofile/${token}`}>
                 <Typography textAlign="center">編輯個人資料</Typography>
             </MenuItem>
             <MenuItem onClick={navbarLogout}>
                 <Typography textAlign="center">登出</Typography>
             </MenuItem>
-            <MenuItem onClick={() => changeIdentity("manager-c")}>
-                <Typography textAlign="center">轉換至參賽者</Typography>
-            </MenuItem>
-            </>
-            :
-            <>
-                <MenuItem onClick={handleCloseUserMenu} component={Link} to={`/editprofile/${token}`}>
-                    <Typography textAlign="center">編輯個人資料</Typography>
-                </MenuItem>
-                <MenuItem onClick={navbarLogout}>
-                    <Typography textAlign="center">登出</Typography>
-                </MenuItem>
-                <MenuItem onClick={() => changeIdentity("manager")}>
-                    <Typography textAlign="center">轉換至管理員</Typography>
-                </MenuItem>
-            </>
-        }
-            
         </>
     );
-};
+}

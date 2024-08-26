@@ -5,13 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
     AppBar,
     Box,
-    Button,
     Toolbar,
     Tooltip,
     IconButton,
     Typography,
     Menu,
-    MenuItem,
     Container,
 } from '@mui/material';
 
@@ -24,7 +22,7 @@ import { ManagerMenu, ManagerButton, ManagerPersonalMenu } from '../components/a
 import { CompetitorMenu, CompetitorButton, CompetitorPersonalMenu } from '../components/appbars/CompetitorLinks';
 import { GeneralUserMenu, GeneralUserButton } from '../components/appbars/GeneralUserLinks';
 
-const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIdentity}) => {
+const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin}) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -35,9 +33,7 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
             if (!isLogin) {
                 let login = await checkIdentity();
                 setView(login);
-                setIdentity(login);
-                if ( login === "guest") setIsLogin(false);
-                else setIsLogin(true);
+                setIsLogin(login !== "guest");
             }
         }
         identityCheck(isLogin);
@@ -46,20 +42,15 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
     const navbarLogout = () => {
         localStorage.clear();
         setView("guest");
-        setIdentity("guest");
         setIsLogin(false);
         handleCloseUserMenu();
-        navigate('/');
-    }
-
-    const changeIdentity = (changeV) => {
-        setIdentity(changeV);
         navigate('/');
     }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -92,7 +83,6 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 cursor: 'pointer',
                             }}
                         >
-                            {/* <Home sx={{mr: 2, mt: 0.3, cursor: 'pointer'}}/> */}
                             台大羽球比賽
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -124,14 +114,13 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                {   
-                                    isLogin?
-                                        view === "manager" ? 
-                                            identity === "manager" ? <ManagerMenu handleCloseNavMenu={handleCloseNavMenu}/>
-                                            : <CompetitorMenu handleCloseNavMenu={handleCloseNavMenu}/>
-                                        : <CompetitorMenu handleCloseNavMenu={handleCloseNavMenu}/>
-                                    : <GeneralUserMenu handleCloseNavMenu={handleCloseNavMenu}/>
-                                }
+                                {isLogin ? (
+                                    view === "manager" ? 
+                                        <ManagerMenu handleCloseNavMenu={handleCloseNavMenu} />
+                                    : <CompetitorMenu handleCloseNavMenu={handleCloseNavMenu} />
+                                ) : (
+                                    <GeneralUserMenu handleCloseNavMenu={handleCloseNavMenu} />
+                                )}
                             </Menu>
                         </Box>
                         <Typography
@@ -150,29 +139,25 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                 cursor: 'pointer',
                             }}
                         >
-                            {/* <Home sx={{mr: 2, mt: 0.5, cursor: 'pointer'}}/> */}
                             台大羽球比賽
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {
-                                isLogin ?
-                                    view === "manager" ? 
-                                        identity == "manager" ?
-                                            <ManagerButton handleCloseNavMenu={handleCloseNavMenu}/>
-                                        : <CompetitorButton handleCloseNavMenu={handleCloseNavMenu}/>
-                                    : <CompetitorButton handleCloseNavMenu={handleCloseNavMenu}/>
-                                : <GeneralUserButton handleCloseNavMenu={handleCloseNavMenu}/>
-                            }
+                            {isLogin ? (
+                                view === "manager" ? 
+                                    <ManagerButton handleCloseNavMenu={handleCloseNavMenu} />
+                                : <CompetitorButton handleCloseNavMenu={handleCloseNavMenu} />
+                            ) : (
+                                <GeneralUserButton handleCloseNavMenu={handleCloseNavMenu} />
+                            )}
                         </Box>
                         <Box sx={{ flexGrow: 0 }}>
-                            {
-                                isLogin ?
+                            {isLogin && (
                                 <>
                                     <Tooltip title="Open settings">
-                                        <IconButton 
+                                        <IconButton
                                             size="large"
-                                            color='inherit'
-                                            onClick={handleOpenUserMenu} 
+                                            color="inherit"
+                                            onClick={handleOpenUserMenu}
                                             sx={{ p: 0 }}
                                         >
                                             <AccountCircle />
@@ -194,23 +179,22 @@ const ResponsiveAppBar = ({view, setView, isLogin, setIsLogin, identity, setIden
                                         open={Boolean(anchorElUser)}
                                         onClose={handleCloseUserMenu}
                                     >
-                                        {view === "manager" ? 
-                                            <ManagerPersonalMenu 
-                                                handleCloseUserMenu={handleCloseUserMenu} 
-                                                identity={identity}
+                                        {view === "manager" ? (
+                                            <ManagerPersonalMenu
+                                                handleCloseUserMenu={handleCloseUserMenu}
                                                 token={token}
                                                 navbarLogout={navbarLogout}
-                                                changeIdentity={changeIdentity}
                                             />
-                                        : 
-                                        <CompetitorPersonalMenu 
-                                            handleCloseUserMenu={handleCloseUserMenu} 
-                                            token={token}
-                                            navbarLogout={navbarLogout}
-                                        />}
+                                        ) : (
+                                            <CompetitorPersonalMenu
+                                                handleCloseUserMenu={handleCloseUserMenu}
+                                                token={token}
+                                                navbarLogout={navbarLogout}
+                                            />
+                                        )}
                                     </Menu>
-                                </> : <></>
-                            }
+                                </>
+                            )}
                         </Box>
                     </Toolbar>
                 </Container>

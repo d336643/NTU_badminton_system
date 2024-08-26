@@ -2,13 +2,12 @@ import React from "react";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { REGISTRATION_OPEN } from '../../utilities/globalVariable';
 
-const Manager = ({setView, handleLogOut, identity}) => {
+const Manager = ({ handleLogOut }) => {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
     
@@ -23,15 +22,13 @@ const Manager = ({setView, handleLogOut, identity}) => {
                     alignItems: 'center',
                 }}
             >
-                {identity === "manager" ?
-                    <Grid
-                        container
-                        justifyContent="center"
-                        spacing={2}
-                    >
-                        {REGISTRATION_OPEN ? 
-                            <></>
-                            :
+                <Grid
+                    container
+                    justifyContent="center"
+                    spacing={2}
+                >
+                    {!REGISTRATION_OPEN && (
+                        <>
                             <Grid item xs={12}>
                                 <Button 
                                     onClick={() => navigate("/schedulehome")}
@@ -41,10 +38,6 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                     進入賽程系統
                                 </Button>
                             </Grid>
-                        }
-                        {REGISTRATION_OPEN ? 
-                            <></>
-                            :
                             <Grid item xs={12}>
                                 <Button 
                                     onClick={() => navigate("/refereesys")}
@@ -54,103 +47,30 @@ const Manager = ({setView, handleLogOut, identity}) => {
                                     進入裁判系統
                                 </Button>
                             </Grid>
-                        }
-                        <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate("/showallapplicant")}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                報名者表單、繳費
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button 
-                                variant="outlined"
-                                size='large'
-                                fullWidth
-                                onClick={handleLogOut}>
-                                登出
-                            </Button>
-                        </Grid>
+                        </>
+                    )}
+                    <Grid item xs={12}>
+                        <Button 
+                            onClick={() => navigate("/showallapplicant")}
+                            variant="outlined"
+                            size='large'
+                            fullWidth>
+                            報名者表單、繳費
+                        </Button>
                     </Grid>
-                    :
-                    <Grid
-                        container
-                        justifyContent="center"
-                        spacing={2}
-                    >
-                        {REGISTRATION_OPEN ? 
-                            <></>
-                            :
-                            <Grid item xs={12}>
-                                <Button 
-                                    onClick={() => navigate('/schedulehome')}
-                                    variant="outlined"
-                                    size='large'
-                                    fullWidth>
-                                    賽程專區
-                                </Button>
-                            </Grid>
-                        }
-                        <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate('/competitionrule')}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                競賽章程
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button component={Link} to="/register"
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                報名 / 編輯賽事
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate('/competitorstatus')}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                報名及繳費狀態
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate('/allapplicant')}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                查看各項目報名選手
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button 
-                                onClick={() => navigate(`/editprofile/${token}`)}
-                                variant="outlined"
-                                size='large'
-                                fullWidth>
-                                編輯個人資料
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button
-                                variant="outlined"
-                                size='large'
-                                fullWidth
-                                onClick={handleLogOut}>
-                                登出
-                            </Button>
-                        </Grid>
+                    <Grid item xs={12}>
+                        <Button 
+                            variant="outlined"
+                            size='large'
+                            fullWidth
+                            onClick={handleLogOut}>
+                            登出
+                        </Button>
                     </Grid>
-                }  
+                </Grid>
             </Box>
         </Container>
-    )
-}
+    );
+};
 
 export default Manager;

@@ -14,10 +14,8 @@ import ShowAllSchedule from "./containers/ShowAllSchedule";
 import CompetitorStatus from "./containers/CompetitorStatus";
 import ShowAllApplicant from "./containers/ShowAllApplicant";
 import ShowAllOtherApplicant from "./containers/ShowAllOtherApplicant";
-import ShowAllTournament from "./containers/ShowAllTournament";
 import ScheduleHome from "./containers/homePages/ScheduleHome";
 import AssignAllSchedule from "./containers/AssignAllSchedule";
-import EditAllSchedule from "./containers/EditAllSchedule";
 import RefereeSys from "./components/RefereeSys";
 import ScheduleTime from "./containers/ScheduleTime";
 import OutputAllGame from "./containers/OutputAllGame";
@@ -28,13 +26,14 @@ import ResponsiveAppBar from "./containers/ResponsiceAppBar";
 import AboutPage from "./components/AboutPage";
 import Footer from "./components/Footer";
 
+// import ShowAllTournament from "./containers/ShowAllTournament";
+// import EditAllSchedule from "./containers/EditAllSchedule";
+
 import { SEMESTER, REGISTRATION_OPEN } from "./utilities/globalVariable";
 
 const App = () => {
     const [view, setView] = useState("guest"); // 3 views. guest, competitor, and manager
     const [isLogin, setIsLogin] = useState(false);
-    const [identity, setIdentity] = useState("manager");
-    const [showNav, setShowNav] = useState(true);
     //browser bar title
     useEffect(() => {
         document.title = SEMESTER + " 新生盃羽球賽"
@@ -42,12 +41,12 @@ const App = () => {
     return (
         <Router>
             <ThemeProvider theme={theme}>
-                <ResponsiveAppBar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity} showNav={showNav}/>
+                <ResponsiveAppBar view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} />
                 {/* <Routes style={{height: "100vh"}}> */}
                 <Routes>
-                    <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin} identity={identity} setIdentity={setIdentity}/>} />
+                    <Route path="/" element={<Home view={view} setView={setView} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
                     <Route path="/about" element={<AboutPage />} />
-                    <Route path="/login" element={<Login setView={setView} setIsLogin={setIsLogin} setIdentity={setIdentity}/>} />
+                    <Route path="/login" element={<Login setView={setView} setIsLogin={setIsLogin}/>} />
                     <Route path="/resetpass" element={<ResetRequest />} />
                     <Route path="/updatepass" element={<Updatepass />} />
                     <Route path="/signup" element={<Signup />} />
@@ -62,9 +61,8 @@ const App = () => {
                     {/* <Route path="/editallschedule" element={<EditAllSchedule />} /> */}
                     {REGISTRATION_OPEN? <></>:
                         <>
-                            <Route path="/schedulehome" element={<ScheduleHome identity={identity}/>} />
-                            <Route path="/showallschedule" element={<ShowAllSchedule identity={identity}/>} />
-                            <Route path="/showalltournament" element={<ShowAllTournament identity={identity}/>} />
+                            <Route path="/schedulehome" element={<ScheduleHome view={view}/>} />
+                            <Route path="/showallschedule" element={<ShowAllSchedule view={view}/>} />
                             <Route path="/scheduletime" element={<ScheduleTime />} />
                             <Route path="/outputgametable" element={<OutputAllGame />} />
                             <Route path="/outputhome" element={<OutputHome/>} />

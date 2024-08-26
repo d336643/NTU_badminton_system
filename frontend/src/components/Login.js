@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import {
     Avatar,
     Button,
@@ -16,31 +14,22 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import delay from '../utilities/delay';
-
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
-const LoginForm = ({setView, setIsLogin, setIdentity}) => {
+const LoginForm = ({ setView, setIsLogin }) => {
     const navigate = useNavigate();
     const [values, setValues] = useState({
         sid: '',
         password: '',
     });
-    const [showmessage, setShowmessage] = useState(false);
-    const [alertmessage, setAlertmessage] = useState('Alert message');
+    const [showMessage, setShowMessage] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('Alert message');
     const [severity, setSeverity] = useState('error');
-    // const [open, setOpen] = useState(false);
-    // const [success, setSuccess] = useState(false);
 
-    async function closeAlert(){
+    const closeAlert = async () => {
         await delay(2);
-        setShowmessage(false);
-    }
-
-    async function handleAlert(){
-        await delay(2);
-        setShowmessage(false);
-        navigate('/');
-    }
+        setShowMessage(false);
+    };
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -56,43 +45,41 @@ const LoginForm = ({setView, setIsLogin, setIdentity}) => {
         try {
             const res = await instance.post('/auth/signin', form, config);
             if (res.data.success === true) {
-                setAlertmessage('登入成功');
+                setAlertMessage('登入成功');
                 setSeverity('success');
-                setShowmessage(true);
+                setShowMessage(true);
                 closeAlert();
                 
-                // setView("competitor")
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("uid", res.data.uid);
                 
                 await getInfo(res.data.uid, res.data.token);
                 
-                setIsLogin(true)
+                setIsLogin(true);
                 navigate('/');
-            }
-            else {
-                setAlertmessage('帳號或密碼錯誤');
+            } else {
+                setAlertMessage('帳號或密碼錯誤');
                 setSeverity('warning');
-                setShowmessage(true);
+                setShowMessage(true);
                 closeAlert();
             }
         } catch (error) {
-            setAlertmessage('帳號或密碼錯誤');
+            setAlertMessage('帳號或密碼錯誤');
             setSeverity('warning');
-            setShowmessage(true);
+            setShowMessage(true);
             closeAlert();
         }
-    }
+    };
 
     const getInfo = async (uid, token) => {
         const config = {
             headers: {
                 'Authorization': 'Bearer ' + token,
-                'accept': 'application/json'
+                'accept': 'application/json',
             },
         };
         try {
-            const res = await instance.get(`/users/${uid}`, config)
+            const res = await instance.get(`/users/${uid}`, config);
             if (res.status === 200) {
                 localStorage.setItem("name", res.data.data.username);
                 localStorage.setItem("sid", res.data.data.sid);
@@ -105,22 +92,21 @@ const LoginForm = ({setView, setIsLogin, setIdentity}) => {
                 localStorage.setItem("accountStatus", res.data.data.accountStatus);
                 localStorage.setItem("address", res.data.data.address);
                 localStorage.setItem("role", res.data.data.role);
+                
+                // Set the view based on the role
                 if (res.data.data.role === "2") {
                     setView("manager");
-                    setIdentity("manager");
                 } else {
                     setView("competitor");
-                    setIdentity("competitor");
                 }
             }
         } catch (error) {
-            // console.log((error));
+            console.error(error);
         }
-    }
+    };
 
     return (
         <Container component="main" maxWidth="xs" sx={{ height: "75vh", paddingBottom: '100px', paddingTop: '60px' }}>
-            {/* <InfoDialog open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} /> */}
             <CssBaseline />
             <Box
                 sx={{
@@ -130,18 +116,20 @@ const LoginForm = ({setView, setIsLogin, setIdentity}) => {
                     alignItems: 'center',
                 }}
             >
-                {showmessage && (
+                {showMessage && (
                     <Alert 
-                        sx={{ position: 'fixed', 
+                        sx={{ 
+                            position: 'fixed', 
                             top: 0, 
                             left: '50%', 
                             transform: 'translateX(-50%)', 
-                            zIndex: 1500,  // Increased zIndex value
+                            zIndex: 1500,  
                             width: 'auto',
-                            maxWidth: '90%'}}
+                            maxWidth: '90%',
+                        }}
                         severity={severity}
                     >
-                        {alertmessage}
+                        {alertMessage}
                     </Alert>
                 )}
                 <Avatar sx={{ mb: 2, bgcolor: 'primary.main' }}>
@@ -151,7 +139,6 @@ const LoginForm = ({setView, setIsLogin, setIdentity}) => {
                     <TextField
                         margin="normal"
                         size="small"
-                        // required
                         fullWidth
                         id="sid"
                         label="學號"
@@ -164,15 +151,12 @@ const LoginForm = ({setView, setIsLogin, setIdentity}) => {
                     <TextField
                         margin="normal"
                         size="small"
-                        // required
                         fullWidth
                         name="password"
                         label="密碼"
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        // error={values.password === ""}
-                        // helperText={values.password === "" ? 'Empty field!' : ' '}
                         onChange={handleChange('password')}
                     />
                     <Button
