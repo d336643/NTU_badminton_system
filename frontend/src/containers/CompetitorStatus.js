@@ -223,44 +223,49 @@ const CompetitorStatus = () => {
 
     return (
         <>
-            <Container component="main" maxWidth="sm" sx={{ paddingBottom: '60px', paddingTop: '60px' }}>
+            <Container component="main" maxWidth="sm" 
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    paddingBottom: '100px', 
+                    paddingTop: '60px'
+                }} >
                 <InfoDialog open={open} setOpen={setOpen} turnBack={stored} alertmessage={alertmessage} />
                 <CssBaseline />
+                <h3 style={{ marginTop: '20px', marginBottom: '20px' }}>報名及繳費狀態</h3>
+                <Grid container alignItems="center" sx={{ marginBottom: '20px' }}>
+                    <Grid item xs={4} />
+                    <Grid item xs={4} style={{ textAlign: 'right'}}>
+                        <Autocomplete
+                            size="small"
+                            id="select-semester"
+                            options={semesters.map(semester => ({ label: semester, id: semester }))}
+                            getOptionLabel={(option) => option.label || ""}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField {...params} label="學期" />}
+                            onChange={(event, newValue) => {
+                                if (newValue) {
+                                    setSelectedSemester(newValue.id);
+                                }
+                            }}
+                            value={semesters.find(semester => semester === selectedSemester) ? { label: selectedSemester, id: selectedSemester } : null}
+                            disableClearable
+                            sx={{padding: '5px', paddingLeft: '15px', paddingRight: '15px' }}
+                        />
+                    </Grid>
+                    <Grid item xs={4} />
+                </Grid>
+                <Alert severity="info" style={{ marginBottom: '15px' }}>
+                    銀行代碼：700 &nbsp; 匯款帳戶：00213950391560 &nbsp; 戶名：王品淳
+                </Alert>
                 <List
                     sx={{
-                        mt: '20px',
-                        mb: 3,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <h3 style={{ marginBottom: '20px' }}>報名及繳費狀態</h3>
-                    <Grid container alignItems="center" sx={{ marginBottom: '20px' }}>
-                        <Grid item xs={4} />
-                        <Grid item xs={4} style={{ textAlign: 'right'}}>
-                            <Autocomplete
-                                size="small"
-                                id="select-semester"
-                                options={semesters.map(semester => ({ label: semester, id: semester }))}
-                                getOptionLabel={(option) => option.label || ""}
-                                isOptionEqualToValue={(option, value) => option.id === value.id}
-                                renderInput={(params) => <TextField {...params} label="學期" />}
-                                onChange={(event, newValue) => {
-                                    if (newValue) {
-                                        setSelectedSemester(newValue.id);
-                                    }
-                                }}
-                                value={semesters.find(semester => semester === selectedSemester) ? { label: selectedSemester, id: selectedSemester } : null}
-                                disableClearable
-                                sx={{padding: '5px', paddingLeft: '15px', paddingRight: '15px' }}
-                            />
-                        </Grid>
-                        <Grid item xs={4} />
-                    </Grid>
-                    <Alert severity="info" style={{ marginBottom: '20px' }}>
-                        銀行代碼：700 &nbsp; 匯款帳戶：00213950391560 &nbsp; 戶名：王品淳
-                    </Alert>
                     <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="name-item" primary="姓名" />
                         <TextField

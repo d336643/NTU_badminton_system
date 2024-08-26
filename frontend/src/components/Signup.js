@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import {
     Autocomplete,
+    CssBaseline,
     IconButton,
     InputAdornment,
     InputLabel,
@@ -179,20 +180,22 @@ export default function SwitchListSecondary() {
     }
 
     return (
-        <Container component="main" maxWidth="sm" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
-            <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={status} alertmessage={alertmessage} />
-            <form
-                style={{
-                    marginTop: '20px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
-                <h3 style={{ marginBottom: '20px' }}>註冊新帳號</h3>
-                <Alert severity="info" style={{ marginBottom: '2%' }}>
+        <Container component="main" maxWidth="sm" 
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                paddingBottom: '100px', 
+                paddingTop: '60px'
+            }}
+        >
+            <CssBaseline />
+            <h3 style={{ marginTop: '20px', marginBottom: '20px' }}>註冊新帳號</h3>
+                <Alert severity="info" style={{ marginBottom: '15px' }}>
                     資料僅供參賽資格認證及保險用途
                 </Alert>
+            <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={status} alertmessage={alertmessage} />
+            <form>
                 {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                     <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                     <Button 

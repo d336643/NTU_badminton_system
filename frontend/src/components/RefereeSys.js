@@ -128,7 +128,14 @@ const Competitor = ({setView, handleLogOut}) => {
 
 
     return (
-        <Container component="main" maxWidth="sm" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
+        <Container component="main" maxWidth="sm" 
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                paddingBottom: '100px', 
+                paddingTop: '60px'
+            }}>
             <CssBaseline />
             {showmessage && (
                 <Alert sx={{position: "absolute", top: 0, left: { xs: '22%', md: '40%' }, right: { xs: '22%', md: '40%' }, zIndex: 999 }}
@@ -136,16 +143,15 @@ const Competitor = ({setView, handleLogOut}) => {
                 {alertmessage}
                 </Alert>
             )}
+            <h3 style={{ marginTop: '20px', marginBottom: '15px' }}>裁判登分系統</h3>
             {/* <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} /> */}
             <List
                 sx={{
-                    marginTop: '20px',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}
             >
-                <h3 style={{ marginBottom: '20px' }}>裁判登分系統</h3>
                 <ListItem sx={{ display: 'grid', gridAutoColumns: '1fr'}}>
                     <ListItemText sx={{ gridColumn: '1/2' }} id="gameType" primary="項目及場次" />
                     <Autocomplete 

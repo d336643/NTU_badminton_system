@@ -10,6 +10,7 @@ import {
     ListItemText,
     Container,
     Autocomplete,
+    CssBaseline,
 } from '@mui/material';
 
 import InfoDialog from "./InfoDialog";
@@ -121,17 +122,22 @@ const EditForm = () => {
     return (
         <>
             <Container component="main" maxWidth="sm" alignitems='center' minheight='100vh' 
-                sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    paddingBottom: '100px', 
+                    paddingTop: '60px'
+                }} >
+                <CssBaseline />
                 <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
+                <h3 style={{ marginTop: '20px',marginBottom: '20px' }}>編輯個人資料</h3>
                 <List
                     sx={{
-                        marginTop: '20px',
-                        display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <h3 style={{ marginBottom: '20px' }}>編輯個人資料</h3>
                     {/* <ListItem style={{ display: 'grid', gridAutoColumns: '1fr'}}>
                         <ListItemText sx={{ gridColumn: '1/3' }} id="info-shoot" primary="epo 基本資料頁面截圖" />
                         <Button 

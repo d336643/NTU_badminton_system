@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
+import { Container, Grid, Box, Button, CssBaseline } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import OutputAllGame from '../OutputAllGame';
 import OutputGameTable from '../../components/OutputGameTable';
@@ -19,7 +15,15 @@ const OutputHome = ({}) => {
     }
 
     return (
-        <Container component="main" maxWidth="xs" sx={{ paddingBottom: '100px', paddingTop: '60px' }}>
+        <Container component="main" maxWidth="xs" 
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                paddingBottom: '100px', 
+                paddingTop: '60px'
+            }}>
+            <CssBaseline />
             {showed ?
                 showType === 0 ? <OutputAllGame /> : <OutputGameTable dataId={5} />
                 :

@@ -22,7 +22,7 @@ import {
 import InfoDialog from "./InfoDialog";
 
 import { EVENTTYPEENTRY } from "../utilities/entry";
-import { REGISTRATION_OPEN, SEMESTER } from "../utilities/globalVariable";
+import { REGISTRATION_OPEN, SEMESTER, CUP_TYPE } from "../utilities/globalVariable";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
@@ -259,28 +259,33 @@ const RegisterForm = () => {
     return (
         <>
         {REGISTRATION_OPEN ? 
-            <Container component="main" maxWidth="sm" sx={{ paddingBottom: '60px', paddingTop: '60px' }}>
+            <Container component="main" maxWidth="sm"
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    paddingBottom: '100px', 
+                    paddingTop: '60px'
+                }} 
+            >
                 <InfoDialog route={'/'} open={open} setOpen={setOpen} turnBack={success} alertmessage={alertmessage} />
                 <CssBaseline />
+                <h3 style={{ marginTop: '20px', marginBottom: '20px' }}>報名 / 編輯賽事</h3>
+                <Alert severity="info" style={{ marginBottom: '20px' }}>
+                    <p style={{ marginBottom: '1%'}}>報名賽事前，請詳細閱讀<a href="/competitionrule">競賽章程</a></p>
+                    { CUP_TYPE == 'ntucup' && 
+                        <p>報名團體賽，請填寫 <a href="https://forms.gle/m6jVoM5tidTkUgje7"> 團賽報名表單</a></p>
+                    }
+                    <p><b>僅能修改未繳費之報名項目</b></p>
+                </Alert>
                 <List
                     sx={{
-                        mt: '20px',
-                        mb: 3,
+                        mb: '20px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <h3 style={{ marginBottom: '2%' }}>報名 / 編輯賽事</h3>
-                    <Alert severity="info" style={{ marginBottom: '3%' }}>
-                        <p style={{ marginBottom: '1%'}}>報名賽事前，請詳細閱讀<a href="/competitionrule">競賽章程</a></p>
-                        <p>報名團體賽，請填寫
-                        <a href="https://forms.gle/m6jVoM5tidTkUgje7">
-                            團賽報名表單
-                        </a>
-                        </p>
-                        <p><b>僅能修改未繳費之報名項目</b></p>
-                    </Alert>
                     {/* Current Registration Section */}
                     {
                         gotinfo === true ?
@@ -830,29 +835,26 @@ const RegisterForm = () => {
                 </List>
             </Container>
             :
-            <Container component="main" maxWidth="sm">
-                    <List
-                        sx={{
-                            marginTop: '5%',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            paddingBottom: '100px', 
-                            paddingTop: '60px'
-                        }}
-                    >
-                        <h3 style={{ marginBottom: '20px' }}>報名賽事</h3>
-                        <Alert severity="info" style={{ marginBottom: '20px' }}>
-                            <p>已截止報名</p>
-                        </Alert>
-                        <Button 
-                            variant="outlined"
-                            onClick={() => navigate('/')}
-                        >
-                            返回主頁面
-                        </Button>
-                    </List>
-                </Container>
+            <Container component="main" maxWidth="sm"
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    paddingBottom: '100px', 
+                    paddingTop: '60px'
+                }} >
+                <CssBaseline />
+                <h3 style={{ marginBottom: '20px', marginTop: "20px" }}>報名賽事</h3>
+                <Alert severity="info" style={{ marginBottom: '20px' }}>
+                    <p>已截止報名</p>
+                </Alert>
+                <Button 
+                    variant="outlined"
+                    onClick={() => navigate('/')}
+                >
+                    返回主頁面
+                </Button>
+            </Container>
         
         }
         </>   
