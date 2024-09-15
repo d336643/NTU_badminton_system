@@ -42,6 +42,7 @@ const CompetitorStatus = () => {
     const [eventsToPay, setEventsToPay] = useState([])
     const [toPayInfo, setToPayInfo] = useState([])
     const [events, setEvents] = useState([]);
+    const [filteredEvents, setFilteredEvents] = useState([]);
     const [partners, setPartners] = useState([]);
     const [status, setStatus] = useState(false);
     const [open, setOpen] = useState(false);
@@ -125,7 +126,7 @@ const CompetitorStatus = () => {
                                 if (obj.uid !== Number(uid)) {
                                     let partner = obj.username;
                                     let sid = obj.sid;
-                                    setPartners(prevPartners => [...prevPartners, { typeId: event.typeId, partner: partner, sid: sid }]);
+                                    setPartners(prevPartners => [...prevPartners, { semester: event.semester, typeId: event.typeId, partner: partner, sid: sid }]);
                                 }
                             });
                         }
@@ -208,18 +209,15 @@ const CompetitorStatus = () => {
 		}
 	}
 
-    const getPartners = (tid) => {
-        let name = partners.map(p => {
-            if (tid == p.typeId) {
-                return `${p.sid} ${p.partner}`
-            }
-        })
-        return name[0]
-    }
+    useEffect(() => {
+        const filteredEvents = events.filter(event => event.semester === selectedSemester);
+        setFilteredEvents(filteredEvents);
+    }, [selectedSemester, events]);
 
-    const filteredEvents = selectedSemester
-        ? events.filter(event => event.semester === selectedSemester)
-        : events;
+    const getPartners = (semester, tid) => {
+        let partnerData = partners.find(p => semester === p.semester && tid === p.typeId);
+        return partnerData ? `${partnerData.sid} ${partnerData.partner}` : '';
+    }
 
     return (
         <>
@@ -320,7 +318,7 @@ const CompetitorStatus = () => {
                                             <TextField
                                                 sx={{ gridColumn: '4/8' }}
                                                 size="small"
-                                                value={getPartners(event.typeId)}
+                                                value={getPartners(selectedSemester, event.typeId)}
                                                 readOnly={true}
                                                 disabled={true}
                                             />
