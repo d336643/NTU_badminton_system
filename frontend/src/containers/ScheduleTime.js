@@ -28,7 +28,9 @@ const ScheduleTime = () => {
             }} >
             <CssBaseline />
             <h3 style={{ marginBottom: '20px' }}>總賽程時間表</h3>
-            <iframe src="https://drive.google.com/file/d/1BUo1Ijn9UKwj1C6QR06DfS6-VEEJ6CPZ/preview" width="100%" height="720" allow="autoplay"></iframe>
+            {/* 
+                <iframe src="https://drive.google.com/file/d/1BUo1Ijn9UKwj1C6QR06DfS6-VEEJ6CPZ/preview" width="100%" height="720" allow="autoplay"></iframe>
+            */}
             {/* <Alert severity="info">
                 請點擊連結檢視賽程時間表：
                 <a href='https://docs.google.com/spreadsheets/d/16A1yWrpMZHImSMxQFAORB39GKFu4q5pF8tcaUwSag54/edit?fbclid=IwAR0_K_Bb6agwp1w0F3uPiAu4DwwqcsLzdTf7EePzsoFB5k7TM10TPhO8HI0#gid=0'

@@ -97,7 +97,9 @@ const ShowSchedule = ({ dataId, view }) => {
                         </div>
                     )}
 
-                    <iframe className="no-printme" src={sheetUrl[dataId]} width="100%" height="600" allow="autoplay"></iframe>
+                    {/*
+                        <iframe className="no-printme" src={sheetUrl[dataId]} width="100%" height="600" allow="autoplay"></iframe>
+                    */}
 
                     <div
                         className="no-printme"
