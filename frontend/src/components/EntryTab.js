@@ -19,6 +19,8 @@ import OutputGameTable from './OutputGameTable';
 
 import { EVENTENTRY } from '../utilities/entry';
 
+import { GAME_RULE } from '../utilities/globalVariable';
+
 const TYPE = ['報名、繳費狀態', '排定賽程', '修改賽程', '檢視賽程', '匯出出賽單']
 
 function TabPanel(props) {
@@ -99,7 +101,7 @@ export default function BasicTabs({ manageType, view }) {
             {manageType === 3 && (
                 <div className="no-printme">
                     <Alert severity="info" maxWidth="sm" size="small">
-                        四角循環皆取二名晉級；三角循環除女單取二名，其餘皆取一名。
+                       {GAME_RULE}
                     </Alert>
                 </div>
             )}
