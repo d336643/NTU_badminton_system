@@ -9,10 +9,11 @@ import {
 
 import { SingleTableDetial, DoubleTableDetial, AdvTableDetial} from './TableDetail';
 import { LETTERS, GAME } from '../utilities/entry';
+import { SEMESTER } from '../utilities/globalVariable';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
-const OutPut = ({dataId}) => {
+const Output = ({dataId}) => {
     const navigate = useNavigate();
     const [getInfo, setGetInfo] = useState(false)
     const [groupCnt, setGroupCnt] = useState(0)
@@ -22,7 +23,7 @@ const OutPut = ({dataId}) => {
         if (dataId !== 5) {
             const config = getCommonConfig(true);
             try {
-                const res = await instance.get(`/rounds?typeId=${dataId+1}`, config);
+                const res = await instance.get(`/rounds?typeId=${dataId+1}&semester=${SEMESTER}`, config);
                 if (res.status === 200) {
                     // console.log(res.data.data)
                     let gCnt = Number(res.data.data.groupCnt);
@@ -117,4 +118,4 @@ const OutPut = ({dataId}) => {
     )
 }
 
-export default OutPut;
+export default Output;
