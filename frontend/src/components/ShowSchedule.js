@@ -84,7 +84,6 @@ const ShowSchedule = ({ dataId, view }) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <iframe className="no-printme" src={SHEET_URL[dataId]} width="100%" height="600" allow="autoplay"></iframe>
                     {dataId <= 1 ? 
                         renderGroups("printgraph", SingleTriangle, SingleSquare) : 
                         renderGroups("printgraph", DoubleTriangle, DoubleSquare)
@@ -113,9 +112,11 @@ const ShowSchedule = ({ dataId, view }) => {
                             : renderGroups("no-printme", DoubleTriangle, DoubleSquare)}
                     </div>
 
+                    <iframe className="no-printme" src={SHEET_URL[dataId]} width="100%" height="600" allow="autoplay"></iframe>
+
                     <div className="no-printme">
                         <Button
-                            sx={{ mt: '3%' }}
+                            sx={{ mt: '5%' }}
                             variant="outlined"
                             onClick={() => navigate('/schedulehome')}
                         >
