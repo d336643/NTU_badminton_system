@@ -45,7 +45,7 @@ export const DoubleSquare = ({groupLabel, detail, viewType}) => {
                         }
                     </div>
                 <div class="square-block">
-                    <div class="label">{groupLabel}</div>
+                    <div class="label_s">{groupLabel}</div>
                     <div class="_121">{detail[0].score1 === null ? '' : detail[0].score1}<div class="score" id="[game1]_above" /></div>
                     <div class="_122">{detail[0].score2 === null ? '' : detail[0].score2}<div class="score" id="[game1]_below" /></div>
                     <div class="_131">{detail[2].score1 === null ? '' : detail[2].score1}<div class="score" id="[game3]_above" /></div>
@@ -126,7 +126,7 @@ export const SingleSquare = ({groupLabel, detail, viewType}) => {
                 </div>
             }
             <div class="square-block">
-                <div class="label">{groupLabel}</div>
+                <div class="label_s">{groupLabel}</div>
                 <div class="_121">{detail[0].score1 === null ? '' : detail[0].score1}<div class="score" id="[game1]_above" /></div>
                 <div class="_122">{detail[0].score2 === null ? '' : detail[0].score2}<div class="score" id="[game1]_below" /></div>
                 <div class="_131">{detail[2].score1 === null ? '' : detail[2].score1}<div class="score" id="[game3]_above" /></div>

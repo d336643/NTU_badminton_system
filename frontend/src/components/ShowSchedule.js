@@ -14,7 +14,6 @@ import { instance, getCommonConfig } from '../apiUtilities/instance';
 
 const ShowSchedule = ({ dataId, view }) => {
     const navigate = useNavigate();
-    const [getInfo, setGetInfo] = useState(false);
     const [groupCnt, setGroupCnt] = useState(null);
     const [groupDetail, setGroupDetail] = useState([]);
 
@@ -27,7 +26,6 @@ const ShowSchedule = ({ dataId, view }) => {
                 setGroupCnt(gCnt);
                 const groupLetter = LETTERS.slice(0, gCnt);
                 setGroupDetail(groupLetter.map(letter => res.data.data[letter]));
-                setGetInfo(true);
             }
         } catch (error) {
             console.error(error);
@@ -43,22 +41,32 @@ const ShowSchedule = ({ dataId, view }) => {
             key={index}
             groupLabel={LETTERS[index]}
             detail={groupDetail[index]}
-            viewType="show"
+            viewType={"show"}
         />
     );
 
-    const renderGroups = (SingleComponent, DoubleComponent) => (
+    const renderGroups = (print, TriangleComponent, SquareComponent) => (
         Array.from(Array(groupCnt)).map((_, index) =>
             index % 2 === 0 ? (
                 <div
                     key={index}
-                    className="printgraph"
+                    className={print}
                     style={{
                         gridTemplateColumns: 'repeat(2, 1fr)',
                     }}
                 >
-                    {renderGroupComponent(index, groupDetail[index][0].groupCompeteId <= 2 ? SingleComponent : DoubleComponent)}
-                    {index + 1 < groupCnt && renderGroupComponent(index + 1, groupDetail[index + 1][0].groupCompeteId <= 2 ? SingleComponent : DoubleComponent)}
+                    {groupDetail[index][0].groupCompeteId <= 2 ?
+                        renderGroupComponent(index, TriangleComponent)
+                        :
+                        renderGroupComponent(index, SquareComponent)
+                    }
+                    {index + 1 < groupCnt ?
+                        groupDetail[index + 1][0].groupCompeteId <= 2 ?
+                        renderGroupComponent(index + 1, TriangleComponent)
+                        :
+                        renderGroupComponent(index + 1, SquareComponent)
+                        : null
+                    }
                 </div>
             ) : null
         )
@@ -66,7 +74,7 @@ const ShowSchedule = ({ dataId, view }) => {
 
     return (
         <>
-            {getInfo && (
+            {groupDetail.length > 0 && (
                 <Box
                     sx={{
                         marginTop: '0px',
@@ -76,9 +84,11 @@ const ShowSchedule = ({ dataId, view }) => {
                         justifyContent: 'center',
                     }}
                 >
-                    
-                    {dataId <= 1 ? renderGroups(SingleTriangle, SingleSquare) : renderGroups(DoubleTriangle, DoubleSquare)}
-
+                    <iframe className="no-printme" src={SHEET_URL[dataId]} width="100%" height="600" allow="autoplay"></iframe>
+                    {dataId <= 1 ? 
+                        renderGroups("printgraph", SingleTriangle, SingleSquare) : 
+                        renderGroups("printgraph", DoubleTriangle, DoubleSquare)
+                    }
                     {view === "manager" && (
                         <div className="no-printme">
                             <Button
@@ -89,11 +99,6 @@ const ShowSchedule = ({ dataId, view }) => {
                             </Button>
                         </div>
                     )}
-
-                    
-                        <iframe className="no-printme" src={SHEET_URL[dataId]} width="100%" height="600" allow="autoplay"></iframe>
-                   
-
                     <div
                         className="no-printme"
                         style={{
@@ -104,8 +109,8 @@ const ShowSchedule = ({ dataId, view }) => {
                         }}
                     >
                         {dataId <= 1
-                            ? renderGroups(SingleTriangle, SingleSquare)
-                            : renderGroups(DoubleTriangle, DoubleSquare)}
+                            ? renderGroups("no-printme", SingleTriangle, SingleSquare)
+                            : renderGroups("no-printme", DoubleTriangle, DoubleSquare)}
                     </div>
 
                     <div className="no-printme">
