@@ -152,13 +152,12 @@ public class RoundController {
 
     @GetMapping("/detail")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    ResponseEntity<?> getRounds(@RequestParam Integer typeId, @RequestParam Integer typeIndex) {
-        Optional<Round> opt = roundRepository.findByTypeIdAndTypeIndex(typeId, typeIndex);
+    ResponseEntity<?> getRounds(@RequestParam Integer typeId, @RequestParam Integer typeIndex, @RequestParam String semester) {
+        Optional<Round> opt = roundRepository.findByTypeIdAndTypeIndexAndSemester(typeId, typeIndex, semester);
         if (!opt.isPresent()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse(false, String.format("typeId(%d)+typeIndex(%d) not found.", typeId,
-                                                                   typeIndex)));
+                    .body(new MessageResponse(false, String.format("typeId(%d)+typeIndex(%d) not found.", typeId, typeIndex)));
         }
         Round round = opt.get();
         final Optional<List<UserSimpleData2>> competitor1 = getUserData(round.getCompetitorA());
@@ -173,7 +172,6 @@ public class RoundController {
                     .badRequest()
                     .body(new MessageResponse(false, "Rid not found: " + round.getCompetitorB()));
         }
-
         SimpleEdgeData data;
         if (round.getScoreA() == null) {
             data = SimpleEdgeData.builder()
@@ -205,12 +203,11 @@ public class RoundController {
     @PostMapping("/score")
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<?> inputScore(@Valid @RequestBody InputRoundScore req) {
-        Optional<Round> opt = roundRepository.findByTypeIdAndTypeIndex(req.getTypeId(), req.getTypeIndex());
+        Optional<Round> opt = roundRepository.findByTypeIdAndTypeIndexAndSemester(req.getTypeId(), req.getTypeIndex(), req.getSemester());
         if (!opt.isPresent()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse(false, String.format("typeId(%d)+typeIndex(%d) not found.", req.getTypeId(),
-                                                                   req.getTypeIndex())));
+                    .body(new MessageResponse(false, String.format("typeId(%d)+typeIndex(%d) not found.", req.getTypeId(),req.getTypeIndex())));
         }
 
         Integer score1 = req.getPlayer1Score();

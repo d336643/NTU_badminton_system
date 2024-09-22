@@ -15,6 +15,8 @@ public class InputRoundScore {
     @NotNull
     private Integer typeIndex;
 
+    @NotNull
+    private String semester;
 
     private Integer player1Score;
 
