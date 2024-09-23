@@ -22,6 +22,7 @@ import { EVENTTYPEENTRY, EVENTENTRY, DEGREECODE } from '../utilities/entry';
 import { getDepartmentLabel } from '../utilities/getDepartment';
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
+import { SEMESTER } from "../utilities/globalVariable";
 
 const Competitor = ({setView, handleLogOut}) => {
     const navigate = useNavigate();
@@ -59,7 +60,7 @@ const Competitor = ({setView, handleLogOut}) => {
             }
         }
         try {
-            const res = await instance.get(`/rounds/detail?typeId=${typeId}&typeIndex=${typeIndex}`, config);
+            const res = await instance.get(`/rounds/detail?typeId=${typeId}&typeIndex=${typeIndex}&semester=${SEMESTER}`, config);
             if (res.status === 200) {
                 console.log(res.data.data);
                 setRoundDetail(res.data.data);
@@ -68,7 +69,7 @@ const Competitor = ({setView, handleLogOut}) => {
                 setReady(true);
             }
         } catch (error) {
-            // console.log(error);
+            console.log(error);
         }
     }
 
