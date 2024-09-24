@@ -98,6 +98,7 @@ const Competitor = ({setView, handleLogOut}) => {
         const form = {
             typeId: typeId,
             typeIndex: typeIndex, 
+            semester: SEMESTER,
             player1Score: values.score1 === "" ? checked1 ? -1 : null : values.score1,
             player2Score: values.score2 === "" ? checked2 ? -1 : null : values.score2,
         }
