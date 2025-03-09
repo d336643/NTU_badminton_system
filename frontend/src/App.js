@@ -36,7 +36,7 @@ const App = () => {
     const [isLogin, setIsLogin] = useState(false);
     //browser bar title
     useEffect(() => {
-        document.title = SEMESTER + " 新生盃羽球賽"
+        document.title = SEMESTER + " 台大校內羽球賽"
     }, [])
     return (
         <Router>

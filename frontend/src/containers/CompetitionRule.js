@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Container, Button, CssBaseline} from '@mui/material/';
 import { useNavigate } from "react-router-dom";
+import { RULE_LINK } from '../utilities/globalVariable';
+
 
 function ShowPdf() {
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ function ShowPdf() {
             <CssBaseline />
             <h3 style={{ marginBottom: '20px', marginTop: "20px" }}>競賽章程</h3>
             
-            <iframe src="https://drive.google.com/file/d/13kEzQr40hU17Imii54eocp0soW0Wgcnu/preview" width="100%" height="720" allow="autoplay"></iframe>
+            <iframe src={RULE_LINK} width="100%" height="720" allow="autoplay"></iframe>
             <Button 
                 sx={{mt: '20px'}}
                 variant="outlined"
