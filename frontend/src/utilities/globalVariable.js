@@ -6,7 +6,7 @@ export const CUP_TYPE = 'ntucup' //'freshman' or 'ntucup'
 
 export const SCHEDULE_TIME_LINK = 'https://drive.google.com/file/d/1I0szsIE-48kVWtXr01nsc3_9NgGRTNdz/preview'
 
-export const RULE_LINK = 'https://drive.google.com/file/d/1YuAEKfgnxIHV6kATB6GZsjboz5q-raK3/view?usp=drivesdk'
+export const RULE_LINK = 'https://drive.google.com/file/d/1YuAEKfgnxIHV6kATB6GZsjboz5q-raK3/preview'
 
 // 複賽賽程圖 
 // 男單
