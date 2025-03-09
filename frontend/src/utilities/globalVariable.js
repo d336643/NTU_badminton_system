@@ -1,8 +1,8 @@
-export const SEMESTER = '113-1'
+export const SEMESTER = '113-2'
 
-export const REGISTRATION_OPEN = false
+export const REGISTRATION_OPEN = true
 
-export const CUP_TYPE = 'freshman'
+export const CUP_TYPE = 'ntucup' //'freshman' or 'ntucup'
 
 export const SCHEDULE_TIME_LINK = 'https://drive.google.com/file/d/1I0szsIE-48kVWtXr01nsc3_9NgGRTNdz/preview'
 
