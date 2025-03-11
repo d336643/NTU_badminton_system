@@ -8,6 +8,8 @@ export const SCHEDULE_TIME_LINK = 'https://drive.google.com/file/d/1I0szsIE-48kV
 
 export const RULE_LINK = 'https://drive.google.com/file/d/1YuAEKfgnxIHV6kATB6GZsjboz5q-raK3/preview'
 
+export const GROUP_REGISTRATION_FORM_LINK = 'https://forms.gle/VyxRqmpKxKguffEj6'
+
 // 複賽賽程圖 
 // 男單
 // 女單

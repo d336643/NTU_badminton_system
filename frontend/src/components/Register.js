@@ -22,7 +22,7 @@ import {
 import InfoDialog from "./InfoDialog";
 
 import { EVENTTYPEENTRY } from "../utilities/entry";
-import { REGISTRATION_OPEN, SEMESTER, CUP_TYPE } from "../utilities/globalVariable";
+import { REGISTRATION_OPEN, SEMESTER, CUP_TYPE, GROUP_REGISTRATION_FORM_LINK } from "../utilities/globalVariable";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
@@ -274,7 +274,7 @@ const RegisterForm = () => {
                 <Alert severity="info" style={{ marginBottom: '20px' }}>
                     <p style={{ marginBottom: '1%'}}>報名賽事前，請詳細閱讀<a href="/competitionrule">競賽章程</a></p>
                     { CUP_TYPE == 'ntucup' && 
-                        <p>報名團體賽，請填寫 <a href="https://forms.gle/m6jVoM5tidTkUgje7"> 團賽報名表單</a></p>
+                        <p>報名團體賽，請填寫 <a href={GROUP_REGISTRATION_FORM_LINK}> 團賽報名表單</a></p>
                     }
                     <p><b>僅能修改未繳費之報名項目</b></p>
                 </Alert>
