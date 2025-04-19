@@ -24,4 +24,4 @@ export const SHEET_URL = [
     "https://drive.google.com/file/d/1Pu85zfzNf2104F2Qgodh74xf7-tUi_KT/preview",
 ]
 
-export const GAME_RULE = "四角循環皆取二名晉級、三角循環除女單取二名晉級外，其餘項目皆為一組取一名晉級"
+export const GAME_RULE = "四角循環皆取二名晉級、三角循環皆取一名晉級"
