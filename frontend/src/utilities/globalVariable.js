@@ -4,7 +4,7 @@ export const REGISTRATION_OPEN = false
 
 export const CUP_TYPE = 'ntucup' //'freshman' or 'ntucup'
 
-export const SCHEDULE_TIME_LINK = 'https://drive.google.com/file/d/1I0szsIE-48kVWtXr01nsc3_9NgGRTNdz/preview'
+export const SCHEDULE_TIME_LINK = 'https://drive.google.com/file/d/1QpFpHcMK0wk3m_9lTvGCuqb_M_IA4A9f/preview'
 
 export const RULE_LINK = 'https://drive.google.com/file/d/1YuAEKfgnxIHV6kATB6GZsjboz5q-raK3/preview'
 
@@ -17,11 +17,11 @@ export const GROUP_REGISTRATION_FORM_LINK = 'https://forms.gle/VyxRqmpKxKguffEj6
 // 女雙
 // 混雙
 export const SHEET_URL = [
-    "https://drive.google.com/file/d/1f3zxT8Opre_edJ0CKYEo-O9I0BKMlZaH/preview",
-    "https://drive.google.com/file/d/1pZjbRO0EpjoYoSOePQMbQQ2Qd_20yaZG/preview",
-    "https://drive.google.com/file/d/1WXhpHiixPMFmc4caad4Md335CGgm8TtD/preview",
-    "https://drive.google.com/file/d/1WhsNs5NBr7uG8y0gUAicxpGWB5IoZ6gN/preview",
-    "https://drive.google.com/file/d/15DMfqk2pi_d-MwT38KWjACbfkGhR3QWU/preview",
+    "https://drive.google.com/file/d/1AOlxQoMm_iVHbH9rFpvTx1oOYVghIODu/preview",
+    "https://drive.google.com/file/d/1G3Nzh9obu9YQr_bH6s9UJsAxMaktiD9P/preview",
+    "https://drive.google.com/file/d/1sh7jB7_cHRQlN10HBRX8H4j8YlD6Lwd6/preview",
+    "https://drive.google.com/file/d/1OOb6m-TJD6WVhhrAk4QpxcL_MGsD53QY/preview",
+    "https://drive.google.com/file/d/1Pu85zfzNf2104F2Qgodh74xf7-tUi_KT/preview",
 ]
 
 export const GAME_RULE = "四角循環皆取二名晉級、三角循環除女單取二名晉級外，其餘項目皆為一組取一名晉級"
