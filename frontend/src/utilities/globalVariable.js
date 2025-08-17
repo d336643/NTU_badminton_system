@@ -6,7 +6,7 @@ export const CUP_TYPE = 'freshman' //'freshman' or 'ntucup'
 
 export const SCHEDULE_TIME_LINK = 'https://drive.google.com/file/d/1QpFpHcMK0wk3m_9lTvGCuqb_M_IA4A9f/preview'
 
-export const RULE_LINK = 'https://drive.google.com/file/d/1CesJwYCF0y8NQwjgjgzUNEbn_9D20ggy/view?usp=drivesdk'
+export const RULE_LINK = 'https://drive.google.com/file/d/1CesJwYCF0y8NQwjgjgzUNEbn_9D20ggy/preview'
 
 export const GROUP_REGISTRATION_FORM_LINK = 'https://forms.gle/VyxRqmpKxKguffEj6'
 
