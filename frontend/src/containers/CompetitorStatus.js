@@ -21,7 +21,7 @@ import {
 import InfoDialog from "../components/InfoDialog";
 
 import { DEGREEE } from '../utilities/entry';
-import { SEMESTER } from "../utilities/globalVariable";
+import { SEMESTER, BANK_CODE, BANK_ACCOUNT, BANK_ACCOUNT_NAME } from "../utilities/globalVariable";
 
 import { instance, getCommonConfig } from '../apiUtilities/instance';
 
@@ -255,7 +255,7 @@ const CompetitorStatus = () => {
                     <Grid item xs={4} />
                 </Grid>
                 <Alert severity="info" style={{ marginBottom: '15px' }}>
-                    銀行代碼：700 &nbsp; 匯款帳戶：00213950391560 &nbsp; 戶名：王品淳
+                    銀行代碼：{BANK_CODE} &nbsp; 匯款帳戶：{BANK_ACCOUNT} &nbsp; 戶名：{BANK_ACCOUNT_NAME}
                 </Alert>
                 <List
                     sx={{

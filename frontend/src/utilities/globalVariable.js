@@ -25,3 +25,8 @@ export const SHEET_URL = [
 ]
 
 export const GAME_RULE = "四角循環皆取二名晉級、三角循環皆取一名晉級"
+
+export const BANK_CODE = "700"
+export const BANK_ACCOUNT = "00015610593227"
+export const BANK_ACCOUNT_NAME = "呂皓晨"
+
